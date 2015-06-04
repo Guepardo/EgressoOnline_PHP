@@ -19,8 +19,8 @@ class GenericView {
 	protected function show() {
 		echo $this->templator->generateOutput();
 	}
-
-	public function sendAjax($value) {
+value
+	public function sendAjax($) {
 		 echo json_encode($value);
 		 die;
 	}
