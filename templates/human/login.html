@@ -1,0 +1,108 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="templates/human/css/foundation.css" />
+    <script src="templates/human/js/vendor/modernizr.js"></script>
+
+    <style>
+      .fix{
+      		min-width: 335px !important;  
+      		max-width: 339px !important;
+      	}
+      .fix_top{ 
+        margin-top: 3%;
+      }
+    	.main_container{
+    			position:relative;
+    			top:20%;
+  				border:5px;
+  				background-color: white;
+  				border-radius: 2px; 
+    		}
+
+    	.borda_inferior{
+          border-bottom-style: solid; 
+    			border-bottom-width: 1px; 
+    			border-bottom-color: rgb(50,40,34); 
+    	}
+
+    	body{
+    		background-image: url("templates/human/src_img/background.png"); 
+        	opacity: 0.9; 
+    	}
+    	
+      #logo{
+        margin: 55px 100px 55px 100px;
+        width: 100px; 
+        height: 100px; 
+      }
+
+      .buttom_fix{
+        width: 250px; 
+        margin-left: 25px; 
+        margin-right: 25px;  
+      }
+    </style>
+
+  </head>
+  <body>
+    
+    <div class="row fix_top">
+  		<div class="small-4 small-centered columns main_container fix">
+  			<!--Logo marca --> 
+  			<div class="row fix">
+  				<div class="large-12 columns borda_inferior">
+                <img src="templates/human/src_img/logo.png" alt="" id="logo">
+  				</div>	
+  			</div>
+  			<!--Form--> 
+  			<div class="row">
+  				<div class="large-12 columns">
+  					  <label>CPF
+                 <input type="text" placeholder="" />
+            </label>
+            <label>Senha
+                 <input type="password" placeholder="" />
+            </label>
+            <label>Matenha-me conectado</label>
+                  <input id="checkbox1" type="checkbox">
+                  <!--Area para os botões--> 
+            <div class="row ">
+                <div class="large-12 columns">
+                    <a href="#" id="buttom_login" class="button small buttom_fix">Login</a>
+                </div>
+                 <div class="large-12 columns">
+                    <a href="#" id="buttom_login" class="button alertdo  small buttom_fix">Cadastrar</a>
+                </div>
+                    <a href="#" >Esqueci minha senha</a>
+            </div>
+  				</div>	
+
+  			</div>
+
+  		</div>
+	</div>
+
+    <div data-alert class="alert-box" id="myAlert">
+      Os dados de login estão incorretos. 
+      <a href="#" class="close">&times;</a>
+    </div>
+
+    <script src="templates/human/js/vendor/jquery.js"></script>
+    <script src="templates/human/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+
+      $(document).ready(function(){
+
+        $('#buttom_login').click(function(){
+          
+        }); 
+        
+      }); 
+    </script>
+  </body>
+</html>
