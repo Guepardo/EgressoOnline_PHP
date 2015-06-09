@@ -1,6 +1,8 @@
 <?php
-require_once ("/../m/Human.php");
-require_once ("/../interfaces/DAOHuman.php");
+namespace Controller\UseCase; 
+
+use Controller\GenericController; 
+use View\CustomViews\HumanView; 
 
 class HumanController extends GenericController {
 	private $humanView;
@@ -14,18 +16,11 @@ class HumanController extends GenericController {
 	}
 
 	public function login($arg) {
+		echo('Entrei na tela de login'); 
 		$this->humanView->loginView();
 	}
 
 	public function loginAjax($arg) {
-		$Hao = new DAOHuman(); 
-		
-		$human = new Human('Allyson',22, 70); 
-		var_dump($human); 
-		
-		$Hao->insert($human); 
-		
-		/*
 		$book = array (
 				"title" => "JavaScript: The Definitive Guide",
 				"author" => "David Flanagan",
@@ -35,8 +30,7 @@ class HumanController extends GenericController {
 		foreach ( $arg as $key => $a ) {
 			$book[$key] = array(1,2,3,4,5,6,4); 
 		}
-		*/
 		
-		$this->humanView->sendAjax ($human);
+		$this->humanView->sendAjax ($book);
 	}
 }

@@ -1,4 +1,6 @@
 <?php
+namespace DAO; 
+
 interface DAOBehavior{
 	public function insert( $element ); 
 	public function delete( $pk ); 

@@ -1,9 +1,12 @@
 <?php
+namespace Controller; 
+
+use Controller\UseCase\HumanController;  
+
 class MainController {
 	private $controllersArray;
 	public function __construct() {
-		// incluir todos os controllers específicos aqui;
-		self::includeControllers ();
+		// incluir todos os controllers específicos aqui;       
 		$this->controllersArray = array (
 				'humanos' => new HumanController () 
 		);
@@ -35,7 +38,7 @@ class MainController {
 			die ( 'Não há ação para ser executada' );
 		}
 		
-		$reflection = new ReflectionMethod ( $controller->sayMyName (), $realNameMethod );
+		$reflection = new \ReflectionMethod ( $controller->sayMyName (), $realNameMethod );
 		return $reflection->invoke ( $controller, self::preparingArray ( $_REQUEST ) );
 	}
 	private function preparingArray($target) {
@@ -43,10 +46,6 @@ class MainController {
 		unset ( $array ['action'] );
 		unset ( $array ['usecase'] );
 		return $array;
-	}
-
-	private function includeControllers() {
-		include ("c/HumanController.php");
 	}
 	
 }

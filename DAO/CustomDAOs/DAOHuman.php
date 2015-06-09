@@ -1,5 +1,7 @@
 <?php
-require_once("DAOBehavior.php");
+namespace DAO\CustomDAOs; 
+
+use DAO\DAOBehavior; 
 
 class DAOHuman implements DAOBehavior{
 	public function insert( $element ){

@@ -1,4 +1,5 @@
 <?php
+namespace Library; 
 /**
 * File MiniTemplator.class.php
 * @package MiniTemplator

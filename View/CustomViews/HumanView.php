@@ -1,5 +1,9 @@
 <?php
-class HumanView extends Genericview{
+namespace View\CustomViews; 
+
+use View\GenericView; 
+
+class HumanView extends GenericView{
 	
 	public function __construct(){
 		parent::__construct($this); 

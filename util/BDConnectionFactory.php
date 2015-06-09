@@ -1,4 +1,6 @@
 <?php
+namespace Util; 
+
 class BDConnectionFactory {
 	const BANCO = "test";
 	const USUARIO = "root";
@@ -21,7 +23,7 @@ class BDConnectionFactory {
 	}
 	
 	private function connect() {
-		$this->connection = mysqli_connect ( self::HOSTNAME, self::USUARIO, self::SENHA, self::BANCO, self::PORT, null );
+		$this->connection = mysqli_connect(self::HOSTNAME, self::USUARIO, self::SENHA, self::BANCO, self::PORT, null );
 		if (! $this->connection) {
 			echo "Não foi possível conectar ao banco MySQL.";
 			exit ();

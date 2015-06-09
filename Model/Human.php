@@ -1,4 +1,6 @@
 <?php
+namespace Model; 
+
 class Human{
 	private $name; 
 	private $age; 
