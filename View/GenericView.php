@@ -22,7 +22,6 @@ class GenericView {
 	}
 
 	public function sendAjax($value){
-		 echo json_encode($value);
-		 die;
+		 die (json_encode($value));
 	}
 }
