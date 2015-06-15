@@ -3,6 +3,7 @@ namespace Controller\UseCase;
 
 use Controller\GenericController; 
 use View\CustomViews\HumanView; 
+use Util\BDConnectionFactory; 
 
 class HumanController extends GenericController {
 	private $humanView;
@@ -16,11 +17,13 @@ class HumanController extends GenericController {
 	}
 
 	public function login($arg) {
-		echo('Entrei na tela de login'); 
 		$this->humanView->loginView();
 	}
 
 	public function loginAjax($arg) {
+		$nada =  BDConnectionFactory::getInstance(); 
+		$nada->getConnection(); 
+		
 		$book = array (
 				"title" => "JavaScript: The Definitive Guide",
 				"author" => "David Flanagan",
@@ -31,6 +34,6 @@ class HumanController extends GenericController {
 			$book[$key] = array(1,2,3,4,5,6,4); 
 		}
 		
-		$this->humanView->sendAjax ($book);
+		$this->humanView->sendAjax($book);
 	}
 }

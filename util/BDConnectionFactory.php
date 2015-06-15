@@ -23,13 +23,7 @@ class BDConnectionFactory {
 	}
 	
 	private function connect() {
-		$this->connection = mysqli_connect(self::HOSTNAME, self::USUARIO, self::SENHA, self::BANCO, self::PORT, null );
-		if (! $this->connection) {
-			echo "Não foi possível conectar ao banco MySQL.";
-			exit ();
-		} else {
-			echo "Parabéns!! A conexão ao banco de dados ocorreu normalmente!.";
-		}
+		$this->connection = mysqli_connect(self::HOSTNAME, self::USUARIO, self::SENHA, self::BANCO, self::PORT, null ) or die('falha de banco de dados');
 	}
 	
 	public function getConnection(){

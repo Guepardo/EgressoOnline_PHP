@@ -2,13 +2,16 @@
 namespace Controller; 
 
 use Controller\UseCase\HumanController;  
+use Controller\UseCase\ManterUsuario; 
+
 
 class MainController {
 	private $controllersArray;
 	public function __construct() {
 		// incluir todos os controllers específicos aqui;       
 		$this->controllersArray = array (
-				'humanos' => new HumanController () 
+				'humanos' => new HumanController (), 
+				'manterUsuario' => new ManterUsuario()
 		);
 	}
 	

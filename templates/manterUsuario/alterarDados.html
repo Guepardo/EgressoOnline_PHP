@@ -1,0 +1,303 @@
+<!doctype html>
+<html class="no-js" lang="pt-br">
+  <head>
+   <!-- $Include templates/lib/html/head.html --> 
+  </head>
+  <body>
+   
+
+   <!-- $Include templates/lib/html/topbar.html --> 
+
+    <div class="row">
+      <div class="medium-10 medium-offset-1 columns"> <h1>Alterar dados</h1> </div>
+    </div>
+
+    <div class="row">
+      <div class="medium-10 medium-offset-1 columns">
+        <nav class="breadcrumbs">
+          <a href="#" class="current">Dados pessoais</a>
+          <a href="#">Alterar senha</a>
+          <a href="#">Alterar Foto de Perfil</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="medium-10 medium-offset-1 columns">
+        <form id="form" data-abide> 
+
+          <div class="row">
+            <div class="medium-6 small-6 columns">
+            <label>Nome <small>Obrigatório</small>
+              <input type="text"  required placeholder="large-6.columns" />
+            </label>
+            <small class="error">Voc~e precisa preencher o campo.</small>
+            </div>
+
+            <div class="medium-6 small-6 columns">
+              <label>E-mail <small>Obrigatório</small>
+                <input type="email" required  placeholder="large-6.columns" />
+              </label> <small class="error">Você precisa preencher o campo
+              .</small>
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="medium-4  columns">
+              <label>Estado Civil
+                <select>
+                  <option value="husker">Solteiro(a)</option>
+                  <option value="starbuck">Casado(a)</option>
+                  <option value="hotdog">Divorciado(a)</option>
+                  <option value="apollo">Viúvo(a)</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="row">
+            	<div class="medium-2 medium-offset-2 columns">
+            		<label>Quantos filhos 
+            			<input type="number" min="0" max="50">
+            		</label>
+            	</div>
+            </div>
+
+
+          </div>
+
+            <div class="row">
+	            <div class="medium-4 small-4 columns">
+		            <label>Telefone
+		              <input class="telefone" type="text" required placeholder="large-6.columns" />
+		            </label> <small class="error">Preencha corretamente o campo.</small>
+	            </div>
+          </div>
+          
+
+          <div class="row">
+            <div class="medium-12 small-12 columns">
+            <label>Endereço
+              <input type="text" placeholder="medium-6.columns" />
+            </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="medium-4 small-4 columns">
+              <label>País
+                <select>
+                  <option value="husker">Solteiro(a)</option>
+                  <option value="starbuck">Casado(a)</option>
+                  <option value="hotdog">Divorciado(a)</option>
+                  <option value="apollo">Viúvo(a)</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="medium-4 small-4 columns hide">
+              <label>Estado
+                <select>
+                  <option value="husker">Solteiro(a)</option>
+                  <option value="starbuck">Casado(a)</option>
+                  <option value="hotdog">Divorciado(a)</option>
+                  <option value="apollo">Viúvo(a)</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="medium-4 small-4 columns hide">
+              <label>Cidade
+                <select>
+                  <option value="husker">Solteiro(a)</option>
+                  <option value="starbuck">Casado(a)</option>
+                  <option value="hotdog">Divorciado(a)</option>
+                  <option value="apollo">Viúvo(a)</option>
+                </select>
+              </label>
+            </div>
+
+             <!--Esse campo deverá apareser somente se o país selecionado for diferente de Brasil--> 
+          <div class="row">
+            <div class="medium-7 small-7 columns">
+              <label>Estado/Província/Região
+                <input type="text"  name="" placeholder="Digite o complemento do seu endereço.">
+              </label> 
+            </div>  
+          </div>
+
+            <fieldset class="panel">
+              <legend>Trabalho</legend>
+
+              <div class="row">
+                <div class="medium-5 small-5 columns">
+                <label>Empresa
+                  <input type="text" placeholder="medium-6.columns" />
+                </label>
+                </div>
+
+                <div class="medium-5 small-5 columns">
+                  <label>Atuação profissional
+                    <select>
+                      <option value="husker">Solteiro(a)</option>
+                      <option value="starbuck">Casado(a)</option>
+                      <option value="hotdog">Divorciado(a)</option>
+                      <option value="apollo">Viúvo(a)</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+
+             
+
+              <div class="row">
+            <div class="medium-4 small-4 columns">
+              <label>País
+                <select>
+                  <option value="husker">Solteiro(a)</option>
+                  <option value="starbuck">Casado(a)</option>
+                  <option value="hotdog">Divorciado(a)</option>
+                  <option value="apollo">Viúvo(a)</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="medium-4 small-4 columns hide">
+              <label>Estado
+                <select>
+                  <option value="husker">Solteiro(a)</option>
+                  <option value="starbuck">Casado(a)</option>
+                  <option value="hotdog">Divorciado(a)</option>
+                  <option value="apollo">Viúvo(a)</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="medium-4 small-4 columns hide">
+              <label>Cidade
+                <select>
+                  <option value="husker">Solteiro(a)</option>
+                  <option value="starbuck">Casado(a)</option>
+                  <option value="hotdog">Divorciado(a)</option>
+                  <option value="apollo">Viúvo(a)</option>
+                </select>
+              </label>
+            </div>
+
+            <!--Esse campo deverá apareser somente se o país selecionado for diferente de Brasil--> 
+          <div class="row">
+            <div class="medium-7 small-7 columns">
+              <label>Estado/Província/Região
+                <input type="text"  name="" placeholder="Digite o complemento do seu endereço.">
+              </label> 
+            </div>    
+        
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="medium-4 small-4 columns">
+                  <label>Faixa Salarial
+                    <select>
+                      <option value="husker">Solteiro(a)</option>
+                      <option value="starbuck">Casado(a)</option>
+                      <option value="hotdog">Divorciado(a)</option>
+                      <option value="apollo">Viúvo(a)</option>
+                    </select>
+                  </label>
+                </div>
+          </div>
+            </fieldset>
+
+            <!--Seção para Redes Sociais--> 
+            <div class="row">
+            <div class="medium-3 small-3 columns">
+              <label> Redes Sociais
+                <select>
+                  <option value="husker">Solteiro(a)</option>
+                  <option value="starbuck">Casado(a)</option>
+                  <option value="hotdog">Divorciado(a)</option>
+                  <option value="apollo">Viúvo(a)</option>
+                </select>
+              </div>
+              <div class="medium-9 small-9 columns end">
+                  <label>Link para acesso
+                    <input type="text" >
+                  </label>
+              </div>
+            </div>
+
+            <div class="row">
+            <div class="medium-3 small-3 columns">
+              <label> 
+                <select>
+                  <option value="husker">Solteiro(a)</option>
+                  <option value="starbuck">Casado(a)</option>
+                  <option value="hotdog">Divorciado(a)</option>
+                  <option value="apollo">Viúvo(a)</option>
+                </select>
+              </div>
+              <div class="medium-9 small-9 columns end">
+                  <label>
+                    <input type="text" >
+                  </label>
+              </div>
+            </div>
+
+            <div class="row">
+            <div class="medium-3 small-3 columns">
+              <label> 
+                <select>
+                  <option value="husker">Solteiro(a)</option>
+                  <option value="starbuck">Casado(a)</option>
+                  <option value="hotdog">Divorciado(a)</option>
+                  <option value="apollo">Viúvo(a)</option>
+                </select>
+              </div>
+              <div class="medium-9 small-9 columns end">
+                  <label>
+                    <input type="text" >
+                  </label>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="row panel">
+            	<div class="medium-12 columns">
+            	<input id="checkbox"type="checkbox" /><label for="checkbox">Deseja tornar visíveis no seu perfil os dados de telefone, e-mail e redes sociais?</label>
+            	</div>
+            </div>
+
+			      <hr /> 
+            <!-- botões --> 
+            <div class="row">
+              <div class="medium-2 small-3 columns right">
+                <button class="button success tiny radius" type="submit">Alterar dados</button>
+              </div>
+
+              <div class="medium-2 small-3 columns left">
+                <button class="button info tiny radius">Tela principal</button>
+              </div>
+            </div>
+        </form>
+
+      </div>
+
+    </div>
+    
+
+    <!-- $Include templates/lib/html/footerscripts.html --> 
+     <script src="templates/lib/js/jquery.mask.min.js"></script>
+
+    <script>
+      $(document).ready(function(){
+          $('.telefone').mask('(99) 9999-9999');
+
+          $('#form').on('valid.fndtn.abide', function() {
+            alert('Olar');
+          });
+      });
+
+    </script>
+  </body>
+</html>
