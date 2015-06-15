@@ -12,7 +12,7 @@ class Professor extends Usuario{
 		$this->coordenador = $coordenador; 
 	}
 
-	public function is_coordenador(){
+	public function isCoordenador(){
 		return $this->coordenador; 
 	}
 

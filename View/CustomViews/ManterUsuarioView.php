@@ -13,6 +13,11 @@ class ManterUsuarioView extends GenericView{
 		parent::show(); 
 	}
 
+	public function cadastroEgressoView(){
+		parent::getTemplateByAction("cadastroEgresso"); 
+		parent::show(); 
+	}
+
 	public function alterarDadosView(){
 		parent::getTemplateByAction("alterarDados"); 
 		parent::show(); 

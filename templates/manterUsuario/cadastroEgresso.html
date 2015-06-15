@@ -8,17 +8,17 @@
    <!-- $Include templates/lib/html/topbar.html --> 
 
     <div class="row">
-      <div class="medium-10 medium-offset-1 columns"> <h1>Cadastro de professor</h1> </div>
+      <div class="medium-10 medium-offset-1 columns"> <h1>Cadastro de Egresso</h1> </div>
     </div>
 
     <div class="row">
       <div class="medium-10 medium-offset-1 columns">
         <form id="form" data-abide="ajax"> 
-            <!--Nome do professor--> 
+             <!--Nome do professor--> 
             <div class="row">
               <div class="medium-7 small-6 columns">
                   <label>Nome: <small>Obrigatório</small>
-                    <input  name="nome" type="text" required  placeholder="large-6.columns" />
+                    <input type="text" name="nome" required  placeholder="large-6.columns" />
                   </label> <small class="error">Você precisa informar o nome do professor</small>
                 </div>
               </div>
@@ -26,7 +26,7 @@
             <div class="row">
               <div class="medium-7 small-6 columns">
                   <label>CPF: <small>Obrigatório</small>
-                    <input name="cpf" class="cpf" type="text"  required placeholder="large-6.columns" />
+                    <input type="text" name="cpf" class="cpf" required  placeholder="large-6.columns" />
                   </label> <small class="error">Você precisa informar o CPF</small>
                 </div>
               </div>
@@ -35,7 +35,7 @@
             <div class="row">
               <div class="medium-7 small-6 columns">
                   <label>E-mail: <small>Obrigatório</small>
-                    <input name="e-mail" type="email" required  placeholder="large-6.columns" />
+                    <input type="email" name="e-mail" required  placeholder="large-6.columns" />
                   </label> <small class="error">Você precisa inserir um e-mail válido</small>
                 </div>
               </div>
@@ -44,7 +44,7 @@
               <div class="row">
                 <div class="medium-3 columns">
                   <label for="sexo">Gênero: <small>Obrigatório</small>
-                  <select id="sexo" name="genero" class="medium" required>
+                  <select id="sexo" class="medium" name="genero" required>
                     <option value="">Selecione</option>
                     <option value="1">Masculino</option>
                     <option value="2">Feminino</option>
@@ -54,8 +54,29 @@
                 <small class="error">Você percisa selecionar Gênero</small>
                 </div>
               </div>
+              
+              <div class="row">
+              <div class="medium-7 columns">
+                <fieldset class="panel">
+                <legend>Informações sobre o curso</legend>
+                    <div class="row">
+                      <div class="medium-6 columns"> 
+                          <label>Ano de ingresso: <small>Obrigatório</small>
+                          <input type="number"  name="ano_ingresso" required  max="5000" min="1900" placeholder="large-6.columns" />
+                        </label> <small class="error">Você precisa inserir um e-mail válido</small>
+                      </div> 
 
-             <hr /> 
+                      <div class="medium-6 columns"> 
+                           <label>Ano de conclusão: <small>Obrigatório</small>
+                           <input type="number" name="ano_conclusao" required  max="5000" min="1900" placeholder="large-6.columns" />
+                        </label> <small class="error">Você precisa inserir um e-mail válido</small>
+                      </div> 
+                    </div>
+                </fieldset>
+                </div>
+              </div>
+
+              <hr />
             <!--info-->
             <div class="row">
               <div id="info" class="medium-12 columns">
@@ -91,7 +112,7 @@
           $('.cpf').mask('000.000.000-00');
 
           $('#form').on('valid', function() {
-              sendAjax('index.php?usecase=manterUsuario&action=cadastroProfessor',$(this).serializeArray(),"Deu tudo certo.","Deu tudo errado"); 
+              sendAjax('index.php?usecase=manterUsuario&action=cadastroEgresso',$(this).serializeArray(),"Deu tudo certo.","Deu tudo errado"); 
            });
 
          
@@ -117,7 +138,6 @@
 
             }); 
           }
-          
         });
     </script>
 
