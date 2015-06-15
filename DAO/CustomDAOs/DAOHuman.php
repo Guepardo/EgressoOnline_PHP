@@ -22,10 +22,4 @@ class DAOHuman implements DAOBehavior{
 		
 	}
 	
-	//Essa função deve ser especializada para a classe de comportamento. 
-	private function query($query){
-		 $Bd = BDConnectionFactory::getInstance(); 
-		 var_dump($Bd); 
-		echo mysqli_query($Bd->getConnection(),$query); 
-	}
 }

@@ -13,7 +13,7 @@
 
     <div class="row">
       <div class="medium-10 medium-offset-1 columns">
-        <form id="form" data-abide="ajax"> 
+        <form id="form" data-abide> 
             <!--Nome do professor--> 
             <div class="row">
               <div class="medium-6 small-6 columns">
@@ -56,7 +56,14 @@
               </div>
 
              <hr /> 
-              <!-- botões --> 
+            <!--info-->
+            <div class="row">
+              <div id="info" class="medium-12 columns">
+                
+              </div>
+            </div>
+
+            <!-- botões --> 
             <div class="row">
               <div class="medium-2 small-3 columns right">
                 <button class="button success tiny radius" type="submit" >Cadastrar</button>
@@ -71,16 +78,50 @@
         </form>
       </div>
     
+    <div id="load" style="background-color:white;position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-15px;" class="hide">
+      <i class="fa fa-refresh fa-spin fa-3x hide" style="margin-left:27px"></i>
+      <h3>Aguarde</h3>
+    </div>
        <!-- $Include templates/lib/html/footerscripts.html --> 
 
     <script src="templates/lib/js/jquery.mask.min.js"></script>
     <script>
       $(document).ready(function(){
+
           $('.cpf').mask('000.000.000-00');
 
-          $('#form').on('valid.fndtn.abide', function() {
-              console.log($(this).serializeArray()); 
-            });
+          $('#form').on('valid', function() {
+              sendAjax('index.php?usecase=manterUsuario&action=cadastroProfessor',$(this).serializeArray(),"Deu tudo certo.","Deu tudo errado"); 
+           });
+
+         
+          //Função para enviar informações para o servidor; 
+
+          function sendAjax(relativeUrl,data,successMsg,errorMsg){
+            $('#load').removeClass('hide'); 
+            $.ajax({
+              url : relativeUrl, 
+              method : "post", 
+              data : data 
+            }).done(function(data){
+              console.log(data); 
+              $('#info').append('<div data-alert class="alert-box success radius">'+successMsg+'<a href="#"class="close">x</a></div>'); 
+      
+            }).fail(function(){
+              console.log('falhou');
+              $('#info').append('<div data-alert class="alert-box alert radius">'+errorMsg+'<a href="#"class="close">x</a></div>'); 
+
+            }).always(function(){
+              $('#load').addClass('hide'); 
+              $(document).foundation();
+
+            }); 
+          }
+
+           function myFunc(){
+            alert('nada');
+          }
+
         });
     </script>
 

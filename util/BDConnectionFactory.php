@@ -2,7 +2,7 @@
 namespace Util; 
 
 class BDConnectionFactory {
-	const BANCO = "test";
+	const BANCO = "mydb";
 	const USUARIO = "root";
 	const SENHA = "";
 	const HOSTNAME = "localhost";

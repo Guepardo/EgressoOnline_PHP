@@ -1,4 +1,4 @@
-<?php
+?php
 class DataTransfer {
 	private $useCase;
 	private $action;
