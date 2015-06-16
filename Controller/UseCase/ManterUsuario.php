@@ -40,7 +40,6 @@ class ManterUsuario extends GenericController{
 		//3: dizer se tudo ocorreu tudo bem ou não.
 		$professor = new Professor(0, $arg['nome'], $arg['e_mail'], KeyFactory::randomKey(16), $arg['genero'], $arg['cpf'],0); 
 		//Validacao: 
-
 		$this->dataValidator->set("Nome", $professor->getNome())->is_required()->min_length(5)->max_length(140); 
 		$this->dataValidator->set("Email", $professor->getEmail())->is_required()->is_email()->min_length(10)->max_length(140);
 		$this->dataValidator->set("Cpf", str_replace(array(".","-"),"",$professor->getCpf()))->is_required()->is_cpf(); 
@@ -86,8 +85,6 @@ class ManterUsuario extends GenericController{
 			$this->manterUsuarioView->sendAjax(array('status' => true)); 
 		else
 			$this->manterUsuarioView->sendAjax(array('status' => false, 'Error' => array ($result))); 
-
-		
 	}
 
 	public function alterarDados(){

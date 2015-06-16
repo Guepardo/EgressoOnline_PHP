@@ -1,16 +1,22 @@
 <?php  
 namespace DAO\CustomDAOs; 
 
-use DAO\DAOBehavior; 
+use DAO\CustomDAOs\DAOUsuario; 
 
-class DAOEgresso extends DAOBehavior{
+class DAOEgresso extends DAOUsuario {
 	public function __construct(){
 		parent::__construct(); 
 	}
 
 	public function insert( $element ){
+		//Verificando se cpf e e-mail já foram cadastrados: 
+		if(parent::emailExists($element->getEmail()))
+			return "Esse email já foi cadastrado"; 
+		if(parent::cpfExists($element->getCpf()))
+			return "Esse CPF já foi cadastrado"; 
+
 		$sql = "INSERT INTO USUARIO (nome, cpf, e_mail, senha, idgenero_fk) VALUES ( '".$element->getNome()."', '".$element->getCpf()."', '".$element->getEmail()."', '".$element->getSenha()."', ".$element->getGenero()." )"; 
-		
+
 		try{
 			mysqli_query(parent::$connection,$sql);
 			$id = mysqli_insert_id(parent::$connection); 

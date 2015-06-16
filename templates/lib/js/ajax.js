@@ -14,6 +14,7 @@ function sendAjax(relativeUrl,data,confirmMsg){
       method : "post", 
       data : data 
    }).done(function(data){
+      console.log(data);
       data = JSON.parse(data); 
       console.log(data); 
       if( data['status'] == false ){
