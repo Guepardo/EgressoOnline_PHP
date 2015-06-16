@@ -9,15 +9,18 @@ class DAOProfessor extends DAOBehavior{
 	}
 
 	public function insert( $element ){
-		var_dump($element); 
 		$sql = "INSERT INTO USUARIO (nome, cpf, e_mail, senha, idgenero_fk) VALUES ( '".$element->getNome()."', '".$element->getCpf()."', '".$element->getEmail()."', '".$element->getSenha()."', ".$element->getGenero()." )"; 
-		mysqli_query(parent::$connection,$sql);
-		$id = mysqli_insert_id(parent::$connection); 
-		echo $sql; 
+		try{
+			mysqli_query(parent::$connection,$sql);
+			$id = mysqli_insert_id(parent::$connection); 
+		}catch( \Exception $e){}
 
 		$sql = "INSERT INTO PROFESSOR (idusuario_fk, is_coordenador) VALUES (". $id .",". $element->isCoordenador().")"; 
+		try{
 		mysqli_query(parent::$connection,$sql);
-		echo $sql; 
+		}catch( \Exception $e){}
+
+		return mysqli_error(parent::$connection); 
 		/*
 		while($consulta = mysqli_fetch_array($result)) { 
 		   print "Coluna1: $consulta[1] - Coluna2: $consulta[2]<br>"; 

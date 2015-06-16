@@ -19,7 +19,7 @@
               <div class="medium-7 small-6 columns">
                   <label>Nome: <small>Obrigatório</small>
                     <input type="text" name="nome" required  placeholder="large-6.columns" />
-                  </label> <small class="error">Você precisa informar o nome do professor</small>
+                  </label> <small class="error">Você precisa informar o nome do egresso</small>
                 </div>
               </div>
             <!--CPf do professor--> 
@@ -35,7 +35,7 @@
             <div class="row">
               <div class="medium-7 small-6 columns">
                   <label>E-mail: <small>Obrigatório</small>
-                    <input type="email" name="e-mail" required  placeholder="large-6.columns" />
+                    <input type="email" name="e_mail" required  placeholder="large-6.columns" />
                   </label> <small class="error">Você precisa inserir um e-mail válido</small>
                 </div>
               </div>
@@ -63,13 +63,13 @@
                       <div class="medium-6 columns"> 
                           <label>Ano de ingresso: <small>Obrigatório</small>
                           <input type="number"  name="ano_ingresso" required  max="5000" min="1900" placeholder="large-6.columns" />
-                        </label> <small class="error">Você precisa inserir um e-mail válido</small>
+                        </label> <small class="error">Você precisa inserir um ano válido</small>
                       </div> 
 
                       <div class="medium-6 columns"> 
                            <label>Ano de conclusão: <small>Obrigatório</small>
                            <input type="number" name="ano_conclusao" required  max="5000" min="1900" placeholder="large-6.columns" />
-                        </label> <small class="error">Você precisa inserir um e-mail válido</small>
+                        </label> <small class="error">Você precisa inserir um ano válido</small>
                       </div> 
                     </div>
                 </fieldset>
@@ -106,38 +106,23 @@
        <!-- $Include templates/lib/html/footerscripts.html --> 
 
     <script src="templates/lib/js/jquery.mask.min.js"></script>
+    <script src="templates/lib/js/ajax.js"></script>
     <script>
       $(document).ready(function(){
 
           $('.cpf').mask('000.000.000-00');
 
+
           $('#form').on('valid', function() {
-              sendAjax('index.php?usecase=manterUsuario&action=cadastroEgresso',$(this).serializeArray(),"Deu tudo certo.","Deu tudo errado"); 
+              var data = $(this).serializeArray(); 
+              console.log(data);
+              var msg = "Faça uma última verificação \nOs dados que serão cadastrados:\n\n"; 
+
+              for(var a = 0; a < data.length; a++ )
+                msg +="\n"+data[a].name+": "+ data[a].value;
+              sendAjax('index.php?usecase=manterUsuario&action=cadastroEgresso',data,msg); 
            });
 
-         
-          //Função para enviar informações para o servidor; 
-
-          function sendAjax(relativeUrl,data,successMsg,errorMsg){
-            $('#load').removeClass('hide'); 
-            $.ajax({
-              url : relativeUrl, 
-              method : "post", 
-              data : data 
-            }).done(function(data){
-              console.log(data); 
-              $('#info').append('<div data-alert class="alert-box success radius">'+successMsg+'<a href="#"class="close">x</a></div>'); 
-      
-            }).fail(function(){
-              console.log('falhou');
-              $('#info').append('<div data-alert class="alert-box alert radius">'+errorMsg+'<a href="#"class="close">x</a></div>'); 
-
-            }).always(function(){
-              $('#load').addClass('hide'); 
-              $(document).foundation();
-
-            }); 
-          }
         });
     </script>
 
