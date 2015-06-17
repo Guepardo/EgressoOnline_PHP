@@ -9,7 +9,7 @@ class Usuario{
 	static protected $genero; 
 	static protected $cpf; 
 
-	public function __construct($id, $nome, $email, $senha, $genero, $cpf){
+	public function __construct($id='', $nome='', $email='', $senha='', $genero='', $cpf=''){
 		self::$id = $id; 
 		self::$nome = $nome;
 		self::$email = $email; 
@@ -18,6 +18,14 @@ class Usuario{
 		self::$cpf  = $cpf; 
 	}
 
+	public function setId($id){
+		self::$id = $id; 
+	}
+
+	public function setSenha($senha){
+		self::$senha = $senha; 
+	}
+	
 	public function getId(){
 		return self::$id; 
 	}

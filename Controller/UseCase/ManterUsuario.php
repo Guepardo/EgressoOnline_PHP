@@ -10,9 +10,11 @@ use Util\DataValidator;
 
 use DAO\CustomDAOs\DAOProfessor; 
 use DAO\CustomDAOs\DAOEgresso; 
+use DAO\CustomDAOs\DAOUsuario; 
 
 use Model\Professor; 
 use Model\Egresso; 
+use Model\Usuario; 
 
 class ManterUsuario extends GenericController{
 	private $manterUsuarioView; 
@@ -38,7 +40,11 @@ class ManterUsuario extends GenericController{
 		//2: Validar os dados; 
 		//2: Enviar para o dão; 
 		//3: dizer se tudo ocorreu tudo bem ou não.
-		$professor = new Professor(0, $arg['nome'], $arg['e_mail'], KeyFactory::randomKey(16), $arg['genero'], $arg['cpf'],0); 
+		$passwordToSend = KeyFactory::randomKey(16);
+
+		echo $passwordToSend; 
+
+		$professor = new Professor(0, $arg['nome'], $arg['e_mail'], md5($passwordToSend), $arg['genero'], $arg['cpf'],0); 
 		//Validacao: 
 		$this->dataValidator->set("Nome", $professor->getNome())->is_required()->min_length(5)->max_length(140); 
 		$this->dataValidator->set("Email", $professor->getEmail())->is_required()->is_email()->min_length(10)->max_length(140);
@@ -47,23 +53,16 @@ class ManterUsuario extends GenericController{
 
 		$array = $this->dataValidator->get_errors();
 
-		if(!empty($array)){
-			$array['status'] = false; 
-			$this->manterUsuarioView->sendAjax($array); 
-		}
-
+		self::verifyErros($array); 
 		$result = $this->daoProfessor->insert($professor);
-
-		if(empty($result))
-			$this->manterUsuarioView->sendAjax(array('status' => true)); 
-		else
-			$this->manterUsuarioView->sendAjax(array('status' => false, 'Error' => array ($result))); 
+		self::verifyErrosBd($array); 
 	}
 
 	public function cadastroEgresso($arg){
 		$daoEgresso = new DAOEgresso(); 
 
-		$egresso = new Egresso(0, $arg['nome'], $arg['e_mail'], KeyFactory::randomKey(16), $arg['genero'], $arg['cpf'], $arg['ano_conclusao'], $arg['ano_ingresso']);
+		$passwordToSend = KeyFactory::randomKey(16);
+		$egresso = new Egresso(0, $arg['nome'], $arg['e_mail'], md5($passwordToSend), $arg['genero'], $arg['cpf'], $arg['ano_conclusao'], $arg['ano_ingresso']);
 
 		//Validacao: 
 		$this->dataValidator->set("Nome", $egresso->getNome())->is_required()->min_length(5)->max_length(140);
@@ -73,21 +72,47 @@ class ManterUsuario extends GenericController{
 		$this->dataValidator->set("Ano_Ingresso", $egresso->getAnoIngresso())->is_required()->max_value(3000)->min_value(1900); 
 
 		$array = $this->dataValidator->get_errors();
+		self::verifyErros($array); 
+		$result = $daoEgresso->insert($egresso); 
+		self::verifyErrosBd($array); 
+	}
 
+	public function alterarSenha($arg){
+		$daoUsuario = new DAOUsuario(); 
+
+		$usuario = new Usuario(); 
+		$usuario->setId($_SESSION['id_user']); 
+		$usuario->setSenha($arg['senha']);
+
+		//Validacao: 
+		$this->dataValidator->set("Senha", $arg['novaSenha'])->is_required()->is_equals($arg['confirmacao']); 
+
+		$array = $this->dataValidator->get_errors();
+		self::verifyErros($array); 
+		$result = $daoUsuario->alterarSenha($usuario, $arg['novaSenha']); 
+		self::verifyErrosBd($array); 
+	}
+
+	public function alterarDadosView(){
+		$this->manterUsuarioView->alterarDadosView(); 
+	}
+
+	public function alterarSenhaView(){
+		$this->manterUsuarioView->alterarSenhaView(); 
+	}
+
+	private function verifyErros($array){
 		if(!empty($array)){
 			$array['status'] = false; 
 			$this->manterUsuarioView->sendAjax($array); 
 		}
+	}
 
-		$result = $daoEgresso->insert($egresso); 
-
+	private function verifyErrosBd($array){
 		if(empty($result))
 			$this->manterUsuarioView->sendAjax(array('status' => true)); 
 		else
 			$this->manterUsuarioView->sendAjax(array('status' => false, 'Error' => array ($result))); 
 	}
 
-	public function alterarDados(){
-		$this->manterUsuarioView->alterarDadosView(); 
-	}
 }

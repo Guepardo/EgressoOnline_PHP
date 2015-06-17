@@ -1,12 +1,14 @@
 //Função para enviar informações para o servidor; 
 function sendAjax(relativeUrl,data,confirmMsg){
-  var execute = confirm(confirmMsg);
 
-  if(!execute){
-    $('#info').append('<div data-alert class="alert-box alert radius">Operação cancelada.<a href="#"class="close">x</a></div>'); 
-    $(document).foundation();
-    return; 
-  } 
+  if(confirmMsg != null){
+    var execute = confirm(confirmMsg);
+    if(!execute){
+      $('#info').append('<div data-alert class="alert-box alert radius">Operação cancelada.<a href="#"class="close">x</a></div>'); 
+      $(document).foundation();
+      return; 
+    } 
+  }
 
   $('#load').removeClass('hide'); 
   $.ajax({

@@ -22,4 +22,9 @@ class ManterUsuarioView extends GenericView{
 		parent::getTemplateByAction("alterarDados"); 
 		parent::show(); 
 	}
+
+	public function alterarSenhaView(){
+		parent::getTemplateByAction("alterarSenha"); 
+		parent::show(); 
+	}
 }
