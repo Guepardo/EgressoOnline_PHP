@@ -3,6 +3,7 @@ namespace DAO\CustomDAOs;
 
 use DAO\CustomDAOs; 
 
+
 class DAOProfessor extends DAOUsuario{
 	public function __construct(){
 		parent::__construct(); 

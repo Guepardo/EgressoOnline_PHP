@@ -74,7 +74,7 @@ class ManterUsuario extends GenericController{
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
 		$result = $daoEgresso->insert($egresso); 
-		self::verifyErrosBd($array); 
+		self::verifyErrosBd($result); 
 	}
 
 	public function alterarSenha($arg){
@@ -90,7 +90,22 @@ class ManterUsuario extends GenericController{
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
 		$result = $daoUsuario->alterarSenha($usuario, $arg['novaSenha']); 
-		self::verifyErrosBd($array); 
+		self::verifyErrosBd($result); 
+	}
+
+	public function alterarDadosProfessor($arg){
+		$daoUsuario = new DAOUsuario(); 
+
+		$usuario = new Usuario($_SESSION['id_user'], $arg['nome'], $arg['e_mail']); 
+
+		//Validacao: 
+		$this->dataValidator->set("Nome", $usuario->getNome())->is_required()->min_length(5)->max_length(140); 
+		$this->dataValidator->set("Email", $usuario->getEmail())->is_required()->is_email()->min_length(10)->max_length(140);
+
+		$array = $this->dataValidator->get_errors();
+		self::verifyErros($array); 
+		$result = $daoUsuario->update($usuario); 
+		self::verifyErrosBd($result); 
 	}
 
 	public function alterarDadosView(){
@@ -101,6 +116,10 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->alterarSenhaView(); 
 	}
 
+	public function alterarDadosProfessorView(){
+		$this->manterUsuarioView->alterarDadosProfessorView();
+	}
+
 	private function verifyErros($array){
 		if(!empty($array)){
 			$array['status'] = false; 
@@ -108,7 +127,7 @@ class ManterUsuario extends GenericController{
 		}
 	}
 
-	private function verifyErrosBd($array){
+	private function verifyErrosBd($result){
 		if(empty($result))
 			$this->manterUsuarioView->sendAjax(array('status' => true)); 
 		else
