@@ -66,17 +66,27 @@ class DAOUsuario extends DAOBehavior{
 	
 	}
 
-	public function insert( $element ){}
+	public function insert( $element ){
+		$sql = "INSERT INTO USUARIO (nome, cpf, e_mail, senha, idgenero_fk) VALUES ( '".$element->getNome()."', '".$element->getCpf()."', '".$element->getEmail()."', '".$element->getSenha()."', ".$element->getGenero()." )"; 
+		try{
+			mysqli_query(parent::$connection,$sql);
+			$idusuario = mysqli_insert_id(parent::$connection); 
+		}catch( \Exception $e){}
+
+		if( empty(mysqli_error(parent::$connection)) )
+			return $idusuario;  
+		else
+			return mysqli_error(parent::$connection); 
+	}
+
 	public function delete( $pk ){}
 
 	public function select ( $id ){
 		$sql = "SELECT * FROM USUARIO WHERE  idusuario = $id "; 
-		
 		try{
 			$result = mysqli_query(parent::$connection,$sql);
-
 			while($consulta = mysqli_fetch_array($result)) { 
-		   		$usuario = new Usuario($consulta['idusuario'], $consulta['nome'], $consulta['e_mail'], $consulta['senha'], $consulta['idgenero_fk'], $consulta['cpf']); 
+		   		$usuario = new Usuario( (int) $consulta['idusuario'], $consulta['nome'], $consulta['e_mail'], $consulta['senha'], (int) $consulta['idgenero_fk'], $consulta['cpf']); 
 			} 			
 		}catch( \Exception $e){}
 

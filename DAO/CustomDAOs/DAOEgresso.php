@@ -2,6 +2,11 @@
 namespace DAO\CustomDAOs; 
 
 use DAO\CustomDAOs\DAOUsuario; 
+use DAO\CustomDAOs\DAOLocalidade; 
+use DAO\CustomDAOs\DAOEmprego; 
+
+use Model\Egresso; 
+use Model\Localidade; 
 
 class DAOEgresso extends DAOUsuario {
 	
@@ -16,41 +21,29 @@ class DAOEgresso extends DAOUsuario {
 		if(parent::cpfExists($element->getCpf()))
 			return "Esse CPF já foi cadastrado"; 
 
+		$daoLocalidade = new DAOLocalidade(); 
+		$daoEmprego    = new DAOEmprego(); 
+
 		//Ordem nas inserções: 
 		//Criar usuario, egresso, localidade e emprego 
 
 		//Inserindo usuario
-		$sql = "INSERT INTO USUARIO (nome, cpf, e_mail, senha, idgenero_fk) VALUES ( '".$element->getNome()."', '".$element->getCpf()."', '".$element->getEmail()."', '".$element->getSenha()."', ".$element->getGenero()." )"; 
-		try{
-			mysqli_query(parent::$connection,$sql);
-			$idusuario = mysqli_insert_id(parent::$connection); 
-		}catch( \Exception $e){}
+		$idUsuario = parent::insert($element);
+		if( !is_int($idUsuario) )
+			return $idUsuario; 
 
 		//Inserindo localidade para o egresso (VAZIA)
-		$sql = "INSERT INTO LOCALIDADE (complemento) VALUES ('')"; 
-		try{
-			mysqli_query(parent::$connection,$sql);
-			$idlocalidadeEgresso = mysqli_insert_id(parent::$connection); 
-		}catch( \Exception $e){}
-
-		//Inserindo localidade para o emprego (VAZIA)
-		$sql = "INSERT INTO LOCALIDADE (complemento) VALUES ('')"; 
-		try{
-			mysqli_query(parent::$connection,$sql);
-			$idlocalidadeEmprego = mysqli_insert_id(parent::$connection); 
-		}catch( \Exception $e){}
+		$idLocalidade = $daoLocalidade->insert(); 
+		if( !is_int($idLocalidade) )
+			return $idLocalidade; //retorna a mensagem de erro do DAO acima. 
 
 		//Inserindo emprego (VAZIA)
-		$sql = "INSERT INTO LOCALIDADE (complemento) VALUES ('')"; 
-		try{
-			mysqli_query(parent::$connection,$sql);
-			$idemprego = mysqli_insert_id(parent::$connection); 
-		}catch( \Exception $e){}
-
-
+		$idEmprego = $daoEmprego->insert(); 
+		if( !is_int($idEmprego) )
+			return $idEmprego; 
 
 		//Inserindo Egresso
-		$sql = "INSERT INTO EGRESSO (idusuario_fk, ano_ingresso, ano_conclusao, is_dado_publico, idlocalidade_fk, idemprego_fk) VALUES (". $idusuario .",". $element->getAnoIngresso().",".$element->getAnoConclusao().",". $element->isDadoPublico() .")"; 
+		$sql = "INSERT INTO EGRESSO (idusuario_fk, ano_ingresso, ano_conclusao, is_dado_publico, idlocalidade_fk, idemprego_fk) VALUES (". $idUsuario .",". $element->getAnoIngresso().",".$element->getAnoConclusao().",". $element->isDadoPublico() .", $idLocalidade, $idEmprego)"; 
 		try{
 			mysqli_query(parent::$connection,$sql);
 		}catch( \Exception $e){}
@@ -63,11 +56,48 @@ class DAOEgresso extends DAOUsuario {
 	}
 	
 	public function select ( $pk ){
-		/*
-		while($consulta = mysqli_fetch_array($result)) { 
-		   print "Coluna1: $consulta[1] - Coluna2: $consulta[2]<br>"; 
-		} 
-		*/
+		//Pegar a id do usuario; 
+		//Pegar o Egresso; 
+		//Pegar a localidade; 
+		//Pegar o emprego ;
+
+		$usuario = parent::select($pk); 
+		if( is_string($usuario) )
+			return $usuario; //Retorna a mensagem de erro do parent::select; 
+
+		var_dump($usuario); 
+
+		$egresso = new Egresso($usuario->getId(), $usuario->getNome(), $usuario->getEmail(), $usuario->getSenha(), $usuario->getGenero(), $usuario->getCpf() ); 
+
+		$sql = "SELECT * FROM EGRESSO WHERE  idusuario_fk = ". $usuario->getId(); 
+		try{
+			$result = mysqli_query(parent::$connection,$sql);
+			while($consulta = mysqli_fetch_array($result)) { 
+		   		$egresso->setTelefone($consulta['telefone']); 
+		   		$egresso->setAnoIngresso( (int) $consulta['ano_ingresso']); 
+		   		$egresso->setAnoConclusao( (int) $consulta['ano_conclusao']); 
+		   		$egresso->setEndereco($consulta['endereco']); 
+		   		$egresso->setDadoPublico( (boolean) $consulta['is_dado_publico']); 
+		   		$idLocalidade = (int) $consulta['idlocalidade_fk']; 
+		   		$idEmprego = (int) $consulta['idemprego_fk'];
+			} 			
+		}catch( \Exception $e){}
+
+		$status =  mysqli_affected_rows(parent::$connection); 
+		if( $status == -1 )
+			return mysqli_error(parent::$connection); 
+		else if( $status == 0 )
+			return "Nada encontrado com essa id"; 
+		
+		$daoLocalidade = new DAOLocalidade(); 
+
+		$localidade = $daoLocalidade->select($idLocalidade); 
+		if( is_string($localidade) )
+			return $localidade; // retorna a mensagem de erro do dao localidade; 
+
+		$egresso->setLocalidade($localidade); 
+		var_dump($localidade); 
+		return $egresso; 
 	}
 	
 	public function update ($element){

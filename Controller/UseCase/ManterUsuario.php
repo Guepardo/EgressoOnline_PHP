@@ -35,6 +35,18 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->cadastroEgressoView(); 
 	}
 
+	public function alterarDadosView(){
+		$this->manterUsuarioView->alterarDadosView(); 
+	}
+
+	public function alterarSenhaView(){
+		$this->manterUsuarioView->alterarSenhaView(); 
+	}
+
+	public function alterarDadosProfessorView(){
+		$this->manterUsuarioView->alterarDadosProfessorView();
+	}
+
 	public function cadastroProfessor($arg){
 		//1: Montar a requisição num objeto
 		//2: Validar os dados; 
@@ -42,7 +54,7 @@ class ManterUsuario extends GenericController{
 		//3: dizer se tudo ocorreu tudo bem ou não.
 		$passwordToSend = KeyFactory::randomKey(16);
 
-		echo $passwordToSend; 
+		//echo $passwordToSend; ENVIAR A SENHA POR E-MAIL AQUI.
 
 		$professor = new Professor(0, $arg['nome'], $arg['e_mail'], md5($passwordToSend), $arg['genero'], $arg['cpf'],0); 
 		//Validacao: 
@@ -106,18 +118,6 @@ class ManterUsuario extends GenericController{
 		self::verifyErros($array); 
 		$result = $daoUsuario->update($usuario); 
 		self::verifyErrosBd($result); 
-	}
-
-	public function alterarDadosView(){
-		$this->manterUsuarioView->alterarDadosView(); 
-	}
-
-	public function alterarSenhaView(){
-		$this->manterUsuarioView->alterarSenhaView(); 
-	}
-
-	public function alterarDadosProfessorView(){
-		$this->manterUsuarioView->alterarDadosProfessorView();
 	}
 
 	private function verifyErros($array){

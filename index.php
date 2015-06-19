@@ -14,11 +14,16 @@ require_once( WWW_ROOT . DS . 'autoload.php');
 
 use Controller\MainController; 
 use Security\SecurityFilter; 
-
+use DAO\CustomDAOs\DAOEgresso; 
 
 //(new SecurityFilter())->filteringRequest(); 
 
 //var_dump($_REQUEST); 
  
 
-(new MainController() )->findMyController(); 
+//(new MainController() )->findMyController(); 
+
+
+$daoEgresso = new DAOEgresso(); 
+
+$daoEgresso->select(1); 
