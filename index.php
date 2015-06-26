@@ -17,11 +17,12 @@ use Security\SecurityFilter;
 use DAO\CustomDAOs\DAOEgresso; 
 
 use Util\Mail; 
+//use DAO\CustomDAOs\DAOFaixaSalarial; 
 
-//(new SecurityFilter())->filteringRequest(); 
+//	(new SecurityFilter())->filteringRequest(); 
 
 //var_dump($_REQUEST); 
- 
+
 
 (new MainController() )->findMyController(); 
 

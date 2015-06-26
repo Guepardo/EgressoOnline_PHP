@@ -4,6 +4,8 @@ namespace View\CustomViews;
 use View\GenericView; 
 use DAO\CustomDAOs\DAOEgresso; 
 use DAO\CustomDAOs\DAOUsuario; 
+use DAO\CustomDAOs\DAOFaixaSalarial; 
+use DAO\CustomDAOs\DAOEstadoCivil; 
 
 class ManterUsuarioView extends GenericView{
 	public function __construct(){
@@ -21,10 +23,26 @@ class ManterUsuarioView extends GenericView{
 	}
 
 	public function alterarDadosView(){
-		$daoEgresso = new DAOEgresso(); 
-		$egresso = $daoEgresso->select($_SESSION['id_user']); 
+		//Roteiro: 
+		//Adicionar todos os conteúdos dos dropdowns
+		//Adicionar valores da variável egresso ao template; 
 
+		$daoEgresso = new DAOEgresso(); 
+		$daoEstadoCivil = new DAOEstadoCivil(); 
+		$daoFaixaSalarial = new DAOFaixaSalarial(); 
+
+		$egresso = $daoEgresso->select($_SESSION['id_user']); 
 		parent::getTemplateByAction("alterarDados"); 
+		//Begin Blocks
+		//Estado Civil: 
+
+		foreach( $daoEstadoCivil->selectAll() as $estadoCivil ){
+			parent::$templator->setVariable('egresso.estado_civil.value', $estadoCivil->getDescricao());
+			parent::$templator->setVariable('egresso.estado_civil.desc', $estadoCivil->getDescricao());
+			parent::$templator->addBlock("estado_civil"); 
+		}
+
+		
 		parent::$templator->setVariable("egresso.nome", $egresso->getNome()); 
 		parent::$templator->setVariable("egresso.email", $egresso->getEmail()); 
 		parent::$templator->setVariable("egresso.qtdFilhos", $egresso->getQtdFilhos());
