@@ -29,14 +29,14 @@
           <div class="row">
             <div class="medium-6 small-6 columns">
             <label>Nome <small>Obrigatório</small>
-              <input type="text"  required placeholder="large-6.columns" />
+              <input type="text"  required placeholder="large-6.columns" value="${egresso.nome}" />
             </label>
             <small class="error">Voc~e precisa preencher o campo.</small>
             </div>
 
             <div class="medium-6 small-6 columns">
               <label>E-mail <small>Obrigatório</small>
-                <input type="email" required  placeholder="large-6.columns" />
+                <input type="email" required  placeholder="large-6.columns" value="${egresso.email}" />
               </label> <small class="error">Você precisa preencher o campo
               .</small>
             </div>
@@ -46,10 +46,9 @@
             <div class="medium-4  columns">
               <label>Estado Civil
                 <select>
-                  <option value="husker">Solteiro(a)</option>
-                  <option value="starbuck">Casado(a)</option>
-                  <option value="hotdog">Divorciado(a)</option>
-                  <option value="apollo">Viúvo(a)</option>
+                <!-- $BeginBlock estado_civil -->
+                  <option value="${egresso.estado_civil.value}"> ${egresso.estado_civil.desc}</option>
+                <!-- $BeginBlock estado_civil -->
                 </select>
               </label>
             </div>
@@ -57,7 +56,7 @@
             <div class="row">
             	<div class="medium-2 medium-offset-2 columns">
             		<label>Quantos filhos 
-            			<input type="number" min="0" max="50">
+            			<input type="number" min="0" max="50" value="${egresso.qtdFilhos}">
             		</label>
             	</div>
             </div>
@@ -68,7 +67,7 @@
             <div class="row">
 	            <div class="medium-4 small-4 columns">
 		            <label>Telefone
-		              <input class="telefone" type="text" required placeholder="large-6.columns" />
+		              <input class="telefone" type="text" required placeholder="large-6.columns" value="${egresso.telefone}" />
 		            </label> <small class="error">Preencha corretamente o campo.</small>
 	            </div>
           </div>
@@ -77,7 +76,7 @@
           <div class="row">
             <div class="medium-12 small-12 columns">
             <label>Endereço
-              <input type="text" placeholder="medium-6.columns" />
+              <input type="text" placeholder="medium-6.columns" value="${egresso.endereco}" />
             </label>
             </div>
           </div>
@@ -120,7 +119,7 @@
           <div class="row">
             <div class="medium-7 small-7 columns">
               <label>Estado/Província/Região
-                <input type="text"  name="" placeholder="Digite o complemento do seu endereço.">
+                <input type="text"  name="" placeholder="Digite o complemento do seu endereço." value="${egresso.complemento}">
               </label> 
             </div>  
           </div>
@@ -131,7 +130,7 @@
               <div class="row">
                 <div class="medium-5 small-5 columns">
                 <label>Empresa
-                  <input type="text" placeholder="medium-6.columns" />
+                  <input type="text" placeholder="medium-6.columns"  value="${emprego.nome}"/>
                 </label>
                 </div>
 
@@ -187,7 +186,7 @@
           <div class="row">
             <div class="medium-7 small-7 columns">
               <label>Estado/Província/Região
-                <input type="text"  name="" placeholder="Digite o complemento do seu endereço.">
+                <input type="text"  name="" placeholder="Digite o complemento do seu endereço." value="${emprego.complemento}">
               </label> 
             </div>    
         
@@ -221,7 +220,7 @@
               </div>
               <div class="medium-9 small-9 columns end">
                   <label>Link para acesso
-                    <input type="text" >
+                    <input type="text" value="${usuario.email}">
                   </label>
               </div>
             </div>
@@ -238,7 +237,7 @@
               </div>
               <div class="medium-9 small-9 columns end">
                   <label>
-                    <input type="text" >
+                    <input type="text" value="${usuario.email}">
                   </label>
               </div>
             </div>
@@ -255,7 +254,7 @@
               </div>
               <div class="medium-9 small-9 columns end">
                   <label>
-                    <input type="text" >
+                    <input type="text" value="${usuario.email}">
                   </label>
               </div>
             </div>

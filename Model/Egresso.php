@@ -10,6 +10,7 @@ class Egresso extends Usuario{
 	private $endereco; 
 	private $dadoPublico; 
 	private $localidade; 
+	private $qtdFilhos; 
 	private $emprego; 
 
 	//Construtor que será usado para alteração de dados; 
@@ -26,6 +27,14 @@ class Egresso extends Usuario{
 		$this->localidade = $localidade; 
 	}
 
+	public function setQtdFilhos($qtdFilhos){
+		$this->$qtdFilhos = $qtdFilhos; 
+	}
+
+	public function getQtdFilhos(){
+		return $this->qtdFilhos; 
+	}
+
 	public function setEmprego($emprego){
 		$this->emprego = $emprego; 
 	}
@@ -34,6 +43,10 @@ class Egresso extends Usuario{
 		$this->telefone = $telefone; 
 	}
 
+	public function getTelefone(){
+		return $this->telefone; 
+	}
+	
 	public function setAnoIngresso ($anoIngresso){
 		$this->anoIngresso = $anoIngresso; 
 	}

@@ -9,7 +9,7 @@ class DAOLocalidade extends DAOBehavior{
 	public function __construct(){
 		parent::__construct(); 
 	}
-
+	
 	public function insert( $element='' ){
 		//TODO: Ver o caso de quando o argumento de fato for um objeto localidade. 
 
@@ -27,7 +27,7 @@ class DAOLocalidade extends DAOBehavior{
 	}
 
 	public function select ( $pk ){
-		$sql = "SELECT * FROM LOCALIDADE WHERE  idlocalidade = $pk"; 
+		$sql = "SELECT * FROM LOCALIDADE WHERE idlocalidade = $pk"; 
 		try{
 			$result = mysqli_query(parent::$connection,$sql);
 			while($consulta = mysqli_fetch_array($result)) { 

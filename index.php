@@ -1,11 +1,11 @@
 <?php
-//Indicando que este script usará sessões em algum momento em sua execução. 
+//Indicando que este script usarÃ¡ sessÃµes em algum momento em sua execuÃ§Ã£o. 
 session_start(); 
 
 //*********Apenas para motivos de debug*********
-$_SESSION['id_user'] = 65; 
+$_SESSION['id_user'] = 1; 
 
-//Criar um arquivo para definições mais tarde. 
+//Criar um arquivo para definiÃ§Ãµes mais tarde. 
 define ('WWW_ROOT', dirname(__FILE__)); 
 define ('DS', DIRECTORY_SEPARATOR); 
 
@@ -16,14 +16,16 @@ use Controller\MainController;
 use Security\SecurityFilter; 
 use DAO\CustomDAOs\DAOEgresso; 
 
+use Util\Mail; 
+
 //(new SecurityFilter())->filteringRequest(); 
 
 //var_dump($_REQUEST); 
  
 
-//(new MainController() )->findMyController(); 
+(new MainController() )->findMyController(); 
 
+//Ainda em digivolvimento
+//$mail = new Mail(); 
 
-$daoEgresso = new DAOEgresso(); 
-
-$daoEgresso->select(1); 
+//$mail->sendEmail("Apenas um texto simples aqui","bsinet@hotmail.com", "Allyson Maciel"); 

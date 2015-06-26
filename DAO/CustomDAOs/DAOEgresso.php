@@ -75,6 +75,7 @@ class DAOEgresso extends DAOUsuario {
 			while($consulta = mysqli_fetch_array($result)) { 
 		   		$egresso->setTelefone($consulta['telefone']); 
 		   		$egresso->setAnoIngresso( (int) $consulta['ano_ingresso']); 
+		   		$egresso->setAnoConclusao( (int) $consulta['qtd_filhos']); 
 		   		$egresso->setAnoConclusao( (int) $consulta['ano_conclusao']); 
 		   		$egresso->setEndereco($consulta['endereco']); 
 		   		$egresso->setDadoPublico( (boolean) $consulta['is_dado_publico']); 
@@ -96,7 +97,6 @@ class DAOEgresso extends DAOUsuario {
 			return $localidade; // retorna a mensagem de erro do dao localidade; 
 
 		$egresso->setLocalidade($localidade); 
-		var_dump($localidade); 
 		return $egresso; 
 	}
 	

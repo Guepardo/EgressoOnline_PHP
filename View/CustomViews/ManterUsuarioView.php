@@ -2,6 +2,7 @@
 namespace View\CustomViews; 
 
 use View\GenericView; 
+use DAO\CustomDAOs\DAOEgresso; 
 use DAO\CustomDAOs\DAOUsuario; 
 
 class ManterUsuarioView extends GenericView{
@@ -20,7 +21,14 @@ class ManterUsuarioView extends GenericView{
 	}
 
 	public function alterarDadosView(){
+		$daoEgresso = new DAOEgresso(); 
+		$egresso = $daoEgresso->select($_SESSION['id_user']); 
+
 		parent::getTemplateByAction("alterarDados"); 
+		parent::$templator->setVariable("egresso.nome", $egresso->getNome()); 
+		parent::$templator->setVariable("egresso.email", $egresso->getEmail()); 
+		parent::$templator->setVariable("egresso.qtdFilhos", $egresso->getQtdFilhos());
+		parent::$templator->setVariable("egresso.telefone", $egresso->getTelefone());
 		parent::show(); 
 	}
 
