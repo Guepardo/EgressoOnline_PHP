@@ -3,6 +3,9 @@ namespace DAO\CustomDAOs;
 
 use DAO\DAOBehavior; 
 use DAO\CustomDAOs\DAOLocalidade; 
+use DAO\CustomDAOs\DAOAtuacaoProfissional; 
+use DAO\CustomDAOs\DAOFaixaSalarial; 
+use Model\Emprego; 
 
 class DAOEmprego extends DAOBehavior{
 	public function __construct(){
@@ -31,7 +34,35 @@ class DAOEmprego extends DAOBehavior{
 			return mysqli_error(parent::$connection); 
 	}
 
+	public function select( $pk ){
+		$sql = "SELECT * FROM EMPREGO WHERE idemprego = $pk"; 
+		try{
+			$result = mysqli_query(parent::$connection,$sql);
+			while($consulta = mysqli_fetch_array($result)) { 
+		   		$emprego = new Emprego((int) $consulta['idemprego'], $consulta['nome_empresa'], (int) $consulta['idfaixa_salarial_fk'], (int) $consulta['idatuacao_profissional_fk'], (int) $consulta['idlocalidade_fk']); 
+			} 			
+		}catch( \Exception $e){}
+
+		$daoLocalidade          = new DAOLocalidade(); 
+		$daoAtuacaoProfissional = new DAOAtuacaoProfissional(); 
+		$daoFaixaSalarial       = new DAOFaixaSalarial();
+
+		//Todo validar a saída disso: 
+		$emprego->setLocalidade($daoLocalidade->select($emprego->getLocalidade())); 
+
+		$emprego->setAtuacaoProfissional( $daoAtuacaoProfissional->getDescriptionById($emprego->getAtuacaoProfissional())); 
+		$emprego->setFaixaSalarial( $daoFaixaSalarial->getDescriptionById($emprego->getFaixaSalarial())); 
+		//var_dump($emprego); 
+
+		$status =  mysqli_affected_rows(parent::$connection); 
+		if( $status == -1 )
+			return mysqli_error(parent::$connection); 
+		else if( $status == 0 )
+			return "Nada encontrado com essa id"; 
+		else
+			return $emprego; 
+	}
+
 	public function delete( $pk ){}
-	public function select ( $pk ){}
 	public function update ($element){}
 }

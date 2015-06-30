@@ -4,6 +4,7 @@ namespace DAO\CustomDAOs;
 use DAO\CustomDAOs\DAOUsuario; 
 use DAO\CustomDAOs\DAOLocalidade; 
 use DAO\CustomDAOs\DAOEmprego; 
+use DAO\CustomDAOs\DAOEstadoCivil; 
 
 use Model\Egresso; 
 use Model\Localidade; 
@@ -43,7 +44,7 @@ class DAOEgresso extends DAOUsuario {
 			return $idEmprego; 
 
 		//Inserindo Egresso
-		$sql = "INSERT INTO EGRESSO (idusuario_fk, ano_ingresso, ano_conclusao, is_dado_publico, idlocalidade_fk, idemprego_fk) VALUES (". $idUsuario .",". $element->getAnoIngresso().",".$element->getAnoConclusao().",". $element->isDadoPublico() .", $idLocalidade, $idEmprego)"; 
+		$sql = "INSERT INTO EGRESSO (idusuario_fk, ano_ingresso, ano_conclusao, is_dado_publico, idestado_civil_fk, idlocalidade_fk, idemprego_fk) VALUES (". $idUsuario .",". $element->getAnoIngresso().",".$element->getAnoConclusao().",". $element->isDadoPublico() .", 0, $idLocalidade, $idEmprego)"; 
 		try{
 			mysqli_query(parent::$connection,$sql);
 		}catch( \Exception $e){}
@@ -65,7 +66,6 @@ class DAOEgresso extends DAOUsuario {
 		if( is_string($usuario) )
 			return $usuario; //Retorna a mensagem de erro do parent::select; 
 
-		var_dump($usuario); 
 
 		$egresso = new Egresso($usuario->getId(), $usuario->getNome(), $usuario->getEmail(), $usuario->getSenha(), $usuario->getGenero(), $usuario->getCpf() ); 
 
@@ -75,9 +75,10 @@ class DAOEgresso extends DAOUsuario {
 			while($consulta = mysqli_fetch_array($result)) { 
 		   		$egresso->setTelefone($consulta['telefone']); 
 		   		$egresso->setAnoIngresso( (int) $consulta['ano_ingresso']); 
-		   		$egresso->setAnoConclusao( (int) $consulta['qtd_filhos']); 
+		   		$egresso->setQtdFilhos( (int) $consulta['qtd_filhos'] ); 
 		   		$egresso->setAnoConclusao( (int) $consulta['ano_conclusao']); 
 		   		$egresso->setEndereco($consulta['endereco']); 
+		   		$egresso->setEstadoCivil($consulta['idestado_civil_fk']); 
 		   		$egresso->setDadoPublico( (boolean) $consulta['is_dado_publico']); 
 		   		$idLocalidade = (int) $consulta['idlocalidade_fk']; 
 		   		$idEmprego = (int) $consulta['idemprego_fk'];
@@ -95,8 +96,19 @@ class DAOEgresso extends DAOUsuario {
 		$localidade = $daoLocalidade->select($idLocalidade); 
 		if( is_string($localidade) )
 			return $localidade; // retorna a mensagem de erro do dao localidade; 
-
 		$egresso->setLocalidade($localidade); 
+
+		$daoEmprego = new DAOEmprego(); 
+
+		$emprego = $daoEmprego->select($idEmprego); 
+		if( is_string($emprego) )
+			return $emprego; //retorna a mensagem de erro do dao emprego; 
+		$egresso->setEmprego($emprego);
+
+		$daoEstadoCivil = new DAOEstadoCivil(); 
+
+		$egresso->setEstadoCivil($daoEstadoCivil->getDescriptionById($egresso->getEstadoCivil())); 
+
 		return $egresso; 
 	}
 	

@@ -16,4 +16,37 @@ class Emprego{
 		$this->localidade = $localidade; 
 	}
 
+	public function getId (){
+		return $this->id; 
+	}
+
+	public function getNomeEmpresa(){
+		return $this->nomeEmpresa; 
+	}
+
+	public function getFaixaSalarial(){
+		return $this->faixaSalarial; 
+	}
+
+	public function getAtuacaoProfissional(){
+		return $this->atuacaoProfissional; 
+	}
+
+	public function getLocalidade(){
+		return $this->localidade; 
+	}
+
+	public function setLocalidade($localidade){
+		$this->localidade = $localidade; 
+	}
+
+	public function setFaixaSalarial($faixaSalarial){
+		$this->faixaSalarial = $faixaSalarial; 
+	}
+
+	public function setAtuacaoProfissional($atuacaoProfissional){
+		$this->atuacaoProfissional = $atuacaoProfissional; 
+	}
+
+	
 }

@@ -3,6 +3,7 @@ namespace Controller;
 
 use Controller\UseCase\HumanController;  
 use Controller\UseCase\ManterUsuario; 
+use Controller\UseCase\AjaxServices; 
 
 
 class MainController {
@@ -11,7 +12,8 @@ class MainController {
 		// incluir todos os controllers específicos aqui;       
 		$this->controllersArray = array (
 				'humanos' => new HumanController (), 
-				'manterUsuario' => new ManterUsuario()
+				'manterUsuario' => new ManterUsuario(),
+				'ajaxServices'  => new AjaxServices()
 		);
 	}
 	

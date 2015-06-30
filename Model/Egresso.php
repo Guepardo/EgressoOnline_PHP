@@ -12,7 +12,8 @@ class Egresso extends Usuario{
 	private $localidade; 
 	private $qtdFilhos; 
 	private $emprego; 
-
+	private $estadoCivil; 
+	
 	//Construtor que será usado para alteração de dados; 
 	public function __construct($id, $nome, $email, $senha, $genero, $cpf, $anoConclusao=0, $anoIngresso=0, $telefone="", $endereco="", $dadoPublico=0){
 		parent::__construct($id, $nome, $email, $senha, $genero, $cpf); 
@@ -28,7 +29,7 @@ class Egresso extends Usuario{
 	}
 
 	public function setQtdFilhos($qtdFilhos){
-		$this->$qtdFilhos = $qtdFilhos; 
+		$this->qtdFilhos = $qtdFilhos; 
 	}
 
 	public function getQtdFilhos(){
@@ -59,6 +60,10 @@ class Egresso extends Usuario{
 		$this->endereco = $endereco;
 	}
 
+	public function getEndereco(){
+		return $this->endereco; 
+	}
+
 	public function setDadoPublico($dadoPublico){
 		$this->dadoPublico = $dadoPublico; 
 	}
@@ -81,5 +86,13 @@ class Egresso extends Usuario{
 
 	public function isDadoPublico(){
 		return $this->dadoPublico; 
+	}
+
+	public function setEstadoCivil($estadoCivil){
+		$this->estadoCivil = $estadoCivil; 
+	}
+
+	public function getEstadoCivil(){
+		return $this->estadoCivil; 
 	}
 }

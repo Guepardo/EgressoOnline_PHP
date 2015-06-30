@@ -31,7 +31,7 @@
             <label>Nome <small>Obrigatório</small>
               <input type="text"  required placeholder="large-6.columns" value="${egresso.nome}" />
             </label>
-            <small class="error">Voc~e precisa preencher o campo.</small>
+            <small class="error">Você precisa preencher o campo.</small>
             </div>
 
             <div class="medium-6 small-6 columns">
@@ -47,7 +47,7 @@
               <label>Estado Civil
                 <select>
                 <!-- $BeginBlock estado_civil -->
-                  <option value="${egresso.estado_civil.value}"> ${egresso.estado_civil.desc}</option>
+                  <option ${egresso.estado_civil.selected} value="${egresso.estado_civil.value}"> ${egresso.estado_civil.desc}</option>
                 <!-- $EndBlock estado_civil -->
                 </select>
               </label>
@@ -84,39 +84,32 @@
           <div class="row">
             <div class="medium-4 small-4 columns">
               <label>País
-                <select>
-                  <option value="husker">Solteiro(a)</option>
-                  <option value="starbuck">Casado(a)</option>
-                  <option value="hotdog">Divorciado(a)</option>
-                  <option value="apollo">Viúvo(a)</option>
+                <select id="egresso_pais">
+                  <!-- $BeginBlock egresso.pais -->
+                  <option value="${egresso.pais.value}"> ${egresso.pais.desc}</option>
+                <!-- $EndBlock egresso.pais -->
                 </select>
               </label>
             </div>
 
-            <div class="medium-4 small-4 columns hide">
+            <div id="egresso_estado_div" class="medium-4 small-4 columns">
               <label>Estado
-                <select>
-                  <option value="husker">Solteiro(a)</option>
-                  <option value="starbuck">Casado(a)</option>
-                  <option value="hotdog">Divorciado(a)</option>
-                  <option value="apollo">Viúvo(a)</option>
+                <select id="egresso_estado">
+                  
                 </select>
               </label>
             </div>
 
-            <div class="medium-4 small-4 columns hide">
+            <div id="egresso_cidade_div" class="medium-4 small-4 columns">
               <label>Cidade
-                <select>
-                  <option value="husker">Solteiro(a)</option>
-                  <option value="starbuck">Casado(a)</option>
-                  <option value="hotdog">Divorciado(a)</option>
-                  <option value="apollo">Viúvo(a)</option>
+                <select id="egresso_cidade">
+                  
                 </select>
               </label>
             </div>
 
              <!--Esse campo deverá apareser somente se o país selecionado for diferente de Brasil--> 
-          <div class="row">
+          <div id="egresso_complemento" class="row hide">
             <div class="medium-7 small-7 columns">
               <label>Estado/Província/Região
                 <input type="text"  name="" placeholder="Digite o complemento do seu endereço." value="${egresso.complemento}">
@@ -137,10 +130,9 @@
                 <div class="medium-5 small-5 columns">
                   <label>Atuação profissional
                     <select>
-                      <option value="husker">Solteiro(a)</option>
-                      <option value="starbuck">Casado(a)</option>
-                      <option value="hotdog">Divorciado(a)</option>
-                      <option value="apollo">Viúvo(a)</option>
+                        <!-- $BeginBlock emprego.atuacao -->
+                          <option ${emprego.atuacao.selected} value="${emprego.atuacao.value}"> ${emprego.atuacao.desc}</option>
+                        <!-- $EndBlock emprego.atuacao -->
                     </select>
                   </label>
                 </div>
@@ -151,39 +143,32 @@
               <div class="row">
             <div class="medium-4 small-4 columns">
               <label>País
-                <select>
-                  <option value="husker">Solteiro(a)</option>
-                  <option value="starbuck">Casado(a)</option>
-                  <option value="hotdog">Divorciado(a)</option>
-                  <option value="apollo">Viúvo(a)</option>
+                <select id="emprego_pais">
+                   <!-- $BeginBlock egresso.pais -->
+                  <option value="${egresso.pais.value}"> ${egresso.pais.desc}</option>
+                <!-- $EndBlock egresso.pais -->
                 </select>
               </label>
             </div>
 
-            <div class="medium-4 small-4 columns hide">
+            <div id="emprego_estado_div" class="medium-4 small-4 columns hide">
               <label>Estado
-                <select>
-                  <option value="husker">Solteiro(a)</option>
-                  <option value="starbuck">Casado(a)</option>
-                  <option value="hotdog">Divorciado(a)</option>
-                  <option value="apollo">Viúvo(a)</option>
+                <select id="emprego_estado">
+                  
                 </select>
               </label>
             </div>
 
-            <div class="medium-4 small-4 columns hide">
+            <div id="emprego_cidade_div" class="medium-4 small-4 columns hide">
               <label>Cidade
-                <select>
-                  <option value="husker">Solteiro(a)</option>
-                  <option value="starbuck">Casado(a)</option>
-                  <option value="hotdog">Divorciado(a)</option>
-                  <option value="apollo">Viúvo(a)</option>
+                <select id="emprego_cidade">
+                  
                 </select>
               </label>
             </div>
 
             <!--Esse campo deverá apareser somente se o país selecionado for diferente de Brasil--> 
-          <div class="row">
+          <div id="emprego_complemento" class="row">
             <div class="medium-7 small-7 columns">
               <label>Estado/Província/Região
                 <input type="text"  name="" placeholder="Digite o complemento do seu endereço." value="${emprego.complemento}">
@@ -197,10 +182,9 @@
             <div class="medium-4 small-4 columns">
                   <label>Faixa Salarial
                     <select>
-                      <option value="husker">Solteiro(a)</option>
-                      <option value="starbuck">Casado(a)</option>
-                      <option value="hotdog">Divorciado(a)</option>
-                      <option value="apollo">Viúvo(a)</option>
+                       <!-- $BeginBlock emprego.faixa -->
+                          <option ${emprego.faixa.selected} value="${emprego.faixa.value}"> ${emprego.faixa.desc}</option>
+                        <!-- $EndBlock emprego.faixa -->
                     </select>
                   </label>
                 </div>
@@ -212,10 +196,9 @@
             <div class="medium-3 small-3 columns">
               <label> Redes Sociais
                 <select>
-                  <option value="husker">Solteiro(a)</option>
-                  <option value="starbuck">Casado(a)</option>
-                  <option value="hotdog">Divorciado(a)</option>
-                  <option value="apollo">Viúvo(a)</option>
+                  <!-- $BeginBlock rede_social -->
+                    <option value="${egresso.rede_social.value}"> ${egresso.rede_social.desc}</option>
+                  <!-- $EndBlock rede_social -->
                 </select>
               </div>
               <div class="medium-9 small-9 columns end">
@@ -229,10 +212,9 @@
             <div class="medium-3 small-3 columns">
               <label> 
                 <select>
-                  <option value="husker">Solteiro(a)</option>
-                  <option value="starbuck">Casado(a)</option>
-                  <option value="hotdog">Divorciado(a)</option>
-                  <option value="apollo">Viúvo(a)</option>
+                  <!-- $BeginBlock rede_social -->
+                    <option value="${egresso.rede_social.value}"> ${egresso.rede_social.desc}</option>
+                  <!-- $EndBlock rede_social -->
                 </select>
               </div>
               <div class="medium-9 small-9 columns end">
@@ -246,10 +228,9 @@
             <div class="medium-3 small-3 columns">
               <label> 
                 <select>
-                  <option value="husker">Solteiro(a)</option>
-                  <option value="starbuck">Casado(a)</option>
-                  <option value="hotdog">Divorciado(a)</option>
-                  <option value="apollo">Viúvo(a)</option>
+                  <!-- $BeginBlock rede_social -->
+                    <option value="${egresso.rede_social.value}"> ${egresso.rede_social.desc}</option>
+                  <!-- $EndBlock rede_social -->
                 </select>
               </div>
               <div class="medium-9 small-9 columns end">
@@ -291,12 +272,125 @@
     <script>
       $(document).ready(function(){
           $('.telefone').mask('(99) 9999-9999');
+          
+          //Arrumando formulário egresso
+          $('#egresso_pais').change(function() {
+                    var str = "";
+                    str += $('#egresso_pais option:selected').text();
+                    console.log( str );
+                    if( str.trim() == 'BRASIL'){
+                        console.log('entrei aqui'); 
+                        $('#egresso_cidade_div').removeClass('hide'); 
+                        $('#egresso_estado_div').removeClass('hide');
+                        $('#egresso_complemento').addClass('hide');
+                    }else{
+                        $('#egresso_cidade_div').addClass('hide'); 
+                        $('#egresso_estado_div').addClass('hide');
+                        $('#egresso_complemento').removeClass('hide');
+                    }
+          }).trigger('change');
 
-          $('#form').on('valid.fndtn.abide', function() {
-            alert('Olar');
-          });
+          //Arrumando formulário emprego
+          $('#emprego_pais').change(function() {
+                    var str = "";
+                    str += $('#emprego_pais option:selected').text();
+                    console.log( str );
+                    if( str.trim() == 'BRASIL'){
+                        console.log('entrei aqui'); 
+                        $('#emprego_cidade_div').removeClass('hide'); 
+                        $('#emprego_estado_div').removeClass('hide');
+                        $('#emprego_complemento').addClass('hide');
+                    }else{
+                        $('#emprego_cidade_div').addClass('hide'); 
+                        $('#emprego_estado_div').addClass('hide');
+                        $('#emprego_complemento').removeClass('hide');
+                    }
+          }).trigger('change');
+          
+          $('select').change(function(){
+            if(this.id == '') return; 
+
+            var selected = $('#'+this.id+' option:selected').text().trim(); 
+            //Formulário do egresso, Ajax estado. 
+            if(this.id == 'egresso_pais'  && selected == 'BRASIL'){
+                getByAjax({ country : selected} ,'index.php?action=getStates&usecase=ajaxServices', function(data){
+                data = JSON.parse(data); 
+                //To-do: verificar se esse array vem sem nada ou com uma coisa diferente de um array; 
+                  $('#egresso_estado > option').each(function(){ this.remove(); }); 
+
+                  $.each(data, function (i, item) { 
+                      $('#egresso_estado').append($('<option>', { 
+                          value: item,
+                          text : item 
+                      }));
+                  });  
+              }); 
+              return; 
+            }
+
+            //Formulário do emprego, Ajax estado. 
+            if(this.id == 'emprego_pais'  && selected == 'BRASIL'){
+                getByAjax({ country : selected} ,'index.php?action=getStates&usecase=ajaxServices', function(data){
+                data = JSON.parse(data); 
+                //To-do: verificar se esse array vem sem nada ou com uma coisa diferente de um array; 
+                  $('#emprego_estado > option').each(function(){ this.remove(); });  
+                  $.each(data, function (i, item) { 
+                      $('#emprego_estado').append($('<option>', { 
+                          value: item,
+                          text : item 
+                      }));
+                  });  
+              }); 
+              return; 
+            }
+
+            //Formulário do egresso, Ajax cidade. 
+            if(this.id == 'egresso_estado'){
+               getByAjax({ state : selected} ,'index.php?action=getCities&usecase=ajaxServices', function(data){
+                data = JSON.parse(data); 
+                //To-do: verificar se esse array vem sem nada ou com uma coisa diferente de um array; 
+                  $('#egresso_cidade > option').each(function(){ this.remove(); });  
+                  $.each(data, function (i, item) { 
+                      $('#egresso_cidade').append($('<option>', { 
+                          value: item,
+                          text : item 
+                      }));
+                  });  
+              }); 
+              return; 
+            }
+
+            //Formulário do emprego, Ajax cidade. 
+            if(this.id == 'emprego_estado'){
+              getByAjax({ state : selected} ,'index.php?action=getCities&usecase=ajaxServices', function(data){
+                data = JSON.parse(data); 
+                //To-do: verificar se esse array vem sem nada ou com uma coisa diferente de um array; 
+                  $('#emprego_cidade > option').each(function(){ this.remove(); });  
+                  $.each(data, function (i, item) { 
+                      $('#emprego_cidade').append($('<option>', { 
+                          value: item,
+                          text : item 
+                      }));
+                  });  
+              }); 
+              return; 
+            }
+          }); 
+
+          function getByAjax(data, url , foo){
+            $.ajax({ 
+             url : url,
+             method : 'post',
+             data: data}
+             ).done(function(data){
+               foo(data); 
+             }).fail(function(){
+
+             }).always(function(){
+
+             }); 
+          }
       });
-
     </script>
   </body>
 </html>

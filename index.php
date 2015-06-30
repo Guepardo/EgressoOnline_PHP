@@ -15,9 +15,8 @@ require_once( WWW_ROOT . DS . 'autoload.php');
 use Controller\MainController; 
 use Security\SecurityFilter; 
 use DAO\CustomDAOs\DAOEgresso; 
-
+use DAO\CustomDAOs\DAOFaixaSalarial; 
 use Util\Mail; 
-//use DAO\CustomDAOs\DAOFaixaSalarial; 
 
 //	(new SecurityFilter())->filteringRequest(); 
 

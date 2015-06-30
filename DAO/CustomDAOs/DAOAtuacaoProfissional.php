@@ -2,11 +2,11 @@
 namespace DAO\CustomDAOs; 
 
 use DAO\DAOBehavior; 
-use Model\FaixaSalarial; 
+use Model\AtuacaoProfissional; 
 
-class DAOFaixaSalarial extends DAOBehavior{
+class DAOAtuacaoProfissional extends DAOBehavior{
 	public function __construct(){
-		parent::__construct(); 
+		parent::__construct();
 	}
 
 	public function insert( $element ){
@@ -22,7 +22,7 @@ class DAOFaixaSalarial extends DAOBehavior{
 	}
 
 	public function getDescriptionById($id){
-		$sql = "SELECT faixa_salarial.desc FROM faixa_salarial WHERE faixa_salarial.idfaixa_salarial = $id"; 
+		$sql = "SELECT atuacao_profissional.desc FROM atuacao_profissional WHERE atuacao_profissional.idatuacao_profissional = $id"; 
 		try{
 			$result = mysqli_query(parent::$connection,$sql);
 			while($consulta = mysqli_fetch_array($result)) { 
@@ -39,12 +39,12 @@ class DAOFaixaSalarial extends DAOBehavior{
 	}
 
 	public function selectAll(){
-		$sql = "SELECT * FROM faixa_salarial"; 
+		$sql = "SELECT * FROM atuacao_profissional"; 
 		$array = array(); 
 		try{
 			$result = mysqli_query(parent::$connection,$sql);
 			while($consulta = mysqli_fetch_array($result)) { 
-		   		array_push($array, new FaixaSalarial((int) $consulta['idfaixa_salarial'], $consulta['desc'])); 
+		   		array_push($array, new AtuacaoProfissional((int) $consulta['idatuacao_profissional'], $consulta['desc'])); 
 			} 			
 		}catch( \Exception $e){}
 		$status =  mysqli_affected_rows(parent::$connection); 
