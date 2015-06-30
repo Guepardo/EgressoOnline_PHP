@@ -7,6 +7,7 @@ use View\CustomViews\ManterUsuarioView;
 use Util\BDConnectionFactory; 
 use Util\KeyFactory; 
 use Util\DataValidator; 
+use Util\Mail; 
 
 use DAO\CustomDAOs\DAOProfessor; 
 use DAO\CustomDAOs\DAOEgresso; 
@@ -52,6 +53,7 @@ class ManterUsuario extends GenericController{
 		//2: Validar os dados; 
 		//2: Enviar para o dão; 
 		//3: dizer se tudo ocorreu tudo bem ou não.
+		$mail = new Mail(); 
 		$passwordToSend = KeyFactory::randomKey(16);
 
 		//echo $passwordToSend; ENVIAR A SENHA POR E-MAIL AQUI.
@@ -66,7 +68,9 @@ class ManterUsuario extends GenericController{
 		$array = $this->dataValidator->get_errors();
 
 		self::verifyErros($array); 
+
 		$result = $this->daoProfessor->insert($professor);
+		$mail->sendEmail("Seu login: ". $professor->getCpf()." <br /> Sua senha: ". $passwordToSend, $professor->getEmail(),"EgressoOnline UEG - Informe de cadastro", $professor->getNome()); 
 		self::verifyErrosBd($array); 
 	}
 
