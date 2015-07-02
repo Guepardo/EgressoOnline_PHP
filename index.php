@@ -3,7 +3,6 @@
 session_start(); 
 
 //*********Apenas para motivos de debug*********
-$_SESSION['id_user'] = 1; 
 
 //Criar um arquivo para definições mais tarde. 
 define ('WWW_ROOT', dirname(__FILE__)); 

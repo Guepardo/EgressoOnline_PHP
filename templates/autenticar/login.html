@@ -1,0 +1,131 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <!-- $Include templates/lib/html/head.html --> 
+
+    <style>
+      .fix{
+      		min-width: 335px !important;  
+      		max-width: 339px !important;
+      	}
+      .fix_top{ 
+        margin-top: 3%;
+      }
+    	.main_container{
+    			position:relative;
+    			top:20%;
+  				border:5px;
+  				background-color: white;
+  				border-radius: 2px; 
+    		}
+
+    	.borda_inferior{
+          border-bottom-style: solid; 
+    			border-bottom-width: 2px; 
+    			border-bottom-color: rgb(169,169,169); 
+    	}
+    	
+      #logo{
+        margin: 15px 50px 15px 50px;
+        width: 210px; 
+        height: 100px; 
+      }
+
+      .buttom_fix{
+        width: 250px; 
+        margin-left: 25px; 
+        margin-right: 25px;  
+      }
+    </style>
+
+  </head>
+  <body>
+    
+    <div class="row fix_top">
+  		<div class="small-4 small-centered columns main_container fix">
+  			<!--Logo marca --> 
+  			<div class="row fix">
+  				<div class="large-12 columns borda_inferior" style="background-color: rgb(51,51,51);">
+                <img src="templates/lib/img/logo.png" alt="" id="logo">
+  				</div>	
+  			</div>
+  			<!--Form--> 
+        <form id="form" data-abide="ajax" >
+      			<div class="row">
+      				<div class="large-12 columns">
+      					  <label>CPF: 
+                    <input type="text" id="cpf" class="cpf" name="cpf" required  />
+                  </label> <small class="error">Preencha esse campo.</small>
+
+                  <label>Senha: 
+                    <input type="password" id="senha" name="senha" required  />
+                  </label> <small class="error">Preencha esse campo.</small>
+
+                  <!--Area para os botões--> 
+                <div class="row ">
+                    <div class="large-12 columns">
+                        <button id="buttom_login" class="button small buttom_fix " type="submit" >Login</button>
+                    </div>
+            </form>
+                 <a href="#" >Esqueci minha senha</a>
+            </div>
+  				</div>	
+
+  			</div>
+
+  		</div>
+	</div>
+
+    <!-- $Include templates/lib/html/footerscripts.html --> 
+    <script src="templates/lib/js/jquery.mask.min.js"></script>
+    <script src="templates/lib/js/md5.js"></script>
+    <script src="templates/lib/js/redirect.js"></script>
+    <script>
+      $(document).foundation();
+
+      $(document).ready(function(){
+         $('.cpf').mask('000.000.000-00');
+
+
+
+         $('#form').on('valid', function() {
+              sendRequisition();
+          });
+
+        function sendRequisition(){
+          var senha = CryptoJS.MD5($('#senha').val()).toString(); 
+          var cpf   = $('#cpf').val(); 
+          getByAjax({ 'password': senha, 'cpf': cpf},'index.php?action=login&usecase=autenticar', function(data){
+            data = JSON.parse(data); 
+            console.log(data['status']); 
+            if( data['status'] ){
+              //redirecionar
+              redirect('index.php',
+                { usecase : 'manterUsuario',
+                  action  : 'alterarSenhaView'
+                },
+                'POST'); 
+            }else{
+              //mensagem de incosistência. 
+            }
+          }); 
+        }
+
+        function getByAjax(data, url , foo){
+            $.ajax({ 
+             url : url,
+             method : 'post',
+             data: data}
+             ).done(function(data){
+               foo(data); 
+             }).fail(function(){
+
+             }).always(function(){
+
+             }); 
+        }
+
+      }); 
+    </script>
+  </body>
+</html>

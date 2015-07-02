@@ -99,6 +99,25 @@ class DAOUsuario extends DAOBehavior{
 			return $usuario; 
 	}
 
+	public function selectByCpfPassword($cpf, $password){
+		$sql = "SELECT * FROM USUARIO WHERE  cpf = '$cpf' AND senha = '$password'"; 
+		
+		try{
+			$result = mysqli_query(parent::$connection,$sql);
+			while($consulta = mysqli_fetch_array($result)) { 
+		   		$usuario = new Usuario( (int) $consulta['idusuario'], $consulta['nome'], $consulta['e_mail'], $consulta['senha'], (int) $consulta['idgenero_fk'], $consulta['cpf']); 
+			} 			
+		}catch( \Exception $e){}
+
+		$status =  mysqli_affected_rows(parent::$connection); 
+		if( $status == -1 )
+			return mysqli_error(parent::$connection); 
+		else if( $status == 0 )
+			return "Nada encontrado com essas credenciais."; 
+		else
+			return $usuario; 
+	}
+
 	public function update ($element){
 		$sql = "UPDATE USUARIO SET nome ='".$element->getNome()."',e_mail ='".$element->getEmail()."' WHERE idusuario = ". $element->getId(); 
 

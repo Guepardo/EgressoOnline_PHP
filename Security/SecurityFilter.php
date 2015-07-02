@@ -15,7 +15,7 @@ class SecurityFilter{
 		if( isset($_SESSION['status_login'] ) )
 			return $_SESSION['status_login']; 
 		else
-		return false; 
+			return false; 
 	}
 
 	public  function filteringRequest(){

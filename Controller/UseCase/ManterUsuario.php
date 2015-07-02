@@ -24,8 +24,8 @@ class ManterUsuario extends GenericController{
 
 	public function __construct(){
 		$this->manterUsuarioView = new ManterUsuarioView(); 
-		$this->daoProfessor = new DAOProfessor(); 
-		$this->dataValidator = new DataValidator(); 
+		$this->daoProfessor      = new DAOProfessor(); 
+		$this->dataValidator     = new DataValidator(); 
 	}
 
 	public function cadastroProfessorView(){
@@ -37,15 +37,15 @@ class ManterUsuario extends GenericController{
 	}
 
 	public function alterarDadosView(){
-		$this->manterUsuarioView->alterarDadosView(); 
+		//Muda a tela de acordo com o usuario. 
+		if( $_SESSION['egresso'])
+			$this->manterUsuarioView->alterarDadosView(); 
+		else
+			$this->manterUsuarioView->alterarDadosProfessorView();
 	}
 
 	public function alterarSenhaView(){
 		$this->manterUsuarioView->alterarSenhaView(); 
-	}
-
-	public function alterarDadosProfessorView(){
-		$this->manterUsuarioView->alterarDadosProfessorView();
 	}
 
 	public function cadastroProfessor($arg){
@@ -70,14 +70,16 @@ class ManterUsuario extends GenericController{
 		self::verifyErros($array); 
 
 		$result = $this->daoProfessor->insert($professor);
-		$mail->sendEmail("Seu login: ". $professor->getCpf()." <br /> Sua senha: ". $passwordToSend, $professor->getEmail(),"EgressoOnline UEG - Informe de cadastro", $professor->getNome()); 
+		$mail->sendEmail("Seu login: ". $professor->getCpf()." <br />Sua senha: ". $passwordToSend, $professor->getEmail(),"EgressoOnline UEG - Informe de cadastro", $professor->getNome()); 
 		self::verifyErrosBd($array); 
 	}
 
 	public function cadastroEgresso($arg){
 		$daoEgresso = new DAOEgresso(); 
 
+		$mail = new Mail(); 
 		$passwordToSend = KeyFactory::randomKey(16);
+
 		$egresso = new Egresso(0, $arg['nome'], $arg['e_mail'], md5($passwordToSend), $arg['genero'], $arg['cpf'], $arg['ano_conclusao'], $arg['ano_ingresso']);
 
 		//Validacao: 
@@ -90,6 +92,7 @@ class ManterUsuario extends GenericController{
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
 		$result = $daoEgresso->insert($egresso); 
+		$mail->sendEmail("Seu login: ". $egresso->getCpf()." <br />Sua senha: ". $passwordToSend, $egresso->getEmail(),"EgressoOnline UEG - Informe de cadastro", $egresso->getNome()); 
 		self::verifyErrosBd($result); 
 	}
 
