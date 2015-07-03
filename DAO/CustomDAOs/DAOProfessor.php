@@ -2,7 +2,7 @@
 namespace DAO\CustomDAOs; 
 
 use DAO\CustomDAOs; 
-
+use DAO\CustomDAOs\DAOUsuario; 
 
 class DAOProfessor extends DAOUsuario{
 	public function __construct(){
@@ -15,15 +15,13 @@ class DAOProfessor extends DAOUsuario{
 			return "Esse email já foi cadastrado"; 
 		if(parent::cpfExists($element->getCpf()))
 			return "Esse CPF já foi cadastrado"; 
+	
+		//Inserindo usuario
+		$idUsuario = parent::insert($element);
+		if( !is_int($idUsuario) )
+			return $idUsuario; 
 
-		$sql = "INSERT INTO USUARIO (nome, cpf, e_mail, senha, idgenero_fk) VALUES ( '".$element->getNome()."', '".$element->getCpf()."', '".$element->getEmail()."', '".$element->getSenha()."', ".$element->getGenero()." )"; 
-		
-		try{
-			mysqli_query(parent::$connection,$sql);
-			$id = mysqli_insert_id(parent::$connection); 
-		}catch( \Exception $e){}
-
-		$sql = "INSERT INTO PROFESSOR (idusuario_fk, is_coordenador) VALUES (". $id .",". $element->isCoordenador().")"; 
+		$sql = "INSERT INTO PROFESSOR (idusuario_fk, is_coordenador) VALUES (". $idUsuario .",". $element->isCoordenador().")"; 
 		try{
 		mysqli_query(parent::$connection,$sql);
 		}catch( \Exception $e){}

@@ -2,6 +2,8 @@
 namespace DAO\CustomDAOs; 
 
 use DAO\DAOBehavior; 
+use DAO\CustomDAOs\DAOGenero;
+
 
 use Model\Usuario; 
 
@@ -67,7 +69,13 @@ class DAOUsuario extends DAOBehavior{
 	}
 
 	public function insert( $element ){
-		$sql = "INSERT INTO USUARIO (nome, cpf, e_mail, senha, idgenero_fk) VALUES ( '".$element->getNome()."', '".$element->getCpf()."', '".$element->getEmail()."', '".$element->getSenha()."', ".$element->getGenero()." )"; 
+		$daoGenero     = new DAOGenero(); 
+		//Pega o id do genero pelo nome; 
+		$idGenero = $daoGenero->getIdByName($element->getGenero()); 
+		if( !is_int($idGenero) )
+			return $idGenero;
+
+		$sql = "INSERT INTO USUARIO (nome, cpf, e_mail, senha, idgenero_fk) VALUES ( '".$element->getNome()."', '".$element->getCpf()."', '".$element->getEmail()."', '".$element->getSenha()."', $idGenero )"; 
 		try{
 			mysqli_query(parent::$connection,$sql);
 			$idusuario = mysqli_insert_id(parent::$connection); 

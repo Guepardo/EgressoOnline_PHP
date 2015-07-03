@@ -20,11 +20,9 @@ use Model\Usuario;
 class ManterUsuario extends GenericController{
 	private $manterUsuarioView; 
 	private $dataValidator; 
-	private $daoProfessor; 
 
 	public function __construct(){
 		$this->manterUsuarioView = new ManterUsuarioView(); 
-		$this->daoProfessor      = new DAOProfessor(); 
 		$this->dataValidator     = new DataValidator(); 
 	}
 
@@ -53,6 +51,8 @@ class ManterUsuario extends GenericController{
 		//2: Validar os dados; 
 		//2: Enviar para o dão; 
 		//3: dizer se tudo ocorreu tudo bem ou não.
+		$daoProfessor   = new DAOProfessor(); 
+
 		$mail = new Mail(); 
 		$passwordToSend = KeyFactory::randomKey(16);
 
@@ -66,12 +66,10 @@ class ManterUsuario extends GenericController{
 		$this->dataValidator->set("Gênero", $professor->getGenero())->is_required();  
 
 		$array = $this->dataValidator->get_errors();
-
 		self::verifyErros($array); 
-
-		$result = $this->daoProfessor->insert($professor);
-		$mail->sendEmail("Seu login: ". $professor->getCpf()." <br />Sua senha: ". $passwordToSend, $professor->getEmail(),"EgressoOnline UEG - Informe de cadastro", $professor->getNome()); 
-		self::verifyErrosBd($array); 
+		$result = $daoProfessor->insert($professor);
+		if(empty($result)) $mail->sendEmail("Seu login: ". $professor->getCpf()." <br />Sua senha: ". $passwordToSend, $professor->getEmail(),"EgressoOnline UEG - Informe de cadastro", $professor->getNome()); 
+		self::verifyErrosBd($result); 	
 	}
 
 	public function cadastroEgresso($arg){
@@ -92,8 +90,9 @@ class ManterUsuario extends GenericController{
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
 		$result = $daoEgresso->insert($egresso); 
-		$mail->sendEmail("Seu login: ". $egresso->getCpf()." <br />Sua senha: ". $passwordToSend, $egresso->getEmail(),"EgressoOnline UEG - Informe de cadastro", $egresso->getNome()); 
+		if(empty($result)) $mail->sendEmail("Seu login: ". $egresso->getCpf()." <br />Sua senha: ". $passwordToSend, $egresso->getEmail(),"EgressoOnline UEG - Informe de cadastro", $egresso->getNome()); 
 		self::verifyErrosBd($result); 
+	
 	}
 
 	public function alterarSenha($arg){

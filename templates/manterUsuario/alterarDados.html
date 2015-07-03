@@ -1,6 +1,8 @@
 <!doctype html>
+
 <html class="no-js" lang="pt-br">
   <head>
+      <title>Alterar Dados</title>
    <!-- $Include templates/lib/html/head.html --> 
   </head>
   <body>
@@ -29,14 +31,14 @@
           <div class="row">
             <div class="medium-6 small-6 columns">
             <label>Nome <small>Obrigatório</small>
-              <input type="text"  required placeholder="large-6.columns" value="${egresso.nome}" />
+              <input type="text"  required  value="${egresso.nome}" />
             </label>
             <small class="error">Você precisa preencher o campo.</small>
             </div>
 
             <div class="medium-6 small-6 columns">
               <label>E-mail <small>Obrigatório</small>
-                <input type="email" required  placeholder="large-6.columns" value="${egresso.email}" />
+                <input type="email" required   value="${egresso.email}" />
               </label> <small class="error">Você precisa preencher o campo
               .</small>
             </div>
@@ -67,7 +69,7 @@
             <div class="row">
 	            <div class="medium-4 small-4 columns">
 		            <label>Telefone
-		              <input class="telefone" type="text" required placeholder="large-6.columns" value="${egresso.telefone}" />
+		              <input class="telefone" type="text" required placeholder="(00) 0000-0000" value="${egresso.telefone}" />
 		            </label> <small class="error">Preencha corretamente o campo.</small>
 	            </div>
           </div>
@@ -76,7 +78,7 @@
           <div class="row">
             <div class="medium-12 small-12 columns">
             <label>Endereço
-              <input type="text" placeholder="medium-6.columns" value="${egresso.endereco}" />
+              <input type="text" placeholder="Rua Exemplo, Número 4..." value="${egresso.endereco}" />
             </label>
             </div>
           </div>
@@ -123,7 +125,7 @@
               <div class="row">
                 <div class="medium-5 small-5 columns">
                 <label>Empresa
-                  <input type="text" placeholder="medium-6.columns"  value="${emprego.nome}"/>
+                  <input type="text" placeholder="Nome da empresa"  value="${emprego.nome}"/>
                 </label>
                 </div>
 

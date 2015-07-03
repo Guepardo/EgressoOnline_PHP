@@ -18,7 +18,7 @@ class GenericView {
 	}
 
 	protected function show() {
-		echo self::$templator->generateOutput();
+		self::$templator->generateOutput();
 	}
 
 	public function sendAjax($value){

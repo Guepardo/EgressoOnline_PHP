@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="pt-br">
   <head>
+      <title>Cadastro de Egresso</title>
    <!-- $Include templates/lib/html/head.html --> 
   </head>
   <body>
@@ -18,7 +19,7 @@
             <div class="row">
               <div class="medium-7 small-6 columns">
                   <label>Nome: <small>Obrigatório</small>
-                    <input type="text" name="nome" required  placeholder="large-6.columns" />
+                    <input type="text" name="nome" required   />
                   </label> <small class="error">Você precisa informar o nome do egresso</small>
                 </div>
               </div>
@@ -26,7 +27,7 @@
             <div class="row">
               <div class="medium-7 small-6 columns">
                   <label>CPF: <small>Obrigatório</small>
-                    <input type="text" name="cpf" class="cpf" required  placeholder="large-6.columns" />
+                    <input type="text" name="cpf" class="cpf" required  placeholder="000.000.000-00" />
                   </label> <small class="error">Você precisa informar o CPF</small>
                 </div>
               </div>
@@ -35,7 +36,7 @@
             <div class="row">
               <div class="medium-7 small-6 columns">
                   <label>E-mail: <small>Obrigatório</small>
-                    <input type="email" name="e_mail" required  placeholder="large-6.columns" />
+                    <input type="email" name="e_mail" required  placeholder="exemplo@email.com" />
                   </label> <small class="error">Você precisa inserir um e-mail válido</small>
                 </div>
               </div>
@@ -46,8 +47,8 @@
                   <label for="sexo">Gênero: <small>Obrigatório</small>
                   <select id="sexo" class="medium" name="genero" required>
                     <option value="">Selecione</option>
-                    <option value="1">Masculino</option>
-                    <option value="2">Feminino</option>
+                    <option value="MASCULINO">MASCULINO</option>
+                    <option value="FEMININO">FEMININO</option>
                
                   </select>
                 </label>
@@ -62,13 +63,13 @@
                     <div class="row">
                       <div class="medium-6 columns"> 
                           <label>Ano de ingresso: <small>Obrigatório</small>
-                          <input type="number"  name="ano_ingresso" required  max="5000" min="1900" placeholder="large-6.columns" />
+                          <input type="number"  name="ano_ingresso" required  max="5000" min="1900"  />
                         </label> <small class="error">Você precisa inserir um ano válido</small>
                       </div> 
 
                       <div class="medium-6 columns"> 
                            <label>Ano de conclusão: <small>Obrigatório</small>
-                           <input type="number" name="ano_conclusao" required  max="5000" min="1900" placeholder="large-6.columns" />
+                           <input type="number" name="ano_conclusao" required  max="5000" min="1900"  />
                         </label> <small class="error">Você precisa inserir um ano válido</small>
                       </div> 
                     </div>

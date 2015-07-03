@@ -44,7 +44,7 @@ class DAOEgresso extends DAOUsuario {
 			return $idEmprego; 
 
 		//Inserindo Egresso
-		$sql = "INSERT INTO EGRESSO (idusuario_fk, ano_ingresso, ano_conclusao, is_dado_publico, idestado_civil_fk, idlocalidade_fk, idemprego_fk) VALUES (". $idUsuario .",". $element->getAnoIngresso().",".$element->getAnoConclusao().",". $element->isDadoPublico() .", 0, $idLocalidade, $idEmprego)"; 
+		$sql = "INSERT INTO EGRESSO (idusuario_fk, ano_ingresso, ano_conclusao, is_dado_publico, idestado_civil_fk, idlocalidade_fk, idemprego_fk) VALUES (". $idUsuario .",". $element->getAnoIngresso().",".$element->getAnoConclusao().",". $element->isDadoPublico() .",0, $idLocalidade, $idEmprego)"; 
 		try{
 			mysqli_query(parent::$connection,$sql);
 		}catch( \Exception $e){}

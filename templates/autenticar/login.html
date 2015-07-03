@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="en">
   <head>
+      <title>EgressoOnline - Login</title>
     <!-- $Include templates/lib/html/head.html --> 
 
     <style>
@@ -42,7 +43,7 @@
   <body>
     
     <div class="row fix_top">
-  		<div class="small-4 small-centered columns main_container fix">
+  		<div class="medium-4 medium-centered columns main_container fix">
   			<!--Logo marca --> 
   			<div class="row fix">
   				<div class="large-12 columns borda_inferior" style="background-color: rgb(51,51,51);">
@@ -66,15 +67,22 @@
                     <div class="large-12 columns">
                         <button id="buttom_login" class="button small buttom_fix " type="submit" >Login</button>
                     </div>
+                </div>
+              </div>
+            </div>
             </form>
                  <a href="#" >Esqueci minha senha</a>
             </div>
   				</div>	
 
-  			</div>
+              <!--info-->
+            <div class="row fix_top">
+              <div id="info" class="medium-4 medium-centered columns">
+                
+              </div>
+            </div>
 
-  		</div>
-	</div>
+  
 
     <!-- $Include templates/lib/html/footerscripts.html --> 
     <script src="templates/lib/js/jquery.mask.min.js"></script>
@@ -102,11 +110,13 @@
               //redirecionar
               redirect('index.php',
                 { usecase : 'manterUsuario',
-                  action  : 'alterarSenhaView'
+                  action  : 'alterarDadosView'
                 },
                 'POST'); 
             }else{
-              //mensagem de incosistência. 
+               $('#info').append('<div data-alert class="alert-box alert radius"> CPF ou Senha inválido<a href="#"class="close">x</a></div>');  
+               $('#senha').val(''); 
+               $(document).foundation();
             }
           }); 
         }
