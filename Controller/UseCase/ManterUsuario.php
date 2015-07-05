@@ -8,6 +8,7 @@ use Util\BDConnectionFactory;
 use Util\KeyFactory; 
 use Util\DataValidator; 
 use Util\Mail; 
+use Util\FileWriter; 
 
 use DAO\CustomDAOs\DAOProfessor; 
 use DAO\CustomDAOs\DAOEgresso; 
@@ -68,7 +69,12 @@ class ManterUsuario extends GenericController{
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
 		$result = $daoProfessor->insert($professor);
-		if(empty($result)) $mail->sendEmail("Seu login: ". $professor->getCpf()." <br />Sua senha: ". $passwordToSend, $professor->getEmail(),"EgressoOnline UEG - Informe de cadastro", $professor->getNome()); 
+
+	
+		//if(empty($result)) $mail->sendEmail("Seu login: ". $professor->getCpf()." <br />Sua senha: ". $passwordToSend, $professor->getEmail(),"EgressoOnline UEG - Informe de cadastro", $professor->getNome()); 
+		//LINHA DE CÓDIGO ADICIONADA PARA 'BURLAR' O PROXY DA UNIVERSIDADE. 
+		( new FileWriter("Senhas_Professor") )->writeString("Seu login: ". $professor->getCpf()." <br />Sua senha: ". $passwordToSend); 
+
 		self::verifyErrosBd($result); 	
 	}
 
@@ -90,7 +96,11 @@ class ManterUsuario extends GenericController{
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
 		$result = $daoEgresso->insert($egresso); 
-		if(empty($result)) $mail->sendEmail("Seu login: ". $egresso->getCpf()." <br />Sua senha: ". $passwordToSend, $egresso->getEmail(),"EgressoOnline UEG - Informe de cadastro", $egresso->getNome()); 
+		
+		//if(empty($result)) $mail->sendEmail("Seu login: ". $egresso->getCpf()." <br />Sua senha: ". $passwordToSend, $egresso->getEmail(),"EgressoOnline UEG - Informe de cadastro", $egresso->getNome()); 
+		
+		//LINHA DE CÓDIGO ADICIONADA PARA 'BURLAR' O PROXY DA UNIVERSIDADE. 
+		( new FileWriter("Senhas_egressos") )->writeString("Seu login: ". $egresso->getCpf()." <br />Sua senha: ". $passwordToSend); 
 		self::verifyErrosBd($result); 
 	
 	}
