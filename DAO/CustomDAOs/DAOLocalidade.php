@@ -43,7 +43,59 @@ class DAOLocalidade extends DAOBehavior{
 			return $localidade; 
 	}
 
+	//retorna -1 em caso de erro
+	public function getNameCountry( $pk ){
+		$sql = "SELECT pais.desc FROM PAIS WHERE idpais = $pk"; 
+		try{
+			$result = mysqli_query(parent::$connection,$sql);
+			while($consulta = mysqli_fetch_array($result)) { 
+		   		$name = $consulta['desc']; 
+			} 			
+		}catch( \Exception $e){}
+		$status =  mysqli_affected_rows(parent::$connection); 
+		if( $status == -1 )
+			return mysqli_error(parent::$connection); 
+		else if( $status == 0 )
+			return -1; 
+		else
+			return $name; 
+	}
 
+	//retorna -1 em caso de erro
+	public function getNameCity( $pk ){
+		$sql = "SELECT cidade.desc FROM CIDADE WHERE idcidade = $pk"; 
+		try{
+			$result = mysqli_query(parent::$connection,$sql);
+			while($consulta = mysqli_fetch_array($result)) { 
+		   		$name = $consulta['desc']; 
+			} 			
+		}catch( \Exception $e){}
+		$status =  mysqli_affected_rows(parent::$connection); 
+		if( $status == -1 )
+			return mysqli_error(parent::$connection); 
+		else if( $status == 0 )
+			return -1; 
+		else
+			return $name; 
+	}
+
+	//retorna -1 em caso de erro
+	public function getStageByCity( $pk ){
+		$sql = "SELECT estado.desc FROM estado WHERE (SELECT idestado_fk FROM cidade WHERE idcidade = $pk) = idestado"; 
+		try{
+			$result = mysqli_query(parent::$connection,$sql);
+			while($consulta = mysqli_fetch_array($result)) { 
+		   		$name = $consulta['desc']; 
+			} 			
+		}catch( \Exception $e){}
+		$status =  mysqli_affected_rows(parent::$connection); 
+		if( $status == -1 )
+			return mysqli_error(parent::$connection); 
+		else if( $status == 0 )
+			return -1; 
+		else
+			return $name; 
+	}
 	public function delete( $pk ){}
 	public function update ($element){}
 }

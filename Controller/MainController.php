@@ -5,7 +5,7 @@ use Controller\UseCase\HumanController;
 use Controller\UseCase\ManterUsuario; 
 use Controller\UseCase\AjaxServices; 
 use Controller\UseCase\Autenticar; 
-
+use Controller\UseCase\TelaPrincipal; 
 
 class MainController {
 	private $controllersArray;
@@ -15,7 +15,8 @@ class MainController {
 				'humanos'       => new HumanController (), 
 				'manterUsuario' => new ManterUsuario(),
 				'ajaxServices'  => new AjaxServices(), 
-				'autenticar'    => new Autenticar()
+				'autenticar'    => new Autenticar(), 
+				'telaPrincipal' => new TelaPrincipal()
 		);
 	}
 	

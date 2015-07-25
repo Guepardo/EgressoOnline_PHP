@@ -112,6 +112,23 @@ class DAOEgresso extends DAOUsuario {
 		return $egresso; 
 	}
 
+	public function getIdLocation( $pk ){
+		$sql = "SELECT idlocalidade_fk FROM EGRESSO WHERE  idusuario_fk =  $pk"; 
+		try{
+			$result = mysqli_query(parent::$connection,$sql);
+			while($consulta = mysqli_fetch_array($result)) { 
+		   		 $description = (int) $consulta['idlocalidade_fk']; 
+			} 			
+		}catch( \Exception $e){}
+		$status =  mysqli_affected_rows(parent::$connection); 
+		if( $status == -1 )
+			return mysqli_error(parent::$connection); 
+		else if( $status == 0 )
+			return "Erro no banco de dados"; 
+		else
+			return $description; 
+	}
+
 	public function isEgresso( $pk ){
 		$sql = "SELECT COUNT(*) FROM EGRESSO WHERE  idusuario_fk =  $pk"; 
 		try{

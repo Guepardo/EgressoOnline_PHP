@@ -13,6 +13,7 @@ use Util\FileWriter;
 use DAO\CustomDAOs\DAOProfessor; 
 use DAO\CustomDAOs\DAOEgresso; 
 use DAO\CustomDAOs\DAOUsuario; 
+use DAO\CustomDAOs\DAODisciplina; 
 
 use Model\Professor; 
 use Model\Egresso; 
@@ -35,6 +36,10 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->cadastroEgressoView(); 
 	}
 
+	public function addDisciplinasView(){
+		$this->manterUsuarioView->addDisciplinaView(); 
+	}	
+
 	public function alterarDadosView(){
 		//Muda a tela de acordo com o usuario. 
 		if( $_SESSION['egresso'])
@@ -47,6 +52,28 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->alterarSenhaView(); 
 	}
 
+	public function delDisciplina($arg){
+		var_dump($arg);
+	}
+
+	public function addDisciplina($arg){
+		$daoDisciplina = new DAODisciplina(); 
+		$daoProfessor  = new DAOProfessor(); 
+
+		$this->dataValidator->set("Ano que lecionou", $arg['ano_lecionou'])->is_required()->max_value(3000)->min_value(1900); 
+
+		//Se aconteceu alguma coisa, retorne a mensagem de erro. 
+		$array = $this->dataValidator->get_errors();
+		self::verifyErros($array); 
+
+		$idDisciplina = $daoDisciplina->getIdByName($arg['disciplina']); 
+
+		if( $daoProfessor->isProfessor($_SESSION['id_user']) )
+			$result = $daoProfessor->addDisciplinaById($_SESSION['id_user'], $idDisciplina, $arg['ano_lecionou'] );  
+
+		self::verifyErrosBd($result); 	
+	}
+	
 	public function cadastroProfessor($arg){
 		//1: Montar a requisição num objeto
 		//2: Validar os dados; 
@@ -71,10 +98,8 @@ class ManterUsuario extends GenericController{
 		$result = $daoProfessor->insert($professor);
 
 	
-		//if(empty($result)) $mail->sendEmail("Seu login: ". $professor->getCpf()." <br />Sua senha: ". $passwordToSend, $professor->getEmail(),"EgressoOnline UEG - Informe de cadastro", $professor->getNome()); 
-		//LINHA DE CÓDIGO ADICIONADA PARA 'BURLAR' O PROXY DA UNIVERSIDADE. 
-		( new FileWriter("Senhas_Professor") )->writeString("Seu login: ". $professor->getCpf()." <br />Sua senha: ". $passwordToSend); 
-
+		if(empty($result)) $mail->sendEmail("Seu login: ". $professor->getCpf()." <br />Sua senha: ". $passwordToSend, $professor->getEmail(),"EgressoOnline UEG - Informe de cadastro", $professor->getNome()); 
+		
 		self::verifyErrosBd($result); 	
 	}
 
@@ -97,10 +122,8 @@ class ManterUsuario extends GenericController{
 		self::verifyErros($array); 
 		$result = $daoEgresso->insert($egresso); 
 		
-		//if(empty($result)) $mail->sendEmail("Seu login: ". $egresso->getCpf()." <br />Sua senha: ". $passwordToSend, $egresso->getEmail(),"EgressoOnline UEG - Informe de cadastro", $egresso->getNome()); 
+		if(empty($result)) $mail->sendEmail("Seu login: ". $egresso->getCpf()." <br />Sua senha: ". $passwordToSend, $egresso->getEmail(),"EgressoOnline UEG - Informe de cadastro", $egresso->getNome()); 
 		
-		//LINHA DE CÓDIGO ADICIONADA PARA 'BURLAR' O PROXY DA UNIVERSIDADE. 
-		( new FileWriter("Senhas_egressos") )->writeString("Seu login: ". $egresso->getCpf()." <br />Sua senha: ". $passwordToSend); 
 		self::verifyErrosBd($result); 
 	
 	}

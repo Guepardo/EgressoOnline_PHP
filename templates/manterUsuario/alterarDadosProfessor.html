@@ -1,95 +1,95 @@
 <!doctype html>
 <html class="no-js" lang="pt-br">
-  <head>
-      <title>Alterar Dados</title>
-   <!-- $Include templates/lib/html/head.html --> 
-  </head>
-  <body>
+<head>
+  <title>Alterar Dados</title>
+  <!-- $Include templates/lib/html/head.html --> 
+</head>
+<body>
 
-   <!-- $Include templates/lib/html/topbar.html --> 
+ <!-- $Include templates/lib/html/topbar.html --> 
 
-    <div class="row">
-      <div class="medium-10 medium-offset-1 columns"> <h1>Alterar dados</h1> </div>
-    </div>
+ <div class="row">
+  <div class="medium-10 medium-offset-1 columns"> <h1>Alterar dados</h1> </div>
+</div>
 
+<div class="row">
+  <div class="medium-10 medium-offset-1 columns">
+    <nav class="breadcrumbs">
+      <a href="#" class="current">Dados pessoais</a>
+      <a href="?action=alterarSenhaView&usecase=manterUsuario">Alterar senha</a>
+      <a href="#">Alterar Foto de Perfil</a>
+    </nav>
+  </div>
+</div>
+
+<div class="row">
+  <div class="medium-10 medium-offset-1 columns">
+    <form id="form" data-abide="ajax"> 
+      <!--Nome do professor--> 
       <div class="row">
-        <div class="medium-10 medium-offset-1 columns">
-          <nav class="breadcrumbs">
-            <a href="#" class="current">Dados pessoais</a>
-            <a href="?action=alterarSenhaView&usecase=manterUsuario">Alterar senha</a>
-            <a href="#">Alterar Foto de Perfil</a>
-          </nav>
+        <div class="medium-7 small-6 columns">
+          <label>Nome: <small>Obrigatório</small>
+            <input  name="nome" type="text" required   value="${usuario.nome}"/>
+          </label> <small class="error">Você precisa informar o nome do professor</small>
+        </div>
+      </div>
+      
+      <!--E-mail do professor--> 
+      <div class="row">
+        <div class="medium-7 small-6 columns">
+          <label>E-mail: <small>Obrigatório</small>
+            <input name="e_mail" type="email" required  placeholder="exemplo@email.cm" value="${usuario.email}" />
+          </label> <small class="error">Você precisa inserir um e-mail válido</small>
         </div>
       </div>
 
-    <div class="row">
-      <div class="medium-10 medium-offset-1 columns">
-        <form id="form" data-abide="ajax"> 
-            <!--Nome do professor--> 
-            <div class="row">
-              <div class="medium-7 small-6 columns">
-                  <label>Nome: <small>Obrigatório</small>
-                    <input  name="nome" type="text" required   value="${usuario.nome}"/>
-                  </label> <small class="error">Você precisa informar o nome do professor</small>
-                </div>
-              </div>
-   
-              <!--E-mail do professor--> 
-            <div class="row">
-              <div class="medium-7 small-6 columns">
-                  <label>E-mail: <small>Obrigatório</small>
-                    <input name="e_mail" type="email" required  placeholder="exemplo@email.cm" value="${usuario.email}" />
-                  </label> <small class="error">Você precisa inserir um e-mail válido</small>
-                </div>
-              </div>
 
-
-             <hr /> 
-            <!--info-->
-            <div class="row">
-              <div id="info" class="medium-12 columns">
-                
-              </div>
-            </div>
-
-            <!-- botões --> 
-            <div class="row">
-              <div class="medium-2 small-3 columns right">
-                <button class="button success tiny radius" type="submit" >Alterar</button>
-              </div>
-
-              <div class="medium-2 small-3 columns left">
-                <a class="button info tiny radius">Tela principal</a>
-              </div>
-            </div>
-        </form>
+      <hr /> 
+      <!--info-->
+      <div class="row">
+        <div id="info" class="medium-12 columns">
+          
+        </div>
       </div>
+
+      <!-- botões --> 
+      <div class="row">
+        <div class="medium-2 small-3 columns right">
+          <button class="button success tiny radius" type="submit" >Alterar</button>
+        </div>
+
+        <div class="medium-2 small-3 columns left">
+          <a class="button info tiny radius">Tela principal</a>
+        </div>
       </div>
-    
-    <div id="load" style="background-color:white;position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-15px;" class="hide">
-      <i class="fa fa-refresh fa-spin fa-3x hide" style="margin-left:27px"></i>
-      <h3>Aguarde</h3>
-    </div>
-       <!-- $Include templates/lib/html/footerscripts.html --> 
+    </form>
+  </div>
+</div>
 
-    <script src="templates/lib/js/jquery.mask.min.js"></script>
-    <script src="templates/lib/js/ajax.js"></script>
-    <script>
-      $(document).ready(function(){
+<div id="load" style="background-color:white;position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-15px;" class="hide">
+  <i class="fa fa-refresh fa-spin fa-3x hide" style="margin-left:27px"></i>
+  <h3>Aguarde</h3>
+</div>
+<!-- $Include templates/lib/html/footerscripts.html --> 
 
-          $('#form').on('valid', function() {
-              var data = $(this).serializeArray(); 
-              console.log(data);
-              var msg = "Faça uma última verificação \nOs dados que serão cadastrados:\n\n"; 
+<script src="templates/lib/js/jquery.mask.min.js"></script>
+<script src="templates/lib/js/ajax.js"></script>
+<script>
+  $(document).ready(function(){
 
-              for(var a = 0; a < data.length; a++ )
-                msg +="\n"+data[a].name+": "+ data[a].value;
+    $('#form').on('valid', function() {
+      var data = $(this).serializeArray(); 
+      console.log(data);
+      var msg = "Faça uma última verificação \nOs dados que serão cadastrados:\n\n"; 
 
-              sendAjax('index.php?usecase=manterUsuario&action=alterarDadosProfessor',data,msg); 
-           });
+      for(var a = 0; a < data.length; a++ )
+        msg +="\n"+data[a].name+": "+ data[a].value;
 
-        });
-    </script>
+      sendAjax('index.php?usecase=manterUsuario&action=alterarDadosProfessor',data,msg); 
+    });
 
-  </body>
+  });
+</script>
+
+</body>
 </html>

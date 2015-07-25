@@ -12,31 +12,31 @@ function sendAjax(relativeUrl,data,confirmMsg){
 
   $('#load').removeClass('hide'); 
   $.ajax({
-      url : relativeUrl, 
-      method : "post", 
-      data : data 
-   }).done(function(data){
-      console.log(data);
-      data = JSON.parse(data); 
-      console.log(data); 
-      if( data['status'] == false ){
-        $('#info').append('<div data-alert class="alert-box alert radius">'+prepareLogError(data)+'<a href="#"class="close">x</a></div>'); 
-      }
-      else{
-        $('#info').append('<div data-alert class="alert-box success radius">Operação feita com sucesso.<a href="#"class="close">x</a></div>'); 
-        clearFieldsInput(); 
-      }
+    url : relativeUrl, 
+    method : "post", 
+    data : data 
+  }).done(function(data){
+    console.log(data);
+    data = JSON.parse(data); 
+    console.log(data); 
+    if( data['status'] == false ){
+      $('#info').append('<div data-alert class="alert-box alert radius">'+prepareLogError(data)+'<a href="#"class="close">x</a></div>'); 
+    }
+    else{
+      $('#info').append('<div data-alert class="alert-box success radius">Operação feita com sucesso.<a href="#"class="close">x</a></div>'); 
+      clearFieldsInput(); 
+    }
 
-      
-      
-    }).fail(function(){
-      console.log('falhou');
-      $('#info').append('<div data-alert class="alert-box alert radius">Houve uma falha ao enviar os dados. Tente novamente.<a href="#"class="close">x</a></div>'); 
+    
+    
+  }).fail(function(){
+    console.log('falhou');
+    $('#info').append('<div data-alert class="alert-box alert radius">Houve uma falha ao enviar os dados. Tente novamente.<a href="#"class="close">x</a></div>'); 
 
-    }).always(function(){
-      $('#load').addClass('hide'); 
-      $(document).foundation();
-    }); 
+  }).always(function(){
+    $('#load').addClass('hide'); 
+    $(document).foundation();
+  }); 
 }
 
 function clearFieldsInput(){

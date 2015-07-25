@@ -1,0 +1,125 @@
+<!doctype html>
+<html class="no-js" lang="pt-br">
+<head>
+  <title>Alterar Dados</title>
+  <!-- $Include templates/lib/html/head.html --> 
+</head>
+<body>
+
+  <!-- $Include templates/lib/html/topbar.html --> 
+
+  <div class="row">
+    <div class="medium-10 medium-offset-1 columns"> <h1>Disciplinas lecionadas</h1> </div>
+  </div>
+  <!--coluna principal para as telas de formulários--> 
+  <div class="row">
+    <div class="medium-10 medium-offset-1 columns">
+      <!--inicio--> 
+      <fieldset class="panel
+      "> <legend>Disciplinas associadas</legend>
+      <div class="row">
+        <div class="medium-12 columns" style="height:300px;overflow-y:scroll">
+          <table >
+            <thead>
+              <tr>
+
+                <th width="100%">Disciplina</th>
+                <th width="150">Ano que lecionou</th>
+                <th width="70">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- $BeginBlock table --> 
+              <tr>
+                <td>${disciplina.name}</td>
+                <td>${disciplina.ano_lecionou}</td>
+                <td><button value="${disciplina.id}" class="button tiny alert" >Excluir</button>
+                </td>
+              </tr>
+              <!-- $EndBlock table --> 
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="panel"> <legend>Adicionar nova disciplina</legend>
+
+      <div class="medium-12 columns">
+        <form id="form" data-abide="ajax">
+          <div class="row">
+            <div class="large-5 columns">
+             <label for="disciplina">Disciplinas: <small>Obrigatório</small>
+              <select id="disciplina" class="medium" name="disciplina" required>
+                <option value="">Selecione</option>
+
+                <!-- $BeginBlock disciplinas --> 
+                <option value="${disciplina.descri}"> ${disciplina.descri} </option>
+                <!-- $EndBlock   disciplinas --> 
+              </select>
+            </label>
+            <small class="error">Você percisa selecionar Uma disciplina</small>
+          </div>
+
+          <div class="medium-3 columns end">
+            <label>Ano que lecionou <small>Obrigatório</small>
+              <input type="number" required name="ano_lecionou" value="2000" />
+            </label> <small class="error">Você precisa inserir um ano válido.</small>
+          </div>
+        </div> 
+
+        <hr /> 
+        <!-- botões --> 
+        <div class="row">
+          <div class="medium-2 small-3 columns right">
+            <button type="submit" class="button success tiny radius">Adicionar</button>
+          </div>
+
+          <div class="medium-3 small-3 columns left">
+            <a href="" class="button info tiny radius">Tela principal</a>
+          </div>
+        </div>           
+      </form>
+    </div>
+  </fieldset>
+  <!--fim--> 
+
+  <!--info-->
+  <div class="row">
+    <div id="info" class="medium-12 columns">
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- $Include templates/lib/html/footerscripts.html --> 
+<script src="templates/lib/js/ajax.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $('#form').on('valid', function() {
+      var data = $(this).serializeArray(); 
+      console.log(data);
+      var msg = "Faça uma última verificação \nOs dados que serão cadastrados:\n\n"; 
+
+      for(var a = 0; a < data.length; a++ )
+        msg +="\n"+data[a].name+": "+ data[a].value;
+      sendAjax('index.php?usecase=manterUsuario&action=addDisciplina',data,msg); 
+    });
+
+    $('button').click(function(){
+      var data = this.value;
+      $.ajax({
+        url : 'index.php?usecase=manterUsuario&action=delDisciplina&id='+this.value, 
+        method : "post"
+      }).done(function(data){
+        console.log(data); 
+      }); 
+    }); 
+}); 
+</script>
+
+</body>
+</html>

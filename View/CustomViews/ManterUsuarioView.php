@@ -9,6 +9,8 @@ use DAO\CustomDAOs\DAOEstadoCivil;
 use DAO\CustomDAOs\DAORegiao; 
 use DAO\CustomDAOs\DAOAtuacaoProfissional; 
 use DAO\CustomDAOs\DAORedeSocial;
+use DAO\CustomDAOs\DAODisciplina; 
+use DAO\CustomDAOs\DAOProfessor; 
 
 class ManterUsuarioView extends GenericView{
 	public function __construct(){
@@ -25,6 +27,28 @@ class ManterUsuarioView extends GenericView{
 		parent::show(); 
 	}
 
+	public function addDisciplinaView(){
+		$daoDisciplina = new DAODisciplina(); 
+		$daoProfessor  = new DAOProfessor(); 
+
+		parent::getTemplateByAction("adicionarDisciplinas");
+
+		//Adicionando as matérias do bd no dropdown
+		foreach( $daoDisciplina->selectAll() as $disciplina ){
+			parent::$templator->setVariable('disciplina.descri', utf8_encode($disciplina->getDescricao())); 
+			parent::$templator->addBlock('disciplinas'); 
+		}
+
+		foreach( $daoProfessor->hasDisciplinas($_SESSION['id_user']) as $value ){
+			parent::$templator->setVariable('disciplina.name', utf8_encode($daoDisciplina->getNameById($value['iddisciplina_fk']))); 
+			parent::$templator->setVariable('disciplina.id', $value['iddisciplina_fk']); 
+			parent::$templator->setVariable('disciplina.ano_lecionou',$value['ano_lecionou']);
+			parent::$templator->addBlock('table'); 
+		}
+
+		parent::show(); 
+	}
+
 	public function alterarDadosView(){
 		//Roteiro: 
 		//Adicionar todos os conteúdos dos dropdowns
@@ -38,6 +62,7 @@ class ManterUsuarioView extends GenericView{
 		$daoRedeSocial          = new DAORedeSocial(); 
 
 		$egresso = $daoEgresso->select($_SESSION['id_user']); 
+
 		parent::getTemplateByAction("alterarDados"); 
 		//Begin Blocks
 		//Estado Civil: 
@@ -94,6 +119,9 @@ class ManterUsuarioView extends GenericView{
 			parent::$templator->addBlock("rede_social"); 
 		}		
 		
+		//Adicionando checkbox: dado público ou não
+		parent::$templator->setVariable("egresso.dados_publico", ($egresso->isDadoPublico()) ? "checked" : "" ); 
+
 		//Criando resumo de tela: 
 		parent::$templator->setVariable("egresso.nome", $egresso->getNome()); 
 		parent::$templator->setVariable("egresso.email", utf8_encode($egresso->getEmail())); 

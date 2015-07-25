@@ -1,120 +1,120 @@
 <!doctype html>
 <html class="no-js" lang="pt-br">
-  <head>
-      <title>Alterar Senha</title>
-   <!-- $Include templates/lib/html/head.html --> 
-  </head>
-  <body>
+<head>
+  <title>Alterar Senha</title>
+  <!-- $Include templates/lib/html/head.html --> 
+</head>
+<body>
 
-   <!-- $Include templates/lib/html/topbar.html --> 
+ <!-- $Include templates/lib/html/topbar.html --> 
 
-    <div class="row">
-      <div class="medium-10 medium-offset-1 columns"> <h1>Alterar senha</h1> </div>
-    </div>
+ <div class="row">
+  <div class="medium-10 medium-offset-1 columns"> <h1>Alterar senha</h1> </div>
+</div>
 
-    <div class="row">
-      <div class="medium-10 medium-offset-1 columns">
-        <nav class="breadcrumbs">
-          <a href="?action=alterarDadosView&usecase=manterUsuario" >Dados pessoais</a>
-          <a href="#" class="current">Alterar senha</a>
-          <a href="#">Alterar Foto de Perfil</a>
-        </nav>
+<div class="row">
+  <div class="medium-10 medium-offset-1 columns">
+    <nav class="breadcrumbs">
+      <a href="?action=alterarDadosView&usecase=manterUsuario" >Dados pessoais</a>
+      <a href="#" class="current">Alterar senha</a>
+      <a href="#">Alterar Foto de Perfil</a>
+    </nav>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="medium-10 medium-offset-1 columns">
+    <form id="form" data-abide="ajax"> 
+      <!--Senha atual--> 
+      <div class="row">
+        <div class="medium-7 small-6 columns">
+          <label>Senha atual: <small>Obrigatório</small>
+            <input type="password" name="senha" required  placeholder="Senha atual" />
+          </label> <small class="error">Preencha esse campo.</small>
+        </div>
       </div>
+      
+      <div class="row">
+        <div class="medium-7 columns">
+
+          <fieldset class="panel">
+            <legend>Nova senha</legend>
+            
+            <div class="row">
+              <div class="medium-12 columns password-field"> 
+               <label>Nova senha: <small>Obrigatório</small>
+                 <input type="password" name="novaSenha" id="password" required  pattern=".{4,16}" placeholder="Nova senha" />
+               </label> <small class="error">Sua senha deve conter entre 4 a 16 caracteres.</small>
+             </div> 
+           </div>
+
+           <div class="row">
+            <div class="medium-12 columns"> 
+             <label>Confirmação: <small>Obrigatório</small>
+               <input type="password" name="confirmacao" required  data-equalto="password" placeholder="Confirmação de senha" />
+             </label> <small class="error">Senha diferente do campo acima.</small>
+           </div> 
+         </div>
+
+       </fieldset>
+     </div>
+   </div>
+
+
+   <hr /> 
+   <!--info-->
+   <div class="row">
+    <div id="info" class="medium-12 columns">
+      
+    </div>
+  </div>
+
+  <!-- botões --> 
+  <div class="row">
+    <div class="medium-2 small-3 columns right">
+      <button class="button success tiny radius" type="submit" >Cadastrar</button>
     </div>
 
-
-    <div class="row">
-      <div class="medium-10 medium-offset-1 columns">
-        <form id="form" data-abide="ajax"> 
-          <!--Senha atual--> 
-            <div class="row">
-              <div class="medium-7 small-6 columns">
-                  <label>Senha atual: <small>Obrigatório</small>
-                    <input type="password" name="senha" required  placeholder="Senha atual" />
-                  </label> <small class="error">Preencha esse campo.</small>
-                </div>
-              </div>
-              
-              <div class="row">
-              <div class="medium-7 columns">
-
-                <fieldset class="panel">
-                <legend>Nova senha</legend>
-                    
-                    <div class="row">
-                      <div class="medium-12 columns password-field"> 
-                           <label>Nova senha: <small>Obrigatório</small>
-                           <input type="password" name="novaSenha" id="password" required  pattern=".{4,16}" placeholder="Nova senha" />
-                        </label> <small class="error">Sua senha deve conter entre 4 a 16 caracteres.</small>
-                      </div> 
-                    </div>
-
-                    <div class="row">
-                      <div class="medium-12 columns"> 
-                           <label>Confirmação: <small>Obrigatório</small>
-                           <input type="password" name="confirmacao" required  data-equalto="password" placeholder="Confirmação de senha" />
-                        </label> <small class="error">Senha diferente do campo acima.</small>
-                      </div> 
-                    </div>
-
-                </fieldset>
-                </div>
-              </div>
-
-
-             <hr /> 
-            <!--info-->
-            <div class="row">
-              <div id="info" class="medium-12 columns">
-                
-              </div>
-            </div>
-
-            <!-- botões --> 
-            <div class="row">
-              <div class="medium-2 small-3 columns right">
-                <button class="button success tiny radius" type="submit" >Cadastrar</button>
-              </div>
-
-              <div class="medium-2 small-3 columns left">
-                <a class="button info tiny radius">Tela principal</a>
-              </div>
-            </div>
-
-          </div>
-        </form>
-      </div>
-    
-    <div id="load" style="background-color:white;position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-15px;" class="hide">
-      <i class="fa fa-refresh fa-spin fa-3x hide" style="margin-left:27px"></i>
-      <h3>Aguarde</h3>
+    <div class="medium-2 small-3 columns left">
+      <a class="button info tiny radius">Tela principal</a>
     </div>
-       
-    <!-- $Include templates/lib/html/footerscripts.html --> 
+  </div>
+
+</div>
+</form>
+</div>
+
+<div id="load" style="background-color:white;position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-15px;" class="hide">
+  <i class="fa fa-refresh fa-spin fa-3x hide" style="margin-left:27px"></i>
+  <h3>Aguarde</h3>
+</div>
+
+<!-- $Include templates/lib/html/footerscripts.html --> 
 
 
-    <script src="templates/lib/js/ajax.js"></script>
-    <script src="templates/lib/js/md5.js"></script>
-    
-    <script>
-      $(document).ready(function(){
+<script src="templates/lib/js/ajax.js"></script>
+<script src="templates/lib/js/md5.js"></script>
 
-          $('#form').on('valid', function() {
-              var data = $(this).serializeArray(); 
-              var temp = new Object(); 
+<script>
+  $(document).ready(function(){
 
-              for(var a = 0 ; a < data.length ; a++)
-                temp[data[a].name] = data[a].value;  
+    $('#form').on('valid', function() {
+      var data = $(this).serializeArray(); 
+      var temp = new Object(); 
 
-              temp['senha']       = CryptoJS.MD5(temp['senha']).toString(); 
-              temp['novaSenha']   = CryptoJS.MD5(temp['novaSenha']).toString();
-              temp['confirmacao'] = CryptoJS.MD5(temp['confirmacao']).toString();
+      for(var a = 0 ; a < data.length ; a++)
+        temp[data[a].name] = data[a].value;  
 
-              sendAjax('index.php?usecase=manterUsuario&action=alterarSenha',temp); 
-           });
+      temp['senha']       = CryptoJS.MD5(temp['senha']).toString(); 
+      temp['novaSenha']   = CryptoJS.MD5(temp['novaSenha']).toString();
+      temp['confirmacao'] = CryptoJS.MD5(temp['confirmacao']).toString();
 
-        });
-    </script>
+      sendAjax('index.php?usecase=manterUsuario&action=alterarSenha',temp); 
+    });
 
-  </body>
+  });
+</script>
+
+</body>
 </html>

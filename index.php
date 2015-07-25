@@ -16,11 +16,19 @@ use Security\SecurityFilter;
 use DAO\CustomDAOs\DAOEgresso; 
 use DAO\CustomDAOs\DAOFaixaSalarial; 
 use DAO\CustomDAOs\DAOGenero; 
+use DAO\CustomDAOs\DAODisciplina; 
+use DAO\CustomDAOs\DAOProfessor; 
+
 use Util\Mail; 
 
 //	(new SecurityFilter())->filteringRequest(); 
 
 //var_dump($_REQUEST); 
+//Apenas para os testes ficarem mais dinâmicos. 
+if( empty($_REQUEST['usecase']) || empty($_REQUEST['action']) ){
+	$_REQUEST['usecase'] = 'autenticar'; 
+	$_REQUEST['action'] = 'loginView'; 
+}
 
 (new MainController() )->findMyController(); 
 

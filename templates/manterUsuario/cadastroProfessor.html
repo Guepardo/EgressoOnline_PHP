@@ -1,110 +1,110 @@
 <!doctype html>
 <html class="no-js" lang="pt-br">
-  <head>
-      <title>Cadastro de Professor</title>
-   <!-- $Include templates/lib/html/head.html --> 
-  </head>
-  <body>
+<head>
+  <title>Cadastro de Professor</title>
+  <!-- $Include templates/lib/html/head.html --> 
+</head>
+<body>
 
-   <!-- $Include templates/lib/html/topbar.html --> 
+ <!-- $Include templates/lib/html/topbar.html --> 
 
-    <div class="row">
-      <div class="medium-10 medium-offset-1 columns"> <h1>Cadastro de professor</h1> </div>
-    </div>
+ <div class="row">
+  <div class="medium-10 medium-offset-1 columns"> <h1>Cadastro de professor</h1> </div>
+</div>
 
-    <div class="row">
-      <div class="medium-10 medium-offset-1 columns">
-        <form id="form" data-abide="ajax"> 
-            <!--Nome do professor--> 
-            <div class="row">
-              <div class="medium-7 small-6 columns">
-                  <label>Nome: <small>Obrigatório</small>
-                    <input  name="nome" type="text" required   />
-                  </label> <small class="error">Você precisa informar o nome do professor</small>
-                </div>
-              </div>
-            <!--CPf do professor--> 
-            <div class="row">
-              <div class="medium-7 small-6 columns">
-                  <label>CPF: <small>Obrigatório</small>
-                    <input name="cpf" class="cpf" type="text"  required placeholder="000.000.000-00" />
-                  </label> <small class="error">Você precisa informar o CPF</small>
-                </div>
-              </div>
-              
-              <!--E-mail do professor--> 
-            <div class="row">
-              <div class="medium-7 small-6 columns">
-                  <label>E-mail: <small>Obrigatório</small>
-                    <input name="e_mail" type="email" required  placeholder="exemplo@email.com" />
-                  </label> <small class="error">Você precisa inserir um e-mail válido</small>
-                </div>
-              </div>
-
-              <!-- Sexo do Professor--> 
-              <div class="row">
-                <div class="medium-3 columns">
-                  <label for="sexo">Gênero: <small>Obrigatório</small>
-                  <select id="sexo" name="genero" class="medium" required>
-                    <option value="">Selecione</option>
-                    <option value="MASCULINO">MASCULINO</option>
-                    <option value="FEMININO">FEMININO</option>
-               
-                  </select>
-                </label>
-                <small class="error">Você percisa selecionar Gênero</small>
-                </div>
-              </div>
-
-             <hr /> 
-            <!--info-->
-            <div class="row">
-              <div id="info" class="medium-12 columns">
-                
-              </div>
-            </div>
-
-            <!-- botões --> 
-            <div class="row">
-              <div class="medium-2 small-3 columns right">
-                <button class="button success tiny radius" type="submit" >Cadastrar</button>
-              </div>
-
-              <div class="medium-2 small-3 columns left">
-                <a class="button info tiny radius">Tela principal</a>
-              </div>
-            </div>
-
-          </div>
-        </form>
+<div class="row">
+  <div class="medium-10 medium-offset-1 columns">
+    <form id="form" data-abide="ajax"> 
+      <!--Nome do professor--> 
+      <div class="row">
+        <div class="medium-7 small-6 columns">
+          <label>Nome: <small>Obrigatório</small>
+            <input  name="nome" type="text" required   />
+          </label> <small class="error">Você precisa informar o nome do professor</small>
+        </div>
       </div>
-    
-    <div id="load" style="background-color:white;position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-15px;" class="hide">
-      <i class="fa fa-refresh fa-spin fa-3x hide" style="margin-left:27px"></i>
-      <h3>Aguarde</h3>
+      <!--CPf do professor--> 
+      <div class="row">
+        <div class="medium-7 small-6 columns">
+          <label>CPF: <small>Obrigatório</small>
+            <input name="cpf" class="cpf" type="text"  required placeholder="000.000.000-00" />
+          </label> <small class="error">Você precisa informar o CPF</small>
+        </div>
+      </div>
+      
+      <!--E-mail do professor--> 
+      <div class="row">
+        <div class="medium-7 small-6 columns">
+          <label>E-mail: <small>Obrigatório</small>
+            <input name="e_mail" type="email" required  placeholder="exemplo@email.com" />
+          </label> <small class="error">Você precisa inserir um e-mail válido</small>
+        </div>
+      </div>
+
+      <!-- Sexo do Professor--> 
+      <div class="row">
+        <div class="medium-3 columns">
+          <label for="sexo">Gênero: <small>Obrigatório</small>
+            <select id="sexo" name="genero" class="medium" required>
+              <option value="">Selecione</option>
+              <option value="MASCULINO">MASCULINO</option>
+              <option value="FEMININO">FEMININO</option>
+              
+            </select>
+          </label>
+          <small class="error">Você percisa selecionar Gênero</small>
+        </div>
+      </div>
+
+      <hr /> 
+      <!--info-->
+      <div class="row">
+        <div id="info" class="medium-12 columns">
+          
+        </div>
+      </div>
+
+      <!-- botões --> 
+      <div class="row">
+        <div class="medium-2 small-3 columns right">
+          <button class="button success tiny radius" type="submit" >Cadastrar</button>
+        </div>
+
+        <div class="medium-2 small-3 columns left">
+          <a class="button info tiny radius">Tela principal</a>
+        </div>
+      </div>
+
     </div>
-       <!-- $Include templates/lib/html/footerscripts.html --> 
+  </form>
+</div>
 
-    <script src="templates/lib/js/jquery.mask.min.js"></script>
-    <script src="templates/lib/js/ajax.js"></script>
-    <script>
-      $(document).ready(function(){
+<div id="load" style="background-color:white;position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-15px;" class="hide">
+  <i class="fa fa-refresh fa-spin fa-3x hide" style="margin-left:27px"></i>
+  <h3>Aguarde</h3>
+</div>
+<!-- $Include templates/lib/html/footerscripts.html --> 
 
-          $('.cpf').mask('000.000.000-00');
+<script src="templates/lib/js/jquery.mask.min.js"></script>
+<script src="templates/lib/js/ajax.js"></script>
+<script>
+  $(document).ready(function(){
 
-          $('#form').on('valid', function() {
-              var data = $(this).serializeArray(); 
-              console.log(data);
-              var msg = "Faça uma última verificação \nOs dados que serão cadastrados:\n\n"; 
+    $('.cpf').mask('000.000.000-00');
 
-              for(var a = 0; a < data.length; a++ )
-                msg +="\n"+data[a].name+": "+ data[a].value;
+    $('#form').on('valid', function() {
+      var data = $(this).serializeArray(); 
+      console.log(data);
+      var msg = "Faça uma última verificação \nOs dados que serão cadastrados:\n\n"; 
 
-              sendAjax('index.php?usecase=manterUsuario&action=cadastroProfessor',data,msg); 
-           });
+      for(var a = 0; a < data.length; a++ )
+        msg +="\n"+data[a].name+": "+ data[a].value;
 
-        });
-    </script>
+      sendAjax('index.php?usecase=manterUsuario&action=cadastroProfessor',data,msg); 
+    });
 
-  </body>
+  });
+</script>
+
+</body>
 </html>

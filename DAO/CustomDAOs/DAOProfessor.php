@@ -15,7 +15,7 @@ class DAOProfessor extends DAOUsuario{
 			return "Esse email já foi cadastrado"; 
 		if(parent::cpfExists($element->getCpf()))
 			return "Esse CPF já foi cadastrado"; 
-	
+
 		//Inserindo usuario
 		$idUsuario = parent::insert($element);
 		if( !is_int($idUsuario) )
@@ -23,7 +23,7 @@ class DAOProfessor extends DAOUsuario{
 
 		$sql = "INSERT INTO PROFESSOR (idusuario_fk, is_coordenador) VALUES (". $idUsuario .",". $element->isCoordenador().")"; 
 		try{
-		mysqli_query(parent::$connection,$sql);
+			mysqli_query(parent::$connection,$sql);
 		}catch( \Exception $e){}
 
 		return mysqli_error(parent::$connection); 
@@ -35,7 +35,7 @@ class DAOProfessor extends DAOUsuario{
 		try{
 			$result = mysqli_query(parent::$connection,$sql);
 			while($consulta = mysqli_fetch_array($result)) { 
-		   		 $description = (int) $consulta['COUNT(*)']; 
+				$description = (int) $consulta['COUNT(*)']; 
 			} 			
 		}catch( \Exception $e){}
 		$status =  mysqli_affected_rows(parent::$connection); 
@@ -45,6 +45,34 @@ class DAOProfessor extends DAOUsuario{
 			return "Erro no banco de dados"; 
 		else
 			return $description; 
+	}
+
+	public function addDisciplinaById($idProf , $idDisci, $ano){
+		$sql = "INSERT INTO disciplina_has_professor (iddisciplina_fk, idusuario_fk, ano_lecionou) VALUES ($idDisci, $idProf, $ano)"; 
+		try{
+			mysqli_query(parent::$connection,$sql);
+		}catch( \Exception $e){}
+
+		return mysqli_error(parent::$connection); 
+	}
+	
+	public function hasDisciplinas($idProf){
+		$sql = "SELECT * FROM disciplina_has_professor WHERE  idusuario_fk = $idProf "; 
+		$array = array(); 
+
+		try{
+			$result = mysqli_query(parent::$connection,$sql);
+			while($consulta = mysqli_fetch_array($result)) { 
+				array_push($array, array("iddisciplina_fk" => $consulta['iddisciplina_fk'], "ano_lecionou" => $consulta['ano_lecionou'])); 
+			} 			
+		}catch( \Exception $e){}
+		$status =  mysqli_affected_rows(parent::$connection); 
+		if( $status == -1 )
+			return mysqli_error(parent::$connection); 
+		else if( $status == 0 )
+			return "Erro no banco de dados"; 
+		else
+			return $array; 
 	}
 
 	public function delete( $pk ){
