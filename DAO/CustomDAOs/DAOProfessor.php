@@ -70,9 +70,19 @@ class DAOProfessor extends DAOUsuario{
 		if( $status == -1 )
 			return mysqli_error(parent::$connection); 
 		else if( $status == 0 )
-			return "Erro no banco de dados"; 
+			return false; 
 		else
 			return $array; 
+	}
+
+	public function unlinkDisciplina($idUsuario, $idDisciplina){
+		$sql = "DELETE FROM disciplina_has_professor WHERE iddisciplina_fk = $idDisciplina AND idusuario_fk = $idUsuario"; 
+
+		try{
+			mysqli_query(parent::$connection,$sql);
+		}catch( \Exception $e){}
+
+		return mysqli_error(parent::$connection); 
 	}
 
 	public function delete( $pk ){

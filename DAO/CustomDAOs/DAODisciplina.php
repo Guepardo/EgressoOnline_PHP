@@ -63,7 +63,7 @@ class DAODisciplina extends DAOBehavior{
 		else
 			return $name; 
 	}
-
+	
 	public function insert( $element ){} 
 	public function delete( $pk ){}
 	public function select ( $pk ){}

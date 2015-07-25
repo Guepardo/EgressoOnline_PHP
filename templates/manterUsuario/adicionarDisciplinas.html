@@ -29,11 +29,12 @@
               </tr>
             </thead>
             <tbody>
+              ${nohas}
               <!-- $BeginBlock table --> 
               <tr>
                 <td>${disciplina.name}</td>
                 <td>${disciplina.ano_lecionou}</td>
-                <td><button value="${disciplina.id}" class="button tiny alert" >Excluir</button>
+                <td><button value="${disciplina.id}" class="button tiny alert event" >Excluir</button>
                 </td>
               </tr>
               <!-- $EndBlock table --> 
@@ -109,16 +110,23 @@
       sendAjax('index.php?usecase=manterUsuario&action=addDisciplina',data,msg); 
     });
 
-    $('button').click(function(){
-      var data = this.value;
+    $('.event').click(function(){
+      var data = { 'id_materia' : this.value  };
+
       $.ajax({
-        url : 'index.php?usecase=manterUsuario&action=delDisciplina&id='+this.value, 
+        url : 'index.php?usecase=manterUsuario&action=delDisciplina', 
+        'data' : data,  
         method : "post"
       }).done(function(data){
-        console.log(data); 
+        data = JSON.parse(data); 
+
+        if(data['status'] )
+          window.location.reload();
+        else
+          $('#info').append('<div data-alert class="alert-box alert radius">'+prepareLogError(data)+'<a href="#"class="close">x</a></div>'); 
       }); 
     }); 
-}); 
+  }); 
 </script>
 
 </body>

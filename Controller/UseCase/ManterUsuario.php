@@ -53,7 +53,17 @@ class ManterUsuario extends GenericController{
 	}
 
 	public function delDisciplina($arg){
-		var_dump($arg);
+		//roteiro: 
+		//Pegar o id do usuário que está logado no memento
+		//pegar o id da matéria que desvinculada do usuário. 
+		$daoProfessor = new DAOProfessor(); 
+
+		//Ver se esses dados estão vazios mais tarde. 
+		$idUsuario = $_SESSION['id_user'];
+		$idMateria = $arg['id_materia']; 
+
+		$result = $daoProfessor->unlinkDisciplina($idUsuario, $idMateria);
+		self::verifyErrosBd($result); 
 	}
 
 	public function addDisciplina($arg){

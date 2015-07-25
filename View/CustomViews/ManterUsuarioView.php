@@ -39,11 +39,17 @@ class ManterUsuarioView extends GenericView{
 			parent::$templator->addBlock('disciplinas'); 
 		}
 
-		foreach( $daoProfessor->hasDisciplinas($_SESSION['id_user']) as $value ){
-			parent::$templator->setVariable('disciplina.name', utf8_encode($daoDisciplina->getNameById($value['iddisciplina_fk']))); 
-			parent::$templator->setVariable('disciplina.id', $value['iddisciplina_fk']); 
-			parent::$templator->setVariable('disciplina.ano_lecionou',$value['ano_lecionou']);
-			parent::$templator->addBlock('table'); 
+		$array = $daoProfessor->hasDisciplinas($_SESSION['id_user']); 
+
+		if($array != false ){
+			foreach(  $array as $value ){
+				parent::$templator->setVariable('disciplina.name', utf8_encode($daoDisciplina->getNameById($value['iddisciplina_fk']))); 
+				parent::$templator->setVariable('disciplina.id', $value['iddisciplina_fk']); 
+				parent::$templator->setVariable('disciplina.ano_lecionou',$value['ano_lecionou']);
+				parent::$templator->addBlock('table'); 
+			}
+		}else{
+			parent::$templator->setVariable('nohas', "<tr> <td> <p>Não há disciplinas vinculadas no seu cadastro. </p></td> </tr>"); 
 		}
 
 		parent::show(); 
