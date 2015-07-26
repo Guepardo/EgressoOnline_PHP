@@ -179,21 +179,25 @@
     <div class="row" >
       <div class="medium-4 columns">
         <label>Pais
-          <select>
-            <option>Nada</option>
+          <select id="emprego_pais">
+            <!-- $BeginBlock emprego.pais -->
+            <option value="${emprego.pais.value}"> ${emprego.pais.desc}</option>
+            <!-- $EndBlock emprego.pais -->
           </select>
         </label>
       </div>
 
-      <div class="medium-4 columns hide">
+      <div id="emprego_estado" class="medium-4 columns hide">
         <label>Estado
           <select>
-            <option>Nada</option>
+            <!-- $BeginBlock emprego.estado -->
+            <option value="${emprego.estado.value}"> ${emprego.estado.desc}</option>
+            <!-- $EndBlock emprego.estado -->
           </select>
         </label>
       </div>
 
-      <div class="medium-4 columns hide">
+      <div id="emprego_cidade" class="medium-4 columns hide">
         <label>Cidade
           <select>
             <option>Nada</option>
@@ -201,7 +205,7 @@
         </label>
       </div>
 
-      <div class="medium-8  columns">
+      <div id="emprego_complemento" class="medium-8  columns">
         <label>Estado/Província/Região
           <input type="text"  name="" placeholder="Digite o complemento do seu endereço." >
         </label> 
@@ -301,21 +305,25 @@
     <div class="row" >
       <div class="medium-4 columns">
         <label>Pais
-          <select>
-            <option>Nada</option>
+          <select id="pos_pais">
+            <!-- $BeginBlock pos.pais -->
+            <option value="${pos.pais.value}"> ${pos.pais.desc}</option>
+            <!-- $EndBlock pos.pais -->
           </select>
         </label>
       </div>
 
-      <div class="medium-4 columns hide">
+      <div id="pos_estado" class="medium-4 columns hide">
         <label>Estado
           <select>
-            <option>Nada</option>
+            <!-- $BeginBlock pos.estado -->
+            <option value="${pos.estado.value}"> ${pos.estado.desc}</option>
+            <!-- $EndBlock pos.estado -->
           </select>
         </label>
       </div>
 
-      <div class="medium-4 columns hide">
+      <div id="pos_cidade" class="medium-4 columns hide">
         <label>Cidade
           <select>
             <option>Nada</option>
@@ -323,7 +331,7 @@
         </label>
       </div>
 
-      <div class="medium-8  columns">
+      <div id="pos_complemento" class="medium-8  columns">
         <label>Estado/Província/Região
           <input type="text"  name="" placeholder="Digite o complemento do seu endereço." >
         </label> 
@@ -357,6 +365,51 @@
 <script>
 $(document).foundation();
 $(document).ready(function(){ 
+  //Script final
+  $('#emprego_pais').change(function(){
+    var value = $('#emprego_pais option:selected ').val(); 
+
+    if( value == 33 ){
+      $('#emprego_complemento').addClass('hide'); 
+      $('#emprego_estado').removeClass('hide');
+      $('#emprego_cidade').removeClass('hide');
+    }else{
+      $('#emprego_complemento').removeClass('hide'); 
+      $('#emprego_estado').addClass('hide');
+      $('#emprego_cidade').addClass('hide');
+    }
+
+  }); 
+
+  $('#pos_pais').change(function(){
+    var value = $('#pos_pais option:selected ').val(); 
+
+    if( value == 33 ){
+      $('#pos_complemento').addClass('hide'); 
+      $('#pos_estado').removeClass('hide');
+      $('#pos_cidade').removeClass('hide');
+    }else{
+      $('#pos_complemento').removeClass('hide'); 
+      $('#pos_estado').addClass('hide');
+      $('#pos_cidade').addClass('hide');
+    }
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //Tirar isso aqui mais tarde. 
   var control = false; 
   var intervalo; 
   $(window).scroll(function () {
