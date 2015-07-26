@@ -1,141 +1,141 @@
-<!doctype html>
-<html class="no-js" lang="en">
+  <!doctype html>
+  <html class="no-js" lang="en">
   <head>
-      <title>EgressoOnline - Login</title>
+    <title>EgressoOnline - Login</title>
     <!-- $Include templates/lib/html/head.html --> 
 
     <style>
-      .fix{
-      		min-width: 335px !important;  
-      		max-width: 339px !important;
-      	}
-      .fix_top{ 
-        margin-top: 3%;
-      }
-    	.main_container{
-    			position:relative;
-    			top:20%;
-  				border:5px;
-  				background-color: white;
-  				border-radius: 2px; 
-    		}
+    .fix{
+      min-width: 335px !important;  
+      max-width: 339px !important;
+    }
+    .fix_top{ 
+      margin-top: 3%;
+    }
+    .main_container{
+     position:relative;
+     top:20%;
+     border:5px;
+     background-color: white;
+     border-radius: 2px; 
+   }
 
-    	.borda_inferior{
-          border-bottom-style: solid; 
-    			border-bottom-width: 2px; 
-    			border-bottom-color: rgb(169,169,169); 
-    	}
-    	
-      #logo{
-        margin: 15px 50px 15px 50px;
-        width: 210px; 
-        height: 100px; 
-      }
+   .borda_inferior{
+    border-bottom-style: solid; 
+    border-bottom-width: 2px; 
+    border-bottom-color: rgb(169,169,169); 
+  }
 
-      .buttom_fix{
-        width: 250px; 
-        margin-left: 25px; 
-        margin-right: 25px;  
-      }
-    </style>
+  #logo{
+    margin: 15px 50px 15px 50px;
+    width: 210px; 
+    height: 100px; 
+  }
 
-  </head>
-  <body>
-    
-    <div class="row fix_top">
-  		<div class="medium-4 medium-centered columns main_container fix">
-  			<!--Logo marca --> 
-  			<div class="row fix">
-  				<div class="large-12 columns borda_inferior" style="background-color: rgb(51,51,51);">
-                <img src="templates/lib/img/logo.png" alt="" id="logo">
-  				</div>	
-  			</div>
-  			<!--Form--> 
-        <form id="form" data-abide="ajax" >
-      			<div class="row">
-      				<div class="large-12 columns">
-      					  <label>CPF: 
-                    <input type="text" id="cpf" class="cpf" name="cpf" required  />
-                  </label> <small class="error">Preencha esse campo.</small>
+  .buttom_fix{
+    width: 250px; 
+    margin-left: 25px; 
+    margin-right: 25px;  
+  }
+  </style>
 
-                  <label>Senha: 
-                    <input type="password" id="senha" name="senha" required  />
-                  </label> <small class="error">Preencha esse campo.</small>
+</head>
+<body>
 
-                  <!--Area para os botões--> 
-                <div class="row ">
-                    <div class="large-12 columns">
-                        <button id="buttom_login" class="button small buttom_fix " type="submit" >Login</button>
-                    </div>
-                </div>
-              </div>
-            </div>
-            </form>
-                 <a href="#" >Esqueci minha senha</a>
-            </div>
-  				</div>	
+  <div class="row fix_top">
+    <div class="medium-4 medium-centered columns main_container fix">
+     <!--Logo marca --> 
+     <div class="row fix">
+      <div class="large-12 columns borda_inferior" style="background-color: rgb(51,51,51);">
+        <img src="templates/lib/img/logo.png" alt="" id="logo">
+      </div>	
+    </div>
+    <!--Form--> 
+    <form id="form" data-abide="ajax" >
+     <div class="row">
+      <div class="large-12 columns">
+       <label>CPF: 
+        <input type="text" id="cpf" class="cpf" name="cpf" required  />
+      </label> <small class="error">Preencha esse campo.</small>
 
-              <!--info-->
-            <div class="row fix_top">
-              <div id="info" class="medium-4 medium-centered columns">
-                
-              </div>
-            </div>
+      <label>Senha: 
+        <input type="password" id="senha" name="senha" required  />
+      </label> <small class="error">Preencha esse campo.</small>
 
-  
+      <!--Area para os botões--> 
+      <div class="row ">
+        <div class="large-12 columns">
+          <button id="buttom_login" class="button small buttom_fix " type="submit" >Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<a href="#" >Esqueci minha senha</a>
+</div>
+</div>	
 
-    <!-- $Include templates/lib/html/footerscripts.html --> 
-    <script src="templates/lib/js/jquery.mask.min.js"></script>
-    <script src="templates/lib/js/md5.js"></script>
-    <script src="templates/lib/js/redirect.js"></script>
-    <script>
-      $(document).foundation();
+<!--info-->
+<div class="row fix_top">
+  <div id="info" class="medium-4 medium-centered columns">
 
-      $(document).ready(function(){
-         $('.cpf').mask('000.000.000-00');
+  </div>
+</div>
 
 
 
-         $('#form').on('valid', function() {
-              sendRequisition();
-          });
+<!-- $Include templates/lib/html/footerscripts.html --> 
+<script src="templates/lib/js/jquery.mask.min.js"></script>
+<script src="templates/lib/js/md5.js"></script>
+<script src="templates/lib/js/redirect.js"></script>
+<script>
+$(document).foundation();
 
-        function sendRequisition(){
-          var senha = CryptoJS.MD5($('#senha').val()).toString(); 
-          var cpf   = $('#cpf').val(); 
-          getByAjax({ 'password': senha, 'cpf': cpf},'index.php?action=login&usecase=autenticar', function(data){
-            data = JSON.parse(data); 
-            console.log(data['status']); 
-            if( data['status'] ){
-              //redirecionar
-              redirect('index.php',
-                { usecase : 'telaPrincipal',
-                  action  : 'principalView'
-                },
-                'POST'); 
-            }else{
-               $('#info').append('<div data-alert class="alert-box alert radius"> CPF ou Senha inválido<a href="#"class="close">x</a></div>');  
-               $('#senha').val(''); 
-               $(document).foundation();
-            }
-          }); 
-        }
+$(document).ready(function(){
+ alertify.log("Olá, esse site ainda está em modo Beta, então tenha paciência :v"); 
 
-        function getByAjax(data, url , foo){
-            $.ajax({ 
-             url : url,
-             method : 'post',
-             data: data}
-             ).done(function(data){
-               foo(data); 
-             }).fail(function(){
+ $('.cpf').mask('000.000.000-00');
 
-             }).always(function(){
+ $('#form').on('valid', function() {
+  sendRequisition();
+});
 
+ function sendRequisition(){
+  var senha = CryptoJS.MD5($('#senha').val()).toString(); 
+  var cpf   = $('#cpf').val(); 
+  getByAjax({ 'password': senha, 'cpf': cpf},'index.php?action=login&usecase=autenticar', function(data){
+    data = JSON.parse(data); 
+    console.log(data['status']); 
+    if( data['status'] ){
+                  //redirecionar
+                  redirect('index.php',
+                    { usecase : 'telaPrincipal',
+                    action  : 'principalView'
+                  },
+                  'POST'); 
+                }else{
+                 $('#info').append('<div data-alert class="alert-box alert radius"> CPF ou Senha inválido<a href="#"class="close">x</a></div>');  
+                 $('#senha').val(''); 
+                 $(document).foundation();
+               }
              }); 
-        }
+}
 
-      }); 
-    </script>
-  </body>
+function getByAjax(data, url , foo){
+  $.ajax({ 
+   url : url,
+   method : 'post',
+   data: data}
+   ).done(function(data){
+     foo(data); 
+   }).fail(function(){
+
+   }).always(function(){
+
+   }); 
+ }
+
+}); 
+  </script>
+</body>
 </html>

@@ -3,13 +3,13 @@
 <head>
   <!-- $Include templates/lib/html/head.html --> 
   <style type="text/css">
-    .fix{
-      margin-bottom:45px;
-    }
+  .fix{
+    margin-bottom:45px;
+  }
 
-    p{
-      font-size: 14px; 
-    }
+  p{
+    font-size: 14px; 
+  }
 
   </style>
 </head>
@@ -176,7 +176,7 @@
 
     </div>
 
-    <div class="row">
+    <div class="row" >
       <div class="medium-4 columns">
         <label>Pais
           <select>
@@ -185,7 +185,7 @@
         </label>
       </div>
 
-      <div class="medium-4 columns">
+      <div class="medium-4 columns hide">
         <label>Estado
           <select>
             <option>Nada</option>
@@ -193,13 +193,20 @@
         </label>
       </div>
 
-      <div class="medium-4 columns">
+      <div class="medium-4 columns hide">
         <label>Cidade
           <select>
             <option>Nada</option>
           </select>
         </label>
       </div>
+
+      <div class="medium-8  columns">
+        <label>Estado/Província/Região
+          <input type="text"  name="" placeholder="Digite o complemento do seu endereço." >
+        </label> 
+      </div>  
+
     </div>
 
     <div class="row">
@@ -291,7 +298,7 @@
 
 
 
-    <div class="row">
+    <div class="row" >
       <div class="medium-4 columns">
         <label>Pais
           <select>
@@ -300,7 +307,7 @@
         </label>
       </div>
 
-      <div class="medium-4 columns">
+      <div class="medium-4 columns hide">
         <label>Estado
           <select>
             <option>Nada</option>
@@ -308,13 +315,20 @@
         </label>
       </div>
 
-      <div class="medium-4 columns">
+      <div class="medium-4 columns hide">
         <label>Cidade
           <select>
             <option>Nada</option>
           </select>
         </label>
       </div>
+
+      <div class="medium-8  columns">
+        <label>Estado/Província/Região
+          <input type="text"  name="" placeholder="Digite o complemento do seu endereço." >
+        </label> 
+      </div>  
+
     </div>
 
     <div class="row">
@@ -341,19 +355,19 @@
 <!-- $Include templates/lib/html/footerscripts.html --> 
 
 <script>
-  $(document).foundation();
-  $(document).ready(function(){ 
-    var control = false; 
-    var intervalo; 
-    $(window).scroll(function () {
-      if(control) return;
-      if ( $(document).scrollTop() >= ($(document).height() - 900) ) {
-        control = true; 
-        intervalo = setInterval(function(){
-          $('#container').append('<div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6  columns"><div class="row"><ul class="pricing-table"><li class="title">Vaga na aera de TI</li><li class="price">Salário:$99.99</li><li class="cta-button"><a class="button"href="#">Ver detalhes</a></li></ul></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div>'); 
-          control = false;
-          clearInterval(intervalo); 
-        },500);
+$(document).foundation();
+$(document).ready(function(){ 
+  var control = false; 
+  var intervalo; 
+  $(window).scroll(function () {
+    if(control) return;
+    if ( $(document).scrollTop() >= ($(document).height() - 900) ) {
+      control = true; 
+      intervalo = setInterval(function(){
+        $('#container').append('<div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6  columns"><div class="row"><ul class="pricing-table"><li class="title">Vaga na aera de TI</li><li class="price">Salário:$99.99</li><li class="cta-button"><a class="button"href="#">Ver detalhes</a></li></ul></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div>'); 
+        control = false;
+        clearInterval(intervalo); 
+      },500);
 }
 });
 }); 
