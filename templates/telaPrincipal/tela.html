@@ -122,7 +122,7 @@
   <p class="lead">Preencha o formulário</p>
   <!--Coloque o conteúdo do modal aqui--> 
   <!-- começo formulário-->
-  <form>
+  <form id="form_emprego" data-abide="ajax" >
 
 
     <div class="row">
@@ -139,8 +139,10 @@
           <div class="row">
             <div class="medium-12 columns">
               <label>Área Profissional
-                <select>
-                  <option>Nada</option>
+                <select >
+                  <!-- $BeginBlock area-->
+                  <option value="${area.value}"> ${area.desc}</option>
+                  <!-- $EndBlock area -->
                 </select>
               </label>
             </div>
@@ -158,17 +160,23 @@
         <fieldset class="panel"> <legend>Contato</legend>
           <div class="row">
             <div class="medium-12 columns">
-              <label>Telefone <input type="text"></label>     
+              <label>Telefone <small>Obrigatório</small>
+                <input type="text" required>
+              </label><small class="error">Preencha este campo. </small>
             </div>
           </div>
           <div class="row">
             <div class="medium-12 columns">
-              <label>E-mail <input type="text"></label>     
+              <label>Email <small>Obrigatório</small>
+                <input type="text" required>
+              </label><small class="error">Preencha este campo. </small>     
             </div>
           </div>
           <div class="row">
             <div class="medium-12 columns">
-              <label>Site <input type="text"></label>     
+              <label>Site <small>Obrigatório</small>
+                <input type="text" required>
+              </label><small class="error">Preencha este campo. </small>      
             </div>
           </div>
         </fieldset> 
@@ -189,7 +197,8 @@
 
       <div id="emprego_estado" class="medium-4 columns hide">
         <label>Estado
-          <select>
+          <select id="emprego_select_estado">
+            <option value="">- Selecione -</option>
             <!-- $BeginBlock emprego.estado -->
             <option value="${emprego.estado.value}"> ${emprego.estado.desc}</option>
             <!-- $EndBlock emprego.estado -->
@@ -199,8 +208,8 @@
 
       <div id="emprego_cidade" class="medium-4 columns hide">
         <label>Cidade
-          <select>
-            <option>Nada</option>
+          <select id="emprego_select_cidade" >
+            <option>- Selectione Um Estado -</option>
           </select>
         </label>
       </div>
@@ -236,6 +245,15 @@
         </fieldset>
       </div>
     </div>
+
+    <div class="row">
+      <div class="medium-12 columns ">
+        <div class="panel clearfix">
+          <button type="submit" class="button success right">Divulgar</button>
+        </div>
+      </div>
+    </div>
+
   </form>
   <!-- fim formulário -->
   <!--Fim conteúdo --> 
@@ -248,29 +266,36 @@
   <p class="lead">Preencha o formulário</p>
   <!--Coloque o conteúdo do modal aqui--> 
   <!-- começo formulário-->
-  <form>
+  <form id="form_pos" data-abide="ajax">
     <div class="row">
       <div class="medium-6 columns"> 
         <fieldset> <legend>Informações Gerais</legend>
           <div class="row">
             <div class="medium-12 columns">
-              <label>Título <input type="text"></label>
+              <label>Título <small>Obrigatório</small>
+                <input type="text" required >
+              </label> <small class="error">Preencha este campo.</small>
             </div>
           </div>
 
           <div class="row">
             <div class="medium-12 columns">
-              <label>Tipo 
-                <select>
-                  <option>Nada</option>
+              <label for="estado">Estado: <small>Obrigatório</small>
+                <select id="estado" class="medium"  required>
+                  <option value="">- Selecione -</option>
+                  <option value="Tipo 1">Tipo 1</option>
+                  <option value="Tipo 2">Tipo 2</option>
                 </select>
               </label>
+              <small class="error">Selecione algum item.</small>
             </div>
           </div>
 
           <div class="row">
             <div class="medium-12 columns">
-              <label>Área <input type="text"></label>
+              <label>Área <small>Obrigatório</small>
+                <input type="text" required >
+              </label> <small class="error">Preencha este campo.</small>
             </div>
           </div>
         </fieldset>
@@ -286,13 +311,17 @@
 
           <div class="row">
             <div class="medium-12 columns">
-              <label>E-mail <input type="text"></label>
+              <label>E-mail <small>Obrigatório</small>
+                <input type="text" required>
+              </label> <small class="error">Preencha este campo.</small>
             </div>
           </div>
 
           <div class="row">
             <div class="medium-12 columns">
-              <label>Site <input type="text"></label>
+              <label>Site <small>Obrigatório</small>
+                <input type="text" required>
+              </label> <small class="error">Preencha este campo.</small>
             </div>
           </div>      
         </fieldset>
@@ -315,7 +344,8 @@
 
       <div id="pos_estado" class="medium-4 columns hide">
         <label>Estado
-          <select>
+          <select id="pos_select_estado" >
+            <option value="">- Selecione -</option>
             <!-- $BeginBlock pos.estado -->
             <option value="${pos.estado.value}"> ${pos.estado.desc}</option>
             <!-- $EndBlock pos.estado -->
@@ -325,8 +355,8 @@
 
       <div id="pos_cidade" class="medium-4 columns hide">
         <label>Cidade
-          <select>
-            <option>Nada</option>
+          <select id="pos_select_cidade" >
+            <option>- Selectione Um Estado -</option>
           </select>
         </label>
       </div>
@@ -352,6 +382,14 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="medium-12 columns ">
+        <div class="panel clearfix">
+          <button type="submit" class="button success right">Divulgar</button>
+        </div>
+      </div>
+    </div>
+
   </form>
   <!-- fim formulário -->
   <!--Fim conteúdo --> 
@@ -369,7 +407,7 @@ $(document).ready(function(){
   $('#emprego_pais').change(function(){
     var value = $('#emprego_pais option:selected ').val(); 
 
-    if( value == 33 ){
+    if( value == 'BRASIL' ){
       $('#emprego_complemento').addClass('hide'); 
       $('#emprego_estado').removeClass('hide');
       $('#emprego_cidade').removeClass('hide');
@@ -384,7 +422,7 @@ $(document).ready(function(){
   $('#pos_pais').change(function(){
     var value = $('#pos_pais option:selected ').val(); 
 
-    if( value == 33 ){
+    if( value == 'BRASIL' ){
       $('#pos_complemento').addClass('hide'); 
       $('#pos_estado').removeClass('hide');
       $('#pos_cidade').removeClass('hide');
@@ -393,20 +431,54 @@ $(document).ready(function(){
       $('#pos_estado').addClass('hide');
       $('#pos_cidade').addClass('hide');
     }
-  })
+  }); 
+
+  $('#emprego_select_estado').change(function(){
+    var value = $('#emprego_select_estado option:selected ').val(); 
+
+    requestAjax('index.php?usecase=ajaxServices&action=getCities','POST',{'state' : value}, function(data){
+      data = JSON.parse(data); 
+      $('#emprego_select_cidade > option').each(function(){ this.remove(); }); 
+
+      $.each(data, function (i, item) { 
+        $('#emprego_select_cidade').append($('<option>', { 
+          value: item,
+          text : item 
+        }));
+      });
+      alertify.success("As cidades do estado do(e) <b>"+value+"</b> foram carregadas."); 
+    }); 
+
+  }); 
+
+  $('#pos_select_estado').change(function(){
+    var value = $('#pos_select_estado option:selected ').val(); 
+    
+    requestAjax('index.php?usecase=ajaxServices&action=getCities','POST',{'state' : value}, function(data){
+      data = JSON.parse(data); 
+      $('#pos_select_cidade > option').each(function(){ this.remove(); }); 
+
+      $.each(data, function (i, item) { 
+        $('#pos_select_cidade').append($('<option>', { 
+          value: item,
+          text : item 
+        }));
+      });
+      alertify.success("As cidades do estado do(e) <b>"+value+"</b> foram carregadas.");
+    }); 
+
+  }); 
 
 
-
-
-
-
-
-
-
-
-
-
-
+  function requestAjax(url, method, data, callback){
+    $.ajax({
+      'url'    : url, 
+      'method' : method, 
+      'data'   : data
+    }).done(function(data){
+      callback(data); 
+    }); 
+  }
 
 
   //Tirar isso aqui mais tarde. 
