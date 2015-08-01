@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="pt">
 <head>
   <!-- $Include templates/lib/html/head.html --> 
   <style type="text/css">
@@ -229,7 +229,10 @@
             <div class="medium-4 columns">
               <label>Graduação 
                 <select>
-                  <option>Nada</option>
+                  <option value="">- Selecione -</option>
+                  <!-- $BeginBlock emprego.tipo -->
+                  <option value="${emprego.tipo.value}"> ${emprego.tipo.desc}</option>
+                  <!-- $EndBlock emprego.tipo -->
                 </select>
               </label>
             </div>
@@ -280,11 +283,12 @@
 
           <div class="row">
             <div class="medium-12 columns">
-              <label for="estado">Estado: <small>Obrigatório</small>
+              <label for="estado">Tipo: <small>Obrigatório</small>
                 <select id="estado" class="medium"  required>
                   <option value="">- Selecione -</option>
-                  <option value="Tipo 1">Tipo 1</option>
-                  <option value="Tipo 2">Tipo 2</option>
+                  <!-- $BeginBlock pos.tipo -->
+                  <option value="${pos.tipo.value}"> ${pos.tipo.desc}</option>
+                  <!-- $EndBlock pos.tipo -->
                 </select>
               </label>
               <small class="error">Selecione algum item.</small>

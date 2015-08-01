@@ -4,6 +4,8 @@ namespace View\CustomViews;
 use View\GenericView; 
 use DAO\CustomDAOs\DAORegiao; 
 use DAO\CustomDAOs\DAOAtuacaoProfissional; 
+use DAO\CustomDAOs\DAOTituloAcademico;
+
 use Util\Convert; 
 
 
@@ -15,7 +17,9 @@ class TelaPrincipalView extends GenericView{
 	
 	public function principalView(){
 		$daoAtuacao = new DAOAtuacaoProfissional(); 
-		$daoRegiao = new DAORegiao(); 
+		$daoRegiao  = new DAORegiao(); 
+		$tipo       = new DAOTituloAcademico; 
+
 		parent::getTemplateByAction('tela'); 
 
 		foreach( $daoRegiao->selectAllCountries() as $country ){
@@ -43,6 +47,17 @@ class TelaPrincipalView extends GenericView{
 			parent::$templator->setVariable("area.desc", Convert::toUpperCase_ToUTF8($area->getDescricao())); 
 
 			parent::$templator->addBlock("area");
+		}
+
+		foreach( $tipo->selectAll() as $tituloAcademico ){
+			parent::$templator->setVariable("pos.tipo.value", $tituloAcademico->getId() ); 
+			parent::$templator->setVariable("emprego.tipo.value", $tituloAcademico->getId() ); 
+
+			parent::$templator->setVariable("pos.tipo.desc", Convert::toUpperCase_ToUTF8($tituloAcademico->getDescricao())); 
+			parent::$templator->setVariable("emprego.tipo.desc", Convert::toUpperCase_ToUTF8($tituloAcademico->getDescricao())); 
+
+			parent::$templator->addBlock("pos.tipo");
+			parent::$templator->addBlock("emprego.tipo");
 		}
 		parent::show(); 
 	}
