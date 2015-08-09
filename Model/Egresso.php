@@ -1,98 +1,59 @@
-<?php 
-namespace Model; 
+<?php
+#### START AUTOCODE
+/**
+ * Classe generada para a tabela "egresso"
+ * in 2015-08-09
+ * @author Hugo Ferreira da Silva
+ * @link http://www.hufersil.com.br/lumine
+ * @package Model
+ *
+ */
 
-use Model\Usuario;
+class Egresso extends Lumine_Base {
 
-class Egresso extends Usuario{
-	private $telefone; 
-	private $anoConclusao; 
-	private $anoIngresso; 
-	private $endereco; 
-	private $dadoPublico; 
-	private $localidade; 
-	private $qtdFilhos; 
-	private $emprego; 
-	private $estadoCivil; 
-	
-	//Construtor que será usado para alteração de dados; 
-	public function __construct($id, $nome, $email, $senha, $genero, $cpf, $anoConclusao=0, $anoIngresso=0, $telefone="", $endereco="", $dadoPublico=0){
-		parent::__construct($id, $nome, $email, $senha, $genero, $cpf); 
-		$this->telefone = $telefone;
-		$this->anoIngresso = $anoIngresso; 
-		$this->anoConclusao= $anoConclusao; 
-		$this->endereco = $endereco; 
-		$this->dadoPublico = $dadoPublico; 
-	}
+    
+    public $usuarioId;
+    public $anoIngresso;
+    public $anoConclusao;
+    public $qtdFilhos;
+    public $telefone;
+    public $endereco;
+    public $isDadoPublico;
+    public $empregoId;
+    public $estadoCivilId;
+    public $localidadeId;
+    public $egressohasredesociais = array();
+    
+    
+    
+    /**
+     * Inicia os valores da classe
+     * @author Hugo Ferreira da Silva
+     * @return void
+     */
+    protected function _initialize()
+    {
+        $this->metadata()->setTablename('egresso');
+        $this->metadata()->setPackage('Model');
+        
+        # nome_do_membro, nome_da_coluna, tipo, comprimento, opcoes
+        
+        $this->metadata()->addField('usuarioId', 'usuario_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Usuario'));
+        $this->metadata()->addField('anoIngresso', 'ano_ingresso', 'int', 11, array('notnull' => true));
+        $this->metadata()->addField('anoConclusao', 'ano_conclusao', 'int', 11, array('notnull' => true));
+        $this->metadata()->addField('qtdFilhos', 'qtd_filhos', 'int', 11, array());
+        $this->metadata()->addField('telefone', 'telefone', 'varchar', 15, array());
+        $this->metadata()->addField('endereco', 'endereco', 'varchar', 500, array());
+        $this->metadata()->addField('isDadoPublico', 'is_dado_publico', 'boolean', 1, array('notnull' => true));
+        $this->metadata()->addField('empregoId', 'emprego_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Emprego'));
+        $this->metadata()->addField('estadoCivilId', 'estado_civil_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'EstadoCivil'));
+        $this->metadata()->addField('localidadeId', 'localidade_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Localidade'));
 
-	public function setLocalidade($localidade){
-		$this->localidade = $localidade; 
-	}
+        
+        $this->metadata()->addRelation('egressohasredesociais', Lumine_Metadata::ONE_TO_MANY, 'EgressoHasRedeSocial', 'usuarioId', null, null, null);
+    }
 
-	public function setQtdFilhos($qtdFilhos){
-		$this->qtdFilhos = $qtdFilhos; 
-	}
+    #### END AUTOCODE
 
-	public function getQtdFilhos(){
-		return $this->qtdFilhos; 
-	}
 
-	public function setEmprego($emprego){
-		$this->emprego = $emprego; 
-	}
-
-	public function setTelefone ($telefone){
-		$this->telefone = $telefone; 
-	}
-
-	public function getTelefone(){
-		return $this->telefone; 
-	}
-	
-	public function setAnoIngresso ($anoIngresso){
-		$this->anoIngresso = $anoIngresso; 
-	}
-
-	public function setAnoConclusao($anoConclusao){
-		$this->anoConclusao = $anoConclusao; 
-	}
-
-	public function setEndereco($endereco){
-		$this->endereco = $endereco;
-	}
-
-	public function getEndereco(){
-		return $this->endereco; 
-	}
-
-	public function setDadoPublico($dadoPublico){
-		$this->dadoPublico = $dadoPublico; 
-	}
-
-	public function getEmprego(){
-		return $this->emprego; 
-	}
-
-	public function getLocalidade(){
-		return $this->localidade; 
-	}
-
-	public function getAnoConclusao(){
-		return $this->anoConclusao; 
-	}
-
-	public function getAnoIngresso(){
-		return $this->anoIngresso; 
-	}
-
-	public function isDadoPublico(){
-		return $this->dadoPublico; 
-	}
-
-	public function setEstadoCivil($estadoCivil){
-		$this->estadoCivil = $estadoCivil; 
-	}
-
-	public function getEstadoCivil(){
-		return $this->estadoCivil; 
-	}
 }

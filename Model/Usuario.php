@@ -1,52 +1,55 @@
 <?php
-namespace Model; 
+#### START AUTOCODE
+/**
+ * Classe generada para a tabela "usuario"
+ * in 2015-08-09
+ * @author Hugo Ferreira da Silva
+ * @link http://www.hufersil.com.br/lumine
+ * @package Model
+ *
+ */
 
-class Usuario{
-	static protected $id; 
-	static protected $nome;
-	static protected $email; 
-	static protected $senha; 
-	static protected $genero; 
-	static protected $cpf; 
+class Usuario extends Lumine_Base {
 
-	public function __construct($id='', $nome='', $email='', $senha='', $genero='', $cpf=''){
-		self::$id = $id; 
-		self::$nome = $nome;
-		self::$email = $email; 
-		self::$senha = $senha; 
-		self::$genero = $genero; 
-		self::$cpf  = $cpf; 
-	}
+    
+    public $id;
+    public $nome;
+    public $cpf;
+    public $email;
+    public $senha;
+    public $generoId;
+    public $egressos = array();
+    public $oportunidades = array();
+    public $professores = array();
+    
+    
+    
+    /**
+     * Inicia os valores da classe
+     * @author Hugo Ferreira da Silva
+     * @return void
+     */
+    protected function _initialize()
+    {
+        $this->metadata()->setTablename('usuario');
+        $this->metadata()->setPackage('Model');
+        
+        # nome_do_membro, nome_da_coluna, tipo, comprimento, opcoes
+        
+        $this->metadata()->addField('id', 'id', 'int', 11, array('primary' => true, 'notnull' => true, 'autoincrement' => true));
+        $this->metadata()->addField('nome', 'nome', 'varchar', 160, array('notnull' => true));
+        $this->metadata()->addField('cpf', 'cpf', 'varchar', 14, array('notnull' => true));
+        $this->metadata()->addField('email', 'email', 'varchar', 150, array('notnull' => true));
+        $this->metadata()->addField('senha', 'senha', 'varchar', 35, array('notnull' => true));
+        $this->metadata()->addField('generoId', 'genero_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Genero'));
 
-	public function setId($id){
-		self::$id = $id; 
-	}
+        
+        $this->metadata()->addRelation('egressos', Lumine_Metadata::ONE_TO_MANY, 'Egresso', 'usuarioId', null, null, null);
+        $this->metadata()->addRelation('oportunidades', Lumine_Metadata::ONE_TO_MANY, 'Oportunidade', 'usuarioId', null, null, null);
+        $this->metadata()->addRelation('professores', Lumine_Metadata::ONE_TO_MANY, 'Professor', 'usuarioId', null, null, null);
+    }
 
-	public function setSenha($senha){
-		self::$senha = $senha; 
-	}
-	
-	public function getId(){
-		return self::$id; 
-	}
+    #### END AUTOCODE
 
-	public function getNome(){
-		return self::$nome; 
-	}
 
-	public function getEmail(){
-		return self::$email; 
-	}
-
-	public function getSenha(){
-		return self::$senha; 
-	}
-
-	public function getGenero(){
-		return self::$genero; 
-	}
-
-	public function getCpf(){
-		return self::$cpf; 
-	}
 }

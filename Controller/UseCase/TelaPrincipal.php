@@ -1,8 +1,6 @@
 <?php
-namespace Controller\UseCase; 
-
-use Controller\GenericController; 
-use View\CustomViews\TelaPrincipalView; 
+require_once(PATH.'Controller'.DS.'GenericController.php'); 
+require_once(PATH.'View'.DS.'CustomViews'.DS.'TelaPrincipalView.php'); 
 
 
 class TelaPrincipal extends GenericController {

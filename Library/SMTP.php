@@ -1,5 +1,4 @@
 <?php
-namespace Library;
 /**
  * PHPMailer RFC821 SMTP email transport class.
  * PHP Version 5

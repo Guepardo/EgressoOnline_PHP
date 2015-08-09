@@ -1,22 +1,43 @@
 <?php
-namespace Model; 
+#### START AUTOCODE
+/**
+ * Classe generada para a tabela "professor"
+ * in 2015-08-09
+ * @author Hugo Ferreira da Silva
+ * @link http://www.hufersil.com.br/lumine
+ * @package Model
+ *
+ */
 
-use Model\Usuario; 
+class Professor extends Lumine_Base {
 
-class Professor extends Usuario{
-	private $coordenador; 
-	private $disciplinas; 
-	
-	public function __construct($id, $nome, $email, $senha, $sexo, $cpf, $coordenador){
-		parent::__construct($id, $nome, $email, $senha, $sexo, $cpf); 
-		$this->coordenador = $coordenador; 
-	}
+    
+    public $isCoordenador;
+    public $usuarioId;
+    public $professorhasdisciplinas = array();
+    
+    
+    
+    /**
+     * Inicia os valores da classe
+     * @author Hugo Ferreira da Silva
+     * @return void
+     */
+    protected function _initialize()
+    {
+        $this->metadata()->setTablename('professor');
+        $this->metadata()->setPackage('Model');
+        
+        # nome_do_membro, nome_da_coluna, tipo, comprimento, opcoes
+        
+        $this->metadata()->addField('isCoordenador', 'is_coordenador', 'boolean', 1, array('notnull' => true));
+        $this->metadata()->addField('usuarioId', 'usuario_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Usuario'));
 
-	public function isCoordenador(){
-		return $this->coordenador; 
-	}
+        
+        $this->metadata()->addRelation('professorhasdisciplinas', Lumine_Metadata::ONE_TO_MANY, 'ProfessorHasDisciplina', 'professorUsuarioId', null, null, null);
+    }
 
-	public function getDisciplinas(){
-		return $this->disciplinas; 
-	}
+    #### END AUTOCODE
+
+
 }

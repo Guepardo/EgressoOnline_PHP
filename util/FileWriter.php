@@ -1,5 +1,5 @@
 <?php 
-namespace Util; 
+
 
  class FileWriter{
  	private $fileName; 

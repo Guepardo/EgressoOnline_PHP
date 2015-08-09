@@ -45,10 +45,10 @@
       <div class="row">
         <div class="medium-3 columns">
           <label for="sexo">Gênero: <small>Obrigatório</small>
-            <select id="sexo" name="genero" class="medium" required>
+            <select id="sexo" name="genero_id" class="medium" required>
               <option value="">Selecione</option>
-              <option value="MASCULINO">MASCULINO</option>
-              <option value="FEMININO">FEMININO</option>
+              <option value="1">MASCULINO</option>
+              <option value="2">FEMININO</option>
               
             </select>
           </label>
@@ -60,7 +60,7 @@
       <!--info-->
       <div class="row">
         <div id="info" class="medium-12 columns">
-          
+
         </div>
       </div>
 
@@ -71,7 +71,7 @@
         </div>
 
         <div class="medium-2 small-3 columns left">
-          <a class="button info tiny radius">Tela principal</a>
+          <a href="index.php?uc=telaPrincipal&a=principalView" class="button info tiny radius">Tela principal</a>
         </div>
       </div>
 
@@ -88,22 +88,27 @@
 <script src="templates/lib/js/jquery.mask.min.js"></script>
 <script src="templates/lib/js/ajax.js"></script>
 <script>
-  $(document).ready(function(){
+$(document).ready(function(){
 
-    $('.cpf').mask('000.000.000-00');
+  $('.cpf').mask('000.000.000-00');
 
-    $('#form').on('valid', function() {
-      var data = $(this).serializeArray(); 
-      console.log(data);
-      var msg = "Faça uma última verificação \nOs dados que serão cadastrados:\n\n"; 
+  $('#form').on('valid', function() {
+    var data = $(this).serializeArray(); 
 
-      for(var a = 0; a < data.length; a++ )
-        msg +="\n"+data[a].name+": "+ data[a].value;
 
-      sendAjax('index.php?usecase=manterUsuario&action=cadastroProfessor',data,msg); 
+    sendAjax('index.php?uc=manterUsuario&a=cadastroProfessor','POST',data,function(data){
+      alertify.log(data); 
+      data = JSON.parse(data); 
+
+      if(data['status'])
+        alertify.success("O cadastro foi feito com sucesso");   
+      else
+        alertify.error("Error"); 
     });
-
+    
   });
+
+});
 </script>
 
 </body>

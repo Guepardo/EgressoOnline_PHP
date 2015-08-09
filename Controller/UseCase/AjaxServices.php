@@ -1,11 +1,5 @@
 <?php 
-namespace Controller\UseCase; 
-
-use Controller\GenericController; 
-
-use DAO\CustomDAOs\DAORegiao; 
-use DAO\CustomDAOs\DAOEgresso; 
-use DAO\CustomDAOs\DAOLocalidade; 
+require_once(PATH.'Controller'.DS.'GenericController.php'); 
 
 
 class AjaxServices extends GenericController{
@@ -23,11 +17,14 @@ class AjaxServices extends GenericController{
 	}
 
 	public function getCities( $arg ){	
-		$daoRegiao = new DAORegiao(); 
-		$result = $daoRegiao->selectAllCities(utf8_decode(trim($arg['state']))); 	
+		Lumine::import('Cidade'); 
+		$cidade = new Cidade(); 
+
+		$cidade->where('estado_id = ' .$arg['state'])->find();
 		$array = array(); 
-		foreach( $result as $regiao )
-			array_push($array, utf8_encode(strtoupper($regiao->getDescricao())));  
+		
+		while( $cidade->fetch() )
+			array_push($array, utf8_encode(strtoupper($cidade->des)));  
 		die(json_encode($array));
 	}
 

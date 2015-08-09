@@ -1,22 +1,24 @@
 <?php
-namespace Controller; 
-
-use Controller\UseCase\HumanController;  
-use Controller\UseCase\ManterUsuario; 
-use Controller\UseCase\AjaxServices; 
-use Controller\UseCase\Autenticar; 
-use Controller\UseCase\TelaPrincipal; 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'HumanController.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'ManterUsuario.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'AjaxServices.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'Autenticar.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'TelaPrincipal.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'DivulgarOportunidade.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'VisualizarOportunidade.php'); 
 
 class MainController {
 	private $controllersArray;
 	public function __construct() {
 		// incluir todos os controllers específicos aqui;       
 		$this->controllersArray = array (
-				'humanos'       => new HumanController (), 
+				'humanos'       => new HumanController (),
 				'manterUsuario' => new ManterUsuario(),
+				'telaPrincipal' => new TelaPrincipal(),
 				'ajaxServices'  => new AjaxServices(), 
-				'autenticar'    => new Autenticar(), 
-				'telaPrincipal' => new TelaPrincipal()
+				'autenticar'    => new Autenticar(),
+				'divulgar'      => new DivulgarOportunidade(), 
+				'visualizar'	=> new VisualizarOportunidade()
 		);
 	}
 	
@@ -26,8 +28,8 @@ class MainController {
 		// 2 A action existe no controlador?
 		// 3 Invocar método;
 		// 4 Gerar output.
-		$useCase = $_REQUEST ['usecase'];
-		$action  = $_REQUEST ['action'];
+		$useCase = $_REQUEST ['uc'];
+		$action  = $_REQUEST ['a'];
 		
 		// if( $this->$controllersArray[$useCase] == null ) return;
 		$controller = $this->controllersArray [$useCase];
@@ -46,14 +48,14 @@ class MainController {
 			die('Não há ação para ser executada');
 		}
 		
-		$reflection = new \ReflectionMethod ( $controller->sayMyName (), $realNameMethod );
+		$reflection = new ReflectionMethod ( $controller->sayMyName (), $realNameMethod );
 		return $reflection->invoke ( $controller, self::preparingArray( $_REQUEST ));
 	}
 
 	private function preparingArray($target) {
 		$array = array_merge ( array (), $target );
-		unset ( $array ['action'] );
-		unset ( $array ['usecase'] );
+		unset ( $array ['a'] );
+		unset ( $array ['uc'] );
 		return $array;
 	}
 	

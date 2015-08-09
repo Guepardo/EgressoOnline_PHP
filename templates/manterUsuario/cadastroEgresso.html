@@ -45,10 +45,10 @@
     <div class="row">
       <div class="medium-3 columns">
         <label for="sexo">Gênero: <small>Obrigatório</small>
-          <select id="sexo" class="medium" name="genero" required>
+          <select id="sexo" class="medium" name="genero_id" required>
             <option value="">Selecione</option>
-            <option value="MASCULINO">MASCULINO</option>
-            <option value="FEMININO">FEMININO</option>
+            <option value="1">MASCULINO</option>
+            <option value="2">FEMININO</option>
             
           </select>
         </label>
@@ -81,7 +81,7 @@
    <!--info-->
    <div class="row">
     <div id="info" class="medium-12 columns">
-      
+
     </div>
   </div>
 
@@ -110,22 +110,27 @@
 <script src="templates/lib/js/jquery.mask.min.js"></script>
 <script src="templates/lib/js/ajax.js"></script>
 <script>
-  $(document).ready(function(){
+$(document).ready(function(){
 
-    $('.cpf').mask('000.000.000-00');
+  $('.cpf').mask('000.000.000-00');
 
 
-    $('#form').on('valid', function() {
-      var data = $(this).serializeArray(); 
-      console.log(data);
-      var msg = "Faça uma última verificação \nOs dados que serão cadastrados:\n\n"; 
+  $('#form').on('valid', function() {
+    var data = $(this).serializeArray(); 
 
-      for(var a = 0; a < data.length; a++ )
-        msg +="\n"+data[a].name+": "+ data[a].value;
-      sendAjax('index.php?usecase=manterUsuario&action=cadastroEgresso',data,msg); 
+    sendAjax('index.php?uc=manterUsuario&a=cadastroEgresso','POST',data,function(data){
+      alertify.log(data); 
+      data = JSON.parse(data); 
+
+      if(data['status'])
+        alertify.success("O cadastro foi feito com sucesso");   
+      else
+        alertify.error("Error"); 
     });
-
+    
   });
+
+});
 </script>
 
 </body>

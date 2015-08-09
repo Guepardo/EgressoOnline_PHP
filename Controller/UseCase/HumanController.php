@@ -1,9 +1,8 @@
 <?php
-namespace Controller\UseCase; 
+require_once(PATH.'Controller'.DS.'GenericController.php'); 
+require_once(PATH.'View'.DS.'CustomViews'.DS.'HumanView.php'); 
 
-use Controller\GenericController; 
-use View\CustomViews\HumanView; 
-use Util\BDConnectionFactory; 
+
 
 class HumanController extends GenericController {
 	private $humanView;
@@ -21,9 +20,6 @@ class HumanController extends GenericController {
 	}
 
 	public function loginAjax($arg) {
-		$nada =  BDConnectionFactory::getInstance(); 
-		$nada->getConnection(); 
-		
 		$book = array (
 				"title" => "JavaScript: The Definitive Guide",
 				"author" => "David Flanagan",

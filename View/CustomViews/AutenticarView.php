@@ -1,7 +1,6 @@
 <?php
-namespace View\CustomViews; 
-
-use View\GenericView; 
+require_once(PATH.'View'.DS.'GenericView.php'); 
+require_once(PATH.'Util'.DS.'Convert.php'); 
 
 class AutenticarView extends GenericView{
 	

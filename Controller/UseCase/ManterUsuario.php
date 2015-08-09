@@ -1,23 +1,11 @@
 <?php 
-namespace Controller\UseCase; 
+require_once(PATH.'Controller'.DS.'GenericController.php'); 
+require_once(PATH.'View'.DS.'CustomViews'.DS.'ManterUsuarioView.php'); 
 
-use Controller\GenericController; 
-use View\CustomViews\ManterUsuarioView; 
-
-use Util\BDConnectionFactory; 
-use Util\KeyFactory; 
-use Util\DataValidator; 
-use Util\Mail; 
-use Util\FileWriter; 
-
-use DAO\CustomDAOs\DAOProfessor; 
-use DAO\CustomDAOs\DAOEgresso; 
-use DAO\CustomDAOs\DAOUsuario; 
-use DAO\CustomDAOs\DAODisciplina; 
-
-use Model\Professor; 
-use Model\Egresso; 
-use Model\Usuario; 
+require_once(PATH.'Util'.DS.'KeyFactory.php'); 
+require_once(PATH.'Util'.DS.'DataValidator.php'); 
+require_once(PATH.'Util'.DS.'Mail.php'); 
+require_once(PATH.'Util'.DS.'FileWriter.php'); 
 
 class ManterUsuario extends GenericController{
 	private $manterUsuarioView; 
@@ -42,7 +30,7 @@ class ManterUsuario extends GenericController{
 
 	public function alterarDadosView(){
 		//Muda a tela de acordo com o usuario. 
-		if( $_SESSION['egresso'])
+		if( $_SESSION['egresso'] )
 			$this->manterUsuarioView->alterarDadosView(); 
 		else
 			$this->manterUsuarioView->alterarDadosProfessorView();
@@ -56,32 +44,36 @@ class ManterUsuario extends GenericController{
 		//roteiro: 
 		//Pegar o id do usuário que está logado no memento
 		//pegar o id da matéria que desvinculada do usuário. 
-		$daoProfessor = new DAOProfessor(); 
+		Lumine::import("ProfessorHasDisciplina"); 
+		$associativa = new ProfessorHasDisciplina(); 
 
 		//Ver se esses dados estão vazios mais tarde. 
-		$idUsuario = $_SESSION['id_user'];
-		$idMateria = $arg['id_materia']; 
+		$idUsuario = $_SESSION['user_id'];
+		$idAssociativa = $arg['associativa_id']; 
 
-		$result = $daoProfessor->unlinkDisciplina($idUsuario, $idMateria);
-		self::verifyErrosBd($result); 
+		$associativa->where("professor_usuario_id = $idUsuario and id = $idAssociativa ")->find(); 
+		$associativa->fetch(true); 
+		$associativa->delete(); 
+
+		$this->manterUsuarioView->sendAjax(array('status' => true ) );
 	}
 
 	public function addDisciplina($arg){
-		$daoDisciplina = new DAODisciplina(); 
-		$daoProfessor  = new DAOProfessor(); 
-
 		$this->dataValidator->set("Ano que lecionou", $arg['ano_lecionou'])->is_required()->max_value(3000)->min_value(1900); 
 
 		//Se aconteceu alguma coisa, retorne a mensagem de erro. 
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
 
-		$idDisciplina = $daoDisciplina->getIdByName($arg['disciplina']); 
+		Lumine::import("ProfessorHasDisciplina"); 
+		$associativa = new ProfessorHasDisciplina(); 
+		
+		$associativa->disciplinaId = (int) $arg['disciplina_id']; 
+		$associativa->anoLecionou = (int)	$arg['ano_lecionou']; 
+		$associativa->professorUsuarioId = (int)$_SESSION['user_id']; 
+		$associativa->insert(); 
 
-		if( $daoProfessor->isProfessor($_SESSION['id_user']) )
-			$result = $daoProfessor->addDisciplinaById($_SESSION['id_user'], $idDisciplina, $arg['ano_lecionou'] );  
-
-		self::verifyErrosBd($result); 	
+		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
 	
 	public function cadastroProfessor($arg){
@@ -89,84 +81,164 @@ class ManterUsuario extends GenericController{
 		//2: Validar os dados; 
 		//2: Enviar para o dão; 
 		//3: dizer se tudo ocorreu tudo bem ou não.
-		$daoProfessor   = new DAOProfessor(); 
 
 		$mail = new Mail(); 
 		$passwordToSend = KeyFactory::randomKey(16);
 
-		//echo $passwordToSend; ENVIAR A SENHA POR E-MAIL AQUI.
 
-		$professor = new Professor(0, $arg['nome'], $arg['e_mail'], md5($passwordToSend), $arg['genero'], $arg['cpf'],0); 
 		//Validacao: 
-		$this->dataValidator->set("Nome", $professor->getNome())->is_required()->min_length(5)->max_length(140); 
-		$this->dataValidator->set("Email", $professor->getEmail())->is_required()->is_email()->min_length(10)->max_length(140);
-		$this->dataValidator->set("Cpf", str_replace(array(".","-"),"",$professor->getCpf()))->is_required()->is_cpf(); 
-		$this->dataValidator->set("Gênero", $professor->getGenero())->is_required();  
+		$this->dataValidator->set("Nome", $arg['nome'])->is_required()->min_length(5)->max_length(140); 
+		$this->dataValidator->set("Email", $arg['e_mail'])->is_required()->is_email()->min_length(10)->max_length(140);
+		$this->dataValidator->set("Cpf", str_replace(array(".","-"),"",$arg['cpf']))->is_required()->is_cpf(); 
+		$this->dataValidator->set("Gênero", $arg['genero_id'])->is_required();  
 
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
-		$result = $daoProfessor->insert($professor);
-
-	
-		if(empty($result)) $mail->sendEmail("Seu login: ". $professor->getCpf()." <br />Sua senha: ". $passwordToSend, $professor->getEmail(),"EgressoOnline UEG - Informe de cadastro", $professor->getNome()); 
 		
-		self::verifyErrosBd($result); 	
+		Lumine::import("Usuario");
+		//validando de há cpf ou email na base de dados. 
+		$temp = new Usuario(); 
+		$qtdEmail = $temp->get("email", $arg['e_mail']); 
+		$qtdCpf   = $temp->get("cpf", $arg['cpf']); 
+		
+		if($qtdCpf > 0 || $qtdEmail > 0 )
+			$this->manterUsuarioView->sendAjax(array('status' => false ) );
+
+		
+		Lumine::import("Professor"); 
+
+		$usuario = new Usuario(); 
+
+		$usuario->nome = $arg['nome']; 
+		$usuario->email  = $arg['e_mail']; ;
+		$usuario->senha  = md5($passwordToSend);
+		$usuario->generoId  = $arg['genero_id'];
+		$usuario->cpf  = $arg['cpf'];
+		$usuario->insert(); 
+
+		$professor = new Professor(); 
+
+		$professor->usuarioId = $usuario->id; 
+		$professor->isCoordenador = false; 
+		$professor->insert(); 
+
+		$mail->sendEmail("Seu login: ". $usuario->cpf." <br />Sua senha: ". $passwordToSend, $usuario->email,"EgressoOnline UEG - Informe de cadastro", $usuario->nome); 
+
+		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
 
 	public function cadastroEgresso($arg){
-		$daoEgresso = new DAOEgresso(); 
-
 		$mail = new Mail(); 
 		$passwordToSend = KeyFactory::randomKey(16);
 
-		$egresso = new Egresso(0, $arg['nome'], $arg['e_mail'], md5($passwordToSend), $arg['genero'], $arg['cpf'], $arg['ano_conclusao'], $arg['ano_ingresso']);
-
 		//Validacao: 
-		$this->dataValidator->set("Nome", $egresso->getNome())->is_required()->min_length(5)->max_length(140);
-		$this->dataValidator->set("Email", $egresso->getEmail())->is_required()->is_email()->min_length(10)->max_length(140); 
-		$this->dataValidator->set("Cpf", str_replace(array(".","-"),"",$egresso->getCpf()))->is_required()->is_cpf(); 
-		$this->dataValidator->set("Ano_Conclusão", $egresso->getAnoConclusao())->is_required()->max_value(3000)->min_value( ((int) $egresso->getAnoIngresso()) + 3);  
-		$this->dataValidator->set("Ano_Ingresso", $egresso->getAnoIngresso())->is_required()->max_value(3000)->min_value(1900); 
+		$this->dataValidator->set("Nome", $arg['nome'])->is_required()->min_length(5)->max_length(140);
+		$this->dataValidator->set("Email", $arg['e_mail'])->is_required()->is_email()->min_length(10)->max_length(140); 
+		$this->dataValidator->set("Cpf", str_replace(array(".","-"),"",$arg['cpf']))->is_required()->is_cpf(); 
+		$this->dataValidator->set("Ano_Conclusão", $arg['ano_conclusao'])->is_required()->max_value(3000)->min_value( ((int) $arg['ano_ingresso']) + 3);  
+		$this->dataValidator->set("Ano_Ingresso", $arg['ano_ingresso'])->is_required()->max_value(3000)->min_value(1900); 
 
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
-		$result = $daoEgresso->insert($egresso); 
 		
-		if(empty($result)) $mail->sendEmail("Seu login: ". $egresso->getCpf()." <br />Sua senha: ". $passwordToSend, $egresso->getEmail(),"EgressoOnline UEG - Informe de cadastro", $egresso->getNome()); 
+		Lumine::import("Usuario"); 
+		//validando de há cpf ou email na base de dados. 
+		$temp = new Usuario(); 
+		$qtdEmail = $temp->get("email", $arg['e_mail']); 
+		$qtdCpf   = $temp->get("cpf", $arg['cpf']); 
 		
-		self::verifyErrosBd($result); 
-	
+		if($qtdCpf > 0 || $qtdEmail > 0 )
+			$this->manterUsuarioView->sendAjax(array('status' => false ) );
+
+		Lumine::import("Egresso"); 
+		Lumine::import("Localidade"); 
+		Lumine::import("Emprego"); 
+
+		$usuario = new Usuario(); 
+
+		$usuario->nome = $arg['nome']; 
+		$usuario->email  = $arg['e_mail']; ;
+		$usuario->senha  = md5($passwordToSend);
+		$usuario->generoId  = $arg['genero_id'];
+		$usuario->cpf  = $arg['cpf'];
+		$usuario->insert(); 
+
+		$localidade = new Localidade(); 
+		$localidade->insert(); 
+
+		$emprego = new Emprego(); 
+		$localEmprego = new Localidade(); 
+		$localEmprego->insert(); 
+
+		$emprego->atuacaoProfissionalId = 1; 
+		$emprego->faixaSalarialId = 1; 
+		$emprego->localidadeId = $localEmprego->id; 
+		$emprego->insert();
+
+
+		$egresso = new Egresso(); 
+
+		$egresso->anoIngresso = $arg['ano_ingresso']; 
+		$egresso->anoConclusao = $arg['ano_conclusao']; 
+		$egresso->isDadoPublico = false; 
+		$egresso->empregoId = $emprego->id; 
+		$egresso->estadoCivilId = 1; 
+		$egresso->localidadeId = $localidade->id; 
+		$egresso->usuarioId = $usuario->id; 
+		$egresso->insert(); 
+
+		$mail->sendEmail("Seu login: ". $arg['cpf']." <br />Sua senha: ". $passwordToSend, $arg['e_mail'],"EgressoOnline UEG - Informe de cadastro", $arg['nome']); 
+		
+		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
 
 	public function alterarSenha($arg){
-		$daoUsuario = new DAOUsuario(); 
-
-		$usuario = new Usuario(); 
-		$usuario->setId($_SESSION['id_user']); 
-		$usuario->setSenha($arg['senha']);
-
 		//Validacao: 
-		$this->dataValidator->set("Senha", $arg['novaSenha'])->is_required()->is_equals($arg['confirmacao']); 
+
+		$this->dataValidator->set("Senha", $arg['nova_senha'])->is_required()->is_equals($arg['confirmacao']); 
 
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
-		$result = $daoUsuario->alterarSenha($usuario, $arg['novaSenha']); 
-		self::verifyErrosBd($result); 
+		
+		Lumine::import("Usuario"); 
+		$usuario = new Usuario(); 
+		$usuario->get($_SESSION['user_id']); 
+
+		if(strcmp($usuario->senha, $arg['senha']) == 0){
+			$usuario->senha = $arg['nova_senha']; 
+			$usuario->update(); 
+			$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
+		}
+
+		$this->manterUsuarioView->sendAjax(array('status' => false ) ); 
 	}
 
 	public function alterarDadosProfessor($arg){
-		$daoUsuario = new DAOUsuario(); 
-
-		$usuario = new Usuario($_SESSION['id_user'], $arg['nome'], $arg['e_mail']); 
-
 		//Validacao: 
-		$this->dataValidator->set("Nome", $usuario->getNome())->is_required()->min_length(5)->max_length(140); 
-		$this->dataValidator->set("Email", $usuario->getEmail())->is_required()->is_email()->min_length(10)->max_length(140);
+		$this->dataValidator->set("Nome", $arg['nome'])->is_required()->min_length(5)->max_length(140); 
+		$this->dataValidator->set("Email", $arg['e_mail'])->is_required()->is_email()->min_length(10)->max_length(140);
+
+		Lumine::import("Usuario"); 
+		$temp = new Usuario(); 
+
+		$qtdEmail = $temp->get('email', $arg['e_mail']); 
+
 
 		$array = $this->dataValidator->get_errors();
 		self::verifyErros($array); 
-		$result = $daoUsuario->update($usuario); 
-		self::verifyErrosBd($result); 
+		
+		Lumine::import("Usuario"); 
+		$usuario = new Usuario(); 
+		$usuario->get($_SESSION['user_id']); 
+
+		if( ($qtdEmail > 0) && (strcmp($usuario->email, $arg['e_mail'] ) != 0) )
+			$this->manterUsuarioView->sendAjax(array('status' => false ) ); 
+
+		$usuario->nome = $arg['nome']; 
+		$usuario->email = $arg['e_mail']; 
+		$usuario->update(); 
+
+		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 		
 	}
 
 	private function verifyErros($array){
@@ -174,13 +246,6 @@ class ManterUsuario extends GenericController{
 			$array['status'] = false; 
 			$this->manterUsuarioView->sendAjax($array); 
 		}
-	}
-
-	private function verifyErrosBd($result){
-		if(empty($result))
-			$this->manterUsuarioView->sendAjax(array('status' => true)); 
-		else
-			$this->manterUsuarioView->sendAjax(array('status' => false, 'Error' => array ($result))); 
 	}
 
 }

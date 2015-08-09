@@ -1,32 +1,51 @@
-<?php 
-namespace Model; 
+<?php
+#### START AUTOCODE
+/**
+ * Classe generada para a tabela "localidade"
+ * in 2015-08-09
+ * @author Hugo Ferreira da Silva
+ * @link http://www.hufersil.com.br/lumine
+ * @package Model
+ *
+ */
 
-class Localidade{
-	private $id; 
-	private $complemento; 
-	private $cidade; 
-	private $pais; 
+class Localidade extends Lumine_Base {
 
-	public function __construct($id='', $complemento='', $cidade='', $pais=''){
-		$this->id = $id; 
-		$this->complemento = $complemento; 
-		$this->cidade = $cidade; 
-		$this->pais = $pais; 
-	}
+    
+    public $id;
+    public $complemento;
+    public $cidadeId;
+    public $paisId;
+    public $egressos = array();
+    public $empregos = array();
+    public $oportunidades = array();
+    
+    
+    
+    /**
+     * Inicia os valores da classe
+     * @author Hugo Ferreira da Silva
+     * @return void
+     */
+    protected function _initialize()
+    {
+        $this->metadata()->setTablename('localidade');
+        $this->metadata()->setPackage('Model');
+        
+        # nome_do_membro, nome_da_coluna, tipo, comprimento, opcoes
+        
+        $this->metadata()->addField('id', 'id', 'int', 11, array('primary' => true, 'notnull' => true, 'autoincrement' => true));
+        $this->metadata()->addField('complemento', 'complemento', 'varchar', 500, array());
+        $this->metadata()->addField('cidadeId', 'cidade_id', 'int', 11, array('foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Cidade'));
+        $this->metadata()->addField('paisId', 'pais_id', 'int', 11, array('foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Pais'));
 
-	public function getId(){
-		return $this->id;
-	}
+        
+        $this->metadata()->addRelation('egressos', Lumine_Metadata::ONE_TO_MANY, 'Egresso', 'localidadeId', null, null, null);
+        $this->metadata()->addRelation('empregos', Lumine_Metadata::ONE_TO_MANY, 'Emprego', 'localidadeId', null, null, null);
+        $this->metadata()->addRelation('oportunidades', Lumine_Metadata::ONE_TO_MANY, 'Oportunidade', 'localidadeId', null, null, null);
+    }
 
-	public function getComplemento(){
-		return $this->complemento;
-	}
+    #### END AUTOCODE
 
-	public function getCidade(){
-		return $this->cidade;
-	}
 
-	public function getPais(){
-		return $this->pais;
-	}
 }

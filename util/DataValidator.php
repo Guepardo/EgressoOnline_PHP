@@ -6,7 +6,7 @@
  * @version 1.0
  * @link https://github.com/rafaelwendel/DataValidator/
  */
-namespace Util;
+
 
 class DataValidator {
 

@@ -1,8 +1,5 @@
 <?php
-namespace Library; 
-
-use Library\SMTP; 
-use Library\POP3; 
+require_once(PATH.'Library'.DS.'SMTP.php'); 
 /**
  * PHPMailer - PHP email creation and transport class.
  * PHP Version 5
@@ -1292,7 +1289,7 @@ class PHPMailer
     public function getSMTPInstance()
     {
         if (!is_object($this->smtp)) {
-            $this->smtp = new SMTP;
+            $this->smtp = new SMTP();
         }
         return $this->smtp;
     }

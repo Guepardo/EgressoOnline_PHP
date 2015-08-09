@@ -1,60 +1,76 @@
 <?php
-namespace View\CustomViews; 
+require_once(PATH.'View'.DS.'GenericView.php'); 
+require_once(PATH.'Util'.DS.'Convert.php'); 
 
-use View\GenericView; 
-use DAO\CustomDAOs\DAORegiao; 
-use DAO\CustomDAOs\DAOAtuacaoProfissional; 
-use DAO\CustomDAOs\DAOTituloAcademico;
-
-use Util\Convert; 
-
-
-class TelaPrincipalView extends GenericView{
-	
+class TelaPrincipalView extends GenericView
+{
 	public function __construct(){
 		parent::__construct($this); 
 	}
 	
-	public function principalView(){
-		$daoAtuacao = new DAOAtuacaoProfissional(); 
-		$daoRegiao  = new DAORegiao(); 
-		$tipo       = new DAOTituloAcademico; 
-
+	public function principalView()
+	{
 		parent::getTemplateByAction('tela'); 
 
-		foreach( $daoRegiao->selectAllCountries() as $country ){
-			parent::$templator->setVariable("emprego.pais.value", Convert::toUpperCase_ToUTF8($country->getDescricao()) ); 
-			parent::$templator->setVariable("emprego.pais.desc", Convert::toUpperCase_ToUTF8($country->getDescricao())); 
-			parent::$templator->setVariable("pos.pais.value", Convert::toUpperCase_ToUTF8($country->getDescricao()) ); 
-			parent::$templator->setVariable("pos.pais.desc", Convert::toUpperCase_ToUTF8($country->getDescricao())); 
+		Lumine::import('Pais'); 
+		$pais = new Pais(); 
+		$pais->find(); 
+
+		//alternando menu de configurações: 
+		$result; 
+		if($_SESSION['egresso'])
+			$result = parent::loadTemplate(PATH.'templates'.DS.'telaPrincipal'.DS.'confEgresso.html'); 
+		else
+			$result = parent::loadTemplate(PATH.'templates'.DS.'telaPrincipal'.DS.'confCoordenador.html'); 
+
+		parent::$templator->setVariable('tela.configuracao',$result); 
+
+		while( $pais->fetch() ){
+			parent::$templator->setVariable("emprego.pais.id", $pais->id ); 
+			parent::$templator->setVariable("emprego.pais.des", Convert::toUTF_8($pais->des)); 
+			parent::$templator->setVariable("pos.pais.id",  $pais->id); 
+			parent::$templator->setVariable("pos.pais.des", Convert::toUTF_8($pais->des)); 
 
 			parent::$templator->addBlock("emprego.pais");
 			parent::$templator->addBlock("pos.pais"); 
 		}
 
-		foreach( $daoRegiao->selectAllStages("BRASIL") as $estado ){
-			parent::$templator->setVariable("emprego.estado.value", Convert::toUpperCase_ToUTF8($estado->getDescricao()) ); 
-			parent::$templator->setVariable("emprego.estado.desc", Convert::toUpperCase_ToUTF8($estado->getDescricao())); 
-			parent::$templator->setVariable("pos.estado.value", Convert::toUpperCase_ToUTF8($estado->getDescricao()) ); 
-			parent::$templator->setVariable("pos.estado.desc", Convert::toUpperCase_ToUTF8($estado->getDescricao())); 
+		Lumine::import('Estado'); 
+		$estado = new Estado(); 
+		$estado->where('pais_id = 33')->find(); 
+
+		while( $estado->fetch() ){
+			parent::$templator->setVariable("emprego.estado.id", $estado->id ); 
+			parent::$templator->setVariable("emprego.estado.des", Convert::toUTF_8($estado->des)); 
+			parent::$templator->setVariable("pos.estado.id", $estado->id ); 
+			parent::$templator->setVariable("pos.estado.des", Convert::toUTF_8($estado->des)); 
 
 			parent::$templator->addBlock("emprego.estado");
 			parent::$templator->addBlock("pos.estado"); 
 		}
 		
-		foreach( $daoAtuacao->selectAll() as $area ){
-			parent::$templator->setVariable("area.value", Convert::toUpperCase_ToUTF8($area->getDescricao()) ); 
-			parent::$templator->setVariable("area.desc", Convert::toUpperCase_ToUTF8($area->getDescricao())); 
+		Lumine::import('AtuacaoProfissional'); 
+		$area = new AtuacaoProfissional(); 
+		$area->find(); 
+
+		while(  $area->fetch() ){
+			parent::$templator->setVariable("area.id", $area->id ); 
+			parent::$templator->setVariable("area.des", Convert::toUTF_8($area->des)); 
 
 			parent::$templator->addBlock("area");
 		}
 
-		foreach( $tipo->selectAll() as $tituloAcademico ){
-			parent::$templator->setVariable("pos.tipo.value", $tituloAcademico->getId() ); 
-			parent::$templator->setVariable("emprego.tipo.value", $tituloAcademico->getId() ); 
+		Lumine::import('TituloAcademico'); 
+		$tituloAcademico = new TituloAcademico(); 
 
-			parent::$templator->setVariable("pos.tipo.desc", Convert::toUpperCase_ToUTF8($tituloAcademico->getDescricao())); 
-			parent::$templator->setVariable("emprego.tipo.desc", Convert::toUpperCase_ToUTF8($tituloAcademico->getDescricao())); 
+		$tituloAcademico->find(); 
+
+		while( $tituloAcademico->fetch() ){
+			parent::$templator->setVariable("pos.tipo.id", $tituloAcademico->id ); 
+			parent::$templator->setVariable("emprego.tipo.id", $tituloAcademico->id ); 
+
+			parent::$templator->setVariable("pos.tipo.des", Convert::toUTF_8($tituloAcademico->des)); 
+			parent::$templator->setVariable("emprego.tipo.des", Convert::toUTF_8($tituloAcademico->des)); 
 
 			parent::$templator->addBlock("pos.tipo");
 			parent::$templator->addBlock("emprego.tipo");

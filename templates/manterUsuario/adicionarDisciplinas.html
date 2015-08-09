@@ -34,7 +34,7 @@
               <tr>
                 <td>${disciplina.name}</td>
                 <td>${disciplina.ano_lecionou}</td>
-                <td><button value="${disciplina.id}" class="button tiny alert event" >Excluir</button>
+                <td><button value="${associativa.id}" class="button tiny alert event" >Excluir</button>
                 </td>
               </tr>
               <!-- $EndBlock table --> 
@@ -51,11 +51,11 @@
           <div class="row">
             <div class="large-5 columns">
              <label for="disciplina">Disciplinas: <small>Obrigatório</small>
-              <select id="disciplina" class="medium" name="disciplina" required>
+              <select id="disciplina" class="medium" name="disciplina_id" required>
                 <option value="">Selecione</option>
 
                 <!-- $BeginBlock disciplinas --> 
-                <option value="${disciplina.descri}"> ${disciplina.descri} </option>
+                <option value="${disciplina.id}"> ${disciplina.descri} </option>
                 <!-- $EndBlock   disciplinas --> 
               </select>
             </label>
@@ -99,34 +99,38 @@
 <script src="templates/lib/js/ajax.js"></script>
 
 <script>
-  $(document).ready(function(){
-    $('#form').on('valid', function() {
-      var data = $(this).serializeArray(); 
-      console.log(data);
-      var msg = "Faça uma última verificação \nOs dados que serão cadastrados:\n\n"; 
+$(document).ready(function(){
 
-      for(var a = 0; a < data.length; a++ )
-        msg +="\n"+data[a].name+": "+ data[a].value;
-      sendAjax('index.php?usecase=manterUsuario&action=addDisciplina',data,msg); 
+  $('#form').on('valid', function() {
+    var data = $(this).serializeArray(); 
+  
+    sendAjax('index.php?uc=manterUsuario&a=addDisciplina','POST',data,function(data){
+      alertify.log(data); 
+      data = JSON.parse(data); 
+
+      if(data['status'])
+        window.location.reload();    
+      else
+        alertify.error("Error"); 
     });
 
-    $('.event').click(function(){
-      var data = { 'id_materia' : this.value  };
 
-      $.ajax({
-        url : 'index.php?usecase=manterUsuario&action=delDisciplina', 
-        'data' : data,  
-        method : "post"
-      }).done(function(data){
-        data = JSON.parse(data); 
+  });
 
-        if(data['status'] )
-          window.location.reload();
-        else
-          $('#info').append('<div data-alert class="alert-box alert radius">'+prepareLogError(data)+'<a href="#"class="close">x</a></div>'); 
-      }); 
+  $('.event').click(function(){
+    var data = { 'associativa_id' : this.value  };
+    sendAjax('index.php?uc=manterUsuario&a=delDisciplina','POST',data,function(data){
+      alertify.log(data); 
+      data = JSON.parse(data); 
+
+      if(data['status'])
+        window.location.reload();   
+      else
+        alertify.error("Error"); 
     }); 
   }); 
+
+}); 
 </script>
 
 </body>

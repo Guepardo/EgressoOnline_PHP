@@ -48,7 +48,7 @@
       <!--info-->
       <div class="row">
         <div id="info" class="medium-12 columns">
-          
+
         </div>
       </div>
 
@@ -75,20 +75,24 @@
 <script src="templates/lib/js/jquery.mask.min.js"></script>
 <script src="templates/lib/js/ajax.js"></script>
 <script>
-  $(document).ready(function(){
+$(document).ready(function(){
 
-    $('#form').on('valid', function() {
-      var data = $(this).serializeArray(); 
-      console.log(data);
-      var msg = "Faça uma última verificação \nOs dados que serão cadastrados:\n\n"; 
+  $('#form').on('valid', function() {
+    var data = $(this).serializeArray(); 
 
-      for(var a = 0; a < data.length; a++ )
-        msg +="\n"+data[a].name+": "+ data[a].value;
+    sendAjax('index.php?uc=manterUsuario&a=alterarDadosProfessor','POST',data,function(data){
+      alertify.log(data); 
+      data = JSON.parse(data); 
 
-      sendAjax('index.php?usecase=manterUsuario&action=alterarDadosProfessor',data,msg); 
+      if(data['status'])
+        alertify.success("O cadastro foi feito com sucesso");   
+      else
+        alertify.error("Error"); 
     });
 
   });
+
+});
 </script>
 
 </body>

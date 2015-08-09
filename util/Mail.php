@@ -1,7 +1,6 @@
 <?php 
-namespace Util;
 
-use Library\PHPMailer; 
+require_once(PATH.'Library'.DS.'PHPMailer.php'); 
 
 class Mail{
 	private $phpMailer; 

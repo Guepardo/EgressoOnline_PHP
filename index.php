@@ -1,33 +1,34 @@
 <?php
-//Indicando que este script usará sessões em algum momento em sua execução. 
-session_start(); 
-
-//*********Apenas para motivos de debug*********
+//Configurando a data e hora do servidor: 
+date_default_timezone_set('America/Sao_Paulo');
 
 //Criar um arquivo para definições mais tarde. 
 define ('WWW_ROOT', dirname(__FILE__)); 
 define ('DS', DIRECTORY_SEPARATOR); 
+define ('PATH', WWW_ROOT.DS); 
 
-require_once( WWW_ROOT . DS . 'autoload.php'); 
+require(WWW_ROOT.DS.'Persistence'.DS.'Lumine.php');
+require(WWW_ROOT.DS.'Persistence'.DS.'lumine-conf.php');
+require_once(PATH.'Controller'.DS.'MainController.php'); 
+
+$cfg = new Lumine_Configuration( $lumineConfig );
+
+//Indicando que este script usará sessões em algum momento em sua execução. 
+session_start(); 
+
+//ADICIONANDO O VALOR DO USER_ID SEMPRE EM UM, PELO FATO DE NÃO EXISTIR SISTEMA DE LOGIN AINDA. 
+$_SESSION['empresa_id'] = 1; //Referencia ao usuário admin que está cadastrado no banco de dados. 
+
+//require_once( WWW_ROOT . DS . 'autoload.php'); 
 
 
-use Controller\MainController; 
-use Security\SecurityFilter; 
-use DAO\CustomDAOs\DAOEgresso; 
-use DAO\CustomDAOs\DAOFaixaSalarial; 
-use DAO\CustomDAOs\DAOGenero; 
-use DAO\CustomDAOs\DAODisciplina; 
-use DAO\CustomDAOs\DAOProfessor; 
-
-use Util\Mail; 
-
-//	(new SecurityFilter())->filteringRequest(); 
+//(new SecurityFilter())->filteringRequest(); 
 
 //var_dump($_REQUEST); 
-//Apenas para os testes ficarem mais dinâmicos. 
-if( empty($_REQUEST['usecase']) || empty($_REQUEST['action']) ){
-	$_REQUEST['usecase'] = 'autenticar'; 
-	$_REQUEST['action'] = 'loginView'; 
+
+if( empty($_REQUEST['uc']) || empty($_REQUEST['a'])){
+	$_REQUEST['uc'] = 'autenticar'; 
+	$_REQUEST['a']  = 'loginView'; 
 }
 
 (new MainController() )->findMyController(); 
@@ -36,3 +37,4 @@ if( empty($_REQUEST['usecase']) || empty($_REQUEST['action']) ){
 //$mail = new Mail(); 
 
 //$mail->sendEmail("Apenas um texto simples aqui","bsinet@hotmail.com", "Allyson Maciel"); 
+

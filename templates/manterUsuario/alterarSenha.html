@@ -44,7 +44,7 @@
             <div class="row">
               <div class="medium-12 columns password-field"> 
                <label>Nova senha: <small>Obrigatório</small>
-                 <input type="password" name="novaSenha" id="password" required  pattern=".{4,16}" placeholder="Nova senha" />
+                 <input type="password" name="nova_senha" id="password" required  pattern=".{4,16}" placeholder="Nova senha" />
                </label> <small class="error">Sua senha deve conter entre 4 a 16 caracteres.</small>
              </div> 
            </div>
@@ -66,7 +66,7 @@
    <!--info-->
    <div class="row">
     <div id="info" class="medium-12 columns">
-      
+
     </div>
   </div>
 
@@ -97,23 +97,31 @@
 <script src="templates/lib/js/md5.js"></script>
 
 <script>
-  $(document).ready(function(){
+$(document).ready(function(){
 
-    $('#form').on('valid', function() {
-      var data = $(this).serializeArray(); 
-      var temp = new Object(); 
+  $('#form').on('valid', function() {
+    var data = $(this).serializeArray(); 
+    var temp = new Object(); 
 
-      for(var a = 0 ; a < data.length ; a++)
-        temp[data[a].name] = data[a].value;  
+    for(var a = 0 ; a < data.length ; a++)
+      temp[data[a].name] = data[a].value;  
 
-      temp['senha']       = CryptoJS.MD5(temp['senha']).toString(); 
-      temp['novaSenha']   = CryptoJS.MD5(temp['novaSenha']).toString();
-      temp['confirmacao'] = CryptoJS.MD5(temp['confirmacao']).toString();
+    temp['senha']       = CryptoJS.MD5(temp['senha']).toString(); 
+    temp['nova_senha']   = CryptoJS.MD5(temp['nova_senha']).toString();
+    temp['confirmacao'] = CryptoJS.MD5(temp['confirmacao']).toString();
 
-      sendAjax('index.php?usecase=manterUsuario&action=alterarSenha',temp); 
+    sendAjax('index.php?uc=manterUsuario&a=alterarSenha','POST',temp,function(data){
+      alertify.log(data); 
+      data = JSON.parse(data); 
+
+      if(data['status'])
+        alertify.success("O cadastro foi feito com sucesso");   
+      else
+        alertify.error("Error"); 
     });
-
   });
+
+});
 </script>
 
 </body>

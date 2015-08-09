@@ -1,52 +1,49 @@
-<?php 
-namespace Model; 
+<?php
+#### START AUTOCODE
+/**
+ * Classe generada para a tabela "emprego"
+ * in 2015-08-09
+ * @author Hugo Ferreira da Silva
+ * @link http://www.hufersil.com.br/lumine
+ * @package Model
+ *
+ */
 
-class Emprego{
-	private $id; 
-	private $nomeEmpresa; 
-	private $faixaSalarial; 
-	private $atuacaoProfissional; 
-	private $localidade; 
+class Emprego extends Lumine_Base {
 
-	public function __construct($id='', $nomeEmpresa='', $faixaSalarial='', $atuacaoProfissional='',$localidade=''){
-		$this->id = $id; 
-		$this->nomeEmpresa = $nomeEmpresa; 
-		$this->faixaSalarial = $faixaSalarial; 
-		$this->atuacaoProfissional = $atuacaoProfissional; 
-		$this->localidade = $localidade; 
-	}
+    
+    public $id;
+    public $nomeEmpresa;
+    public $localidadeId;
+    public $atuacaoProfissionalId;
+    public $faixaSalarialId;
+    public $egressos = array();
+    
+    
+    
+    /**
+     * Inicia os valores da classe
+     * @author Hugo Ferreira da Silva
+     * @return void
+     */
+    protected function _initialize()
+    {
+        $this->metadata()->setTablename('emprego');
+        $this->metadata()->setPackage('Model');
+        
+        # nome_do_membro, nome_da_coluna, tipo, comprimento, opcoes
+        
+        $this->metadata()->addField('id', 'id', 'int', 11, array('primary' => true, 'notnull' => true, 'autoincrement' => true));
+        $this->metadata()->addField('nomeEmpresa', 'nome_empresa', 'varchar', 150, array());
+        $this->metadata()->addField('localidadeId', 'localidade_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Localidade'));
+        $this->metadata()->addField('atuacaoProfissionalId', 'atuacao_profissional_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'AtuacaoProfissional'));
+        $this->metadata()->addField('faixaSalarialId', 'faixa_salarial_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'FaixaSalarial'));
 
-	public function getId (){
-		return $this->id; 
-	}
+        
+        $this->metadata()->addRelation('egressos', Lumine_Metadata::ONE_TO_MANY, 'Egresso', 'empregoId', null, null, null);
+    }
 
-	public function getNomeEmpresa(){
-		return $this->nomeEmpresa; 
-	}
+    #### END AUTOCODE
 
-	public function getFaixaSalarial(){
-		return $this->faixaSalarial; 
-	}
 
-	public function getAtuacaoProfissional(){
-		return $this->atuacaoProfissional; 
-	}
-
-	public function getLocalidade(){
-		return $this->localidade; 
-	}
-
-	public function setLocalidade($localidade){
-		$this->localidade = $localidade; 
-	}
-
-	public function setFaixaSalarial($faixaSalarial){
-		$this->faixaSalarial = $faixaSalarial; 
-	}
-
-	public function setAtuacaoProfissional($atuacaoProfissional){
-		$this->atuacaoProfissional = $atuacaoProfissional; 
-	}
-
-	
 }

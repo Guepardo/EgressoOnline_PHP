@@ -1,5 +1,4 @@
 <?php 
-namespace Util; 
 
 class KeyFactory{
 

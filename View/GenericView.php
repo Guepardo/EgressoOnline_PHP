@@ -1,7 +1,5 @@
 <?php
-namespace View; 
-
-use Library\MiniTemplator;
+require_once(PATH.'Library'.DS.'MiniTemplator.php'); 
 
 class GenericView {
 	protected static $templator;
@@ -9,16 +7,24 @@ class GenericView {
 
 	public function __construct($class) {
 		self::$templator = new MiniTemplator ();
-		$var = new \ReflectionClass ( $class );
+		$var = new ReflectionClass ( $class );
 		$this->dirName = strtolower ( substr ( $var->getShortName(), 0, strlen ( $var->getShortName() ) - 4 ) ) . DS;
 	}
 
 	protected function getTemplateByAction($templateName) {
-		self::$templator->readTemplateFromFile (WWW_ROOT.DS.'templates'.DS. $this->dirName . $templateName . '.html' );
+		self::$templator->readTemplateFromFile (PATH.'templates'.DS. $this->dirName . $templateName . '.html' );
 	}
 
 	protected function show() {
 		self::$templator->generateOutput();
+	}
+
+	protected function loadTemplate($path){
+		$temp = new MiniTemplator(); 
+		$temp->readTemplateFromFile($path); 
+		$result; 
+		$temp->generateOutputToString($result); 
+		return $result;
 	}
 
 	public function sendAjax($value){
