@@ -12,6 +12,42 @@ class ManterUsuarioView extends GenericView{
 		parent::show(); 
 	}
 
+	public function gerenciarCpView(){
+		parent::getTemplateByAction("gerenciarCursos");
+
+		Lumine::import('TituloAcademico'); 
+		$tituloAcademico = new TituloAcademico(); 
+		$tituloAcademico->find(); 
+
+		while($tituloAcademico->fetch()){
+			parent::$templator->setVariable("tipo.id", $tituloAcademico->id ); 
+			parent::$templator->setVariable("tipo.des", $tituloAcademico->des );
+			parent::$templator->addBlock("tipo");
+		}
+
+	    //Anexar curso do usuário corrente
+	    
+	    Lumine::import("Curso"); 
+	    Lumine::import("TituloAcademico"); 
+	    $curso = new Curso(); 
+	    $titulo = new TituloAcademico(); 
+
+	    $curso->where("usuario_id = ". $_SESSION['user_id'])->find(); 
+
+	    while($curso->fetch()){
+	    	parent::$templator->setVariable("id", $curso->id ); 
+	    	$titulo = new TituloAcademico(); 
+	    	$titulo->get($curso->tituloAcademicoId); 
+			parent::$templator->setVariable("tipo", $titulo->des );
+			parent::$templator->setVariable("instituicao", $curso->instituicao ); 
+			parent::$templator->setVariable("nome_curso", $curso->areaNome );
+			parent::$templator->setVariable("ano_conclusao", $curso->anoConclusao );
+			parent::$templator->addBlock("row");
+	    }
+
+		parent::show(); 
+	}
+
 	public function cadastroEgressoView(){
 		parent::getTemplateByAction("cadastroEgresso"); 
 		parent::show(); 

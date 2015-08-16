@@ -18,10 +18,10 @@ class TelaPrincipalView extends GenericView
 
 		//alternando menu de configurações: 
 		$result; 
-		if($_SESSION['egresso'])
-			$result = parent::loadTemplate(PATH.'templates'.DS.'telaPrincipal'.DS.'confEgresso.html'); 
-		else
+		if($_SESSION['coordenador'])
 			$result = parent::loadTemplate(PATH.'templates'.DS.'telaPrincipal'.DS.'confCoordenador.html'); 
+		else
+			$result = parent::loadTemplate(PATH.'templates'.DS.'telaPrincipal'.DS.'confEgresso.html'); 
 
 		parent::$templator->setVariable('tela.configuracao',$result); 
 

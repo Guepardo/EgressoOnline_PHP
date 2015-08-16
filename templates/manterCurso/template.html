@@ -1,0 +1,83 @@
+  <!doctype html>
+  <html class="no-js" lang="en">
+  <head>
+    <title>EgressoOnline - Login</title>
+    <!-- $Include templates/lib/html/head.html --> 
+
+    <style>
+    .fix{
+      min-width: 335px !important;  
+      max-width: 339px !important;
+    }
+    .fix_top{ 
+      margin-top: 3%;
+    }
+    .main_container{
+     position:relative;
+     top:20%;
+     border:5px;
+     background-color: white;
+     border-radius: 2px; 
+   }
+
+   .borda_inferior{
+    border-bottom-style: solid; 
+    border-bottom-width: 2px; 
+    border-bottom-color: rgb(169,169,169); 
+  }
+
+  #logo{
+    margin: 15px 50px 15px 50px;
+    width: 210px; 
+    height: 100px; 
+  }
+
+  .buttom_fix{
+    width: 250px; 
+    margin-left: 25px; 
+    margin-right: 25px;  
+  }
+  </style>
+
+</head>
+<body>
+  <!-- $Include templates/lib/html/topbar.html --> 
+
+
+  <!-- $Include templates/lib/html/footerscripts.html --> 
+  <script src="templates/lib/js/jquery.mask.min.js"></script>
+  <script src="templates/lib/js/ajax.js"></script>
+  <script src="templates/lib/js/md5.js"></script>
+  <script src="templates/lib/js/redirect.js"></script>
+  <script>
+  $(document).foundation();
+
+  $(document).ready(function(){
+   alertify.log("Olá, esse site ainda está em modo Beta, então tenha paciência :v"); 
+
+   $('.cpf').mask('000.000.000-00');
+
+   $('#form').on('valid', function() {
+
+    var senha = CryptoJS.MD5($('#senha').val()).toString(); 
+    var cpf   = $('#cpf').val(); 
+    var data = { 'senha' : senha, 'cpf' : cpf }; 
+
+    sendAjax('index.php?uc=autenticar&a=login','POST',data,function(data){
+      alertify.log(data); 
+      data = JSON.parse(data); 
+
+      if(data['status']){
+        redirect('index.php',{ uc : 'telaPrincipal', a  : 'principalView' },'GET'); 
+      }else{
+        alertify.error("Usuário ou senha inválido"); 
+      }
+
+    });
+
+  });
+
+ }); 
+  </script>
+</body>
+</html>

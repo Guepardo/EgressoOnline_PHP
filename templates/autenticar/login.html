@@ -108,7 +108,7 @@ $(document).ready(function(){
     data = JSON.parse(data); 
 
     if(data['status']){
-      redirect('index.php',{ uc : 'telaPrincipal', a  : 'principalView' },'POST'); 
+      redirect('index.php',{ uc : 'telaPrincipal', a  : 'principalView' },'GET'); 
     }else{
       alertify.error("Usuário ou senha inválido"); 
     }

@@ -20,6 +20,10 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->cadastroProfessorView(); 
 	}
 
+	public function gerenciarCpView(){
+		$this->manterUsuarioView->gerenciarCpView(); 
+	}
+
 	public function cadastroEgressoView(){
 		$this->manterUsuarioView->cadastroEgressoView(); 
 	}
@@ -156,35 +160,35 @@ class ManterUsuario extends GenericController{
 
 		$usuario = new Usuario(); 
 
-		$usuario->nome = $arg['nome']; 
-		$usuario->email  = $arg['e_mail']; ;
-		$usuario->senha  = md5($passwordToSend);
+		$usuario->nome      = $arg['nome']; 
+		$usuario->email     = $arg['e_mail']; ;
+		$usuario->senha     = md5($passwordToSend);
 		$usuario->generoId  = $arg['genero_id'];
-		$usuario->cpf  = $arg['cpf'];
+		$usuario->cpf       = $arg['cpf'];
 		$usuario->insert(); 
 
-		$localidade = new Localidade(); 
+		$localidade   = new Localidade(); 
 		$localidade->insert(); 
 
-		$emprego = new Emprego(); 
+		$emprego      = new Emprego(); 
 		$localEmprego = new Localidade(); 
 		$localEmprego->insert(); 
 
-		$emprego->atuacaoProfissionalId = 1; 
-		$emprego->faixaSalarialId = 1; 
+		//$emprego->atuacaoProfissionalId = 1; 
+		//$emprego->faixaSalarialId = 1; 
 		$emprego->localidadeId = $localEmprego->id; 
 		$emprego->insert();
 
 
 		$egresso = new Egresso(); 
 
-		$egresso->anoIngresso = $arg['ano_ingresso']; 
-		$egresso->anoConclusao = $arg['ano_conclusao']; 
+		$egresso->anoIngresso   = $arg['ano_ingresso']; 
+		$egresso->anoConclusao  = $arg['ano_conclusao']; 
 		$egresso->isDadoPublico = false; 
-		$egresso->empregoId = $emprego->id; 
+		$egresso->empregoId     = $emprego->id; 
 		$egresso->estadoCivilId = 1; 
-		$egresso->localidadeId = $localidade->id; 
-		$egresso->usuarioId = $usuario->id; 
+		$egresso->localidadeId  = $localidade->id; 
+		$egresso->usuarioId     = $usuario->id; 
 		$egresso->insert(); 
 
 		$mail->sendEmail("Seu login: ". $arg['cpf']." <br />Sua senha: ". $passwordToSend, $arg['e_mail'],"EgressoOnline UEG - Informe de cadastro", $arg['nome']); 
@@ -241,6 +245,46 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 		
 	}
 
+	public function  cadastroCurso($arg){
+		//Espero um dia ter tempo para implementar a validação dos dados que estão 
+		//entrado :v
+
+		Lumine::import("Curso"); 
+		$curso = new Curso(); 
+
+		$curso->instituicao       = $arg['instituicao']; 
+		$curso->areaNome          = $arg['nome_area']; 
+		$curso->anoConclusao      = $arg['ano_conclusao']; 
+		$curso->usuarioId         = (int) $_SESSION['user_id'];  
+		$curso->tituloAcademicoId = $arg['titulo_academico_id']; 
+
+		$curso->insert(); 
+
+		$this->manterUsuarioView->sendAjax(array('status' => true ) );  
+	}
+
+	public function deletarCurso($arg){
+		Lumine::import("Curso"); 
+		$curso = new Curso(); 
+		$curso->get((int) $arg['id']); 	
+		$curso->delete();  
+
+		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
+	}
+
+	public function alterarCurso($arg){
+		Lumine::import("Curso"); 
+		$curso = new Curso(); 
+		$curso->get((int) $arg['id']); 
+		$curso->instituicao       = $arg['instituicao']; 
+		$curso->areaNome          = $arg['nome_area']; 
+		$curso->anoConclusao      = $arg['ano_conclusao']; 
+		$curso->tituloAcademicoId = (int) $arg['titulo_academico_id']; 
+
+		$curso->update(); 
+
+		$this->manterUsuarioView->sendAjax(array('status' => true ) );  
+	}
 	private function verifyErros($array){
 		if(!empty($array)){
 			$array['status'] = false; 

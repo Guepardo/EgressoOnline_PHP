@@ -17,7 +17,6 @@ $cfg = new Lumine_Configuration( $lumineConfig );
 session_start(); 
 
 //ADICIONANDO O VALOR DO USER_ID SEMPRE EM UM, PELO FATO DE NÃO EXISTIR SISTEMA DE LOGIN AINDA. 
-$_SESSION['empresa_id'] = 1; //Referencia ao usuário admin que está cadastrado no banco de dados. 
 
 //require_once( WWW_ROOT . DS . 'autoload.php'); 
 

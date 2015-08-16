@@ -1,0 +1,221 @@
+  <!doctype html>
+  <html class="no-js" lang="pt">
+  <head>
+    <title>EgressoOnline - Login</title>
+    <!-- $Include templates/lib/html/head.html --> 
+
+    <style>
+    .fix{
+      min-width: 335px !important;  
+      max-width: 339px !important;
+    }
+    .fix_top{ 
+      margin-top: 3%;
+    }
+    .main_container{
+     position:relative;
+     top:20%;
+     border:5px;
+     background-color: white;
+     border-radius: 2px; 
+   }
+
+   .borda_inferior{
+    border-bottom-style: solid; 
+    border-bottom-width: 2px; 
+    border-bottom-color: rgb(169,169,169); 
+  }
+
+  #logo{
+    margin: 15px 50px 15px 50px;
+    width: 210px; 
+    height: 100px; 
+  }
+
+  .buttom_fix{
+    width: 250px; 
+    margin-left: 25px; 
+    margin-right: 25px;  
+  }
+  </style>
+
+</head>
+<body>
+  <!-- $Include templates/lib/html/topbar.html --> 
+
+  <div class="row panel" style="margin-top:30px">
+    <div class="medium-12 columns">
+      <!-- começo -->
+      <div class="row">
+        <!--Direito-->
+        <div class="medium-12 columns" > 
+          <div class="row">
+
+            <!--Esquerdo-->
+            <div class="medium-4 columns" style="height:400px;">
+
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label >Digite o nome da nova disciplina
+                    <input type="text" value="" placeholder="Digite alguma coisa aqui" id="area_nome"/>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="medium-12 columns">
+                <button class="button success tiny" style="margin:0;" id="cadastrar">Cadastrar nova disciplina</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="medium-8 columns" >
+            <div class="row">
+              <div class="medium-12 columns">
+                <span class="label">Disciplinas cadastradas</span>
+              </div>
+            </div>
+            <hr style="margin:0"/>
+
+            <div class="row">
+              <div class="medium-12 columns" style="height:333px; overflow:auto;">
+                <table>
+                  <tr>
+                    <th width="500">Disciplina</th>
+                    <th >Ação</th>
+                    <th width="100">Ação</th>
+                  </tr>
+
+                  <!-- $BeginBlock row -->
+                  <tr>
+                    <td class="nome" >${nome}</td>
+                    <td><button value="${id}" class="button info tiny edit" style="margin:0"><i class="fa fa-pencil"></i></button></td>
+                    <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
+                  </tr>
+                  <!-- $EndBlock row -->
+                </table>
+
+              </div>
+            </div>
+
+
+          </div>  
+          <!--fim-->
+        </div>
+
+      </div>
+    </div>  
+  </div>
+  <!-- fim  -->
+</div>
+
+
+<!--modal Section--> 
+
+<div id="modal_alterar" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">Alterar o nome da disciplina: </h2>
+  <p class="lead" id="nome_materia"><i></i></p>
+  
+  <form data-abidi="ajax">
+    <div class="row">
+      <div class="medium-6">
+        <input type="text" value="" id="nome" placeholder="Novo nome aqui."/>
+        <input type="hidden" value="" id="atuacao_id" >
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="medium-12">
+        <div class="clearfix">
+          <a class="button tiny success right" id="alterar">Alterar</a>
+          <a class="button tiny alert left" id="cancelar">Cancelar</a>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+<!-- $Include templates/lib/html/footerscripts.html --> 
+<script src="templates/lib/js/jquery.mask.min.js"></script>
+<script src="templates/lib/js/ajax.js"></script>
+<script src="templates/lib/js/md5.js"></script>
+<script src="templates/lib/js/redirect.js"></script>
+<script src="templates/lib/js/ajax.js"></script>
+<script>
+$(document).foundation();
+
+$(document).ready(function(){
+
+  //Tratando evento para a deleção: 
+  $("button.edit").click(function(){
+    var nome = $(this).parent().parent().find('td.nome').text();
+    var id   = $(this).val(); 
+
+    $('#nome_materia').text('"'+nome+'"'); 
+    $('#atuacao_id').val(id); 
+    $('#modal_alterar').foundation('reveal', 'open');
+  }); 
+
+  $("#alterar").click(function(){
+    var id = $('#atuacao_id').val(); 
+    var nome = $('#nome').val(); ; 
+    sendAjax('index.php?uc=manterCurso&a=alterarDisciplina','POST',{'id' : id, 'nome' : nome}, function(data){
+      data = JSON.parse(data); 
+      if(data['status']){ 
+        $('#modal_alterar').foundation('reveal', 'close');
+        window.location.reload(); 
+      }
+    }); 
+    //aqui
+  });
+
+  $("#cadastrar").click(function(){
+    var nome = $("#area_nome").val(); 
+    if(nome == ''){
+      alertify.error("Você precisa inserir um nome para a nova área de atuação."); 
+      return; 
+    }
+    sendAjax('index.php?uc=manterCurso&a=novaDisciplina','POST',{'nome' : nome}, function(data){
+      data  = JSON.parse(data); 
+      if(data['status']){
+        alertify.success("A área foi cadastrada com sucesso"); 
+        reloadDelay(1000); 
+      }else{
+        alertify.error(data['msg']); 
+      }
+    });
+  });
+
+  $("#cancelar").click(function(){
+   $('#modal_alterar').foundation('reveal', 'close');
+ }); 
+
+  //Tratando evento para a modificação do nome: 
+  $("button.delete").click(function(){
+    var id = $(this).val(); 
+    sendAjax('index.php?uc=manterCurso&a=deletarDisciplina','POST',{'id' : id}, function(data){
+      data  = JSON.parse(data); 
+
+      if(data['status']){
+        alertify.success("Área deletada"); 
+        reloadDelay(500); 
+      }else{
+        alertify.error(data['msg']); 
+      }
+
+    });
+  });   
+
+
+  function reloadDelay(delay){
+    setInterval(function(){window.location.reload();},delay); 
+  }
+});
+
+  </script>
+</body>
+</html>

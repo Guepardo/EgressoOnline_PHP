@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "usuario"
- * in 2015-08-09
+ * in 2015-08-16
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -17,10 +17,15 @@ class Usuario extends Lumine_Base {
     public $cpf;
     public $email;
     public $senha;
+    public $foto;
     public $generoId;
+    public $cursos = array();
     public $egressos = array();
+    public $notificacoes = array();
     public $oportunidades = array();
+    public $postagem = array();
     public $professores = array();
+    public $usuariohaspostagem = array();
     
     
     
@@ -41,12 +46,17 @@ class Usuario extends Lumine_Base {
         $this->metadata()->addField('cpf', 'cpf', 'varchar', 14, array('notnull' => true));
         $this->metadata()->addField('email', 'email', 'varchar', 150, array('notnull' => true));
         $this->metadata()->addField('senha', 'senha', 'varchar', 35, array('notnull' => true));
+        $this->metadata()->addField('foto', 'foto', 'varchar', 35, array());
         $this->metadata()->addField('generoId', 'genero_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Genero'));
 
         
+        $this->metadata()->addRelation('cursos', Lumine_Metadata::ONE_TO_MANY, 'Curso', 'usuarioId', null, null, null);
         $this->metadata()->addRelation('egressos', Lumine_Metadata::ONE_TO_MANY, 'Egresso', 'usuarioId', null, null, null);
+        $this->metadata()->addRelation('notificacoes', Lumine_Metadata::ONE_TO_MANY, 'Notificacao', 'usuarioId', null, null, null);
         $this->metadata()->addRelation('oportunidades', Lumine_Metadata::ONE_TO_MANY, 'Oportunidade', 'usuarioId', null, null, null);
+        $this->metadata()->addRelation('postagem', Lumine_Metadata::ONE_TO_MANY, 'Postagem', 'usuarioId', null, null, null);
         $this->metadata()->addRelation('professores', Lumine_Metadata::ONE_TO_MANY, 'Professor', 'usuarioId', null, null, null);
+        $this->metadata()->addRelation('usuariohaspostagem', Lumine_Metadata::ONE_TO_MANY, 'UsuarioHasPostagem', 'usuarioId', null, null, null);
     }
 
     #### END AUTOCODE

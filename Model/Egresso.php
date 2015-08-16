@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "egresso"
- * in 2015-08-09
+ * in 2015-08-16
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -23,6 +23,7 @@ class Egresso extends Lumine_Base {
     public $estadoCivilId;
     public $localidadeId;
     public $egressohasredesociais = array();
+    public $egressohasturmas = array();
     
     
     
@@ -51,6 +52,7 @@ class Egresso extends Lumine_Base {
 
         
         $this->metadata()->addRelation('egressohasredesociais', Lumine_Metadata::ONE_TO_MANY, 'EgressoHasRedeSocial', 'usuarioId', null, null, null);
+        $this->metadata()->addRelation('egressohasturmas', Lumine_Metadata::ONE_TO_MANY, 'EgressoHasTurma', 'egressoUsuarioId', null, null, null);
     }
 
     #### END AUTOCODE

@@ -1,0 +1,287 @@
+  <!doctype html>
+  <html class="no-js" lang="en">
+  <head>
+    <title>EgressoOnline - Login</title>
+    <!-- $Include templates/lib/html/head.html --> 
+
+    <style>
+    .fix{
+      min-width: 335px !important;  
+      max-width: 339px !important;
+    }
+    .fix_top{ 
+      margin-top: 3%;
+    }
+    .main_container{
+     position:relative;
+     top:20%;
+     border:5px;
+     background-color: white;
+     border-radius: 2px; 
+   }
+
+   .borda_inferior{
+    border-bottom-style: solid; 
+    border-bottom-width: 2px; 
+    border-bottom-color: rgb(169,169,169); 
+  }
+
+  #logo{
+    margin: 15px 50px 15px 50px;
+    width: 210px; 
+    height: 100px; 
+  }
+
+  .buttom_fix{
+    width: 250px; 
+    margin-left: 25px; 
+    margin-right: 25px;  
+  }
+  </style>
+
+</head>
+<body>
+  <!-- $Include templates/lib/html/topbar.html --> 
+
+  
+  <div class="row" style="margin-top:30px">
+    <div class="medium-12 columns">
+      <!-- começo -->
+      <div class="row panel">
+
+        <div class="medium-12 columns" >
+          <div class="row">
+            <div class="medium-12 columns">
+              <span class="label">Suas graduações e pós-graduações</span>
+            </div>
+          </div>
+          <hr style="margin:0"/>
+
+          <div class="row">
+            <div class="medium-12 columns" style="height:333px; overflow:auto;">
+              <table>
+                <tr>
+                  <th width="100">Tipo</th>
+                  <th width="200">Instituição</th>
+                  <th width="300">Área/Curso</th>
+                  <th width="100" >Ano</th>
+                  <th >Ação</th>
+                  <th >Ação</th>
+                </tr>
+
+                <!-- $BeginBlock row -->
+                <tr>
+                  <td class="tipo" >${tipo}</td>
+                  <td class="instituicao" >${instituicao}</td>
+                  <td class="nome_curso">${nome_curso}</td>
+                  <td class="ano_conclusao">${ano_conclusao}</td>
+                  <td><button value="${id}" class="button info tiny edit" style="margin:0"><i class="fa fa-pencil"></i></button></td>
+                  <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
+                </tr>
+                <!-- $EndBlock row -->
+                
+                
+              </table>
+            </div>
+          </div>
+
+          <hr style="margin-top:0"/>
+
+          <div class="row">
+            <div class="medium-3 columns">
+              <button type="" data-reveal-id="modal_cadastro" class="button success tiny">Cadastrar uma nova graduação</button>
+            </div>
+          </div>
+
+
+        </div>  
+        <!--fim-->
+      </div>
+
+    </div>
+  </div>  
+</div>
+<!-- fim  -->
+</div>
+
+
+<!--modal Section--> 
+
+<div id="modal_alterar" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">Alterar pós-graduação ou graduação</h2>
+  <p class="lead">Modifique algum campo abaixo</p>
+  
+  <form id="form_alterar" data-abide="ajax">
+    <div class="row">
+      <div class="medium-12 columns">
+        <div class="row">
+          <div class="medium-6 columns">
+            <label>Tipo 
+              <select id="titulo_academico_id" name="titulo_academico_id">
+                <option value="">- Selecione -</option>
+                <!-- $BeginBlock tipo -->
+                <option value="${tipo.id}"> ${tipo.des}</option>
+                <!-- $EndBlock tipo -->
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="medium-6 columns">
+            <label>Instituição <input id="instituicao" type="text" name="instituicao" value="" /></label>
+          </div>
+          <div class="medium-6 columns">
+            <label>Área/Nome do curso <input id="nome_area" type="text" name="nome_area" value="" /></label>
+          </div>
+        </div>
+        <input type="hidden" id="curso_id" name="id">
+        <div class="row">
+          <div class="medium-4 columns">
+            <label>Ano de conclusão <input id="ano_conclusao" type="number" name="ano_conclusao" value="" /></label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="medium-12 columns">
+            <div class="clearfix">
+              <button type="submit" class="button tiny success right">Cadastrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+<div id="modal_cadastro" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">Cadastrar pós-graduação ou graduação </h2>
+  <p class="lead">Preencha os campos abaixo</p>
+  
+  <form id="form" data-abide="ajax">
+    <div class="row">
+      <div class="medium-12 columns">
+        <div class="row">
+          <div class="medium-6 columns">
+            <label>Tipo 
+              <select name="titulo_academico_id">
+                <option value="">- Selecione -</option>
+                <!-- $BeginBlock tipo -->
+                <option value="${tipo.id}"> ${tipo.des}</option>
+                <!-- $EndBlock tipo -->
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="medium-6 columns">
+            <label>Instituição <input type="text" name="instituicao" value="" /></label>
+          </div>
+          <div class="medium-6 columns">
+            <label>Área/Nome do curso <input type="text" name="nome_area" value="" /></label>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="medium-4 columns">
+            <label>Ano de conclusão <input type="number" name="ano_conclusao" value="" /></label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="medium-12 columns">
+            <div class="clearfix">
+              <button type="submit" class="button tiny success right">Cadastrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+
+<!-- $Include templates/lib/html/footerscripts.html --> 
+<script src="templates/lib/js/jquery.mask.min.js"></script>
+<script src="templates/lib/js/ajax.js"></script>
+<script src="templates/lib/js/md5.js"></script>
+<script src="templates/lib/js/redirect.js"></script>
+<script>
+$(document).foundation();
+
+$(document).ready(function(){
+
+  //Adicionando manipuladores para deleção
+  $("button.delete").click(function(){
+    var id = $(this).val(); 
+    sendAjax('index.php?uc=manterUsuario&a=deletarCurso','POST',{ 'id' : id },function(data){
+     data  = JSON.parse(data); 
+     if(data['status']){
+      alertify.success("O curso foi deletado com sucesso."); 
+      reloadDelay(500); 
+    }else{
+      alertify.error(data['msg']); 
+    }
+  }); 
+  }); 
+
+  //Adicionando manipuladores para edição
+  $("button.edit").click(function(){
+    var id = $(this).val(); 
+    var tr = $(this).parent().parent(); 
+
+    var tipo = $(tr).find('td.tipo').text(); 
+    var instituicao = $(tr).find('td.instituicao').text(); 
+    var nomeArea = $(tr).find('td.nome_curso').text();  
+    var anoConclusao = $(tr).find('td.ano_conclusao').text(); 
+
+    $("#titulo_academico_id option:contains('"+tipo+"')").attr('selected', true); 
+    $('#instituicao').val(instituicao); 
+    $('#nome_area').val(nomeArea); 
+    $('#ano_conclusao').val(anoConclusao); 
+    $('#curso_id').val(id); 
+
+    $('#modal_alterar').foundation('reveal', 'open');
+  }); 
+
+  $('#form_alterar').on('valid', function(){
+    var data = $(this).serializeArray(); 
+
+    sendAjax('index.php?uc=manterUsuario&a=alterarCurso','POST',data,function(data){ 
+      data = JSON.parse(data); 
+      if(data['status']){
+        alertify.success("Novo curso cadastrado com sucesso");
+        reloadDelay(500);  
+      }else{  
+        alertify.error("error"); 
+      }
+    }); 
+  }); 
+
+  $('#form').on('valid', function(){
+    var data = $(this).serializeArray(); 
+
+    sendAjax('index.php?uc=manterUsuario&a=cadastroCurso','POST',data,function(data){
+      data = JSON.parse(data); 
+      if(data['status']){
+        alertify.success("Novo curso cadastrado com sucesso");
+        reloadDelay(500);  
+      }else{  
+        alertify.error("error"); 
+      }
+    }); 
+  });
+
+  
+
+  function reloadDelay(delay){
+    setInterval(function(){window.location.reload();},delay); 
+  }
+
+}); 
+  </script>
+</body>
+</html>

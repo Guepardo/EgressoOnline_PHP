@@ -32,10 +32,19 @@ class Autenticar extends GenericController {
 			$egresso->fetch(true); 
 
 			$_SESSION['egresso'] = ($egresso->usuarioId !=  null ); 
+			
+			$_SESSION['coordenador'] = false;
+			if( !$_SESSION['egresso'] ){ 
+
+			Lumine::import("Professor"); 
+				$professor = new Professor(); 
+				$professor->where("usuario_id = ". $usuario->id )->find(); 
+				$professor->fetch(true); 
+
+				$_SESSION['coordenador'] = $professor->isCoordenador; 
+			}
 		}
 			
-		
-
 		$this->autenticarView->sendAjax( array( "status" => $status ) ); 
 	}
 

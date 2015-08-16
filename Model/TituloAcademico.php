@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "titulo_academico"
- * in 2015-08-09
+ * in 2015-08-16
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -14,6 +14,8 @@ class TituloAcademico extends Lumine_Base {
     
     public $id;
     public $des;
+    public $cursos = array();
+    public $notificacaohastituloacademicos = array();
     public $opempregos = array();
     public $opposgraduacoes = array();
     
@@ -35,6 +37,8 @@ class TituloAcademico extends Lumine_Base {
         $this->metadata()->addField('des', 'des', 'varchar', 45, array('notnull' => true));
 
         
+        $this->metadata()->addRelation('cursos', Lumine_Metadata::ONE_TO_MANY, 'Curso', 'tituloAcademicoId', null, null, null);
+        $this->metadata()->addRelation('notificacaohastituloacademicos', Lumine_Metadata::ONE_TO_MANY, 'NotificacaoHasTituloAcademico', 'tituloAcademicoId', null, null, null);
         $this->metadata()->addRelation('opempregos', Lumine_Metadata::ONE_TO_MANY, 'OpEmprego', 'tituloAcademicoId', null, null, null);
         $this->metadata()->addRelation('opposgraduacoes', Lumine_Metadata::ONE_TO_MANY, 'OpPosGraduacao', 'tituloAcademicoId', null, null, null);
     }

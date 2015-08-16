@@ -1,7 +1,7 @@
 <?php
 #### START AUTOCODE
 /**
- * Classe generada para a tabela "estado_civil"
+ * Classe generada para a tabela "turma"
  * in 2015-08-16
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
@@ -9,12 +9,13 @@
  *
  */
 
-class EstadoCivil extends Lumine_Base {
+class Turma extends Lumine_Base {
 
     
     public $id;
-    public $des;
-    public $egressos = array();
+    public $foto;
+    public $ano;
+    public $egressohasturmas = array();
     
     
     
@@ -25,16 +26,17 @@ class EstadoCivil extends Lumine_Base {
      */
     protected function _initialize()
     {
-        $this->metadata()->setTablename('estado_civil');
+        $this->metadata()->setTablename('turma');
         $this->metadata()->setPackage('Model');
         
         # nome_do_membro, nome_da_coluna, tipo, comprimento, opcoes
         
         $this->metadata()->addField('id', 'id', 'int', 11, array('primary' => true, 'notnull' => true, 'autoincrement' => true));
-        $this->metadata()->addField('des', 'des', 'varchar', 45, array('notnull' => true));
+        $this->metadata()->addField('foto', 'foto', 'varchar', 35, array());
+        $this->metadata()->addField('ano', 'ano', 'int', 11, array('notnull' => true));
 
         
-        $this->metadata()->addRelation('egressos', Lumine_Metadata::ONE_TO_MANY, 'Egresso', 'estadoCivilId', null, null, null);
+        $this->metadata()->addRelation('egressohasturmas', Lumine_Metadata::ONE_TO_MANY, 'EgressoHasTurma', 'turmaId', null, null, null);
     }
 
     #### END AUTOCODE
