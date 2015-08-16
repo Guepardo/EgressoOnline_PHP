@@ -110,7 +110,8 @@ class ManterUsuario extends GenericController{
 
 		
 		Lumine::import("Professor"); 
-
+		Lumine::import("Notificacao"); 
+		
 		$usuario = new Usuario(); 
 
 		$usuario->nome = $arg['nome']; 
@@ -119,6 +120,10 @@ class ManterUsuario extends GenericController{
 		$usuario->generoId  = $arg['genero_id'];
 		$usuario->cpf  = $arg['cpf'];
 		$usuario->insert(); 
+
+		$notificacao  = new Notificacao(); 
+		$notificacao->usuarioId = $usuario->id; 
+		$notificacao->insert(); 
 
 		$professor = new Professor(); 
 
@@ -157,6 +162,7 @@ class ManterUsuario extends GenericController{
 		Lumine::import("Egresso"); 
 		Lumine::import("Localidade"); 
 		Lumine::import("Emprego"); 
+        Lumine::import("Notificacao"); 
 
 		$usuario = new Usuario(); 
 
@@ -166,6 +172,10 @@ class ManterUsuario extends GenericController{
 		$usuario->generoId  = $arg['genero_id'];
 		$usuario->cpf       = $arg['cpf'];
 		$usuario->insert(); 
+
+		$notificacao  = new Notificacao(); 
+		$notificacao->usuarioId = $usuario->id; 
+		$notificacao->insert(); 
 
 		$localidade   = new Localidade(); 
 		$localidade->insert(); 
@@ -275,6 +285,7 @@ class ManterUsuario extends GenericController{
 	public function alterarCurso($arg){
 		Lumine::import("Curso"); 
 		$curso = new Curso(); 
+		
 		$curso->get((int) $arg['id']); 
 		$curso->instituicao       = $arg['instituicao']; 
 		$curso->areaNome          = $arg['nome_area']; 

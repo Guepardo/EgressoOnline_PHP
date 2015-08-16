@@ -43,7 +43,7 @@
 <body>
 
 
-<!-- $Include templates/lib/html/topbar.html --> 
+  <!-- $Include templates/lib/html/topbar.html --> 
   <div class="row panel" style="margin-top:30px">
     <div class="medium-12 columns">
       <!-- começo -->
@@ -62,16 +62,19 @@
               <hr style="margin:0"/>
 
               <div class="row">
-                <div class="medium-5 columns">
+                <div class="medium-6 columns">
                   <label >Selecione uma área
-                    <select name="">
+                    <select id="area_selecionada">
                       <option value="">- Selecione -</option>
+                      <!-- $BeginBlock area-->
+                      <option value="${area.id}"> ${area.des}</option>
+                      <!-- $EndBlock area -->
                     </select>
                   </label>
                 </div>
 
                 <div class="medium-6 columns">
-                  <button class="button success tiny" style="margin-bottom:0;margin-top:25px;">Adicionar aos meus interesses</button>
+                  <button class="button success tiny" id="cadastrar" style="margin-bottom:0;margin-top:25px;">Adicionar aos meus interesses</button>
                 </div>
               </div>
 
@@ -87,14 +90,13 @@
                   <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Graduação</label>
                   <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Especialização</label>
                   <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Mestrado</label>
-                  <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Doutorado</label>
                 </div>
               </div>
               
               <div class="row">
                 <div class="medium-12 columns">
-                  <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Não desejo ser notificado</label>
-
+                  <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Doutorado</label>
+                  <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed" style="color:red">Não desejo ser notificado</label>
                 </div>
               </div>
 
@@ -115,31 +117,12 @@
                       <th width="500">Área Profissional</th>
                       <th >Ação</th>
                     </tr>
-
+                    <!-- $BeginBlock row-->
                     <tr>
-                      <td>alguma coisa</td>
-                      <td><button class="button alert tiny" style="margin:0">Retirar</button></td>
+                      <td>${nome}</td>
+                      <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
                     </tr>
-                    <tr>
-                      <td>alguma coisa</td>
-                      <td><button class="button alert tiny" style="margin:0">Retirar</button></td>
-                    </tr>
-                    <tr>
-                      <td>alguma coisa</td>
-                      <td><button class="button alert tiny" style="margin:0">Retirar</button></td>
-                    </tr>
-                    <tr>
-                      <td>alguma coisa</td>
-                      <td><button class="button alert tiny" style="margin:0">Retirar</button></td>
-                    </tr>
-                    <tr>
-                      <td>alguma coisa</td>
-                      <td><button class="button alert tiny" style="margin:0">Retirar</button></td>
-                    </tr>
-                    <tr>
-                      <td>alguma coisa</td>
-                      <td><button class="button alert tiny" style="margin:0">Retirar</button></td>
-                    </tr>
+                    <!-- $EndBlock row-->
                   </table>
                   
                 </div>
@@ -159,37 +142,25 @@
   <!-- $Include templates/lib/html/footerscripts.html --> 
   <script src="templates/lib/js/jquery.mask.min.js"></script>
   <script src="templates/lib/js/ajax.js"></script>
-  <script src="templates/lib/js/md5.js"></script>
-  <script src="templates/lib/js/redirect.js"></script>
+
   <script>
   $(document).foundation();
 
   $(document).ready(function(){
-   alertify.log("Olá, esse site ainda está em modo Beta, então tenha paciência :v"); 
+    $("#cadastrar").click(function(){
+      var areaId = $("#area_selecionada option:selected").val(); 
+      if(areaId == ''){
+        alertify.error("Selecione uma área de atuacão profissional");
+        return; 
+      } 
 
-   $('.cpf').mask('000.000.000-00');
+      sendAjax('index.php?uc=configurar&a=addArea','POST',{'id' : areaId}, function(data){
+        alertify.log(data); 
+      }); 
+        
+    }); 
 
-   $('#form').on('valid', function() {
-
-    var senha = CryptoJS.MD5($('#senha').val()).toString(); 
-    var cpf   = $('#cpf').val(); 
-    var data = { 'senha' : senha, 'cpf' : cpf }; 
-
-    sendAjax('index.php?uc=autenticar&a=login','POST',data,function(data){
-      alertify.log(data); 
-      data = JSON.parse(data); 
-
-      if(data['status']){
-        redirect('index.php',{ uc : 'telaPrincipal', a  : 'principalView' },'GET'); 
-      }else{
-        alertify.error("Usuário ou senha inválido"); 
-      }
-
-    });
-
-  });
-
- }); 
+  }); 
   </script>
 </body>
 </html>

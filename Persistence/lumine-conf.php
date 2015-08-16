@@ -19,7 +19,7 @@
 ################################################################################
 /**
  * Created by Lumine_Reverse
- * in 2015-08-05
+ * in 2015-08-16
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  *
@@ -33,7 +33,7 @@ $lumineConfig = array(
     'password' => '', 
     'port' => '3306', 
     'host' => 'localhost', 
-    'class_path' => 'C:/wamp/www/projeto', 
+    'class_path' => 'C:/wamp/www/EgressoOnline_PHP', 
     'package' => 'Model', 
     'addons_path' => '', 
     'acao' => 'gerar', 

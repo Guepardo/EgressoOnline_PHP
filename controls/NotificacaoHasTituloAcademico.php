@@ -17,8 +17,8 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>
 ################################################################################
 
-require_once 'C:\wamp\www\projeto\Persistence/Lumine.php';
-require_once 'C:/wamp/www/projeto/lumine-conf.php';
+require_once 'C:\wamp\www\EgressoOnline_PHP\Persistence/Lumine.php';
+require_once 'C:/wamp/www/EgressoOnline_PHP/lumine-conf.php';
 
 Lumine::load('Form_White');
 
