@@ -40,10 +40,10 @@
   <div class="large-6 columns">
     <form>
       <label>Compartilhe alguma coisa. 
-        <textarea placeholder="No máximo 300 palavras." style="height:210px;"></textarea>
+        <textarea id="post_content" placeholder="No máximo 300 palavras." style="height:210px;"></textarea>
       </label>
     </form>
-    <a href="#" class="button expand">Postar</a>
+    <a href="#" id="publicar" class="button expand">Postar</a>
   </div>
 
   <div class="large-3 columns">
@@ -64,14 +64,14 @@
       <li>
        <!--DropDown para divulgar-->
        <button href="#" data-dropdown="drop2" aria-controls="drop2" aria-expanded="false" class="button dropdown"><i class="fa fa-cog fa-fw"style="float:left;"></i>Configurações</a></li></button><br>
-     
-      ${tela.configuracao}
-      
-      <!--Fim DropDown --> 
-    </li>
 
-  </ul>
-</div>
+       ${tela.configuracao}
+
+       <!--Fim DropDown --> 
+     </li>
+
+   </ul>
+ </div>
 
 </div>
 
@@ -484,7 +484,7 @@ $(document).ready(function(){
     var value = $('#emprego_select_estado option:selected ').val(); 
     var text = $('#emprego_select_estado option:selected ').text(); 
 
-    requestAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
+    sendAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
       data = JSON.parse(data); 
       $('#emprego_select_cidade > option').each(function(){ this.remove(); }); 
 
@@ -503,7 +503,7 @@ $(document).ready(function(){
     var value = $('#pos_select_estado option:selected ').val(); 
     var text = $('#emprego_select_estado option:selected ').text(); 
 
-    requestAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
+    sendAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
       data = JSON.parse(data); 
       $('#pos_select_cidade > option').each(function(){ this.remove(); }); 
 
@@ -518,17 +518,24 @@ $(document).ready(function(){
 
   }); 
 
+  //Manipulador para o botão de postagem
+  $('#publicar').click(function(){
+    var post = $("textarea#post_content").val();
 
-  function requestAjax(url, method, data, callback){
-    $.ajax({
-      'url'    : url, 
-      'method' : method, 
-      'data'   : data
-    }).done(function(data){
-      callback(data); 
-    }); 
-  }
-
+    if(post == ''){
+      alertify.error("Escreva uma mensagem antes."); 
+      return; 
+    } 
+    sendAjax('index.php?uc=mensagens&a=mensagemMassa','POST',{'post' : post}, function(data){
+      data = JSON.parse(data);
+       if(data['status']){
+        alertify.success("Sua mensagem foi publicada."); 
+        $("textarea#post_content").val('');
+       }else{
+        alertify.error("Houve algum problema"); 
+       } 
+    });    
+  });
 
   //Tirar isso aqui mais tarde. 
   var control = false; 

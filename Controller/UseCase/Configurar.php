@@ -40,4 +40,34 @@ class Configurar extends GenericController {
 
 	}
 
+	public function deletarArea($arg){
+		Lumine::import("Notificacao"); 
+		Lumine::import("NotificacaoHasAtuacaoProfissional"); 
+
+		$notificacao = new Notificacao(); 
+		$notificacao->get('usuarioId', $_SESSION['user_id']); 
+
+		$associativa = new NotificacaoHasAtuacaoProfissional(); 
+		$associativa->where("notificacao_id = ". $notificacao->id ." and atuacao_profissional_id = ". $arg['id'])->find(); 
+		$associativa->fetch(true); 
+		$associativa->delete(); 
+
+		$this->configurarView->sendAjax(array('status' => true ));		
+	}
+
+	public function mudarTitulo($arg){
+		Lumine::import("Notificacao"); 
+		$notificacao = new Notificacao(); 
+		$notificacao->get('usuarioId', $_SESSION['user_id']); 
+
+		if( 0 !== (int) $arg['id'])
+		$notificacao->tituloAcademicoId = (int) $arg['id']; 
+		else
+		$notificacao->tituloAcademicoId = null; 
+	
+		$notificacao->update(); 
+
+		$this->configurarView->sendAjax(array('status' => true ));
+	}
+
 }

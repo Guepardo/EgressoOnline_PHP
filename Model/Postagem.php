@@ -15,6 +15,7 @@ class Postagem extends Lumine_Base {
     public $id;
     public $mensagem;
     public $usuarioId;
+    public $dataEnvio;
     public $usuariohaspostagem = array();
     
     
@@ -34,6 +35,7 @@ class Postagem extends Lumine_Base {
         $this->metadata()->addField('id', 'id', 'int', 11, array('primary' => true, 'notnull' => true, 'autoincrement' => true));
         $this->metadata()->addField('mensagem', 'mensagem', 'varchar', 450, array());
         $this->metadata()->addField('usuarioId', 'usuario_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Usuario'));
+        $this->metadata()->addField('dataEnvio', 'data_envio', 'datetime', null, array('notnull' => true));
 
         
         $this->metadata()->addRelation('usuariohaspostagem', Lumine_Metadata::ONE_TO_MANY, 'UsuarioHasPostagem', 'postagemId', null, null, null);

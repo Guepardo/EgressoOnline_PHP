@@ -14,8 +14,8 @@ class Notificacao extends Lumine_Base {
     
     public $id;
     public $usuarioId;
+    public $tituloAcademicoId;
     public $notificacaohasatuacaoprofissionais = array();
-    public $notificacaohastituloacademicos = array();
     
     
     
@@ -33,10 +33,10 @@ class Notificacao extends Lumine_Base {
         
         $this->metadata()->addField('id', 'id', 'int', 11, array('primary' => true, 'notnull' => true, 'autoincrement' => true));
         $this->metadata()->addField('usuarioId', 'usuario_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Usuario'));
+        $this->metadata()->addField('tituloAcademicoId', 'titulo_academico_id', 'int', 11, array('foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'TituloAcademico'));
 
         
         $this->metadata()->addRelation('notificacaohasatuacaoprofissionais', Lumine_Metadata::ONE_TO_MANY, 'NotificacaoHasAtuacaoProfissional', 'notificacaoId', null, null, null);
-        $this->metadata()->addRelation('notificacaohastituloacademicos', Lumine_Metadata::ONE_TO_MANY, 'NotificacaoHasTituloAcademico', 'notificacaoId', null, null, null);
     }
 
     #### END AUTOCODE

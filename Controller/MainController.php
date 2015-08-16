@@ -8,6 +8,7 @@ require_once(PATH.'Controller'.DS.'UseCase'.DS.'DivulgarOportunidade.php');
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'VisualizarOportunidade.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'Configurar.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'ManterCurso.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'Mensagens.php'); 
 
 class MainController {
 	private $controllersArray;
@@ -22,7 +23,8 @@ class MainController {
 				'divulgar'      => new DivulgarOportunidade(), 
 				'visualizar'	=> new VisualizarOportunidade(), 
 				'configurar'    => new Configurar(), 
-				'manterCurso'   => new ManterCurso()
+				'manterCurso'   => new ManterCurso(), 
+				'mensagens'     => new Mensagens()
  		);
 	}
 	

@@ -87,16 +87,16 @@
 
               <div class="row">
                 <div class="medium-12 columns">
-                  <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Graduação</label>
-                  <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Especialização</label>
-                  <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Mestrado</label>
+                  <input type="radio" name="pokemon" class="radios" value="2" id="pokemonRed"><label for="pokemonRed">Graduação</label>
+                  <input type="radio" name="pokemon" class="radios" value="3" id="pokemonBlue"><label for="pokemonBlue">Especialização</label>
+                  <input type="radio" name="pokemon" class="radios" value="4" id="pokemonRed"><label for="pokemonRed">Mestrado</label>
                 </div>
               </div>
               
               <div class="row">
                 <div class="medium-12 columns">
-                  <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Doutorado</label>
-                  <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed" style="color:red">Não desejo ser notificado</label>
+                  <input type="radio" name="pokemon" class="radios" value="5" id="pokemonBlue"><label for="pokemonBlue">Doutorado</label>
+                  <input type="radio" name="pokemon" class="radios" value="0" id="pokemonRed"><label for="pokemonRed" style="color:red">Não desejo ser notificado</label>
                 </div>
               </div>
 
@@ -147,20 +147,57 @@
   $(document).foundation();
 
   $(document).ready(function(){
-    $("#cadastrar").click(function(){
-      var areaId = $("#area_selecionada option:selected").val(); 
-      if(areaId == ''){
-        alertify.error("Selecione uma área de atuacão profissional");
-        return; 
-      } 
 
-      sendAjax('index.php?uc=configurar&a=addArea','POST',{'id' : areaId}, function(data){
-        alertify.log(data); 
-      }); 
-        
+   $(".radios").change(function(){
+    var id = $(this).val();
+
+     sendAjax('index.php?uc=configurar&a=mudarTitulo','POST',{'id' : id}, function(data){
+       data = JSON.parse(data); 
+      if(data['status']){
+        alertify.success("Feito com sucesso"); 
+      }else{
+        alertify.error(data['msg']); 
+      }
+     });  
+   }); 
+
+   $("#cadastrar").click(function(){
+    var areaId = $("#area_selecionada option:selected").val(); 
+    if(areaId == ''){
+      alertify.error("Selecione uma área de atuacão profissional");
+      return; 
+    } 
+
+    sendAjax('index.php?uc=configurar&a=addArea','POST',{'id' : areaId}, function(data){
+      data = JSON.parse(data); 
+      if(data['status']){
+        alertify.success("Feito com sucesso"); 
+        reloadDelay(1000); 
+      }else{
+        alertify.error(data['msg']); 
+      }
     }); 
 
   }); 
+
+   $("button.delete").click(function(){
+    var id = $(this).val(); 
+    sendAjax('index.php?uc=configurar&a=deletarArea','POST',{'id' : id}, function(data){
+      data = JSON.parse(data); 
+      if(data['status']){
+        alertify.success("Feito com sucesso"); 
+        reloadDelay(1000); 
+      }else{
+        alertify.error(data['msg']); 
+      }
+    }); 
+
+  }); 
+
+   function reloadDelay(delay){
+    setInterval(function(){window.location.reload();},delay); 
+  }
+}); 
   </script>
 </body>
 </html>

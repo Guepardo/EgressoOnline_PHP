@@ -131,7 +131,7 @@ class ManterUsuario extends GenericController{
 		$professor->isCoordenador = false; 
 		$professor->insert(); 
 
-		$mail->sendEmail("Seu login: ". $usuario->cpf." <br />Sua senha: ". $passwordToSend, $usuario->email,"EgressoOnline UEG - Informe de cadastro", $usuario->nome); 
+		//$mail->sendEmail("Seu login: ". $usuario->cpf." <br />Sua senha: ". $passwordToSend, $usuario->email,"EgressoOnline UEG - Informe de cadastro", $usuario->nome); 
 
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
@@ -201,7 +201,7 @@ class ManterUsuario extends GenericController{
 		$egresso->usuarioId     = $usuario->id; 
 		$egresso->insert(); 
 
-		$mail->sendEmail("Seu login: ". $arg['cpf']." <br />Sua senha: ". $passwordToSend, $arg['e_mail'],"EgressoOnline UEG - Informe de cadastro", $arg['nome']); 
+		//$mail->sendEmail("Seu login: ". $arg['cpf']." <br />Sua senha: ". $passwordToSend, $arg['e_mail'],"EgressoOnline UEG - Informe de cadastro", $arg['nome']); 
 		
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}

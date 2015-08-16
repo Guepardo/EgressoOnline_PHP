@@ -15,7 +15,7 @@ class TituloAcademico extends Lumine_Base {
     public $id;
     public $des;
     public $cursos = array();
-    public $notificacaohastituloacademicos = array();
+    public $notificacoes = array();
     public $opempregos = array();
     public $opposgraduacoes = array();
     
@@ -38,7 +38,7 @@ class TituloAcademico extends Lumine_Base {
 
         
         $this->metadata()->addRelation('cursos', Lumine_Metadata::ONE_TO_MANY, 'Curso', 'tituloAcademicoId', null, null, null);
-        $this->metadata()->addRelation('notificacaohastituloacademicos', Lumine_Metadata::ONE_TO_MANY, 'NotificacaoHasTituloAcademico', 'tituloAcademicoId', null, null, null);
+        $this->metadata()->addRelation('notificacoes', Lumine_Metadata::ONE_TO_MANY, 'Notificacao', 'tituloAcademicoId', null, null, null);
         $this->metadata()->addRelation('opempregos', Lumine_Metadata::ONE_TO_MANY, 'OpEmprego', 'tituloAcademicoId', null, null, null);
         $this->metadata()->addRelation('opposgraduacoes', Lumine_Metadata::ONE_TO_MANY, 'OpPosGraduacao', 'tituloAcademicoId', null, null, null);
     }
