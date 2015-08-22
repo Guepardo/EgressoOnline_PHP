@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "oportunidade"
- * in 2015-08-16
+ * in 2015-08-19
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -42,7 +42,7 @@ class Oportunidade extends Lumine_Base {
         $this->metadata()->addField('email', 'email', 'varchar', 150, array());
         $this->metadata()->addField('site', 'site', 'varchar', 500, array());
         $this->metadata()->addField('infoAdicionais', 'info_adicionais', 'varchar', 5000, array());
-        $this->metadata()->addField('dataDivulgacao', 'data_divulgacao', 'date', null, array());
+        $this->metadata()->addField('dataDivulgacao', 'data_divulgacao', 'datetime', null, array());
         $this->metadata()->addField('localidadeId', 'localidade_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Localidade'));
         $this->metadata()->addField('usuarioId', 'usuario_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Usuario'));
 

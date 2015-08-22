@@ -34,7 +34,7 @@ class DivulgarOportunidade extends GenericController {
 		$oportunidade->email = $arg['email']; 
 		$oportunidade->site = $arg['site']; 
 		$oportunidade->infoAdicionais = $arg['info_adicionais'];
-		$oportunidade->dataDivulgacao = date("F j, Y, g:i a");
+		$oportunidade->dataDivulgacao = date("Y-m-d H:i:s");
 		$oportunidade->insert(); 
 
 		$opEmprego = new OpEmprego(); 
@@ -76,7 +76,7 @@ class DivulgarOportunidade extends GenericController {
 		$oportunidade->email    = $arg['email']; 
 		$oportunidade->site = $arg['site']; 
 		$oportunidade->infoAdicionais = $arg['info_adicionais'];
-		$oportunidade->dataDivulgacao = date("F j, Y, g:i a");
+		$oportunidade->dataDivulgacao = date("Y-m-d H:i:s");
 		$oportunidade->insert(); 
 
 		$pos = new OpPosGraduacao(); 

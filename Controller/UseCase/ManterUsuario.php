@@ -157,12 +157,13 @@ class ManterUsuario extends GenericController{
 		$qtdCpf   = $temp->get("cpf", $arg['cpf']); 
 		
 		if($qtdCpf > 0 || $qtdEmail > 0 )
-			$this->manterUsuarioView->sendAjax(array('status' => false ) );
+			$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => 'Cpf ou Email já foi cadastrado no sistema.') );
 
 		Lumine::import("Egresso"); 
 		Lumine::import("Localidade"); 
 		Lumine::import("Emprego"); 
         Lumine::import("Notificacao"); 
+        Lumine::import("Turma"); 
 
 		$usuario = new Usuario(); 
 
@@ -189,6 +190,16 @@ class ManterUsuario extends GenericController{
 		$emprego->localidadeId = $localEmprego->id; 
 		$emprego->insert();
 
+		//Verificando se a turma existe; 
+		$idTurma; 
+
+		$turma   = new Turma(); 
+		$turma->get('ano', (int) $arg['ano_conclusao']); 
+
+		if($turma->id != null )
+			$idTurma = $turma->id; 
+		else
+			$idTurma = self::criarNovaTurma($arg['ano_conclusao']); 
 
 		$egresso = new Egresso(); 
 
@@ -199,6 +210,7 @@ class ManterUsuario extends GenericController{
 		$egresso->estadoCivilId = 1; 
 		$egresso->localidadeId  = $localidade->id; 
 		$egresso->usuarioId     = $usuario->id; 
+		$egresso->turmaId       = $idTurma; 
 		$egresso->insert(); 
 
 		//$mail->sendEmail("Seu login: ". $arg['cpf']." <br />Sua senha: ". $passwordToSend, $arg['e_mail'],"EgressoOnline UEG - Informe de cadastro", $arg['nome']); 
@@ -301,6 +313,14 @@ class ManterUsuario extends GenericController{
 			$array['status'] = false; 
 			$this->manterUsuarioView->sendAjax($array); 
 		}
+	}
+
+	private function criarNovaTurma($anoConclusao){
+		Lumine::import("Turma"); 
+		$turma = new Turma(); 
+		$turma->ano = (int) $anoConclusao; 
+		$turma->insert(); 
+		return $turma->id; 
 	}
 
 }

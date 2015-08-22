@@ -6,6 +6,7 @@ require_once(PATH.'Controller'.DS.'UseCase'.DS.'Autenticar.php');
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'TelaPrincipal.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'DivulgarOportunidade.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'VisualizarOportunidade.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'VisualizarPerfil.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'Configurar.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'ManterCurso.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'Mensagens.php'); 
@@ -24,7 +25,8 @@ class MainController {
 				'visualizar'	=> new VisualizarOportunidade(), 
 				'configurar'    => new Configurar(), 
 				'manterCurso'   => new ManterCurso(), 
-				'mensagens'     => new Mensagens()
+				'mensagens'     => new Mensagens(), 
+				'perfil'        => new VisualizarPerfil()
  		);
 	}
 	
