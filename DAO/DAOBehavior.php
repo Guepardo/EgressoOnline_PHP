@@ -1,7 +1,5 @@
 <?php
-namespace DAO; 
-
-use Util\BDConnectionFactory; 
+require_once(PATH.'Util'.DS.'BDConnectionFactory.php'); 
 
 abstract class DAOBehavior{
 	static protected $connection; 

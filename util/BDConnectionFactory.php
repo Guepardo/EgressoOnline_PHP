@@ -1,6 +1,5 @@
 <?php
 
-
 class BDConnectionFactory {
 	const BANCO = "mydb";
 	const USUARIO = "root";
