@@ -11,6 +11,16 @@
     font-size: 14px; 
   }
 
+  .msg{
+    margin-bottom:0; 
+    padding:4px;
+    height: 250px;
+  }
+
+  .op{
+    margin-top:35px;  
+  }
+
   </style>
 </head>
 <body>
@@ -75,43 +85,62 @@
 
 </div>
 
-<hr />
+<div class="row">
+  <div class="medium-4 medium-centered columns">
+    <h4 class="subheader medium-text-center">- Atividades recentes - </h4>
+  </div>
+</div>
 
 <!--conteúdo--> 
-<div class="row large-collapse " >
+<div class="row" >
+ <div class="medium-12 columns" id="container" style="margin:0">
 
- <div class="larg-12 columns" id="container" >
 
-   <div class="large-6 columns">
+   <div class="medium-4 columns panel msg ">
     <div class="row">
-      <div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div>
-      <div class="large-10 columns">
-        <p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
+      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/"/></div>
+      <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small></div>
+      <div class="medium-12 columns">
+        <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
         </p>
       </div>
-
     </div>
   </div>
 
-  <div class="large-6 columns">
+  <div class="medium-4 columns panel msg ">
     <div class="row">
-      <div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div>
-      <div class="large-10 columns">
-        <p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p>
+      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/"/></div>
+      <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small></div>
+      <div class="medium-12 columns">
+        <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
+        </p>
       </div>
-
     </div>
   </div>
 
-  <div class="large-6  columns">
+
+
+
+  <div class="medium-4 columns panel msg ">
+    <div class="row">
+      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/"/></div>
+      <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small></div>
+      <div class="medium-12 columns">
+        <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="medium-4 columns op">
     <div class="row">
       <ul class="pricing-table">
         <li class="title">Vaga na aera de TI</li>
         <li class="price">Salário: $99.99</li>
-        <li class="cta-button"><a class="button" href="#">Ver detalhes</a></li>
+        <li class="cta-button"><a class="button tiny" href="#">Ver detalhes</a></li>
       </ul>
     </div>
-
   </div>
 
 
@@ -407,11 +436,20 @@
 <!--Fim conteúdo --> 
 <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
+
+<!-- Modal para a pós-graduação visualiação--> 
+<div id="modal_pos_v" class="reveal-modal" data-reveal aria-labelledby="modal" aria-hidden="true" role="dialog">
+  <h2 id="modal">Divulgar Pós-Graduação</h2>
+  <p class="lead">Preencha o formulário</p>
+
+<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
 <!-- FIM MODAIS --> 
 
 
 <!-- $Include templates/lib/html/footerscripts.html --> 
 <script src="templates/lib/js/jquery.mask.min.js"></script>
+<script src="templates/lib/js/masonry.pkgd.min.js"></script>
 <script src="templates/lib/js/ajax.js"></script>
 
 <script>
@@ -528,29 +566,81 @@ $(document).ready(function(){
     } 
     sendAjax('index.php?uc=mensagens&a=mensagemMassa','POST',{'post' : post}, function(data){
       data = JSON.parse(data);
-       if(data['status']){
+      if(data['status']){
         alertify.success("Sua mensagem foi publicada."); 
         $("textarea#post_content").val('');
-       }else{
+      }else{
         alertify.error("Houve algum problema"); 
-       } 
+      } 
     });    
   });
 
   //Tirar isso aqui mais tarde. 
   var control = false; 
   var intervalo; 
-  $(window).scroll(function () {
+  var date = ""; 
+
+  $(window).scroll(function () 
+  {
     if(control) return;
-    if ( $(document).scrollTop() >= ($(document).height() - 900) ) {
+    if ( $(document).scrollTop() >= ($(document).height() - 900) ) 
+    {
       control = true; 
       intervalo = setInterval(function(){
-        $('#container').append('<div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6  columns"><div class="row"><ul class="pricing-table"><li class="title">Vaga na aera de TI</li><li class="price">Salário:$99.99</li><li class="cta-button"><a class="button"href="#">Ver detalhes</a></li></ul></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud.</p></div></div></div><div class="large-6 columns"><div class="row"><div class="large-2 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div><div class="large-10 columns"><p class="text-justify"><i class="fa fa-users"></i><strong>Maria Paula</strong><small>às 20:30,04/04/2015</small>Lorem ipsum dolor sit amet,consectetur adipisicing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cil.</p></div></div></div>'); 
+
+        sendAjax("index.php?uc=telaPrincipal&a=feed","POST",{'date' : date},function(data){
+          data = JSON.parse(data); 
+
+          if(data.length == 0 ){
+            alertify.info("Não há mais mensagem para o período de "+ date);  
+            return;  
+          }
+          for(var a = 0 ; a < data.length ; a++ ){
+            if(data[a]['post'])
+              addMsg(data[a]); 
+            else
+              addOpor(data[a]); 
+          }
+
+          date = data[data.length-1]['data_envio']; 
+        }); 
+
         control = false;
         clearInterval(intervalo); 
       },500);
-}
-});
+    }
+  });
+
+  function addMsg(data){
+    var row = '<div class="medium-4 columns panel msg "> <div class="row"> <div class="medium-3 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div> <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>'+data['remetente']+'</strong> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
+
+    $('#container').append(row); 
+  }
+
+  function addOpor(data){
+   var titulo = (data['graduacao']) ? "Pós-Graduacao" : "Emprego"; 
+   var row = '<div class="medium-4 columns op"> <div class="row"> <ul class="pricing-table"> <li class="title">Oportunidade</li> <li class="price">'+titulo+'</li> <li class="cta-button"><a class="button tiny action_op" value="'+data['id']+'-'+data['graduacao']+'">Ver detalhes</a></li> </ul> </div> </div>'; 
+
+   $('#container').append(row);  
+
+   $('.action_op').unbind().click(function(){
+    var result = $(this).attr('value').split('-'); 
+
+    if(JSON.parse(result[1])){
+      sendAjax('index.php?uc=visualizar&a=posGraduacao','POST',{'id' : result[0] }, function(data){
+        alertify.log(data); 
+      }); 
+    }else{
+      sendAjax('index.php?uc=visualizar&a=emprego','POST',{'id' : result[0] }, function(data){
+        alertify.log(data); 
+      });  
+    }
+  }); 
+
+
+ }
+
+
 }); 
 
 </script>

@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "cidade"
- * in 2015-08-19
+ * in 2015-08-23
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model

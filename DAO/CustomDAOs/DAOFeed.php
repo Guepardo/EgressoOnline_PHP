@@ -19,7 +19,7 @@ class DAOFeed extends DAOBehavior{
 	}
 
 	public function feed($date, $limit){
-		$sql = "select * from (select data_envio as date, id from postagem union select data_divulgacao as date, id from oportunidade) as result where ( result.date < '$date') order by result.date DESC limit $limit"; 
+		$sql = "SELECT * FROM (SELECT data_envio AS date, id FROM postagem UNION SELECT data_divulgacao AS date, id FROM oportunidade) AS result WHERE ( result.date < '". (string) $date."') ORDER BY result.date DESC limit ".$limit; 
 		$array = array(); 
 		try{
 			$result = mysqli_query(parent::$connection,$sql);

@@ -15,67 +15,17 @@ class TelaPrincipal extends GenericController {
 		$this->telaPrincipalView->principalView(); 
 	}
 
-	public function feed1($arg){
-		Lumine::import("Postagem"); 
-		Lumine::import("UsuarioHasPostagem");
-		Lumine::import("Oportunidade"); 
-		//Taxa fixa de mensagem que serão enviadas por vez: 
-		$taxa = 3; 
-
-		//Pegando localidador da patinação: 
-		$last = $arg['last']; 
-
-		//indica se 
-		//recuperando Id do usuário corrent: 
-		$userId = $_SESSION['user_id']; 
-
-		if(!strcmp($last,'false')){
-			//recuperando a data de interação mais recente com o sistema. 
-			$postagem = new Postagem(); 
-			$postagem->select("MAX(data_envio) as maior")->find(); 
-			$lastPostagem = $postagem->allToArray()[0]["maior"]; 
-
-			$op = new Oportunidade(); 
-			$op->select("MAX(data_divulgacao) as maior")->find(); 
-			$lastOp = $op->allToArray()[0]["maior"]; 
-
-			if( strtotime($lastPostagem) > strtotime($lastOp) )
-				$last 	= $lastPostagem;
-			else
-				$last = $lastOp;  
-		}
-		echo($last); 
-		$postagem = new Postagem(); 
-		$postagem->order("data_envio DESC")->where("data_envio < '$last'")->limit($taxa)->find(); 
-
-		$resultPostagem = $postagem->allToArray(); 
-		//pegando posgatens de divulgação de op entre as datas da última postagem. 
-		$resultOp; 
-
-		if(count($resultPostagem) != 0 ){
-			$lastDatePostagem  = $resultPostagem[count($resultPostagem)-1]['dataEnvio'];
-			$firstDatePostegem = $resultPostagem[0]['dataEnvio']; 
-
-			$op = new Oportunidade(); 
-			$op->order("data_divulgacao DESC")->where("(data_divulgacao > '$firstDatePostegem') and (data_divulgacao < '$lastDatePostagem')")->find(); 
-			$resultOp = $op->allToArray(); 
-		}else{
-			//assumir que não há mais mensagem e fazer requisições apenas das oportunidades de emrpego. 
-			$op = new Oportunidade(); 
-			$op->order("data_divulgacao DESC")->where("data_divulgacao < '$last'")->limit($taxa)->find(); 
-			$resultOp = $op->allToArray();
-		}
-
-		var_dump($resultOp); 
-		var_dump($resultPostagem); 
-	}
+	
 
 	public function feed($arg){
 		$limit = 10; 
 
 		$daoFeed = new DAOFeed(); 
 
-		$result = $daoFeed->feed('2015-08-22 11:55:12',$limit); 
+		if( empty($arg['date']) )
+			$arg['date'] = date("Y-m-d H:i:s"); 
+
+		$result = $daoFeed->feed((string) $arg['date'],$limit); 
 		
 		if(!is_array($result) || count($result) == 0 )
 			$this->telaPrincipalView->sendAjax(array('status' => false , 'msg' => 'Não há mais mansagens')); 
@@ -86,8 +36,13 @@ class TelaPrincipal extends GenericController {
 		Lumine::import("UsuarioHasPostagem"); 
 		Lumine::import("Usuario"); 
 
+		Lumine::import("OpPosGraduacao"); 
+		Lumine::import("OpEmprego"); 
+
+		$array = array(); 
+
+
 		do{
-			$array = array(); 
 			foreach($result as $temp ){
 				$post = new Postagem(); 
 				$op   = new Oportunidade(); 
@@ -101,19 +56,32 @@ class TelaPrincipal extends GenericController {
 					$usuario->get('id',$post->usuarioId); 
 
 					//obtendo destinatário; 
-					$tam = $associativa->get('usuario_id', $_SESSION['user_id']); 
+					$tam = $associativa->get('usuarioId', $_SESSION['user_id']); 
 
+					$usuario->get('id', $post->usuarioId); 
 					//Se a mensagem é uma mensagem direta: 
-					if($tam > 0 && $associativa->postagemId == $post->id){
-						$usuario->get('id', $post->usuarioId); 
-						array_push($array, array('remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => false)); 
-					}
-					
-					//mensagem do pública: 
-					//
+					if($tam > 0 && $associativa->postagemId == $post->id)
+						array_push($array, array('id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => false, 'post' => true)); 
+					else if($tam > 0 && $associativa->postagemId != $post->id)
+						break; 
+					else
+						array_push($array, array('id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => true, 'post' => true)); 
+				}
+
+				$tam = $op->get('id', (int) $temp[0]); 
+
+				if( $tam > 0 && (strcmp($op->dataDivulgacao, $temp[1]) == 0 ) ){
+					$associativa = new OpPosGraduacao(); 
+					$total = 0; 
+					$total = $associativa->get('oportunidadeId', (int) $op->id);
+
+					array_push($array, array('graduacao' => ($total > 0 ),'info_adicionais' => $op->infoAdicionais ,'id' => $post->id, 'post' => false, 'data_envio' => $op->dataDivulgacao)); 
 				}
 			}
-		}while( count($array) < $limit); 
+			$result = $daoFeed->feed($result[count($result)-1][1],1); 
 
+		}while( count($array) < $limit && count($result) > 0); 
+
+		$this->telaPrincipalView->sendAjax($array); 
 	}
 }
