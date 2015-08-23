@@ -22,9 +22,9 @@ class VisualizarOportunidade extends GenericController {
 		Lumine::import("AtuacaoProfissional"); 
 
 		$oportunidade = new Oportunidade(); 
-		$opEmprego = new OpEmprego(); 
+		$opEmprego    = new OpEmprego(); 
 
-		$oportunidade->join($opEmprego,'LEFT')->where("id = $id")->find(); 
+		$oportunidade->join($opEmprego)->where("id = $id")->find(); 
 		$oportunidade->fetch(true); 
 
 		$localidade = new Localidade(); 
@@ -47,7 +47,7 @@ class VisualizarOportunidade extends GenericController {
 		$atuacao = new AtuacaoProfissional(); 
 		$atuacao->get($oportunidade->atuacaoProfissionalId); 
 
-		$array = array( 'telefone' =>  $oportunidade->telefone, 'email' => Convert::toUTF_8($oportunidade->email), 'site' => Convert::toUTF_8($oportunidade->site), 'info_adicionais' => Convert::toUTF_8($oportunidade->infoAdicionais), 'pais' => Convert::toUTF_8($pais->des) , 'estado' => Convert::toUTF_8($estado->des) , 'cidade' => Convert::toUTF_8($cidade->des) , 'complemento' => Convert::toUTF_8($localidade->complemento) , 'empresa' => Convert::toUTF_8($opEmprego->empresa) , 'salario' => $opEmprego->salario , 'titulo_academico' => Convert::toUTF_8($titulo->des) , 'atuacao_profissional' => Convert::toUTF_8($atuacao->des), 'data_divulgacao' => $oportunidade->dataDivulgacao ); 
+		$array = array( 'telefone' =>  $oportunidade->telefone, 'email' => Convert::toUTF_8($oportunidade->email), 'site' => Convert::toUTF_8($oportunidade->site), 'info_adicionais' => Convert::toUTF_8($oportunidade->infoAdicionais), 'pais' => Convert::toUTF_8($pais->des) , 'estado' => Convert::toUTF_8($estado->des) , 'cidade' => Convert::toUTF_8($cidade->des) , 'complemento' => Convert::toUTF_8($localidade->complemento) , 'empresa' => Convert::toUTF_8($oportunidade->empresa) , 'salario' => (int) $oportunidade->salario , 'titulo_academico' => Convert::toUTF_8($titulo->des) , 'atuacao_profissional' => Convert::toUTF_8($atuacao->des), 'data_divulgacao' => $oportunidade->dataDivulgacao ); 
 
 		die(json_encode($array)); 
 	}

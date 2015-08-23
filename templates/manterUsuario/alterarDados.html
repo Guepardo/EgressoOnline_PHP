@@ -6,7 +6,7 @@
   <!-- $Include templates/lib/html/head.html --> 
 </head>
 <body>
- 
+
 
  <!-- $Include templates/lib/html/topbar.html --> 
 
@@ -97,7 +97,7 @@
     <div id="egresso_estado_div" class="medium-4 small-4 columns">
       <label>Estado
         <select id="egresso_estado">
-          
+
         </select>
       </label>
     </div>
@@ -105,12 +105,12 @@
     <div id="egresso_cidade_div" class="medium-4 small-4 columns">
       <label>Cidade
         <select id="egresso_cidade">
-          
+
         </select>
       </label>
     </div>
 
-    <!--Esse campo deverá apareser somente se o país selecionado for diferente de Brasil--> 
+    <!--Esse campo deverá aparecer somente se o país selecionado for diferente de Brasil--> 
     <div id="egresso_complemento" class="row hide">
       <div class="medium-7 small-7 columns">
         <label>Estado/Província/Região
@@ -156,7 +156,7 @@
        <div id="emprego_estado_div" class="medium-4 small-4 columns hide">
         <label>Estado
           <select id="emprego_estado">
-            
+
           </select>
         </label>
       </div>
@@ -164,7 +164,7 @@
       <div id="emprego_cidade_div" class="medium-4 small-4 columns hide">
         <label>Cidade
           <select id="emprego_cidade">
-            
+
           </select>
         </label>
       </div>
@@ -198,9 +198,9 @@
   <div class="medium-3 small-3 columns">
     <label> Redes Sociais
       <select>
-        <!-- $BeginBlock rede_social -->
-        <option value="${egresso.rede_social.value}"> ${egresso.rede_social.desc}</option>
-        <!-- $EndBlock rede_social -->
+        <option value="1">Twitter</option>
+        <option value="2">Linkedin</option>
+        <option value="3">Facebook</option>
       </select>
     </div>
     <div class="medium-9 small-9 columns end">
@@ -214,9 +214,9 @@
     <div class="medium-3 small-3 columns">
       <label> 
         <select>
-          <!-- $BeginBlock rede_social -->
-          <option value="${egresso.rede_social.value}"> ${egresso.rede_social.desc}</option>
-          <!-- $EndBlock rede_social -->
+          <option value="1">Twitter</option>
+          <option value="2">Linkedin</option>
+          <option value="3">Facebook</option>
         </select>
       </div>
       <div class="medium-9 small-9 columns end">
@@ -230,9 +230,9 @@
       <div class="medium-3 small-3 columns">
         <label> 
           <select>
-            <!-- $BeginBlock rede_social -->
-            <option value="${egresso.rede_social.value}"> ${egresso.rede_social.desc}</option>
-            <!-- $EndBlock rede_social -->
+            <option value="1">Twitter</option>
+            <option value="2">Linkedin</option>
+            <option value="3">Facebook</option>
           </select>
         </div>
         <div class="medium-9 small-9 columns end">
@@ -272,126 +272,10 @@
 <script src="templates/lib/js/jquery.mask.min.js"></script>
 
 <script>
-  $(document).ready(function(){
-    $('.telefone').mask('(99) 9999-9999');
-    
-          //Arrumando formulário egresso
-          $('#egresso_pais').change(function() {
-            var str = "";
-            str += $('#egresso_pais option:selected').text();
-            console.log( str );
-            if( str.trim() == 'BRASIL'){
-              console.log('entrei aqui'); 
-              $('#egresso_cidade_div').removeClass('hide'); 
-              $('#egresso_estado_div').removeClass('hide');
-              $('#egresso_complemento').addClass('hide');
-            }else{
-              $('#egresso_cidade_div').addClass('hide'); 
-              $('#egresso_estado_div').addClass('hide');
-              $('#egresso_complemento').removeClass('hide');
-            }
-          }).trigger('change');
+$(document).ready(function(){
+  $('.telefone').mask('(99) 9999-9999');
 
-          //Arrumando formulário emprego
-          $('#emprego_pais').change(function() {
-            var str = "";
-            str += $('#emprego_pais option:selected').text();
-            console.log( str );
-            if( str.trim() == 'BRASIL'){
-              console.log('entrei aqui'); 
-              $('#emprego_cidade_div').removeClass('hide'); 
-              $('#emprego_estado_div').removeClass('hide');
-              $('#emprego_complemento').addClass('hide');
-            }else{
-              $('#emprego_cidade_div').addClass('hide'); 
-              $('#emprego_estado_div').addClass('hide');
-              $('#emprego_complemento').removeClass('hide');
-            }
-          }).trigger('change');
-          
-          $('select').change(function(){
-            if(this.id == '') return; 
 
-            var selected = $('#'+this.id+' option:selected').text().trim(); 
-            //Formulário do egresso, Ajax estado. 
-            if(this.id == 'egresso_pais'  && selected == 'BRASIL'){
-              getByAjax({ country : selected} ,'index.php?action=getStates&usecase=ajaxServices', function(data){
-                data = JSON.parse(data); 
-                //To-do: verificar se esse array vem sem nada ou com uma coisa diferente de um array; 
-                $('#egresso_estado > option').each(function(){ this.remove(); }); 
-
-                $.each(data, function (i, item) { 
-                  $('#egresso_estado').append($('<option>', { 
-                    value: item,
-                    text : item 
-                  }));
-                });  
-              }); 
-              return; 
-            }
-
-            //Formulário do emprego, Ajax estado. 
-            if(this.id == 'emprego_pais'  && selected == 'BRASIL'){
-              getByAjax({ country : selected} ,'index.php?action=getStates&usecase=ajaxServices', function(data){
-                data = JSON.parse(data); 
-                //To-do: verificar se esse array vem sem nada ou com uma coisa diferente de um array; 
-                $('#emprego_estado > option').each(function(){ this.remove(); });  
-                $.each(data, function (i, item) { 
-                  $('#emprego_estado').append($('<option>', { 
-                    value: item,
-                    text : item 
-                  }));
-                });  
-              }); 
-              return; 
-            }
-
-            //Formulário do egresso, Ajax cidade. 
-            if(this.id == 'egresso_estado'){
-             getByAjax({ state : selected} ,'index.php?action=getCities&usecase=ajaxServices', function(data){
-              data = JSON.parse(data); 
-                //To-do: verificar se esse array vem sem nada ou com uma coisa diferente de um array; 
-                $('#egresso_cidade > option').each(function(){ this.remove(); });  
-                $.each(data, function (i, item) { 
-                  $('#egresso_cidade').append($('<option>', { 
-                    value: item,
-                    text : item 
-                  }));
-                });  
-              }); 
-             return; 
-           }
-
-            //Formulário do emprego, Ajax cidade. 
-            if(this.id == 'emprego_estado'){
-              getByAjax({ state : selected} ,'index.php?action=getCities&usecase=ajaxServices', function(data){
-                data = JSON.parse(data); 
-                //To-do: verificar se esse array vem sem nada ou com uma coisa diferente de um array; 
-                $('#emprego_cidade > option').each(function(){ this.remove(); });  
-                $.each(data, function (i, item) { 
-                  $('#emprego_cidade').append($('<option>', { 
-                    value: item,
-                    text : item 
-                  }));
-                });  
-              }); 
-              return; 
-            }
-          }); 
-
-function getByAjax(data, url , foo){
-  $.ajax({ 
-   url : url,
-   method : 'post',
-   data: data}
-   ).done(function(data){
-     foo(data); 
-   }).fail(function(){
-
-   }).always(function(){
-
-   }); 
- }
 });
 </script>
 </body>

@@ -26,24 +26,24 @@ class ManterUsuarioView extends GenericView{
 		}
 
 	    //Anexar curso do usuário corrente
-	    
-	    Lumine::import("Curso"); 
-	    Lumine::import("TituloAcademico"); 
-	    $curso = new Curso(); 
-	    $titulo = new TituloAcademico(); 
 
-	    $curso->where("usuario_id = ". $_SESSION['user_id'])->find(); 
+		Lumine::import("Curso"); 
+		Lumine::import("TituloAcademico"); 
+		$curso = new Curso(); 
+		$titulo = new TituloAcademico(); 
 
-	    while($curso->fetch()){
-	    	parent::$templator->setVariable("id", $curso->id ); 
-	    	$titulo = new TituloAcademico(); 
-	    	$titulo->get($curso->tituloAcademicoId); 
+		$curso->where("usuario_id = ". $_SESSION['user_id'])->find(); 
+
+		while($curso->fetch()){
+			parent::$templator->setVariable("id", $curso->id ); 
+			$titulo = new TituloAcademico(); 
+			$titulo->get($curso->tituloAcademicoId); 
 			parent::$templator->setVariable("tipo", $titulo->des );
 			parent::$templator->setVariable("instituicao", $curso->instituicao ); 
 			parent::$templator->setVariable("nome_curso", $curso->areaNome );
 			parent::$templator->setVariable("ano_conclusao", $curso->anoConclusao );
 			parent::$templator->addBlock("row");
-	    }
+		}
 
 		parent::show(); 
 	}
@@ -83,13 +83,6 @@ class ManterUsuarioView extends GenericView{
 			parent::$templator->setVariable('disciplina.ano_lecionou',$associativa->anoLecionou);
 			parent::$templator->addBlock('table'); 
 		}
-
-
-			parent::show(); 
-	}
-
-	public function alterarDadosView(){
-		parent::getTemplateByAction("alterarDados"); 
 		parent::show(); 
 	}
 
@@ -113,5 +106,20 @@ class ManterUsuarioView extends GenericView{
 		parent::$templator->setVariable("usuario.nome", $professor->nome);
 
 		parent::show(); 
+	}
+
+	public function alterarDadosView(){
+		parent::getTemplateByAction("alterarDados"); 
+		Lumine::import("Usuario");
+		Lumine::import("Egresso"); 
+
+		$usuario = new Usuario(); 
+		$egresso = new Egresso(); 
+
+		$usuario->join($egresso)->where('id = '. $_SESSION['user_id'])->find(); 
+		$usuario->fetch(true); 
+
+		var_dump($usuario);  
+		//parent::show(); 
 	}
 }
