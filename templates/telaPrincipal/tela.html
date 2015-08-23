@@ -439,23 +439,134 @@
 
 <!-- Modal para a pós-graduação visualiação--> 
 <div id="modal_pos_v" class="reveal-modal" data-reveal aria-labelledby="modal" aria-hidden="true" role="dialog">
-  <h2 id="modal">Divulgar Pós-Graduação</h2>
-  <p class="lead">Preencha o formulário</p>
+  <h2 id="modal">Pós-Graduação</h2>
+  <p class="lead" id="divulgado_pos">Divulgado em</p>
+  <div class="row">
+    <div class="medium-12 columns">
+      <!-- começo formulário-->
+      <form class="panel">
 
-<a class="close-reveal-modal" aria-label="Close">&#215;</a>
-</div>
-<!-- FIM MODAIS --> 
+        <div class="row">
+          <div class="medium-6 columns"> 
+            <fieldset> <legend>Informações Gerais</legend>
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Título 
+                    <p><i id="titulo_pos">Ciencias Moleculares</i></p>
+                  </label> 
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Tipo:
+                    <p><i id="tipo_pos">Graduação</i></p>
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Área 
+                    <p><i id="area_pos">Banco de Dados</i></p>
+                  </label> 
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="medium-6 columns">
+            <fieldset > <legend>Contato</legend>
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Telefone<p><i id="telefone_pos">(62) 1234-1324</i></p></label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>E-mail 
+                    <p><i id="email_pos">bsinet@hotmail.com</i></p>
+                  </label> 
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Site 
+                    <p><i id="site_pos">www.google.com.br</i></p>
+                  </label> 
+                </div>
+              </div>      
+            </fieldset>
+          </div>
+
+        </div>  
+        <div class="row" >
+          <div class="medium-4 columns">
+            <label>Pais
+              <p><i id="pais_pos">Brasil</i></p>
+            </label>
+          </div>
+
+          <div  class="medium-4 columns hide">
+            <label>Estado
+              <p><i id="estado_pos">Goiás</i></p>
+            </label>
+          </div>
+
+          <div  class="medium-4 columns hide">
+            <label>Cidade
+              <p><i id="cidade_pos">Anápolis</i></p>
+            </label>
+          </div>
+
+          <div  class="medium-8 columns">
+            <label>Estado/Província/Região
+              <p class="text-justify" ><i id="complemento_pos">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua.</i></p>
+              </label> 
+            </div>  
+
+          </div>
+
+          <div class="row">
+            <div class="medium-3 columns">
+              <label>Período de inscrição <p><i id="data_inicio_pos">12/12/1212</i></p></label>
+            </div>
+            <div class="medium-3 columns end"> <label>Termina em  <p><i id="data_fim_pos">12/12/1212</i></p></label></div>
+          </div>
+
+          <div class="row">
+            <div class="medium-12 columns">
+              <label>Informações Adicionais <p class="text-justify" ><i id="infor_adicionais_pos"> 
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</i></p></label>
+              </div>
+            </div>
+
+          </form>
+          <!-- fim formulário -->
+        </div>
+      </div>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+    <!-- FIM MODAIS --> 
 
 
-<!-- $Include templates/lib/html/footerscripts.html --> 
-<script src="templates/lib/js/jquery.mask.min.js"></script>
-<script src="templates/lib/js/masonry.pkgd.min.js"></script>
-<script src="templates/lib/js/ajax.js"></script>
+    <!-- $Include templates/lib/html/footerscripts.html --> 
+    <script src="templates/lib/js/jquery.mask.min.js"></script>
+    <script src="templates/lib/js/masonry.pkgd.min.js"></script>
+    <script src="templates/lib/js/ajax.js"></script>
 
-<script>
-$(document).foundation();
-$(document).ready(function(){ 
-  $('.telefone').mask('(99) 9999-9999');
+    <script>
+    $(document).foundation();
+    $(document).ready(function(){ 
+      $('.telefone').mask('(99) 9999-9999');
   //Tratamento dos eventos dos formulários modais: 
   
   $('#form_emprego').on('valid', function() {
@@ -629,6 +740,10 @@ $(document).ready(function(){
     if(JSON.parse(result[1])){
       sendAjax('index.php?uc=visualizar&a=posGraduacao','POST',{'id' : result[0] }, function(data){
         alertify.log(data); 
+        data = JSON.parse(data); 
+        buildViewPos(data); 
+
+        $('#modal_pos_v').foundation('reveal', 'open');
       }); 
     }else{
       sendAjax('index.php?uc=visualizar&a=emprego','POST',{'id' : result[0] }, function(data){
@@ -636,10 +751,24 @@ $(document).ready(function(){
       });  
     }
   }); 
-
-
  }
 
+ function buildViewPos(data){
+  $('#divulgado_pos').text("Divulgado "+data['data_divulgacao']);
+  $('#titulo_pos').text(data['titulo']);  
+  $('#tipo_pos').text("Não está vindo do banco de dados. "); 
+  $('#area_pos').text(data['area']); 
+  $('#telefone_pos').text(data['telefone']); 
+  $('#email_pos').text(data['email']); 
+  $('#site_pos').text(data['site']); 
+  $('#pais_pos').text(data['pais']); 
+  $('#estado_pos').text(data['estado']); 
+  $('#cidade_pos').text(data['cidade']); 
+  $('#complemento_pos').text(data['complemento']); 
+  $('#infor_adicionais_pos').text(data['info_adicionais']); 
+  $('#data_inicio_pos').text(data['data_inscr_inicio']); 
+  $('#data_fim_pos').text(data['data_inscr_fim']); 
+ }
 
 }); 
 
