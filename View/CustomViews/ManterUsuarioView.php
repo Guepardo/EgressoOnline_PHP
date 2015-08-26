@@ -119,7 +119,7 @@ class ManterUsuarioView extends GenericView{
 		$usuario->join($egresso)->where('id = '. $_SESSION['user_id'])->find(); 
 		$usuario->fetch(true); 
 
-		var_dump($usuario);  
-		//parent::show(); 
+		//var_dump($usuario);  
+		parent::show(); 
 	}
 }

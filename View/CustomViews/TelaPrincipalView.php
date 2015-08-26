@@ -12,7 +12,9 @@ class TelaPrincipalView extends GenericView
 	{
 		parent::getTemplateByAction('tela'); 
 
-		Lumine::import('Pais'); 
+		Lumine::import("Pais"); 
+		Lumine::import("Usuario"); 
+		
 		$pais = new Pais(); 
 		$pais->find(); 
 
@@ -24,6 +26,11 @@ class TelaPrincipalView extends GenericView
 			$result = parent::loadTemplate(PATH.'templates'.DS.'telaPrincipal'.DS.'confEgresso.html'); 
 
 		parent::$templator->setVariable('tela.configuracao',$result); 
+
+		//Acionando o nome do usuário: 
+		$usuario = new Usuario(); 
+		$usuario->get($_SESSION['user_id']); 
+		parent::$templator->setVariable('nome', $usuario->nome); 
 
 		while( $pais->fetch() ){
 			parent::$templator->setVariable("emprego.pais.id", $pais->id ); 
