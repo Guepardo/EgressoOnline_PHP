@@ -2,6 +2,9 @@
 require_once(PATH.'Controller'.DS.'GenericController.php'); 
 require_once(PATH.'View'.DS.'CustomViews'.DS.'AutenticarView.php'); 
 
+require_once(PATH.'Util'.DS.'KeyFactory.php'); 
+require_once(PATH.'Util'.DS.'Mail.php'); 
+
 class Autenticar extends GenericController {
 	private $autenticarView; 
 
@@ -49,6 +52,48 @@ class Autenticar extends GenericController {
 		}
 			
 		$this->autenticarView->sendAjax( array( "status" => $status ) ); 
+	}
+
+	public function alterarSenha($arg){
+		$codigo = $arg['codigo']; 
+		$senha  = $arg['senha']; 
+
+		Lumine::import('Usuario');
+		$usuario = new Usuario(); 
+
+		$total = $usuario->get('codigo', $codigo); 
+		
+		if(strcmp($codigo,"") == 0)
+			$this->autenticarView->sendAjax(array("status" => true, 'msg' => 'Esse código não exite.' ) ); 
+
+		if($total > 0 ){
+			$usuario->senha = $senha; 
+			$usuario->codigo = ""; 
+			$usuario->update(); 
+		}else{
+			$this->autenticarView->sendAjax(array("status" => true, 'msg' => 'Esse código não exite.' ) ); 
+		}
+
+		$this->autenticarView->sendAjax(array("status" => true, 'msg' => 'Senha alterada com sucesso.') ); 
+	}
+
+	public function gerarCodigo($arg){
+		Lumine::import("Usuario"); 
+		$usuario = new Usuario(); 
+		$key     = new KeyFactory(); 
+		$total = $usuario->get('email',$arg['email']); 
+
+		$codigo = $key->randomKey(16); 
+
+		if($total > 0){
+			$usuario->codigo = $codigo; 
+			$usuario->update(); 
+		}
+
+		//$mail = Mail(); 
+		//Mandar email aqui embaixo: 
+		
+		$this->autenticarView->sendAjax(array("status" => true ) ); 
 	}
 
 }

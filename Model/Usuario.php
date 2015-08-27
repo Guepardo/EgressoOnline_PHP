@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "usuario"
- * in 2015-08-23
+ * in 2015-08-27
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -19,6 +19,7 @@ class Usuario extends Lumine_Base {
     public $senha;
     public $foto;
     public $generoId;
+    public $codigo;
     public $cursos = array();
     public $egressos = array();
     public $notificacoes = array();
@@ -48,6 +49,7 @@ class Usuario extends Lumine_Base {
         $this->metadata()->addField('senha', 'senha', 'varchar', 35, array('notnull' => true));
         $this->metadata()->addField('foto', 'foto', 'varchar', 35, array());
         $this->metadata()->addField('generoId', 'genero_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Genero'));
+        $this->metadata()->addField('codigo', 'codigo', 'varchar', 45, array());
 
         
         $this->metadata()->addRelation('cursos', Lumine_Metadata::ONE_TO_MANY, 'Curso', 'usuarioId', null, null, null);
