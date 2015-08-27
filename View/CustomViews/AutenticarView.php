@@ -12,4 +12,9 @@ class AutenticarView extends GenericView{
 		parent::getTemplateByAction('login'); 
 		parent::show(); 
 	}
+
+	public function alterarSenhaView(){
+		parent::getTemplateByAction("alterarSenha"); 
+		parent::show(); 
+	}
 }

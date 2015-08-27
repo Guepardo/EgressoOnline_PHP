@@ -13,6 +13,9 @@ class Autenticar extends GenericController {
 		$this->autenticarView->loginView(); 
 	}
 
+	public function alterarSenhaView(){
+		$this->autenticarView->alterarSenhaView(); 
+	}
 	public function login($arg){
 
 		Lumine::import("Usuario"); 
