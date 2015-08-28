@@ -18,8 +18,6 @@
 			<div class="row">
 				<div class="medium-12 columns panel" style="background-image:url('https://41.media.tumblr.com/7c433185e516623935258cbfc2184334/tumblr_nrym7qWJep1qjcdw9o2_400.jpg');background-size: 100% auto;"> 
 
-					
-					
 					<div class="row">
 
 						<div class="medium-4 columns panel" style="height:300px">
@@ -29,10 +27,10 @@
 									<h7>${nome}</h7>
 								</div>
 								<div class="medium-12 medium-centered columns ">
-									<textarea name="" placeholder="Deixe uma mensagem para essa pessoa."></textarea>
+									<textarea id="mensagem" placeholder="Deixe uma mensagem para essa pessoa."></textarea>
 								</div>
 								<div class="medium-12  columns ">
-									<button type="" value="${id}" class="button expand ">Enviar</button>
+									<button id="bnt_mensagem" value="${id}" class="button expand ">Enviar</button>
 								</div>
 							</div>	
 						</div>
@@ -55,7 +53,7 @@
 
 								<div class="medium-12 columns">
 									<span class="label success">Minhas graduações</span>
-									<div data-alert class="alert-box secondary">
+									<div data-alert class="alert-box secondary" style="height:75px;">
 										<!-- $BeginBlock graduacao-->
 										<span data-tooltip aria-haspopup="true" class="has-tip" title="${label}"><span class="label">${tipo}</span> </span>
 										<!-- $EndBlock graduacao -->
@@ -85,17 +83,35 @@
 			<div data-alert class="alert-box secondary"> ${texto}</div>
 		</div>
 		<!-- $EndBlock atividade -->
+	</div>
 
-		
-		<!-- $Include templates/lib/html/footerscripts.html --> 
+	<!-- $Include templates/lib/html/footerscripts.html --> 
+	<script src="templates/lib/js/ajax.js"></script>
+	<script>
+	$(document).foundation();
+	$(document).ready(function(){
+		$("#bnt_mensagem").click(function(){
+			var id = $(this).val(); 
+			var msg = $('#mensagem').val(); 
 
-		<script>
+			if(msg == ''){
+				alertify.error("Escreva uma mensagem antes."); 
+				return; 
+			} 
 
-		$(document).foundation();
-		$(document).ready(function(){
-			$('.telefone').mask('(99) 9999-9999');
-		});
+			var data = {'id' : id, 'mensagem' : msg}; 
+			sendAjax('index.php?uc=mensagens&a=mensagemDireta','POST',data,function(data){
+				data = JSON.parse(data); 
 
-		</script>
-	</body>
-	</html>
+				if(data['status'])
+					alertify.success("Mensagem enviado"); 
+				else
+					alertify.error("Error"); 
+			}); 
+			$('#mensagem').val(""); 
+		}); 
+	});
+
+	</script>
+</body>
+</html>

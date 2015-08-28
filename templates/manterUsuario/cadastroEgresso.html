@@ -119,9 +119,7 @@ $(document).ready(function(){
     var data = $(this).serializeArray(); 
 
     sendAjax('index.php?uc=manterUsuario&a=cadastroEgresso','POST',data,function(data){
-      alertify.log(data); 
       data = JSON.parse(data); 
-
       if(data['status'])
         alertify.success("O cadastro foi feito com sucesso");   
       else

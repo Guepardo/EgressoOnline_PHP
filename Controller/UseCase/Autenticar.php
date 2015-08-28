@@ -92,8 +92,12 @@ class Autenticar extends GenericController {
 
 		//$mail = Mail(); 
 		//Mandar email aqui embaixo: 
-		
 		$this->autenticarView->sendAjax(array("status" => true ) ); 
+	}
+
+	public function logout(){
+		session_destroy();
+		$this->autenticarView->loginView(); 
 	}
 
 }
