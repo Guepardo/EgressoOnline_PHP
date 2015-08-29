@@ -9,7 +9,8 @@ require_once(PATH.'Controller'.DS.'UseCase'.DS.'VisualizarOportunidade.php');
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'VisualizarPerfil.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'Configurar.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'ManterCurso.php'); 
-require_once(PATH.'Controller'.DS.'UseCase'.DS.'Mensagens.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'Mensagens.php');
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'Relatorios.php'); 
 
 class MainController {
 	private $controllersArray;
@@ -26,7 +27,8 @@ class MainController {
 				'configurar'    => new Configurar(), 
 				'manterCurso'   => new ManterCurso(), 
 				'mensagens'     => new Mensagens(), 
-				'perfil'        => new VisualizarPerfil()
+				'perfil'        => new VisualizarPerfil(), 
+				'relatorios'    => new Relatorios()
  		);
 	}
 	
