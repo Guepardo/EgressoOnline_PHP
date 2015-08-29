@@ -31,6 +31,7 @@ class TelaPrincipalView extends GenericView
 		$usuario = new Usuario(); 
 		$usuario->get($_SESSION['user_id']); 
 		parent::$templator->setVariable('nome', $usuario->nome); 
+		parent::$templator->setVariable('foto', $usuario->foto); 
 
 		while( $pais->fetch() ){
 			parent::$templator->setVariable("emprego.pais.id", $pais->id ); 

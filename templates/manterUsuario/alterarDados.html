@@ -10,22 +10,19 @@
 
  <!-- $Include templates/lib/html/topbar.html --> 
 
- <div class="row">
-  <div class="medium-10 medium-offset-1 columns"> <h1>Alterar dados</h1> </div>
-</div>
-
-<div class="row">
-  <div class="medium-10 medium-offset-1 columns">
-    <nav class="breadcrumbs">
-      <a href="#" class="current">Dados pessoais</a>
-      <a href="index.php?a=alterarSenhaView&uc=manterUsuario">Alterar senha</a>
-      <a href="#">Alterar Foto de Perfil</a>
-    </nav>
+ <div class="row panel" style="margin-top: 40px;">
+  <!-- navegação -->
+  <div class="row">
+    <div class="medium-12 columns">
+      <nav class="breadcrumbs">
+        <a href="#" class="current">Alterar Dados</a>
+        <a href="index.php?a=alterarSenhaView&uc=manterUsuario">Alterar senha</a>
+        <a href="#">Alterar Foto de Perfil</a>
+      </nav>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="medium-10 medium-offset-1 columns">
+  <div class="medium-12 columns">
     <form id="form" data-abide> 
 
       <div class="row">
@@ -49,7 +46,7 @@
           <label>Estado Civil
             <select>
               <!-- $BeginBlock estado_civil -->
-              <option ${egresso.estado_civil.selected} value="${egresso.estado_civil.value}"> ${egresso.estado_civil.desc}</option>
+              <option ${estado_civil.selected} value="${estado_civil.value}"> ${egresso.estado_civil.desc}</option>
               <!-- $EndBlock estado_civil -->
             </select>
           </label>
@@ -62,8 +59,6 @@
          </label>
        </div>
      </div>
-
-
    </div>
 
    <div class="row">
@@ -97,7 +92,9 @@
     <div id="egresso_estado_div" class="medium-4 small-4 columns">
       <label>Estado
         <select id="egresso_estado">
-
+          <!-- $BeginBlock egresso.pais -->
+          <option value="${egresso.pais.value}"> ${egresso.pais.desc}</option>
+          <!-- $EndBlock egresso.pais -->
         </select>
       </label>
     </div>
@@ -105,7 +102,9 @@
     <div id="egresso_cidade_div" class="medium-4 small-4 columns">
       <label>Cidade
         <select id="egresso_cidade">
-
+          <!-- $BeginBlock egresso.pais -->
+          <option value="${egresso.pais.value}"> ${egresso.pais.desc}</option>
+          <!-- $EndBlock egresso.pais -->
         </select>
       </label>
     </div>
@@ -119,8 +118,17 @@
       </div>  
     </div>
 
-    <fieldset class="panel">
+    <fieldset>
       <legend>Trabalho</legend>
+      <!-- checkboxes -->
+      <div class="row">
+        <div class="medium-3 columns">
+          <input id="checkbox1" type="checkbox"><label for="checkbox1">Na área pública?</label>
+        </div>
+        <div class="medium-2 columns end">
+          <input id="checkbox2" type="checkbox"><label for="checkbox2">Na área de TI?</label>
+        </div>
+      </div>
 
       <div class="row">
         <div class="medium-5 small-5 columns">
@@ -141,14 +149,13 @@
       </div>
 
       
-
       <div class="row">
         <div class="medium-4 small-4 columns">
           <label>País
             <select id="emprego_pais">
-             <!-- $BeginBlock egresso.pais -->
-             <option value="${egresso.pais.value}"> ${egresso.pais.desc}</option>
-             <!-- $EndBlock egresso.pais -->
+             <!-- $BeginBlock emprego.pais -->
+             <option value="${emprego.pais.value}"> ${emprego.pais.desc}</option>
+             <!-- $EndBlock emprego.pais -->
            </select>
          </label>
        </div>
@@ -156,7 +163,9 @@
        <div id="emprego_estado_div" class="medium-4 small-4 columns hide">
         <label>Estado
           <select id="emprego_estado">
-
+            <!-- $BeginBlock emprego.estado -->
+            <option value="${emprego.estado.value}"> ${emprego.estado.desc}</option>
+            <!-- $EndBlock emprego.estado -->
           </select>
         </label>
       </div>
@@ -164,7 +173,9 @@
       <div id="emprego_cidade_div" class="medium-4 small-4 columns hide">
         <label>Cidade
           <select id="emprego_cidade">
-
+            <!-- $BeginBlock emprego.cidade -->
+            <option value="${emprego.cidade.value}"> ${emprego.cidade.desc}</option>
+            <!-- $EndBlock emprego.cidade -->
           </select>
         </label>
       </div>
@@ -194,74 +205,48 @@
  </fieldset>
 
  <!--Seção para Redes Sociais--> 
- <div class="row">
-  <div class="medium-3 small-3 columns">
-    <label> Redes Sociais
-      <select>
-        <option value="1">Twitter</option>
-        <option value="2">Linkedin</option>
-        <option value="3">Facebook</option>
-      </select>
-    </div>
-    <div class="medium-9 small-9 columns end">
-      <label>Link para acesso
-        <input type="text" value="${usuario.email}">
-      </label>
+ <fieldset>
+   <legend>Redes Sociais</legend>
+
+   <div class="row">
+    <div class="medium-12 small-12 columns ">
+      <label>Twitter<input type="text" name="" value="${twitter}"></label>
     </div>
   </div>
 
   <div class="row">
-    <div class="medium-3 small-3 columns">
-      <label> 
-        <select>
-          <option value="1">Twitter</option>
-          <option value="2">Linkedin</option>
-          <option value="3">Facebook</option>
-        </select>
-      </div>
-      <div class="medium-9 small-9 columns end">
-        <label>
-          <input type="text" value="${usuario.email}">
-        </label>
-      </div>
+    <div class="medium-12 small-12 columns ">
+      <label>Linkedin<input type="text" name="" value="${linkedin}"></label>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="medium-3 small-3 columns">
-        <label> 
-          <select>
-            <option value="1">Twitter</option>
-            <option value="2">Linkedin</option>
-            <option value="3">Facebook</option>
-          </select>
-        </div>
-        <div class="medium-9 small-9 columns end">
-          <label>
-            <input type="text" value="${usuario.email}">
-          </label>
-        </div>
-      </div>
-
-      <hr />
-
-      <div class="row panel">
-       <div class="medium-12 columns">
-         <input id="checkbox" type="checkbox" ${egresso.dados_publico} /><label for="checkbox">Deseja tornar visíveis no seu perfil os dados de telefone, e-mail e redes sociais?</label>
-       </div>
-     </div>
-
-     <hr /> 
-     <!-- botões --> 
-     <div class="row">
-      <div class="medium-2 small-3 columns right">
-        <button class="button success tiny radius" type="submit">Alterar dados</button>
-      </div>
-
-      <div class="medium-2 small-3 columns left">
-        <button class="button info tiny radius">Tela principal</button>
-      </div>
+  <div class="row">
+    <div class="medium-12 small-12 columns ">
+      <label>Facebook<input type="text" name="" value="${facebook}"></label>
     </div>
-  </form>
+  </div>
+</fieldset>
+
+<hr />
+
+<div class="row panel callout">
+ <div class="medium-12 columns">
+   <input id="checkbox" type="checkbox" ${egresso.dados_publico} /><label for="checkbox">Deseja tornar visíveis no seu perfil os dados de telefone, e-mail e redes sociais?</label>
+ </div>
+</div>
+
+<hr /> 
+<!-- botões --> 
+<div class="row">
+  <div class="medium-2 small-3 columns right">
+    <button class="button success tiny radius" type="submit">Alterar dados</button>
+  </div>
+
+  <div class="medium-2 small-3 columns left">
+    <button class="button info tiny radius">Tela principal</button>
+  </div>
+</div>
+</form>
 
 </div>
 

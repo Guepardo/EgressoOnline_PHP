@@ -3,7 +3,11 @@
 <head>
 	<title>Tela principal</title>
 	<!-- $Include templates/lib/html/head.html --> 
-
+	<style>
+	.perfil_large{
+		border-radius: 60px; 
+	}
+	</style>
 </head>
 <body>
 
@@ -16,28 +20,41 @@
 		<div class="medium-12 columns">
 			<!-- começo -->
 			<div class="row">
-				<div class="medium-12 columns panel" style="background-image:url('https://41.media.tumblr.com/7c433185e516623935258cbfc2184334/tumblr_nrym7qWJep1qjcdw9o2_400.jpg');background-size: 100% auto;"> 
+				<div class="medium-12 columns panel" style="background-image:url('http://wallpaper.ultradownloads.com.br/274038_Papel-de-Parede-Linda-Paisagem-Oceanica-Com-Castelo_1920x1200.jpg');background-size: 100% auto;"> 
 
 					<div class="row">
 
-						<div class="medium-4 columns panel" style="height:300px">
+						<div class="medium-4 columns" style="height:300px">
 							<div class="row">
-								<div class="medium-7 medium-centered columns ">
-									<img src="http://lorempixel.com/people/300/240/"/>
-									<h7>${nome}</h7>
+								<div class="medium-6 medium-centered columns ">
+									<img src="${foto}" class="perfil_large" />
 								</div>
-								<div class="medium-12 medium-centered columns ">
-									<textarea id="mensagem" placeholder="Deixe uma mensagem para essa pessoa."></textarea>
+							</div>
+
+							<div class="panel" style="margin-top: 10px;padding-bottom: 0;padding-top:0;">
+								<div class="row">
+									<div class="medium-12 columns ">
+										<p style="font-size:15px;margin:0;" class="medium-text-center">${nome}</p>
+									</div>
 								</div>
-								<div class="medium-12  columns ">
-									<button id="bnt_mensagem" value="${id}" class="button expand ">Enviar</button>
+
+								<div class="row">
+									<div class="medium-12 medium-centered columns ">
+										<textarea id="mensagem" placeholder="Deixe uma mensagem para essa pessoa."></textarea>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="medium-12  columns ">
+										<button id="bnt_mensagem" value="${id}" class="button expand ">Enviar</button>
+									</div>
 								</div>
 							</div>	
 						</div>
 
 
 
-						<div class="medium-7 columns panel" style="height:300px">
+						<div class="medium-7 columns panel" style="height:300px; background-color:rgba(1,1,1,0); border-style:none;">
 							<div class="row">
 								<div class="medium-12 columns">
 									<span class="label">Informações</span>
@@ -46,7 +63,7 @@
 										Telefone: ${telefone}</br>
 										Likedin:  ${likedin}</br>
 										Facebook: ${facebook}</br>
-										Twittier: ${twitter}</br>
+										Twitter: ${twitter}</br>
 										Este usuário já divulgou ${qtd} oportunidade(s)</br>
 									</div>
 								</div>

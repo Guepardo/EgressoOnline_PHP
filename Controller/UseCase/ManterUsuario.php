@@ -119,6 +119,7 @@ class ManterUsuario extends GenericController{
 		$usuario->senha  = md5($passwordToSend);
 		$usuario->generoId  = $arg['genero_id'];
 		$usuario->cpf  = $arg['cpf'];
+		$usuario->foto = 'midia/default.png'; //Adicionando a mídia padrão; 
 		$usuario->insert(); 
 
 		$notificacao  = new Notificacao(); 
@@ -172,6 +173,7 @@ class ManterUsuario extends GenericController{
 		$usuario->senha     = md5($passwordToSend);
 		$usuario->generoId  = $arg['genero_id'];
 		$usuario->cpf       = $arg['cpf'];
+		$usuario->foto = 'midia/default.png'; //Adicionando a mídia padrão; 
 		$usuario->insert(); 
 
 		$notificacao  = new Notificacao(); 

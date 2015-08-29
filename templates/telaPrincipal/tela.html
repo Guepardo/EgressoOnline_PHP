@@ -21,6 +21,19 @@
     margin-top:35px;  
   }
 
+  .perfil_large{
+    border-radius: 60px; 
+    margin-left: 20px;
+  }
+  .perfil_small{
+    border-radius: 50px;
+  }
+
+  .perfil_box{
+    padding:5px;
+    background-color:rgba(214,214,214,0.5);
+  }
+
   </style>
 </head>
 <body>
@@ -28,60 +41,62 @@
  <!-- $Include templates/lib/html/topbar.html --> 
  <!-- top-bar fim --> 
 
- <div class="row" >
+ <div class="row panel perfil_box" style="margin-top: 40px;" >
 
-  <div class="large-3 columns">
+   <div class="large-3 columns">
     <div class="panel" style="height: 300px;">
-      <a href="#"><img src="http://lorempixel.com/people/300/240/"/></a>
-      <h6>${nome}</h6>
-      <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
-        <section class="section">
-          <i class="fa fa-graduation-cap tittle">SI</i>
-        </section>
-        <section class="section">
-          <i class="fa fa-university tittle">UnuCET</i>
-        </section>
-        <section class="section">
-          <i class="fa fa-eye tittle">34</i>
-        </section>
-      </div>
+      <a href="#"><img src="${foto}" class="perfil_large" /></a>
+      <h6 style="font-size:15px;">${nome}</h6>
+      <!-- separator -->
+    </hr>
+    <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
+      <section class="section">
+        <i class="fa fa-graduation-cap tittle">SI</i>
+      </section>
+      <section class="section">
+        <i class="fa fa-university tittle">UnuCET</i>
+      </section>
+      <section class="section">
+        <i class="fa fa-eye tittle">34</i>
+      </section>
     </div>
   </div>
-  <div class="large-6 columns">
-    <form>
-      <label>Compartilhe alguma coisa. 
-        <textarea id="post_content" placeholder="No máximo 300 palavras." style="height:210px;"></textarea>
-      </label>
-    </form>
-    <a href="#" id="publicar" class="button expand">Postar</a>
-  </div>
+</div>
+<div class="large-6 columns">
+  <form>
+    <label>Compartilhe alguma coisa. 
+      <textarea id="post_content" placeholder="No máximo 300 palavras." style="height:210px;"></textarea>
+    </label>
+  </form>
+  <a href="#" id="publicar" class="button expand">Postar</a>
+</div>
 
-  <div class="large-3 columns">
-    <ul class="stack button-group" style="margin-top:20px;">
-      <li><a href="index.php?uc=manterUsuario&a=alterarDadosView" class="button" ><i class="fa fa-pencil fa-fw" style="float:left;" ></i>Alterar Dados</a></li>
-      <li><a href="#" class="button"><i class="fa fa-book fa-fw" style="float:left;"></i>Oportunidades</a></li>
-      
-      <li>
-        <!--DropDown para divulgar-->
-        <button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown"><i class="fa fa-wifi fa-fw"style="float:left;"></i>Divulgar</a></li></button><br>
-        <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true">
-          <li><a href="#" data-reveal-id="modal_emprego">Emprego</a></li>
-          <li><a href="#" data-reveal-id="modal_pos">Pós-graduação</a></li>
-        </ul>
-        <!--Fim DropDown --> 
-      </li>
-      
-      <li>
-       <!--DropDown para divulgar-->
-       <button href="#" data-dropdown="drop2" aria-controls="drop2" aria-expanded="false" class="button dropdown"><i class="fa fa-cog fa-fw"style="float:left;"></i>Configurações</a></li></button><br>
+<div class="large-3 columns">
+  <ul class="stack button-group" style="margin-top:20px;">
+    <li><a href="index.php?uc=manterUsuario&a=alterarDadosView" class="button" ><i class="fa fa-pencil fa-fw" style="float:left;" ></i>Alterar Dados</a></li>
+    <li><a href="#" class="button"><i class="fa fa-book fa-fw" style="float:left;"></i>Oportunidades</a></li>
 
-       ${tela.configuracao}
+    <li>
+      <!--DropDown para divulgar-->
+      <button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown"><i class="fa fa-wifi fa-fw"style="float:left;"></i>Divulgar</a></li></button>
+      <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true">
+        <li><a href="#" data-reveal-id="modal_emprego">Emprego</a></li>
+        <li><a href="#" data-reveal-id="modal_pos">Pós-graduação</a></li>
+      </ul>
+      <!--Fim DropDown --> 
+    </li>
 
-       <!--Fim DropDown --> 
-     </li>
+    <li>
+     <!--DropDown para divulgar-->
+     <button href="#" data-dropdown="drop2" aria-controls="drop2" aria-expanded="false" class="button dropdown"><i class="fa fa-cog fa-fw"style="float:left;"></i>Configurações</a></li></button><br>
 
-   </ul>
- </div>
+     ${tela.configuracao}
+
+     <!--Fim DropDown --> 
+   </li>
+
+ </ul>
+</div>
 
 </div>
 
@@ -98,7 +113,7 @@
 
    <div class="medium-4 columns panel msg ">
     <div class="row">
-      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/"/></div>
+      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small" /></div>
       <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small></div>
       <div class="medium-12 columns">
         <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
@@ -109,7 +124,7 @@
 
   <div class="medium-4 columns panel msg ">
     <div class="row">
-      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/"/></div>
+      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small"  /></div>
       <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small></div>
       <div class="medium-12 columns">
         <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
@@ -123,7 +138,7 @@
 
   <div class="medium-4 columns panel msg ">
     <div class="row">
-      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/"/></div>
+      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small"  /></div>
       <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small></div>
       <div class="medium-12 columns">
         <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
@@ -839,7 +854,8 @@
               addOpor(data[a]); 
           }
 
-          date = data[data.length-1]['data_envio']; 
+          if(data['status'])
+            date = data[data.length-1]['data_envio']; 
         }); 
 
         control = false;
@@ -849,7 +865,7 @@
   });
 
   function addMsg(data){
-    var row = '<div class="medium-4 columns panel msg "> <div class="row"> <div class="medium-3 columns small-3"><img src="http://lorempixel.com/people/120/120/"/></div> <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>'+data['remetente']+'</strong> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
+    var row = '<div class="medium-4 columns panel msg "> <div class="row"> <div class="medium-3 columns small-3"><img src="http://lorempixel.com/people/120/120/" class="perfil_small" /></div> <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>'+data['remetente']+'</strong> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
 
     $('#container').append(row); 
   }

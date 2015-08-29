@@ -8,23 +8,19 @@
 
  <!-- $Include templates/lib/html/topbar.html --> 
 
- <div class="row">
-  <div class="medium-10 medium-offset-1 columns"> <h1>Alterar senha</h1> </div>
-</div>
-
-<div class="row">
-  <div class="medium-10 medium-offset-1 columns">
-    <nav class="breadcrumbs">
-      <a href="?action=alterarDadosView&usecase=manterUsuario" >Dados pessoais</a>
-      <a href="#" class="current">Alterar senha</a>
-      <a href="#">Alterar Foto de Perfil</a>
-    </nav>
+ <div class="row panel" style="margin-top: 20px;">
+  <!-- navegação -->
+  <div class="row">
+    <div class="medium-12 columns">
+      <nav class="breadcrumbs">
+        <a href="index.php?uc=manterUsuario&a=alterarDadosView">Alterar Dados</a>
+        <a href="#" class="current">Alterar senha</a>
+        <a href="#">Alterar Foto de Perfil</a>
+      </nav>
+    </div>
   </div>
-</div>
 
-
-<div class="row">
-  <div class="medium-10 medium-offset-1 columns">
+  <div class="medium-12 columns">
     <form id="form" data-abide="ajax"> 
       <!--Senha atual--> 
       <div class="row">

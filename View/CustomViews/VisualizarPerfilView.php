@@ -26,6 +26,7 @@ class VisualizarPerfilView extends GenericView{
 		parent::$templator->setVariable('id', $id ); 
 		
 		parent::$templator->setVariable("nome", $usuario->nome); 
+		parent::$templator->setVariable("foto", $usuario->foto); 
 		$turma = new Turma(); 
 		$turma->get($usuario->turmaId); 
 
