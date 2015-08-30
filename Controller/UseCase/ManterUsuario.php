@@ -329,10 +329,10 @@ class ManterUsuario extends GenericController{
 
 		$lastImage = $usuario->foto; 
 
-		if(strcmp($lastImage,'Midia\default.png') != 0); 
+		if(strcmp($lastImage,'Midia\default.png') != 0)
 		unlink(PATH.$lastImage); 
 
-		$usuario->foto = 'midia'.DS.$result; 
+		$usuario->foto = 'Midia'.DS.$result; 
 		$usuario->update(); 
 	}
 

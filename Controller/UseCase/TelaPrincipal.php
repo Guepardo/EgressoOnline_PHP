@@ -29,7 +29,7 @@ class TelaPrincipal extends GenericController {
 		
 		if(!is_array($result) || count($result) == 0 )
 			$this->telaPrincipalView->sendAjax(array('status' => false , 'msg' => 'Não há mais mansagens')); 
-
+		var_dump($result); 
 		//Procurar oportunidades e mensagens a partir do id data; 
 		Lumine::import("Postagem"); 
 		Lumine::import("Oportunidade"); 
@@ -80,7 +80,7 @@ class TelaPrincipal extends GenericController {
 			}
 			$result = $daoFeed->feed($result[count($result)-1][1],1); 
 
-		}while( count($array) < $limit && count($result) > 0); 
+		}while( count($array) < $limit && count($result) >= 0); 
 
 		$this->telaPrincipalView->sendAjax($array); 
 	}
