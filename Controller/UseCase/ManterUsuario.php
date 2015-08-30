@@ -6,6 +6,7 @@ require_once(PATH.'Util'.DS.'KeyFactory.php');
 require_once(PATH.'Util'.DS.'DataValidator.php'); 
 require_once(PATH.'Util'.DS.'Mail.php'); 
 require_once(PATH.'Util'.DS.'FileWriter.php'); 
+require_once(PATH.'Util'.DS.'Image.php');
 
 class ManterUsuario extends GenericController{
 	private $manterUsuarioView; 
@@ -18,6 +19,10 @@ class ManterUsuario extends GenericController{
 
 	public function cadastroProfessorView(){
 		$this->manterUsuarioView->cadastroProfessorView(); 
+	}
+
+	public function alterarFotoView(){
+		$this->manterUsuarioView->alterarFotoView(); 
 	}
 
 	public function gerenciarCpView(){
@@ -119,7 +124,7 @@ class ManterUsuario extends GenericController{
 		$usuario->senha  = md5($passwordToSend);
 		$usuario->generoId  = $arg['genero_id'];
 		$usuario->cpf  = $arg['cpf'];
-		$usuario->foto = 'midia/default.png'; //Adicionando a mídia padrão; 
+		$usuario->foto = 'Midia\default.png'; //Adicionando a mídia padrão; 
 		$usuario->insert(); 
 
 		$notificacao  = new Notificacao(); 
@@ -163,8 +168,8 @@ class ManterUsuario extends GenericController{
 		Lumine::import("Egresso"); 
 		Lumine::import("Localidade"); 
 		Lumine::import("Emprego"); 
-        Lumine::import("Notificacao"); 
-        Lumine::import("Turma"); 
+		Lumine::import("Notificacao"); 
+		Lumine::import("Turma"); 
 
 		$usuario = new Usuario(); 
 
@@ -173,7 +178,7 @@ class ManterUsuario extends GenericController{
 		$usuario->senha     = md5($passwordToSend);
 		$usuario->generoId  = $arg['genero_id'];
 		$usuario->cpf       = $arg['cpf'];
-		$usuario->foto = 'midia/default.png'; //Adicionando a mídia padrão; 
+		$usuario->foto = 'Midia\default.png'; //Adicionando a mídia padrão; 
 		$usuario->insert(); 
 
 		$notificacao  = new Notificacao(); 
@@ -310,6 +315,27 @@ class ManterUsuario extends GenericController{
 
 		$this->manterUsuarioView->sendAjax(array('status' => true ) );  
 	}
+
+	public function alterarFoto($arg){
+		$m = new Image(); 
+		$result = $m->saveCropAvatar('file',$arg['x'],$arg['y'],$arg['x2'],$arg['y2']); 
+		Lumine::import("Usuario"); 
+
+		$usuario = new Usuario(); 
+		$total = $usuario->get($_SESSION['user_id']); 
+
+		if($total < 0)
+			die("error"); 
+
+		$lastImage = $usuario->foto; 
+
+		if(strcmp($lastImage,'Midia\default.png') != 0); 
+		unlink(PATH.$lastImage); 
+
+		$usuario->foto = 'midia'.DS.$result; 
+		$usuario->update(); 
+	}
+
 	private function verifyErros($array){
 		if(!empty($array)){
 			$array['status'] = false; 

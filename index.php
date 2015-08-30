@@ -37,3 +37,10 @@ if( empty($_REQUEST['uc']) || empty($_REQUEST['a'])){
 
 //$mail->sendEmail("Apenas um texto simples aqui","bsinet@hotmail.com", "Allyson Maciel"); 
 
+// require(WWW_ROOT.DS.'Util'.DS.'Image.php');
+
+// $m = new Image(); 
+
+// $arg = $_REQUEST; 
+// // var_dump($arg); 
+// echo $m->saveCropAvatar('file',$arg['x'],$arg['y'],$arg['x2'],$arg['y2']); 

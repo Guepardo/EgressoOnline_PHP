@@ -12,6 +12,11 @@ class ManterUsuarioView extends GenericView{
 		parent::show(); 
 	}
 
+	public function alterarFotoView(){
+		parent::getTemplateByAction("alterarFoto"); 
+		parent::show(); 
+	}
+
 	public function gerenciarCpView(){
 		parent::getTemplateByAction("gerenciarCursos");
 

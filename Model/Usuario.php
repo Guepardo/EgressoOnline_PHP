@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "usuario"
- * in 2015-08-28
+ * in 2015-08-30
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -47,7 +47,7 @@ class Usuario extends Lumine_Base {
         $this->metadata()->addField('cpf', 'cpf', 'varchar', 14, array('notnull' => true));
         $this->metadata()->addField('email', 'email', 'varchar', 150, array('notnull' => true));
         $this->metadata()->addField('senha', 'senha', 'varchar', 35, array('notnull' => true));
-        $this->metadata()->addField('foto', 'foto', 'varchar', 35, array());
+        $this->metadata()->addField('foto', 'foto', 'varchar', 45, array());
         $this->metadata()->addField('generoId', 'genero_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Genero'));
         $this->metadata()->addField('codigo', 'codigo', 'varchar', 45, array());
 
