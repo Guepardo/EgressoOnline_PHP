@@ -50,12 +50,7 @@
       <!-- separator -->
     </hr>
     <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
-      <section class="section">
-        <i class="fa fa-graduation-cap tittle">SI</i>
-      </section>
-      <section class="section">
-        <i class="fa fa-university tittle">UnuCET</i>
-      </section>
+
       <section class="section">
         <i class="fa fa-eye tittle">34</i>
       </section>
@@ -699,9 +694,9 @@
 
 
         <!-- modal -->
-<div id="modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-  <h2 id="modalTitle">Alterar foto de perfil</h2>
-  <!-- conteúdo início -->
+        <div id="modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+          <h2 id="modalTitle">Alterar foto de perfil</h2>
+          <!-- conteúdo início -->
   <!-- <div>
     Escolha um arquivo 
     <input type="file" id="fileInput">
@@ -748,18 +743,18 @@
 <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 
-        <!-- FIM MODAIS --> 
+<!-- FIM MODAIS --> 
 
 
-        <!-- $Include templates/lib/html/footerscripts.html --> 
-        <script src="templates/lib/js/jquery.mask.min.js"></script>
-        <script src="templates/lib/js/masonry.pkgd.min.js"></script>
-        <script src="templates/lib/js/ajax.js"></script>
+<!-- $Include templates/lib/html/footerscripts.html --> 
+<script src="templates/lib/js/jquery.mask.min.js"></script>
+<script src="templates/lib/js/masonry.pkgd.min.js"></script>
+<script src="templates/lib/js/ajax.js"></script>
 
-        <script>
-        $(document).foundation();
-        $(document).ready(function(){ 
-          $('.telefone').mask('(99) 9999-9999');
+<script>
+$(document).foundation();
+$(document).ready(function(){ 
+  $('.telefone').mask('(99) 9999-9999');
   //Tratamento dos eventos dos formulários modais: 
   
   $('#form_emprego').on('valid', function() {
@@ -895,8 +890,8 @@
         sendAjax("index.php?uc=telaPrincipal&a=feed","POST",{'date' : date},function(data){
           data = JSON.parse(data); 
 
-          if(data.length == 0 ){
-            alertify.info("Não há mais mensagem para o período de "+ date);  
+          if( data['status'] != null && !data['status']){
+            alertify.log("Não há mais mensagens antes deste período :"+ date);  
             return;  
           }
           for(var a = 0 ; a < data.length ; a++ ){
@@ -906,8 +901,9 @@
               addOpor(data[a]); 
           }
 
-          if(data['status'])
+          if(data.length > 0)
             date = data[data.length-1]['data_envio']; 
+
         }); 
 
         control = false;
@@ -917,7 +913,7 @@
   });
 
   function addMsg(data){
-    var row = '<div class="medium-4 columns panel msg "> <div class="row"> <div class="medium-3 columns small-3"><img src="http://lorempixel.com/people/120/120/" class="perfil_small" /></div> <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>'+data['remetente']+'</strong> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
+    var row = '<div class="medium-4 columns panel msg "> <div class="row"> <div class="medium-3 columns small-3"><img src="'+data['foto']+'" class="perfil_small" /></div> <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>'+data['remetente']+'</strong> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
 
     $('#container').append(row); 
   }

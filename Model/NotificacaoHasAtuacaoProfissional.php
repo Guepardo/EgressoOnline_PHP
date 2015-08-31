@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "notificacao_has_atuacao_profissional"
- * in 2015-08-30
+ * in 2015-08-31
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model

@@ -93,6 +93,9 @@ class VisualizarPerfilView extends GenericView{
 			parent::$templator->addBlock("aluno");
 		}
 
+		if(!$_SESSION['coordenador'])
+			parent::$templator->setVariable("is_hide", 'hide'); 
+		
 		parent::show(); 
 	}
 }

@@ -2,6 +2,7 @@
 require_once(PATH.'Controller'.DS.'GenericController.php'); 
 require_once(PATH.'View'.DS.'CustomViews'.DS.'TelaPrincipalView.php'); 
 require_once(PATH.'DAO'.DS.'CustomDAOs'.DS.'DAOFeed.php'); 
+require_once(PATH.'Util'.DS.'Convert.php'); 
 
 
 class TelaPrincipal extends GenericController {
@@ -29,7 +30,7 @@ class TelaPrincipal extends GenericController {
 		
 		if(!is_array($result) || count($result) == 0 )
 			$this->telaPrincipalView->sendAjax(array('status' => false , 'msg' => 'Não há mais mansagens')); 
-		var_dump($result); 
+		
 		//Procurar oportunidades e mensagens a partir do id data; 
 		Lumine::import("Postagem"); 
 		Lumine::import("Oportunidade"); 
@@ -46,7 +47,6 @@ class TelaPrincipal extends GenericController {
 			foreach($result as $temp ){
 				$post = new Postagem(); 
 				$op   = new Oportunidade(); 
-
 				$tam = $post->get('id', (int) $temp[0]);
 
 				//é uma mensagem: 
@@ -61,11 +61,9 @@ class TelaPrincipal extends GenericController {
 					$usuario->get('id', $post->usuarioId); 
 					//Se a mensagem é uma mensagem direta: 
 					if($tam > 0 && $associativa->postagemId == $post->id)
-						array_push($array, array('id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => false, 'post' => true)); 
-					else if($tam > 0 && $associativa->postagemId != $post->id)
-						break; 
+						array_push($array, array('foto' => $usuario->foto, 'id' => $post->id, 'remetente' => Convert::toUTF_8($usuario->nome), 'data_envio' => $post->dataEnvio , 'msg' => Convert::toUTF_8($post->mensagem) , 'publica' => false, 'post' => true));  
 					else
-						array_push($array, array('id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => true, 'post' => true)); 
+						array_push($array, array('foto' => $usuario->foto, 'id' => $post->id, 'remetente' => Convert::toUTF_8($usuario->nome), 'data_envio' => $post->dataEnvio , 'msg' => Convert::toUTF_8($post->mensagem) , 'publica' => true, 'post' => true)); 
 				}
 
 				$tam = $op->get('id', (int) $temp[0]); 
@@ -75,12 +73,16 @@ class TelaPrincipal extends GenericController {
 					$total = 0; 
 					$total = $associativa->get('oportunidadeId', (int) $op->id);
 
-					array_push($array, array('graduacao' => ($total > 0 ),'info_adicionais' => $op->infoAdicionais ,'id' => $post->id, 'post' => false, 'data_envio' => $op->dataDivulgacao)); 
+					array_push($array, array('graduacao' => ($total > 0 ),'info_adicionais' => Convert::toUTF_8($op->infoAdicionais) ,'id' => $post->id, 'post' => false, 'data_envio' => $op->dataDivulgacao)); 
 				}
 			}
+
 			$result = $daoFeed->feed($result[count($result)-1][1],1); 
 
-		}while( count($array) < $limit && count($result) >= 0); 
+			if(!$result)
+				break; 
+
+		}while( count($array) < $limit && count($result) >= 0 ); 
 
 		$this->telaPrincipalView->sendAjax($array); 
 	}
