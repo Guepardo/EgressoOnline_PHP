@@ -3,40 +3,41 @@
   <head>
     <title>EgressoOnline - Login</title>
     <!-- $Include templates/lib/html/head.html --> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.8/datatables.min.css"/>
 
     <style>
-    .fix{
-      min-width: 335px !important;  
-      max-width: 339px !important;
+      .fix{
+        min-width: 335px !important;  
+        max-width: 339px !important;
+      }
+      .fix_top{ 
+        margin-top: 3%;
+      }
+      .main_container{
+       position:relative;
+       top:20%;
+       border:5px;
+       background-color: white;
+       border-radius: 2px; 
+     }
+
+     .borda_inferior{
+      border-bottom-style: solid; 
+      border-bottom-width: 2px; 
+      border-bottom-color: rgb(169,169,169); 
     }
-    .fix_top{ 
-      margin-top: 3%;
+
+    #logo{
+      margin: 15px 50px 15px 50px;
+      width: 210px; 
+      height: 100px; 
     }
-    .main_container{
-     position:relative;
-     top:20%;
-     border:5px;
-     background-color: white;
-     border-radius: 2px; 
-   }
 
-   .borda_inferior{
-    border-bottom-style: solid; 
-    border-bottom-width: 2px; 
-    border-bottom-color: rgb(169,169,169); 
-  }
-
-  #logo{
-    margin: 15px 50px 15px 50px;
-    width: 210px; 
-    height: 100px; 
-  }
-
-  .buttom_fix{
-    width: 250px; 
-    margin-left: 25px; 
-    margin-right: 25px;  
-  }
+    .buttom_fix{
+      width: 250px; 
+      margin-left: 25px; 
+      margin-right: 25px;  
+    }
   </style>
 
 </head>
@@ -80,14 +81,18 @@
             <hr style="margin:0"/>
 
             <div class="row">
-              <div class="medium-12 columns" style="height:333px; overflow:auto;">
-                <table>
-                  <tr>
-                    <th width="500">Disciplina</th>
+              <div class="medium-12 columns">
+                <!--nova table-->
+                <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+                  <thead>
+                   <tr>
+                    <th >Disciplina</th>
                     <th >Ação</th>
-                    <th width="100">Ação</th>
+                    <th >Ação</th>
                   </tr>
+                </thead>
 
+                <tbody>
                   <!-- $BeginBlock row -->
                   <tr>
                     <td class="nome" >${nome}</td>
@@ -95,20 +100,28 @@
                     <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
                   </tr>
                   <!-- $EndBlock row -->
-                </table>
+                </tbody>
 
-              </div>
-            </div>
-
-
-          </div>  
-          <!--fim-->
+                <tfoot>
+                 <tr>
+                  <th >Disciplina</th>
+                  <th >Ação</th>
+                  <th >Ação</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
 
-      </div>
-    </div>  
+
+      </div>  
+      <!--fim-->
+    </div>
+
   </div>
-  <!-- fim  -->
+</div>  
+</div>
+<!-- fim  -->
 </div>
 
 
@@ -141,14 +154,16 @@
 
 <!-- $Include templates/lib/html/footerscripts.html --> 
 <script src="templates/lib/js/jquery.mask.min.js"></script>
-<script src="templates/lib/js/ajax.js"></script>
 <script src="templates/lib/js/md5.js"></script>
 <script src="templates/lib/js/redirect.js"></script>
 <script src="templates/lib/js/ajax.js"></script>
-<script>
-$(document).foundation();
+<script src="templates/lib/js/jquery.dataTables.min.js"></script>
+<script src="templates/lib/js/metro.js"></script>
 
-$(document).ready(function(){
+<script>
+  $(document).foundation();
+
+  $(document).ready(function(){
 
   //Tratando evento para a deleção: 
   $("button.edit").click(function(){
@@ -216,6 +231,6 @@ $(document).ready(function(){
   }
 });
 
-  </script>
+</script>
 </body>
 </html>

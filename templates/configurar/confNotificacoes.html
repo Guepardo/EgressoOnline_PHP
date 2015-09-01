@@ -3,40 +3,41 @@
   <head>
     <title>EgressoOnline - Login</title>
     <!-- $Include templates/lib/html/head.html --> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.8/datatables.min.css"/>
 
     <style>
-    .fix{
-      min-width: 335px !important;  
-      max-width: 339px !important;
+      .fix{
+        min-width: 335px !important;  
+        max-width: 339px !important;
+      }
+      .fix_top{ 
+        margin-top: 3%;
+      }
+      .main_container{
+       position:relative;
+       top:20%;
+       border:5px;
+       background-color: white;
+       border-radius: 2px; 
+     }
+
+     .borda_inferior{
+      border-bottom-style: solid; 
+      border-bottom-width: 2px; 
+      border-bottom-color: rgb(169,169,169); 
     }
-    .fix_top{ 
-      margin-top: 3%;
+
+    #logo{
+      margin: 15px 50px 15px 50px;
+      width: 210px; 
+      height: 100px; 
     }
-    .main_container{
-     position:relative;
-     top:20%;
-     border:5px;
-     background-color: white;
-     border-radius: 2px; 
-   }
 
-   .borda_inferior{
-    border-bottom-style: solid; 
-    border-bottom-width: 2px; 
-    border-bottom-color: rgb(169,169,169); 
-  }
-
-  #logo{
-    margin: 15px 50px 15px 50px;
-    width: 210px; 
-    height: 100px; 
-  }
-
-  .buttom_fix{
-    width: 250px; 
-    margin-left: 25px; 
-    margin-right: 25px;  
-  }
+    .buttom_fix{
+      width: 250px; 
+      margin-left: 25px; 
+      margin-right: 25px;  
+    }
   </style>
 
 </head>
@@ -111,20 +112,31 @@
               <hr style="margin:0"/>
 
               <div class="row">
-                <div class="medium-12 columns" style="height:333px; overflow:auto;">
-                  <table>
-                    <tr>
-                      <th width="500">Área Profissional</th>
-                      <th >Ação</th>
-                    </tr>
-                    <!-- $BeginBlock row-->
-                    <tr>
-                      <td>${nome}</td>
-                      <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
-                    </tr>
-                    <!-- $EndBlock row-->
+                <div class="medium-12 columns">
+                  <table class="dataTable striped border bordered" data-role="datatable" data-searching="false">
+                    <thead>
+                      <tr>
+                        <th >Área Profissional</th>
+                        <th >Ação</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <!-- $BeginBlock row-->
+                      <tr>
+                        <td>${nome}</td>
+                        <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
+                      </tr>
+                      <!-- $EndBlock row-->
+                    </tbody>
+
+                    <tfoot>
+                      <tr>
+                        <th >Área Profissional</th>
+                        <th >Ação</th>
+                      </tr>
+                    </tfoot>
                   </table>
-                  
                 </div>
               </div>
               
@@ -142,62 +154,64 @@
   <!-- $Include templates/lib/html/footerscripts.html --> 
   <script src="templates/lib/js/jquery.mask.min.js"></script>
   <script src="templates/lib/js/ajax.js"></script>
+  <script src="templates/lib/js/jquery.dataTables.min.js"></script>
+  <script src="templates/lib/js/metro.js"></script>
 
   <script>
-  $(document).foundation();
+    $(document).foundation();
 
-  $(document).ready(function(){
+    $(document).ready(function(){
 
-   $(".radios").change(function(){
-    var id = $(this).val();
+     $(".radios").change(function(){
+      var id = $(this).val();
 
-     sendAjax('index.php?uc=configurar&a=mudarTitulo','POST',{'id' : id}, function(data){
+      sendAjax('index.php?uc=configurar&a=mudarTitulo','POST',{'id' : id}, function(data){
        data = JSON.parse(data); 
-      if(data['status']){
+       if(data['status']){
         alertify.success("Feito com sucesso"); 
       }else{
         alertify.error(data['msg']); 
       }
-     });  
-   }); 
-
-   $("#cadastrar").click(function(){
-    var areaId = $("#area_selecionada option:selected").val(); 
-    if(areaId == ''){
-      alertify.error("Selecione uma área de atuacão profissional");
-      return; 
-    } 
-
-    sendAjax('index.php?uc=configurar&a=addArea','POST',{'id' : areaId}, function(data){
-      data = JSON.parse(data); 
-      if(data['status']){
-        alertify.success("Feito com sucesso"); 
-        reloadDelay(1000); 
-      }else{
-        alertify.error(data['msg']); 
-      }
+    });  
     }); 
 
-  }); 
+     $("#cadastrar").click(function(){
+      var areaId = $("#area_selecionada option:selected").val(); 
+      if(areaId == ''){
+        alertify.error("Selecione uma área de atuacão profissional");
+        return; 
+      } 
 
-   $("button.delete").click(function(){
-    var id = $(this).val(); 
-    sendAjax('index.php?uc=configurar&a=deletarArea','POST',{'id' : id}, function(data){
-      data = JSON.parse(data); 
-      if(data['status']){
-        alertify.success("Feito com sucesso"); 
-        reloadDelay(1000); 
-      }else{
-        alertify.error(data['msg']); 
-      }
+      sendAjax('index.php?uc=configurar&a=addArea','POST',{'id' : areaId}, function(data){
+        data = JSON.parse(data); 
+        if(data['status']){
+          alertify.success("Feito com sucesso"); 
+          reloadDelay(1000); 
+        }else{
+          alertify.error(data['msg']); 
+        }
+      }); 
+
     }); 
 
-  }); 
+     $("button.delete").click(function(){
+      var id = $(this).val(); 
+      sendAjax('index.php?uc=configurar&a=deletarArea','POST',{'id' : id}, function(data){
+        data = JSON.parse(data); 
+        if(data['status']){
+          alertify.success("Feito com sucesso"); 
+          reloadDelay(1000); 
+        }else{
+          alertify.error(data['msg']); 
+        }
+      }); 
 
-   function reloadDelay(delay){
-    setInterval(function(){window.location.reload();},delay); 
-  }
-}); 
-  </script>
+    }); 
+
+     function reloadDelay(delay){
+      setInterval(function(){window.location.reload();},delay); 
+    }
+  }); 
+</script>
 </body>
 </html>

@@ -14,5 +14,4 @@ class Relatorios extends GenericController {
 		$this->relatoriosView->relatorioView(); 
 	}
 
-	
 }

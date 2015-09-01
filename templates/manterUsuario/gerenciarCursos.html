@@ -3,40 +3,40 @@
   <head>
     <title>EgressoOnline - Login</title>
     <!-- $Include templates/lib/html/head.html --> 
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.8/datatables.min.css"/>
     <style>
-    .fix{
-      min-width: 335px !important;  
-      max-width: 339px !important;
+      .fix{
+        min-width: 335px !important;  
+        max-width: 339px !important;
+      }
+      .fix_top{ 
+        margin-top: 3%;
+      }
+      .main_container{
+       position:relative;
+       top:20%;
+       border:5px;
+       background-color: white;
+       border-radius: 2px; 
+     }
+
+     .borda_inferior{
+      border-bottom-style: solid; 
+      border-bottom-width: 2px; 
+      border-bottom-color: rgb(169,169,169); 
     }
-    .fix_top{ 
-      margin-top: 3%;
+
+    #logo{
+      margin: 15px 50px 15px 50px;
+      width: 210px; 
+      height: 100px; 
     }
-    .main_container{
-     position:relative;
-     top:20%;
-     border:5px;
-     background-color: white;
-     border-radius: 2px; 
-   }
 
-   .borda_inferior{
-    border-bottom-style: solid; 
-    border-bottom-width: 2px; 
-    border-bottom-color: rgb(169,169,169); 
-  }
-
-  #logo{
-    margin: 15px 50px 15px 50px;
-    width: 210px; 
-    height: 100px; 
-  }
-
-  .buttom_fix{
-    width: 250px; 
-    margin-left: 25px; 
-    margin-right: 25px;  
-  }
+    .buttom_fix{
+      width: 250px; 
+      margin-left: 25px; 
+      margin-right: 25px;  
+    }
   </style>
 
 </head>
@@ -58,29 +58,44 @@
           <hr style="margin:0"/>
 
           <div class="row">
-            <div class="medium-12 columns" style="height:333px; overflow:auto;">
-              <table>
-                <tr>
-                  <th width="100">Tipo</th>
-                  <th width="200">Instituição</th>
-                  <th width="300">Área/Curso</th>
-                  <th width="100" >Ano</th>
-                  <th >Ação</th>
-                  <th >Ação</th>
-                </tr>
+            <div class="medium-12 columns">
 
-                <!-- $BeginBlock row -->
-                <tr>
-                  <td class="tipo" >${tipo}</td>
-                  <td class="instituicao" >${instituicao}</td>
-                  <td class="nome_curso">${nome_curso}</td>
-                  <td class="ano_conclusao">${ano_conclusao}</td>
-                  <td><button value="${id}" class="button info tiny edit" style="margin:0"><i class="fa fa-pencil"></i></button></td>
-                  <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
-                </tr>
-                <!-- $EndBlock row -->
+              <!-- new tables -->
+              <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+                <thead>
+                  <tr>
+                    <th >Tipo</th>
+                    <th >Instituição</th>
+                    <th >Área/Curso</th>
+                    <th >Ano</th>
+                    <th >Ação</th>
+                    <th >Ação</th>
+                  </tr>
+                </thead>
                 
-                
+                <tbody>
+                  <!-- $BeginBlock row -->
+                  <tr>
+                    <td class="tipo" >${tipo}</td>
+                    <td class="instituicao" >${instituicao}</td>
+                    <td class="nome_curso">${nome_curso}</td>
+                    <td class="ano_conclusao">${ano_conclusao}</td>
+                    <td><button value="${id}" class="button info tiny edit" style="margin:0"><i class="fa fa-pencil"></i></button></td>
+                    <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
+                  </tr>
+                  <!-- $EndBlock row -->
+                </tbody>
+
+                <tfoot>
+                  <tr>
+                    <th >Tipo</th>
+                    <th >Instituição</th>
+                    <th >Área/Curso</th>
+                    <th >Ano</th>
+                    <th >Ação</th>
+                    <th >Ação</th>
+                  </tr>
+                </tfoot>
               </table>
             </div>
           </div>
@@ -209,10 +224,12 @@
 <script src="templates/lib/js/ajax.js"></script>
 <script src="templates/lib/js/md5.js"></script>
 <script src="templates/lib/js/redirect.js"></script>
+<script src="templates/lib/js/jquery.dataTables.min.js"></script>
+<script src="templates/lib/js/metro.js"></script>
 <script>
-$(document).foundation();
+  $(document).foundation();
 
-$(document).ready(function(){
+  $(document).ready(function(){
 
   //Adicionando manipuladores para deleção
   $("button.delete").click(function(){
@@ -282,6 +299,6 @@ $(document).ready(function(){
   }
 
 }); 
-  </script>
+</script>
 </body>
 </html>
