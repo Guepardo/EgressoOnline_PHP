@@ -17,6 +17,44 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->novaDisciplinaView(); 
 	}
 
+	public function transferirView(){
+		$this->manterCursoView->transferirView(); 
+	}
+
+	public function transCoordenador($arg){
+		lumine::import("Usuario"); 
+		Lumine::import("Professor"); 	
+		$id = $arg['id']; 
+
+		$novo = new Usuario(); 
+
+		$total = $novo->get($id); 
+
+		if($total <= 0 )
+			$this->manterCursoView->sendAjax(array('status' => false, 'msg' => 'Falha. Tente atualizar a página.')); 
+
+		$velho = new Usuario(); 
+
+		$total = $velho->get($_SESSION['user_id']); 
+
+		if($total <= 0 )
+			$this->manterCursoView->sendAjax(array('status' => false, 'msg' => 'Falha. Tente atualizar a página.')); 
+
+		//Modificando privilégios: 
+		
+		$professor = new Professor(); 
+		$professor->get('usuarioId', $novo->id); 
+		$professor->isCoordenador = 1; 
+		$professor->update(); 
+
+		$professor = new Professor(); 
+		$professor->get("usuarioId", $velho->id); 
+		$professor->isCoordenador = 0; 
+		$professor->update(); 
+
+		$this->manterCursoView->sendAjax(array('status' => true)); 
+	}
+
 	public function deletarArea($arg){
 		Lumine::import('AtuacaoProfissional'); 
 		Lumine::import('Emprego'); 

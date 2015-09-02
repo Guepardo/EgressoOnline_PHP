@@ -13,6 +13,28 @@ class ManterCursoView extends GenericView{
 		parent::show(); 
 	}
 
+	public function transferirView(){
+		parent::getTemplateByAction('transferir'); 
+		Lumine::import("Professor"); 
+		Lumine::import("Usuario"); 
+
+		$professor = new Professor(); 
+		$usuario = new Usuario(); 
+
+		$usuario->join($professor)->where("is_coordenador =  0")->limit(500)->find(); 
+
+		while($usuario->fetch()){
+			parent::$templator->setVariable('professor.foto', $usuario->foto ); 
+			parent::$templator->setVariable('professor.nome', $usuario->nome ); 
+			parent::$templator->setVariable('professor.email', $usuario->email ); 
+			parent::$templator->setVariable('professor.id', $usuario->id ); 
+
+			parent::$templator->addBlock('row'); 
+		}
+
+		parent::show(); 
+	}
+
 	public function novaAreaView(){
 		parent::getTemplateByAction('novaAreaAtuacao'); 
 		Lumine::import("AtuacaoProfissional"); 

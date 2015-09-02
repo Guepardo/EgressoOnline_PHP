@@ -12,9 +12,10 @@
   }
 
   .msg{
-    margin-bottom:0; 
-    padding:4px;
+    margin: 1px;
+    padding: 4px;
     height: 250px;
+    width: 320px;
   }
 
   .op{
@@ -27,6 +28,9 @@
   }
   .perfil_small{
     border-radius: 50px;
+    margin-top: -23px;
+    width:60px;
+    height:60px;
   }
 
   .perfil_box{
@@ -109,7 +113,7 @@
    <div class="medium-4 columns panel msg ">
     <div class="row">
       <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small" /></div>
-      <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small></div>
+      <div class="medium-9 columns" style="padding-left:0;"><i>Maria Paula</i> <br><small>às 20:30, 04/04/2015</small></div>
       <div class="medium-12 columns">
         <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
         </p>
@@ -120,7 +124,7 @@
   <div class="medium-4 columns panel msg ">
     <div class="row">
       <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small"  /></div>
-      <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small></div>
+      <div class="medium-9 columns" style="padding-left:0;"><i>Maria Paula</i> <br><small>às 20:30, 04/04/2015</small></div>
       <div class="medium-12 columns">
         <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
         </p>
@@ -134,7 +138,7 @@
   <div class="medium-4 columns panel msg ">
     <div class="row">
       <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small"  /></div>
-      <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>Maria Paula</strong> <small>às 20:30, 04/04/2015</small></div>
+      <div class="medium-9 columns" style="padding-left:0;"><i>Maria Paula</i> <br><small>às 20:30, 04/04/2015</small></div>
       <div class="medium-12 columns">
         <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
         </p>
@@ -913,7 +917,7 @@ $(document).ready(function(){
   });
 
   function addMsg(data){
-    var row = '<div class="medium-4 columns panel msg "> <div class="row"> <div class="medium-3 columns small-3"><img src="'+data['foto']+'" class="perfil_small" /></div> <div class="medium-9 columns" style="padding-left:0;"><i class="fa fa-users"></i><strong>'+data['remetente']+'</strong> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
+    var row = '<div class="medium-4 columns panel msg "> <div class="row"> <div class="medium-3 columns small-3"><img src="'+data['foto']+'" class="perfil_small" /></div> <div class="medium-9 columns" style="padding-left:0;"></i><i>'+data['remetente']+'</i><br> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
 
     $('#container').append(row); 
   }

@@ -1,0 +1,113 @@
+  <!doctype html>
+  <html class="no-js" lang="pt">
+  <head>
+    <title>EgressoOnline - Login</title>
+    <!-- $Include templates/lib/html/head.html --> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.8/datatables.min.css"/>
+
+    <style>
+
+    .perfil_small{
+      border-radius: 50px;
+      width:60px; 
+      height:60px;
+    }
+    </style>
+
+  </head>
+  <body>
+    <!-- $Include templates/lib/html/topbar.html --> 
+
+    <div class="row panel" style="margin-top:30px">
+      <div class="medium-12 columns">
+        <!-- começo -->
+        <div class="row">
+          <!--Direito-->
+          <div class="medium-12 columns" >
+            <div class="row">
+              <div class="medium-12 columns">
+                <h3>Transferir cardo de coordenador</h3>
+              </div>
+            </div>
+            <hr style="margin:0"/>
+
+            <div class="row">
+              <div class="medium-12 columns">
+                <!--nova table-->
+                <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+                  <thead>
+                   <tr>
+                    <th >Foto</th>
+                    <th >Nome</th>
+                    <th >Email</th>
+                    <th >Ação</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <!-- $BeginBlock row -->
+                  <tr>
+                    <td><img src="${professor.foto}" alt="" class="perfil_small"></td>
+                    <td>${professor.nome}</td>
+                    <td>${professor.email}</td>
+                    <td><button value="${professor.id}" class="button tiny transferir" style="margin:0"><i class="fa fa-check-circle-o"></i></button></td>
+                  </tr>
+                  <!-- $EndBlock row -->
+                </tbody>
+
+                <tfoot>
+                 <tr>
+                  <th >Foto</th>
+                  <th >Nome</th>
+                  <th >Email</th>
+                  <th >Ação</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>  
+      <!--fim-->
+    </div>  
+  </div>
+  <!-- fim  -->
+</div>
+
+
+<!-- $Include templates/lib/html/footerscripts.html --> 
+<script src="templates/lib/js/jquery.mask.min.js"></script>
+<script src="templates/lib/js/md5.js"></script>
+<script src="templates/lib/js/redirect.js"></script>
+<script src="templates/lib/js/ajax.js"></script>
+<script src="templates/lib/js/jquery.dataTables.min.js"></script>
+<script src="templates/lib/js/metro.js"></script>
+
+<script>
+$(document).foundation();
+
+$(document).ready(function(){
+  $(".transferir").click(function(){
+    var id = $(this).val(); 
+
+    var data = {'id' : id}; 
+
+   alertify.confirm("Click em Ok se deseja realmente transferir seus privilégios de coordenador para outro professor.",function(e){
+     if(e){
+        alertify.success("Alteração feita com sucesso"); 
+        
+      sendAjax('index.php?uc=manterCurso&a=transCoordenador','POST',data,function(data){
+        alertify.log(data); 
+      }); 
+
+     }else{
+      alertify.error("Operação cancelada"); 
+     }
+   }); 
+
+
+  });
+
+}); 
+</script>
+</body>
+</html>
