@@ -11,6 +11,7 @@ require_once(PATH.'Controller'.DS.'UseCase'.DS.'Configurar.php');
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'ManterCurso.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'Mensagens.php');
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'Relatorios.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'Buscar.php'); 
 
 class MainController {
 	private $controllersArray;
@@ -28,7 +29,8 @@ class MainController {
 				'manterCurso'   => new ManterCurso(), 
 				'mensagens'     => new Mensagens(), 
 				'perfil'        => new VisualizarPerfil(), 
-				'relatorios'    => new Relatorios()
+				'relatorios'    => new Relatorios(), 
+				'buscar'        => new Buscar()
  		);
 	}
 	
