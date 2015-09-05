@@ -1689,7 +1689,7 @@ meta.foundation-mq-topbar {
 /* Wrapped around .top-bar to contain to grid width */
 .contain-to-grid {
   width: 100%;
-  background: #333333; }
+  background: #FFFFFF; }
   .contain-to-grid .top-bar {
     margin-bottom: 0; }
 
@@ -1714,10 +1714,10 @@ meta.foundation-mq-topbar {
 
 .top-bar {
   overflow: hidden;
-  height: 2.8125rem;
+  height: 2.9125rem;;
   line-height: 2.8125rem;
   position: relative;
-  background: #333333;
+  background: #FFFFFF;
   margin-bottom: 0; }
   .top-bar ul {
     margin-bottom: 0;
@@ -2005,7 +2005,8 @@ meta.foundation-mq-topbar {
 
 @media only screen and (min-width: 40.063em) {
   .top-bar {
-    background: #333333;
+    background: #FFFFFF;
+    border-bottom: 1px solid #C4CFD6;
     overflow: visible; }
     .top-bar:before, .top-bar:after {
       content: " ";
@@ -2144,7 +2145,7 @@ meta.foundation-mq-topbar {
       height: 2.8125rem;
       width: 0; }
     .top-bar-section .has-form {
-      background: #333333;
+      background: #FFFFFF;
       padding: 0 0.9375rem;
       height: 2.8125rem; }
     .top-bar-section .right li .dropdown {

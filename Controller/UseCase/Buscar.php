@@ -10,8 +10,8 @@ class Buscar extends GenericController {
 		$this->buscarView = new BuscarView(); 
 	}	
 
-	public function buscaView(){
-		$this->buscarView->buscaView(); 
+	public function buscaView($arg){
+		$this->buscarView->buscaView($arg); 
 	}
 
 }

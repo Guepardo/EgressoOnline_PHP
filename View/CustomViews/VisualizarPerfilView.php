@@ -90,6 +90,7 @@ class VisualizarPerfilView extends GenericView{
 		while($usuario->fetch()){
 			parent::$templator->setVariable("nome", $usuario->nome); 
 			parent::$templator->setVariable("id", $usuario->id); 
+			parent::$templator->setVariable("foto", $usuario->foto); 
 			parent::$templator->addBlock("aluno");
 		}
 

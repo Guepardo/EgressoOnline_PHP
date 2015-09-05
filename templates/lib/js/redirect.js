@@ -1,4 +1,3 @@
-
 /* jQuery POST/GET redirect method
    v.0.1
 	modified by Miguel Galante,https://github.com/mgalante

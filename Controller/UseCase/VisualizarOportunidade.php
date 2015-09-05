@@ -1,13 +1,18 @@
 <?php
 require_once(PATH.'Controller'.DS.'GenericController.php'); 
+require_once(PATH.'View'.DS.'CustomViews'.DS.'VisualizarOportunidadeView.php'); 
 require_once(PATH.'Util'.DS.'Convert.php'); 
 
 class VisualizarOportunidade extends GenericController {
-
+	private $visuOportunidadeVew; 
 	public function __construct() {
-		
+		$this->visuOportunidadeView = new VisualizarOportunidadeView(); 
 	}	
 
+	public function oportunidadesView(){
+		$this->visuOportunidadeView->oportunidadesView(); 
+	}
+	
 	public function emprego($arg){
 		//Criar a validaçao dos campos posteriormente; 
 		$id = (int) $arg['id'];

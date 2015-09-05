@@ -5,9 +5,6 @@
 	<!-- $Include templates/lib/html/head.html --> 
 
 	<style type="text/css">
-	body{
-		background: url('img/bg.png');
-	}
 	.perfil_large{
 		border-radius: 60px; 
 	}
@@ -20,7 +17,7 @@
 	<!-- top-bar fim --> 
 
 
-	<div class="row" style="margin-top:30px">
+	<div class="row fix-container" >
 		<div class="medium-12 columns">
 			<!-- começo -->
 			<div class="row">
@@ -48,7 +45,7 @@
 			<hr  />
 			<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
 				<!-- $BeginBlock aluno -->
-				<li><div class="medium-12 medium-centered columns text-center"> <a href="index.php?uc=perfil&a=perfilUserView&id=${id}"><img src="midia/default.png" class="perfil_large"/></a><p style="font-size:10px;">${nome}</p></div></li>
+				<li><div class="medium-12 medium-centered columns text-center"> <a href="index.php?uc=perfil&a=perfilUserView&id=${id}"><img src="${foto}" class="perfil_large"/></a><p style="font-size:10px;">${nome}</p></div></li>
 				<!-- $EndBlock aluno -->
 
 				

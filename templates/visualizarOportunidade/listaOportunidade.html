@@ -22,11 +22,22 @@
       <div class="medium-12 columns">
         <!-- começo -->
         <div class="row">
+         <div class="medium-12 columns" >
+          <div class="row">
+            <div class="medium-12 columns">
+              <h2>Oportunidades</h2>
+            </div>
+          </div>
+          <hr style="margin:0"/>
+
           <!--Direito-->
           <div class="medium-12 columns" >
             <div class="row">
               <div class="medium-12 columns">
-                <h3>Registro(s) encontrado(s) para "${arg}"</h3>
+                <div data-alert class="alert-box secondary">
+                  Lista das 500 últimas oportunidades de emprego e pós-graduação que foram divulgadas. 
+                  <a href="#" class="close">&times;</a>
+                </div>
               </div>
             </div>
             <hr style="margin:0"/>
@@ -37,37 +48,30 @@
                 <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                   <thead>
                    <tr>
-                    <th >Foto</th>
-                    <th >Nome</th>
-                    <th >Turma</th>
                     <th >Tipo</th>
-                  
+                    <th >Data de Divulgação</th>
+                    <th >Divulgador</th>
+                    <th ></th>
                   </tr>
                 </thead>
 
                 <tbody>
                   <!-- $BeginBlock row -->
                   <tr>
-                    <td>
-                      <span data-tooltip aria-haspopup="true" class="has-tip" title="Click para ver o perfil">
-                        <a href="index.php?uc=perfil&a=perfilUserView&id=${usuario.id}" title=""><img src="${usuario.foto}" alt="" class="perfil_small"></a>
-                      </span>
-                    </td>
-                    <td>${usuario.nome}</td>
-                    <td> <a href="${turma.id}" class="button tiny" style="margin:0">${usuario.turma}</a></td>
-                    <td>${usuario.tipo}</td>
-                    
+                    <td>${op.tipo}</td>
+                    <td>${op.data}</td>
+                    <td>${op.divulgador}</td>
+                    <td> <a href="${op.id}" class="button tiny" style="margin:0">Ver detalhes</a></td>
                   </tr>
                   <!-- $EndBlock row -->
                 </tbody>
 
                 <tfoot>
                  <tr>
-                  <th >Foto</th>
-                  <th >Nome</th>
-                  <th >Turma</th>
                   <th >Tipo</th>
-                 
+                  <th >Data de Divulgação</th>
+                  <th >Divulgador</th>
+                  <th ></th>
                 </tr>
               </tfoot>
             </table>

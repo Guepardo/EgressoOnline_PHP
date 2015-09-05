@@ -35,7 +35,6 @@
 
   .perfil_box{
     padding:5px;
-    background-color:rgba(214,214,214,0.5);
   }
 
   </style>
@@ -45,10 +44,10 @@
  <!-- $Include templates/lib/html/topbar.html --> 
  <!-- top-bar fim --> 
 
- <div class="row panel perfil_box" style="margin-top: 40px;" >
+ <div class="row perfil_box fix-container" >
 
    <div class="large-3 columns">
-    <div class="panel" style="height: 300px;">
+    <div class="panel" style="height: 280px;">
       <a href="#"><img src="${foto}" class="perfil_large" /></a>
       <h6 style="font-size:15px;">${nome}</h6>
       <!-- separator -->
@@ -63,15 +62,15 @@
 </div>
 <div class="large-6 columns">
   <form>
-    <label>Compartilhe alguma coisa. 
-      <textarea id="post_content" placeholder="No máximo 300 palavras." style="height:210px;"></textarea>
-    </label>
+   <!--  <label>Compartilhe alguma coisa. --> 
+      <textarea id="post_content" placeholder="Compartilhe alguma coisa" style="height:210px;"></textarea>
+   <!--  </label> -->
   </form>
   <a href="#" id="publicar" class="button expand">Postar</a>
 </div>
 
 <div class="large-3 columns">
-  <ul class="stack button-group" style="margin-top:20px;">
+  <ul class="stack button-group">
     <li><a href="index.php?uc=manterUsuario&a=alterarDadosView" class="button" ><i class="fa fa-pencil fa-fw" style="float:left;" ></i>Alterar Dados</a></li>
     <li><a href="#" class="button"><i class="fa fa-book fa-fw" style="float:left;"></i>Oportunidades</a></li>
 
