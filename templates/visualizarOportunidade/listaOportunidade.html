@@ -61,7 +61,7 @@
                     <td>${op.tipo}</td>
                     <td>${op.data}</td>
                     <td>${op.divulgador}</td>
-                    <td> <a href="${op.id}" class="button tiny" style="margin:0">Ver detalhes</a></td>
+                    <td> <buttom value="${op.id}" class="button tiny action_op" style="margin:0">Ver detalhes</buttom></td>
                   </tr>
                   <!-- $EndBlock row -->
                 </tbody>
@@ -84,41 +84,337 @@
   <!-- fim  -->
 </div>
 
+<!-- Modais -->
+<!-- Modal para o emprego--> 
+<div id="modal_emprego_v" class="reveal-modal" data-reveal aria-labelledby="modal" aria-hidden="true" role="dialog">
+  <h2 id="modal">Emprego</h2>
+  <p class="lead" id="divulgado_emprego">Divulgado em</p>
+  <div class="row">
+    <div class="medium-12 columns">
+      <form class="panel" data-abide="ajax" >
+        <div class="row">
 
-<!-- $Include templates/lib/html/footerscripts.html --> 
-<script src="templates/lib/js/jquery.mask.min.js"></script>
-<script src="templates/lib/js/md5.js"></script>
-<script src="templates/lib/js/redirect.js"></script>
-<script src="templates/lib/js/ajax.js"></script>
-<script src="templates/lib/js/jquery.dataTables.min.js"></script>
-<script src="templates/lib/js/metro.js"></script>
+          <div class="medium-6 columns">
+            <fieldset><legend>Informações Gerais</legend>
 
-<script>
-$(document).foundation();
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Empresa: <p><i id="empresa_emprego">Microsoft</i></p></label>  
+                </div>
+              </div>
 
-$(document).ready(function(){
-  $(".transferir").click(function(){
-    var id = $(this).val(); 
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Área Profissional
+                    <p><i id="area_emprego">Banco de Dados</i></p>
+                  </label>
+                </div>
+              </div>
 
-    var data = {'id' : id}; 
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Salário<p><i id="salario_emprego">2,000 reais</i></p></label>
+                </div>
+              </div>
 
-    alertify.confirm("Click em Ok se deseja realmente transferir seus privilégios de coordenador para outro professor.",function(e){
-     if(e){
-      alertify.success("Alteração feita com sucesso"); 
+            </fieldset>
+          </div>
+          <div class="medium-6 columns">  
+            <fieldset class="panel"> <legend>Contato</legend>
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Telefone 
+                    <p><i id="telefone_emprego">(23) 1232 2213</i></p>
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Email 
+                    <p><i id="email_emprego">bsinet@hotmail.com</i></p>
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Site 
+                    <p><i id="site_emprego">www.google.com.br</i></p>
+                  </label>
+                </div>
+              </div>
+            </fieldset> 
+          </div>
 
-      sendAjax('index.php?uc=manterCurso&a=transCoordenador','POST',data,function(data){
-        alertify.log(data); 
-      }); 
+        </div>
 
-    }else{
-      alertify.error("Operação cancelada"); 
-    }
-  }); 
+        <div class="row" >
+          <div class="medium-4 columns">
+            <label>Pais
+              <p><i id="pais_emprego">Angola</i></p>
+            </label>
+          </div>
+
+          <div id="emprego_estado_div" class="medium-4 columns hide">
+            <label>Estado
+              <p><i id="estado_emprego">12/12/1212</i></p>
+            </label>
+          </div>
+
+          <div id="emprego_cidade_div" class="medium-4 columns hide">
+            <label>Cidade
+              <p><i id="cidade_emprego">12/12/1212</i></p>
+            </label>
+          </div>
+
+          <div id="emprego_complemento_div" class="medium-8  columns">
+            <label>Estado/Província/Região
+              <p><i id="complemento_emprego">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua.</i></p>
+              </label> 
+            </div>  
+
+          </div>
+
+          <div class="row">
+            <div class="medium-12 columns">
+              <fieldset><legend>Requisitos necessários para concorrer à vaga</legend>
+                <div class="row">
+                  <div class="medium-4 columns">
+                    <label>Graduação 
+                      <p><i id="graduacao_emprego">Pós-Graduação</i></p>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="medium-12 columns ">
+                    <label>Atividades a serem desenvolvidas e outros requisitos
+                      <p><i id="atividade_emprego">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</i></p>
+                      </label>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+          <!-- fim formulário -->
+        </div>
+      </div>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
+    <!-- Modal para a pós-graduação visualiação--> 
+    <div id="modal_pos_v" class="reveal-modal" data-reveal aria-labelledby="modal" aria-hidden="true" role="dialog">
+      <h2 id="modal">Pós-Graduação</h2>
+      <p class="lead" id="divulgado_pos">Divulgado em</p>
+      <div class="row">
+        <div class="medium-12 columns">
+          <!-- começo formulário-->
+          <form class="panel">
+
+            <div class="row">
+              <div class="medium-6 columns"> 
+                <fieldset> <legend>Informações Gerais</legend>
+                  <div class="row">
+                    <div class="medium-12 columns">
+                      <label>Título 
+                        <p><i id="titulo_pos">Ciencias Moleculares</i></p>
+                      </label> 
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="medium-12 columns">
+                      <label>Tipo:
+                        <p><i id="tipo_pos">Graduação</i></p>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="medium-12 columns">
+                      <label>Área 
+                        <p><i id="area_pos">Banco de Dados</i></p>
+                      </label> 
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="medium-6 columns">
+                <fieldset > <legend>Contato</legend>
+                  <div class="row">
+                    <div class="medium-12 columns">
+                      <label>Telefone<p><i id="telefone_pos">(62) 1234-1324</i></p></label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="medium-12 columns">
+                      <label>E-mail 
+                        <p><i id="email_pos">bsinet@hotmail.com</i></p>
+                      </label> 
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="medium-12 columns">
+                      <label>Site 
+                        <p><i id="site_pos">www.google.com.br</i></p>
+                      </label> 
+                    </div>
+                  </div>      
+                </fieldset>
+              </div>
+
+            </div>  
+            <div class="row" >
+              <div class="medium-4 columns">
+                <label>Pais
+                  <p><i id="pais_pos">Brasil</i></p>
+                </label>
+              </div>
+
+              <div  class="medium-4 columns hide" id='estado_div_id'>
+                <label>Estado
+                  <p><i id="estado_pos">Goiás</i></p>
+                </label>
+              </div>
+
+              <div  class="medium-4 columns hide" id="cidade_div_id">
+                <label>Cidade
+                  <p><i id="cidade_pos">Anápolis</i></p>
+                </label>
+              </div>
+
+              <div  class="medium-8 columns" id="complemento_div_id">
+                <label>Estado/Província/Região
+                  <p class="text-justify" ><i id="complemento_pos">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.</i></p>
+                  </label> 
+                </div>  
+
+              </div>
+
+              <div class="row">
+                <div class="medium-3 columns">
+                  <label>Período de inscrição <p><i id="data_inicio_pos">12/12/1212</i></p></label>
+                </div>
+                <div class="medium-3 columns end"> <label>Termina em  <p><i id="data_fim_pos">12/12/1212</i></p></label></div>
+              </div>
+
+              <div class="row">
+                <div class="medium-12 columns">
+                  <label>Informações Adicionais <p class="text-justify" ><i id="infor_adicionais_pos"> 
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</i></p></label>
+                  </div>
+                </div>
+
+              </form>
+              <!-- fim formulário -->
+            </div>
+          </div>
+          <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        </div>
+
+        <!-- Modais fim -->
+
+        <!-- $Include templates/lib/html/footerscripts.html --> 
+        <script src="templates/lib/js/jquery.mask.min.js"></script>
+        <script src="templates/lib/js/md5.js"></script>
+        <script src="templates/lib/js/redirect.js"></script>
+        <script src="templates/lib/js/ajax.js"></script>
+        <script src="templates/lib/js/jquery.dataTables.min.js"></script>
+        <script src="templates/lib/js/metro.js"></script>
+
+        <script>
+        $(document).foundation();
+        $(document).ready(function(){
+          $('.action_op').unbind().click(function(){
+            var result = $(this).attr('value').split('-'); 
+
+            if(JSON.parse(result[1])){
+              sendAjax('index.php?uc=visualizar&a=posGraduacao','POST',{'id' : result[0] }, function(data){
+                data = JSON.parse(data); 
+                buildViewPos(data); 
+
+                $('#modal_pos_v').foundation('reveal', 'open');
+              }); 
+            }else{
+              sendAjax('index.php?uc=visualizar&a=emprego','POST',{'id' : result[0] }, function(data){
+                data = JSON.parse(data); 
+                buildViewEmprego(data); 
+
+                $('#modal_emprego_v').foundation('reveal', 'open');
+              });  
+            }
+          }); 
+
+          function buildViewPos(data){
+            $('#divulgado_pos').text("Divulgado em "+data['data_divulgacao']);
+            $('#titulo_pos').text(data['titulo']);  
+            $('#tipo_pos').text("Não está vindo do banco de dados. "); 
+            $('#area_pos').text(data['area']); 
+            $('#telefone_pos').text(data['telefone']); 
+            $('#email_pos').text(data['email']); 
+            $('#site_pos').text(data['site']); 
+            $('#pais_pos').text(data['pais']); 
+            $('#estado_pos').text(data['estado']); 
+            $('#cidade_pos').text(data['cidade']); 
+            $('#complemento_pos').text(data['complemento']); 
+            $('#infor_adicionais_pos').text(data['info_adicionais']); 
+            $('#data_inicio_pos').text(data['data_inscr_inicio']); 
+            $('#data_fim_pos').text(data['data_inscr_fim']); 
+
+            if(data['complemento'] != '' ){
+              $("#estado_div_id").addClass("hide");
+              $("#cidade_div_id").addClass("hide"); 
+              $("#complemento_div_id").removeClass("hide");
+            }else{
+              $("#estado_div_id").removeClass("hide");
+              $("#cidade_div_id").removeClass("hide"); 
+              $("#complemento_div_id").addClass("hide");
+            }
+          }
 
 
-  });
+          function buildViewEmprego(data){
+            $('#divulgado_emprego').text("Divulgado em "+data['data_divulgacao']);
+            $('#empresa_emprego').text(data['empresa']); 
+            $('#area_emprego').text(data['atuacao_profissional']); 
+            $('#salario_emprego').text(data['salario']); 
+            $('#telefone_emprego').text(data['telefone']); 
+            $('#email_emprego').text(data['email']); 
+            $('#site_emprego').text(data['site']); 
+            $('#pais_emprego').text(data['pais']); 
+            $('#estado_emprego').text(data['estado']); 
+            $('#complemento_emprego').text(data['complemento']); 
+            $('#cidade_emprego').text(data['cidade']); 
+            $('#graduacao_emprego').text(data['atuacao_profissional']); 
+            $('#atividade_emprego').text(data['info_adicionais']); 
 
-}); 
-</script>
+            if(data['complemento'] != '' ){
+              $("#emprego_estado_div").addClass("hide");
+              $("#emprego_cidade_div").addClass("hide"); 
+              $("#emprego_complemento_div").removeClass("hide");
+            }else{
+              $("#emprego_estado_div").removeClass("hide");
+              $("#emprego_cidade_div").removeClass("hide"); 
+              $("#emprego_complemento_div").addClass("hide");
+            }
+
+          }
+        }); 
+  </script>
 </body>
 </html>

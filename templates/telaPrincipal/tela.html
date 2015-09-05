@@ -72,7 +72,7 @@
 <div class="large-3 columns">
   <ul class="stack button-group">
     <li><a href="index.php?uc=manterUsuario&a=alterarDadosView" class="button" ><i class="fa fa-pencil fa-fw" style="float:left;" ></i>Alterar Dados</a></li>
-    <li><a href="#" class="button"><i class="fa fa-book fa-fw" style="float:left;"></i>Oportunidades</a></li>
+    <li><a href="index.php?uc=visualizar&a=oportunidadesView" class="button"><i class="fa fa-book fa-fw" style="float:left;"></i>Oportunidades</a></li>
 
     <li>
       <!--DropDown para divulgar-->
@@ -696,62 +696,12 @@
         </div>
 
 
-        <!-- modal -->
-        <div id="modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-          <h2 id="modalTitle">Alterar foto de perfil</h2>
-          <!-- conteúdo início -->
-  <!-- <div>
-    Escolha um arquivo 
-    <input type="file" id="fileInput">
-  </div>
-  <div id="fileDisplayArea"></div>
-
-  <canvas id="preview" style="width:150px;height:150px;overflow:hidden;"></canvas> -->
-  <!-- preview -->
-  <!-- <div class="row">
-    <div class="medium-2 medium-centered columns">
-      <p>Pré-visualização</p>
-      <canvas id="preview" style="width:128px;height:128px;overflow:hidden;border-radius:100px;"></canvas>
-    </div>
-  </div> -->
-
-  <!-- select area -->  
-  <div class="row">
-    <div class="medium-10 columns">
-      <div id="fileDisplayArea"></div>
-    </div>
-
-    <div class="medium-2 columns">
-      <p>Pré-visualização</p>
-      <canvas id="preview" style="width:128px;height:128px;overflow:hidden;border-radius:100px;"></canvas>
-    </div>
-  </div>
-
-  <!-- buttons and file chooser -->
-  <div class="row">
-    <form action="" method="post" enctype="multipart/form-data">
-     <div class="medium-3 columns">
-      <label>Escolha uma foto <input type="file" id="fileInput" name="file"></label>
-    </div>
-    <div class="medium-3 columns">
-      <input type="submit" class="button tiny info" value="enter" />
-    </div>
-    <input id="x"  type="hidden"  name="x"/>
-    <input id="y"  type="hidden"  name="y"/>
-    <input id="x2" type="hidden" name="x2"/>
-    <input id="y2" type="hidden" name="y2" />
-  </form>
-</div>
-<!-- conteúdo fim -->
-<a class="close-reveal-modal" aria-label="Close">&#215;</a>
-</div>
-
+       
 <!-- FIM MODAIS --> 
 
 
 <!-- $Include templates/lib/html/footerscripts.html --> 
 <script src="templates/lib/js/jquery.mask.min.js"></script>
-<script src="templates/lib/js/masonry.pkgd.min.js"></script>
 <script src="templates/lib/js/ajax.js"></script>
 
 <script>
