@@ -352,31 +352,37 @@ class ManterUsuario extends GenericController{
 
 		$localidadeEgresso->update(); 
 		
-		if((int) $arg['emprego_pais_id'] == 33 ){
-
-			if(empty($arg['emprego_cidade_id']))
-				$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => "Selecione um estado e uma cidade para a sua localização do seu trabalho." ) ); 
-
-			$cidade = new Cidade(); 
-			$cidade->get('des', $arg['emprego_cidade_id']); 
-			$localidadeEmprego->paisId      = (int) $arg['emprego_pais_id']; 
-			$localidadeEmprego->cidadeId    = $cidade->id; 
-			$localidadeEmprego->complemento = null; 
-		}else{
-			$localidadeEmprego->paisId      = (int) $arg['emprego_pais_id']; 
-			$localidadeEmprego->cidadeId    = null; 
-			$localidadeEmprego->complemento = $arg['emprego_complemento']; 
-		}
 		
-		$localidadeEmprego->update(); 
+		if(!empty($arg['has_emprego'])){
+			if((int) $arg['emprego_pais_id'] == 33 ){
 
-		$emprego->atuacaoProfissionalId = $arg['atuacao_profissional_id']; 
-		$emprego->faixaSalarialId       = $arg['faixa_salarial_id']; 
-		$emprego->nomeEmpresa       	= $arg['empresa_nome']; 
-		$emprego->publico 				= !empty($arg['is_publica']); 
-		$emprego->areaTi  				= !empty($arg['is_area_ti']);
+				if(empty($arg['emprego_cidade_id']))
+					$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => "Selecione um estado e uma cidade para a sua localização do seu trabalho." ) ); 
+
+				$cidade = new Cidade(); 
+				$cidade->get('des', $arg['emprego_cidade_id']); 
+				$localidadeEmprego->paisId      = (int) $arg['emprego_pais_id']; 
+				$localidadeEmprego->cidadeId    = $cidade->id; 
+				$localidadeEmprego->complemento = null; 
+			}else{
+				$localidadeEmprego->paisId      = (int) $arg['emprego_pais_id']; 
+				$localidadeEmprego->cidadeId    = null; 
+				$localidadeEmprego->complemento = $arg['emprego_complemento']; 
+			}
+
+			$localidadeEmprego->update(); 
+
+			if(!empty($arg['is_area_ti']))
+				$emprego->atuacaoProfissionalId = $arg['atuacao_profissional_id']; 
+
+			$emprego->faixaSalarialId       = $arg['faixa_salarial_id']; 
+			$emprego->nomeEmpresa       	= $arg['empresa_nome']; 
+			$emprego->publico 				= !empty($arg['is_publica']); 
+			$emprego->areaTi  				= !empty($arg['is_area_ti']);
+		}
+
+		$emprego->hasEmprego  			= !empty($arg['has_emprego']);
 		$emprego->update(); 
-
 
 		$rede = new EgressoHasRedeSocial(); 
 		$rede->where("usuario_id = ". $_SESSION['user_id']." and rede_social_id = ". 1)->find(); 

@@ -321,6 +321,7 @@ class ManterUsuarioView extends GenericView{
 		parent::$templator->setVariable('emprego.nome',$emprego->nomeEmpresa);
 		parent::$templator->setVariable('emprego.complemento',$localidadeEmprego->complemento);
 		parent::$templator->setVariable('egresso.dados_publico',(($egresso->isDadoPublico)? "checked" : "" ));
+		parent::$templator->setVariable('has_emprego',(($emprego->hasEmprego)? "checked" : "" ));
 
 		//Resgatando dados das Redes Sociais: 
 		$redes = new EgressoHasRedeSocial(); 

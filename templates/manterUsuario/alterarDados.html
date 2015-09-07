@@ -122,15 +122,24 @@
       </div>  
     </div>
 
-    <fieldset>
+    <!-- O egresso tem emprego? -->
+    <hr>
+    <div class="row" style="margin-left:10px;">
+      <div class="medium-4 columns">
+        <input name="has_emprego" id="checkbox1" type="checkbox" ${has_emprego} ><label for="checkbox1">Você tem emprego?</label>
+      </div>
+    </div>
+    <hr>
+    <fieldset id="emprego_field">
       <legend>Trabalho</legend>
       <!-- checkboxes -->
+      
       <div class="row">
         <div class="medium-3 columns">
-          <input name="is_publica" id="checkbox1" type="checkbox" ${is_publica} ><label for="checkbox1">Na área pública?</label>
+          <input name="is_publica" id="checkbox2" type="checkbox" ${is_publica} ><label for="checkbox2">Na área pública?</label>
         </div>
         <div class="medium-2 columns end">
-          <input name="is_area_ti" id="checkbox2" type="checkbox" ${is_area_ti}><label for="checkbox2">Na área de TI?</label>
+          <input name="is_area_ti" id="checkbox3" type="checkbox" ${is_area_ti}><label for="checkbox3">Na área de TI?</label>
         </div>
       </div>
 
@@ -142,14 +151,14 @@
         </div>
 
         <div class="medium-5 small-5 columns">
-          <label>Atuação profissional
-            <select name="atuacao_profissional_id">
+          <label>Atuação profissional <small id="atuacao_label">Obrigatório</small>
+            <select id="atuacao_profissional" name="atuacao_profissional_id" required>
               <option value="">-Selecione-</option>
               <!-- $BeginBlock atuacao -->
               <option ${atuacao.marcado} value="${atuacao.value}"> ${atuacao.desc}</option>
               <!-- $EndBlock atuacao -->
             </select>
-          </label>
+          </label> <small class="error">Selecione uma área de atuação profissional</small>
         </div>
       </div>
 
@@ -201,14 +210,14 @@
 
       <div class="row">
         <div class="medium-4 small-4 columns">
-          <label>Faixa Salarial
-            <select name="faixa_salarial_id">
+          <label>Faixa Salarial <small>Obrigatório</small>
+            <select id="faixa_salarial" name="faixa_salarial_id" required>
               <option value="">-Selecione-</option>
               <!-- $BeginBlock faixa -->
               <option ${faixa.marcado} value="${faixa.value}"> ${faixa.desc}</option>
               <!-- $EndBlock faixa -->
             </select>
-          </label>
+          </label> <small class="error">Selecione uma faixa salarial</small>
         </div>
       </div>
     </fieldset>
@@ -272,7 +281,9 @@ $(document).ready(function(){
 
   //Escondendo campos de localidade. 
   switchEmprego(); 
-  switchEgresso(); 
+  switchEgresso();
+  switchEmpregoFeild(); 
+  disableAreaTi()
 
   $('#form').on('valid', function() {
     var data = $(this).serializeArray(); 
@@ -294,6 +305,8 @@ $(document).ready(function(){
    //Script final
    $('#emprego_pais').change(function(){switchEmprego()}); 
    $('#egresso_pais').change(function(){switchEgresso()}); 
+   $('#checkbox1').change(function(){switchEmpregoFeild()}); 
+   $('#checkbox3').change(function(){disableAreaTi()}); 
 
    $('#emprego_select_estado').change(function(){
     var value = $('#emprego_select_estado option:selected ').val(); 
@@ -359,6 +372,37 @@ function switchEgresso(){
     $('#egresso_estado').addClass('hide');
     $('#egresso_cidade').addClass('hide');
   }
+}
+
+function disableAreaTi(){
+  if($("#checkbox3").is(":checked")){
+      //Abilitar campo 
+      $("#atuacao_profissional").removeAttr("disabled"); 
+      $("#atuacao_profissional").attr("required", "required"); 
+      $("#atuacao_label").text("Obrigatório"); 
+    }else{
+      //Desabilitar campo
+      $("#atuacao_profissional").attr("disabled", "disabled"); 
+      $("#atuacao_profissional").removeAttr("required"); 
+      $("#atuacao_label").text(""); 
+    }
+    $(document).foundation();
+  }
+  function switchEmpregoFeild(){
+    if($('#checkbox1').is(':checked')){
+      $('#emprego_field').removeClass('hide'); 
+    //adicionando obrigatoriedade dos campos
+    $("#faixa_salarial").attr("required", "required"); 
+    $("#atuacao_profissional").attr("required", "required"); 
+    
+  }else{
+    $('#emprego_field').addClass('hide'); 
+    //adicionando obrigatoriedade dos campos
+    $("#faixa_salarial").removeAttr("required"); 
+    $("#atuacao_profissional").removeAttr("required"); 
+  }
+  //Chamando foudation para atualizar campos
+  $(document).foundation();
 }
 </script>
 </body>

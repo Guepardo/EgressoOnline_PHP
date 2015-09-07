@@ -19,6 +19,7 @@ class Emprego extends Lumine_Base {
     public $faixaSalarialId;
     public $publico;
     public $areaTi;
+    public $hasEmprego;
     public $egressos = array();
     
     
@@ -42,6 +43,7 @@ class Emprego extends Lumine_Base {
         $this->metadata()->addField('faixaSalarialId', 'faixa_salarial_id', 'int', 11, array('foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'FaixaSalarial'));
         $this->metadata()->addField('publico', 'publico', 'boolean', 1, array('default' => '0'));
         $this->metadata()->addField('areaTi', 'area_ti', 'boolean', 1, array('default' => '0'));
+        $this->metadata()->addField('hasEmprego', 'has_emprego', 'boolean', 1, array('default' => '0'));
 
         
         $this->metadata()->addRelation('egressos', Lumine_Metadata::ONE_TO_MANY, 'Egresso', 'empregoId', null, null, null);
