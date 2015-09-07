@@ -1149,8 +1149,9 @@ class Lumine_Base extends Lumine_EventListener implements Iterator {
         $this->dispatchEvent(new Lumine_Events_SQLEvent(Lumine_Event::PRE_UPDATE, $this));
 
         $this->savePendingObjects();
-
+        
         $sql = $this->_getSQL(self::SQL_UPDATE, $whereAddOnly);
+        
 
         if ($sql !== false) {
             try {

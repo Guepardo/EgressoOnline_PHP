@@ -196,7 +196,7 @@ class ManterUsuarioView extends GenericView{
 			$cidade->where("estado_id = ". $idEstado)->find(); 
 
 			while($cidade->fetch()){
-				parent::$templator->setVariable('egresso.cidade.value',$cidade->id); 
+				parent::$templator->setVariable('egresso.cidade.value',Convert::toUTF_8(Convert::toUpperCase($cidade->des))); 
 				parent::$templator->setVariable('egresso.cidade.desc', Convert::toUTF_8(Convert::toUpperCase($cidade->des))); 
 				if($idCidade == $cidade->id)
 					parent::$templator->setVariable('egresso.cidade.marcado','selected'); 
@@ -253,7 +253,7 @@ class ManterUsuarioView extends GenericView{
 			$cidade->where("estado_id = ". $idEstado)->find(); 
 
 			while($cidade->fetch()){
-				parent::$templator->setVariable('emprego.cidade.value',$cidade->id); 
+				parent::$templator->setVariable('emprego.cidade.value',Convert::toUTF_8(Convert::toUpperCase($cidade->des))); 
 				parent::$templator->setVariable('emprego.cidade.desc', Convert::toUTF_8(Convert::toUpperCase($cidade->des))); 
 				if($idCidade == $cidade->id)
 					parent::$templator->setVariable('emprego.cidade.marcado','selected'); 

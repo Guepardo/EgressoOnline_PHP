@@ -43,14 +43,14 @@
 
       <div class="row">
         <div class="medium-4  columns">
-          <label>Estado Civil
-            <select name="estado_civil_id">
+          <label>Estado Civil <small>Obrigatório</small>
+            <select name="estado_civil_id" required>
               <option value="">-Selecione-</option>
               <!-- $BeginBlock civil -->
               <option ${civil.marcado} value="${civil.value}"> ${civil.desc}</option>
               <!-- $EndBlock civil -->
             </select>
-          </label>
+          </label> <small class="error">Selecione um estado civil</small>
         </div>
 
         <div class="row">
@@ -65,8 +65,8 @@
    <div class="row">
      <div class="medium-4 small-4 columns">
       <label>Telefone
-        <input name="telefone" class="telefone" type="text" required placeholder="(00) 0000-0000" value="${egresso.telefone}" />
-      </label> <small class="error">Preencha corretamente o campo.</small>
+        <input name="telefone" class="telefone" type="text"  placeholder="(00) 0000-0000" value="${egresso.telefone}" />
+      </label> 
     </div>
   </div>
   
@@ -278,10 +278,12 @@ $(document).ready(function(){
     var data = $(this).serializeArray(); 
 
     sendAjax('index.php?uc=manterUsuario&a=alterarDados','POST',data,function(data){
+      alertify.log(data);
       data = JSON.parse(data); 
 
       if(data['status']){
         alertify.success("O cadastro foi feito com sucesso");  
+        window.location.reload(); 
       }
       else
         alertify.error(data['msg']); 

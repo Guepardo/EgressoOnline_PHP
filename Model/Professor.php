@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "professor"
- * in 2015-08-31
+ * in 2015-09-07
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -30,7 +30,7 @@ class Professor extends Lumine_Base {
         
         # nome_do_membro, nome_da_coluna, tipo, comprimento, opcoes
         
-        $this->metadata()->addField('isCoordenador', 'is_coordenador', 'boolean', 1, array('notnull' => true));
+        $this->metadata()->addField('isCoordenador', 'is_coordenador', 'boolean', 1, array('notnull' => true, 'default' => '0'));
         $this->metadata()->addField('usuarioId', 'usuario_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Usuario'));
 
         

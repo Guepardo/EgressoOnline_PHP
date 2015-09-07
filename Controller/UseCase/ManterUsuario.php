@@ -222,7 +222,7 @@ class ManterUsuario extends GenericController{
 		$egresso->insert(); 
 
 		//Adicionando as Redes Sociais para o egresso. 
-		for( $a = 1 ; $a < 3 ; $a++ ){
+		for( $a = 1 ; $a <= 3 ; $a++ ){
 			$rede = new EgressoHasRedeSocial(); 
 			$rede->usuarioId = $egresso->usuarioId; 
 			$rede->redeSocialId = $a;// Os valores aqui são a sequência no banco de dados da tabela de Redes Sociais. 
@@ -283,7 +283,7 @@ class ManterUsuario extends GenericController{
 	}
 
 	//Alterar dados para egresso. 
-	public function alterarDados($arg){
+	public function alterarDados($arg){	
 		//Validacao: 
 		$this->dataValidator->set("Nome", $arg['nome'])->is_required()->min_length(5)->max_length(140);
 		$this->dataValidator->set("Email", $arg['email'])->is_required()->is_email()->min_length(10)->max_length(140); 
@@ -311,7 +311,7 @@ class ManterUsuario extends GenericController{
 	    //aqui. 
 	    //
 		$egresso = new Egresso(); 
-		$egresso->get('usuarioId', $usuario->id); 
+		$egresso->get('usuarioId', $_SESSION['user_id']); 
 
 		$emprego = new Emprego(); 
 		$emprego->get($egresso->empregoId); 
@@ -333,9 +333,12 @@ class ManterUsuario extends GenericController{
 		$egresso->endereco 			= $arg['endereco']; 
 		$egresso->isDadoPublico  	= !empty($arg['is_dado_publico']); 
 		$egresso->update(); 
-
 		
 		if((int) $arg['egresso_pais_id'] == 33 ){
+
+			if(empty($arg['egresso_cidade_id']))
+				$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => "Selecione um estado e uma cidade para a sua localização." ) ); 
+
 			$cidade = new Cidade(); 
 			$cidade->get('des', $arg['egresso_cidade_id']); 
 			$localidadeEgresso->paisId      = (int) $arg['egresso_pais_id']; 
@@ -350,6 +353,10 @@ class ManterUsuario extends GenericController{
 		$localidadeEgresso->update(); 
 		
 		if((int) $arg['emprego_pais_id'] == 33 ){
+
+			if(empty($arg['emprego_cidade_id']))
+				$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => "Selecione um estado e uma cidade para a sua localização do seu trabalho." ) ); 
+
 			$cidade = new Cidade(); 
 			$cidade->get('des', $arg['emprego_cidade_id']); 
 			$localidadeEmprego->paisId      = (int) $arg['emprego_pais_id']; 
@@ -365,25 +372,26 @@ class ManterUsuario extends GenericController{
 
 		$emprego->atuacaoProfissionalId = $arg['atuacao_profissional_id']; 
 		$emprego->faixaSalarialId       = $arg['faixa_salarial_id']; 
+		$emprego->nomeEmpresa       	= $arg['empresa_nome']; 
 		$emprego->publico 				= !empty($arg['is_publica']); 
 		$emprego->areaTi  				= !empty($arg['is_area_ti']);
 		$emprego->update(); 
 
 
 		$rede = new EgressoHasRedeSocial(); 
-		$rede->where("usuario_id = ". $usuario->id." and rede_social_id = ". 1)->find(); 
+		$rede->where("usuario_id = ". $_SESSION['user_id']." and rede_social_id = ". 1)->find(); 
 		$rede->fetch(true); 
 		$rede->linkAcesso = $arg['twitter']; 
 		$rede->update(); 
 
 		$rede = new EgressoHasRedeSocial(); 
-		$rede->where("usuario_id = ". $usuario->id." and rede_social_id = ". 2)->find(); 
+		$rede->where("usuario_id = ". $_SESSION['user_id']." and rede_social_id = ". 2)->find(); 
 		$rede->fetch(true); 
 		$rede->linkAcesso = $arg['linkedin']; 
 		$rede->update(); 
 
 		$rede = new EgressoHasRedeSocial(); 
-		$rede->where("usuario_id = ". $usuario->id." and rede_social_id = ". 3)->find(); 
+		$rede->where("usuario_id = ". $_SESSION['user_id']." and rede_social_id = ". 3)->find(); 
 		$rede->fetch(true); 
 		$rede->linkAcesso = $arg['facebook']; 
 		$rede->update(); 
