@@ -46,7 +46,18 @@
 
  <div class="row perfil_box fix-container" >
 
-   <div class="large-3 columns">
+  <!-- Notificações -->
+  <div class="row ${is_hide}" >
+    <div class="medium-12  columns">
+      <div data-alert class="alert-box secondary ">
+        ${msg}
+        <a href="#" class="close">&times;</a>
+      </div>
+    </div>
+  </div>
+  <!-- Fim Notificações -->
+
+  <div class="large-3 columns">
     <div class="panel" style="height: 280px;">
       <a href="#"><img src="${foto}" class="perfil_large" /></a>
       <h6 style="font-size:15px;">${nome}</h6>
@@ -55,7 +66,7 @@
     <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
 
       <section class="section">
-        <i class="fa fa-eye tittle">34</i>
+        <i class="fa fa-eye tittle">${visualizacao}</i>
       </section>
     </div>
   </div>
@@ -63,10 +74,10 @@
 <div class="large-6 columns">
   <form>
    <!--  <label>Compartilhe alguma coisa. --> 
-      <textarea id="post_content" placeholder="Compartilhe alguma coisa" style="height:210px;"></textarea>
+   <textarea id="post_content" placeholder="Compartilhe alguma coisa" style="height:210px;"></textarea>
    <!--  </label> -->
-  </form>
-  <a href="#" id="publicar" class="button expand">Postar</a>
+ </form>
+ <a href="#" id="publicar" class="button expand">Postar</a>
 </div>
 
 <div class="large-3 columns">
@@ -104,14 +115,16 @@
   </div>
 </div>
 
+
+
 <!--conteúdo--> 
-<div class="row" >
+<div class="row" style="min-height:50%;">
  <div class="medium-12 columns" id="container" style="margin:0">
 
-
+<!-- 
    <div class="medium-4 columns panel msg ">
     <div class="row">
-      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small" /></div>
+      <div class="medium-3 columns small-3" ><a class="bnt_mensagem"><img src="http://lorempixel.com/people/120/120/" class="perfil_small" /></a>  </div>
       <div class="medium-9 columns" style="padding-left:0;"><i>Maria Paula</i> <br><small>às 20:30, 04/04/2015</small></div>
       <div class="medium-12 columns">
         <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
@@ -121,6 +134,7 @@
   </div>
 
   <div class="medium-4 columns panel msg ">
+    <i class="fa fa-envelope right" style="margin-bottom: -20px;"></i>
     <div class="row">
       <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small"  /></div>
       <div class="medium-9 columns" style="padding-left:0;"><i>Maria Paula</i> <br><small>às 20:30, 04/04/2015</small></div>
@@ -132,29 +146,13 @@
   </div>
 
 
-
-
-  <div class="medium-4 columns panel msg ">
-    <div class="row">
-      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small"  /></div>
-      <div class="medium-9 columns" style="padding-left:0;"><i>Maria Paula</i> <br><small>às 20:30, 04/04/2015</small></div>
-      <div class="medium-12 columns">
-        <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
-        </p>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="medium-4 columns op">
-    <div class="row">
-      <ul class="pricing-table">
-        <li class="title">Vaga na aera de TI</li>
-        <li class="price">Salário: $99.99</li>
-        <li class="cta-button"><a class="button tiny" href="#">Ver detalhes</a></li>
-      </ul>
-    </div>
-  </div>
+  <div class="medium-4 columns msg " style="padding:0;">
+    <ul class="pricing-table">
+      <li class="title">Vaga na aera de TI</li>
+      <li class="price" style="height: 82px;">Salário: $99.99</li>
+      <li class="cta-button" style="height: 120px;"><a class="button tiny" href="#">Ver detalhes</a></li>
+    </ul>
+  </div> -->
 
 
 </div>
@@ -696,20 +694,71 @@
         </div>
 
 
-       
-<!-- FIM MODAIS --> 
+        <!-- Modal mensagem direta--> 
+        <div id="mensagem_direta" class="reveal-modal tiny" data-reveal aria-labelledby="modal" aria-hidden="true" role="dialog">
+          <h2 id="modal">Mensagem direta</h2>
+          <div class="row">
+            <div class="medium-6 medium-centered columns">
+             <img id="perfil_img" src="" class="perfil_large" />
+           </div>
+         </div>
+
+         <div class="row">
+          <div class="medium-12 columns">
+            <blockquote id="texto_msg" class="text-justify"><cite id="autor"></cite></blockquote>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="medium-12 columns">
+            <textarea id="msg_content"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="medium-12 columns">
+            <button  id="bnt_mensagem" class="button" style="width: 100%;">Enviar</button>
+          </div>
+        </div>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+      </div>
+
+      <!-- FIM MODAIS --> 
 
 
-<!-- $Include templates/lib/html/footerscripts.html --> 
-<script src="templates/lib/js/jquery.mask.min.js"></script>
-<script src="templates/lib/js/ajax.js"></script>
+      <!-- $Include templates/lib/html/footerscripts.html --> 
+      <script src="templates/lib/js/jquery.mask.min.js"></script>
+      <script src="templates/lib/js/ajax.js"></script>
 
-<script>
-$(document).foundation();
-$(document).ready(function(){ 
-  $('.telefone').mask('(99) 9999-9999');
+      <script>
+      $(document).foundation();
+      $(document).ready(function(){ 
+        $('.telefone').mask('(99) 9999-9999');
+
+        //Tratando mensagens diretas na timeline
+        $("#bnt_mensagem").click(function(){
+          var id = $(this).val(); 
+          var msg = $('#msg_content').val(); 
+
+          if(msg == ''){
+            alertify.error("Escreva uma mensagem antes."); 
+            return; 
+          } 
+
+          var data = {'id' : id, 'mensagem' : msg}; 
+          sendAjax('index.php?uc=mensagens&a=mensagemDireta','POST',data,function(data){
+            data = JSON.parse(data); 
+
+            if(data['status']){
+              $('#mensagem_direta').foundation('reveal', 'close');
+              alertify.success("Mensagem enviada."); 
+            }else
+              alertify.error(data['msg']); 
+          }); 
+        }); 
+
+
   //Tratamento dos eventos dos formulários modais: 
-  
   $('#form_emprego').on('valid', function() {
     var data = $(this).serializeArray(); 
 
@@ -857,6 +906,10 @@ $(document).ready(function(){
           if(data.length > 0)
             date = data[data.length-1]['data_envio']; 
 
+          $(".bnt_mensagem").unbind().click(function(){
+            buildDirectMsg(this); 
+          });
+
         }); 
 
         control = false;
@@ -866,23 +919,27 @@ $(document).ready(function(){
   });
 
   function addMsg(data){
-    var row = '<div class="medium-4 columns panel msg "> <div class="row"> <div class="medium-3 columns small-3"><img src="'+data['foto']+'" class="perfil_small" /></div> <div class="medium-9 columns" style="padding-left:0;"></i><i>'+data['remetente']+'</i><br> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
 
-    $('#container').append(row); 
+    var temp = ""; 
+    if(!data['publica'])
+      temp = '<i class="fa fa-envelope right" style="margin-bottom: -20px;"></i>'; 
+
+    var row = '<div class="medium-4 columns panel msg ">  '+temp+'<div class="row"> <div class="medium-3 columns small-3"><a class="bnt_mensagem"><img src="'+data['foto']+'" class="perfil_small" /></a></div> <input type="hidden" value="'+data['id_user_origem']+'" /> <div class="medium-9 columns" style="padding-left:0;"></i><i id="remetente">'+data['remetente']+'</i><br> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
+
+    $('#container').append(row).children(':last').hide().fadeIn(500); 
   }
 
   function addOpor(data){
    var titulo = (data['graduacao']) ? "Pós-Graduacao" : "Emprego"; 
-   var row = '<div class="medium-4 columns op"> <div class="row"> <ul class="pricing-table"> <li class="title">Oportunidade</li> <li class="price">'+titulo+'</li> <li class="cta-button"><a class="button tiny action_op" value="'+data['id']+'-'+data['graduacao']+'">Ver detalhes</a></li> </ul> </div> </div>'; 
+   var row = '<div class="medium-4 columns msg" style="padding:0;"> <ul class="pricing-table"> <li class="title">Oportunidade</li> <li class="price" style="height: 82px;">'+titulo+'</li> <li class="cta-button" style="height: 120px;"><a class="button tiny action_op" value="'+data['id']+'-'+data['graduacao']+'">Ver detalhes</a></li> </ul>  </div>'; 
 
-   $('#container').append(row);  
+   $('#container').append(row).children(':last').hide().fadeIn(500);  
 
    $('.action_op').unbind().click(function(){
     var result = $(this).attr('value').split('-'); 
 
     if(JSON.parse(result[1])){
       sendAjax('index.php?uc=visualizar&a=posGraduacao','POST',{'id' : result[0] }, function(data){
-        alertify.log(data); 
         data = JSON.parse(data); 
         buildViewPos(data); 
 
@@ -890,7 +947,6 @@ $(document).ready(function(){
       }); 
     }else{
       sendAjax('index.php?uc=visualizar&a=emprego','POST',{'id' : result[0] }, function(data){
-        alertify.log(data); 
         data = JSON.parse(data); 
         buildViewEmprego(data); 
 
@@ -927,6 +983,17 @@ $(document).ready(function(){
   }
 }
 
+function buildDirectMsg(data){
+  data = $(data).parent().parent();
+  console.log(jQuery(data).find('input').val()); 
+  //adicionando valores ao modal: 
+  $("#perfil_img").attr('src',jQuery(data).find('img').attr('src')); 
+  $("#texto_msg").text(jQuery(data).find('p').text()); 
+  $("#texto_msg").append("<cite>"+jQuery(data).find('i#remetente').text()+"</cite>"); 
+  $("#bnt_mensagem").val(jQuery(data).find('input').val()); 
+  $("#msg_content").val(''); 
+  $('#mensagem_direta').foundation('reveal', 'open');
+}
 
 function buildViewEmprego(data){
   $('#divulgado_emprego').text("Divulgado em "+data['data_divulgacao']);

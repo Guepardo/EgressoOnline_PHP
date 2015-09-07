@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="pt-br">
+<html class="no-js" lang="pt">
 <head>
 	<title>Tela principal</title>
 	<!-- $Include templates/lib/html/head.html --> 
@@ -7,6 +7,12 @@
 	<style type="text/css">
 	.perfil_large{
 		border-radius: 60px; 
+	}
+
+	.landspace{
+		background-image:url(${foto_turma});
+		height:400px;
+		background-size: 100% auto;
 	}
 	</style>
 </head>
@@ -21,9 +27,9 @@
 		<div class="medium-12 columns">
 			<!-- começo -->
 			<div class="row">
-				<div class="medium-12 columns panel" style="background-image:url('https://41.media.tumblr.com/7c433185e516623935258cbfc2184334/tumblr_nrym7qWJep1qjcdw9o2_400.jpg');height:400px;background-size: 100% auto;"> 
+				<div class="medium-12 columns panel landspace"> 
 
-					<button type="" class="button success tiny ${is_hide}">Alterar foto</button>
+					<button type="" class="button success tiny ${is_hide}" data-reveal-id="modal_alterar_foto">Alterar foto</button>
 				</div>
 			</div>	
 		</div>
@@ -53,15 +59,117 @@
 		</div>
 	</div>
 
+	<div id="modal_alterar_foto" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+		<h2 id="modalTitle">Cadastrar pós-graduação ou graduação </h2>
+		<p class="lead">Preencha os campos abaixo</p>		
+			<div class="row">
+				<div class="medium-12 columns">
+					<p>Pré-visualização</p>
+					<canvas id="preview" style="width:100%;height:100%;overflow:hidden;"></canvas>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="medium-12 columns">
+					<div id="fileDisplayArea"></div>
+				</div>
+			</div>
+
+			<!-- buttons and file chooser -->
+			<div class="row" style="margin-top:30px">
+				<form id="form" enctype="multipart/form-data" method="POST" action="index.php?uc=manterTurma&a=alterarFoto" >
+					<div class="medium-3 columns">
+						<label>Escolha uma foto <input type="file" id="fileInput" name="file"></label>
+					</div>
+					<div class="medium-3 columns">
+						<input id="botao" type="submit" class="button tiny success" value="Alterar foto" />
+					</div>
+					<input id="x"  type="hidden"  name="x"/>
+					<input id="y"  type="hidden"  name="y"/>
+					<input id="x2" type="hidden" name="x2"/>
+					<input id="y2" type="hidden" name="y2" />
+					<input name="id_turma" type="hidden" value="${id_turma}" />
+				</form>
+			</div>
+
+		<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+	</div>
+
 
 	<!-- $Include templates/lib/html/footerscripts.html --> 
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/css/jquery.Jcrop.min.css" />
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.Jcrop.min.js" type="text/javascript"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.color.min.js"></script>
 	<script>
 
 	$(document).foundation();
-	$(document).ready(function(){
-		$('.telefone').mask('(99) 9999-9999');
-	});
 
-	</script>
+	var targetImg;
+
+	window.onload = function() {
+
+		var fileInput = document.getElementById('fileInput');
+		var fileDisplayArea = document.getElementById('fileDisplayArea');
+
+
+		fileInput.addEventListener('change', function(e) {
+			var file = fileInput.files[0];
+			var imageType = /image.*/;
+
+			if (file.type.match(imageType)) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$("#fileDisplayArea").html('');
+
+					var img = new Image();
+					img.src = reader.result;
+					img.id = "target";        
+					$("#fileDisplayArea").append(img);
+
+					$('#target').Jcrop({
+						onChange : updatePreview,
+						onSelect : updatePreview,
+						aspectRatio : 2
+					});
+				}
+
+				reader.readAsDataURL(file); 
+			} else {
+				fileDisplayArea.innerHTML = "File not supported!"
+			}
+		});
+	}
+
+	function updatePreview(c) {
+
+		if(parseInt(c.w) > 0) {
+        // Show image preview
+        var imageObj = $("#target")[0];
+
+        console.log(imageObj.height);
+        console.log(imageObj.width );
+
+        var heightRatio = imageObj.height/600;
+        var widthRatio = imageObj.width/600;
+        var maxration = widthRatio > heightRatio ? widthRatio: heightRatio;
+        var x =  widthRatio > 1 ? c.x * widthRatio : c.x;
+        var y =  heightRatio > 1 ? c.y * heightRatio : c.y;
+        var h =  maxration > 1 ? c.h * maxration : c.h;
+        var w =  maxration > 1 ? c.w * maxration : c.w;
+        var canvas = $("#preview")[0];
+        var context = canvas.getContext("2d");
+
+        context.drawImage(imageObj, x, y, w, h, 0, 0, canvas.width, canvas.height);
+
+        $("#x").attr('value',x); 
+        $("#x2").attr('value',w); 
+        $("#y").attr('value',y); 
+        $("#y2").attr('value',h); 
+    }
+
+};
+
+</script>
 </body>
 </html>

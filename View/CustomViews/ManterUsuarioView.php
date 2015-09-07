@@ -12,8 +12,15 @@ class ManterUsuarioView extends GenericView{
 		parent::show(); 
 	}
 
-	public function alterarFotoView(){
+	public function alterarFotoView($arg=null){
 		parent::getTemplateByAction("alterarFoto"); 
+
+		//Adicionando mensagem de redirecionamento:
+		if(!empty($arg['nopost_msg']))
+			parent::$templator->setVariable('msg',$arg['nopost_msg']);
+		else
+			parent::$templator->setVariable('is_hide', 'hide');
+		
 		parent::show(); 
 	}
 

@@ -18,6 +18,10 @@ class Mensagens extends GenericController {
 	}
 
 	public function MensagemDireta($arg){
+
+		if((int) $arg['id'] == $_SESSION['user_id'])
+			die(json_encode(array( 'status' => false, 'msg' => 'Não é permitido enviar mensagem direta para si mesmo.' ) )); 
+
 		Lumine::import("Postagem"); 
 		Lumine::import("UsuarioHasPostagem"); 
 

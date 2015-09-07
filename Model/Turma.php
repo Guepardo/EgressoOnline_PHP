@@ -32,7 +32,7 @@ class Turma extends Lumine_Base {
         # nome_do_membro, nome_da_coluna, tipo, comprimento, opcoes
         
         $this->metadata()->addField('id', 'id', 'int', 11, array('primary' => true, 'notnull' => true, 'autoincrement' => true));
-        $this->metadata()->addField('foto', 'foto', 'varchar', 35, array());
+        $this->metadata()->addField('foto', 'foto', 'varchar', 45, array());
         $this->metadata()->addField('ano', 'ano', 'int', 11, array('notnull' => true));
 
         

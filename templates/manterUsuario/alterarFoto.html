@@ -10,6 +10,18 @@
   <body>
     <!-- $Include templates/lib/html/topbar.html --> 
     <div class="row fix-container">
+
+      <!-- Notificações -->
+      <div class="row ${is_hide}" >
+        <div class="medium-12  columns">
+          <div data-alert class="alert-box alert ">
+            ${msg}
+            <a href="#" class="close">&times;</a>
+          </div>
+        </div>
+      </div>
+      <!-- Fim Notificações -->
+
       <div class="medium-12 columns ">
         <!-- navegação -->
         <div class="row">
@@ -35,7 +47,7 @@
 
         <!-- buttons and file chooser -->
         <div class="row" style="margin-top:30px">
-          <form id="form" enctype="multipart/form-data">
+          <form id="form" enctype="multipart/form-data" method="POST" action="index.php?uc=manterUsuario&a=alterarFoto" >
            <div class="medium-3 columns">
             <label>Escolha uma foto <input type="file" id="fileInput" name="file"></label>
           </div>
@@ -59,48 +71,48 @@
 
 
   <script>
-    $(document).foundation();
+  $(document).foundation();
 
-    var targetImg;
+  var targetImg;
 
-    window.onload = function() {
+  window.onload = function() {
 
-      var fileInput = document.getElementById('fileInput');
-      var fileDisplayArea = document.getElementById('fileDisplayArea');
+    var fileInput = document.getElementById('fileInput');
+    var fileDisplayArea = document.getElementById('fileDisplayArea');
 
 
-      fileInput.addEventListener('change', function(e) {
-        var file = fileInput.files[0];
-        var imageType = /image.*/;
+    fileInput.addEventListener('change', function(e) {
+      var file = fileInput.files[0];
+      var imageType = /image.*/;
 
-        if (file.type.match(imageType)) {
-          var reader = new FileReader();
+      if (file.type.match(imageType)) {
+        var reader = new FileReader();
 
-          reader.onload = function(e) {
-            $("#fileDisplayArea").html('');
+        reader.onload = function(e) {
+          $("#fileDisplayArea").html('');
 
-            var img = new Image();
-            img.src = reader.result;
-            img.id = "target";        
-            $("#fileDisplayArea").append(img);
+          var img = new Image();
+          img.src = reader.result;
+          img.id = "target";        
+          $("#fileDisplayArea").append(img);
 
-            $('#target').Jcrop({
-              onChange : updatePreview,
-              onSelect : updatePreview,
-              aspectRatio : 1
-            });
-          }
-
-          reader.readAsDataURL(file); 
-        } else {
-          fileDisplayArea.innerHTML = "File not supported!"
+          $('#target').Jcrop({
+            onChange : updatePreview,
+            onSelect : updatePreview,
+            aspectRatio : 1
+          });
         }
-      });
-    }
 
-    function updatePreview(c) {
+        reader.readAsDataURL(file); 
+      } else {
+        fileDisplayArea.innerHTML = "File not supported!"
+      }
+    });
+  }
 
-      if(parseInt(c.w) > 0) {
+  function updatePreview(c) {
+
+    if(parseInt(c.w) > 0) {
         // Show image preview
         var imageObj = $("#target")[0];
 
@@ -125,34 +137,7 @@
         $("#y2").attr('value',h); 
       }
 
-
-      //Tratando do evento do formulário: 
-      $("#form").submit(function () {
-        var formData = new FormData(this);
-
-        $.ajax({
-          url: 'index.php?uc=manterUsuario&a=alterarFoto',
-          type: 'POST',
-          data: formData,
-          success: function (data) {
-            alert(data)
-          },
-          cache: false,
-          contentType: false,
-          processData: false,
-        xhr: function() {  // Custom XMLHttpRequest
-          var myXhr = $.ajaxSettings.xhr();
-            if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-              myXhr.upload.addEventListener('progress', function () {
-                /* faz alguma coisa durante o progresso do upload */
-              }, false);
-            }
-            return myXhr;
-          }
-        });
-      });
-
     };
-  </script>
-</body>
-</html>
+    </script>
+  </body>
+  </html>

@@ -58,14 +58,15 @@ class TelaPrincipal extends GenericController {
 					$usuario->get('id',$post->usuarioId); 
 
 					//obtendo destinatário; 
-					$tam = $associativa->get('usuarioId', $_SESSION['user_id']); 
+					$tam = $associativa->get('postagemId', $post->id); 
 
 					$usuario->get('id', $post->usuarioId); 
 					//Se a mensagem é uma mensagem direta: 
-					if($tam > 0 && $associativa->postagemId == $post->id)
-						array_push($array, array('foto' => $usuario->foto, 'id' => $post->id, 'remetente' => Convert::toUTF_8($usuario->nome), 'data_envio' => $post->dataEnvio , 'msg' => Convert::toUTF_8($post->mensagem) , 'publica' => false, 'post' => true));  
-					else
-						array_push($array, array('foto' => $usuario->foto, 'id' => $post->id, 'remetente' => Convert::toUTF_8($usuario->nome), 'data_envio' => $post->dataEnvio , 'msg' => Convert::toUTF_8($post->mensagem) , 'publica' => true, 'post' => true)); 
+					if($tam > 0 && $associativa->postagemId == $post->id){
+						if((int) $associativa->usuarioId == (int) $_SESSION['user_id'])//Adicionar no array se a mensagem privada for para a sessão corrente.
+							array_push($array, array('id_user_origem' => $post->usuarioId, 'foto' => $usuario->foto, 'id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => false, 'post' => true));  
+					}else
+					array_push($array, array('id_user_origem' => $post->usuarioId, 'foto' => $usuario->foto, 'id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => true, 'post' => true)); 
 				}
 
 				$tam = $op->get('id', (int) $temp[0]); 
@@ -75,7 +76,7 @@ class TelaPrincipal extends GenericController {
 					$total = 0; 
 					$total = $associativa->get('oportunidadeId', (int) $op->id);
 
-					array_push($array, array('graduacao' => ($total > 0 ),'info_adicionais' => Convert::toUTF_8($op->infoAdicionais) ,'id' => $post->id, 'post' => false, 'data_envio' => $op->dataDivulgacao)); 
+					array_push($array, array('graduacao' => ($total > 0 ),'info_adicionais' => $op->infoAdicionais ,'id' => $post->id, 'post' => false, 'data_envio' => $op->dataDivulgacao)); 
 				}
 			}
 

@@ -20,7 +20,7 @@
 		<div class="medium-12 columns">
 			<!-- começo -->
 			<div class="row">
-				<div class="medium-12 columns panel" style="background-image:url('http://wallpaper.ultradownloads.com.br/274038_Papel-de-Parede-Linda-Paisagem-Oceanica-Com-Castelo_1920x1200.jpg');background-size: 100% auto;"> 
+				<div class="medium-12 columns panel" style="background-image:url('${foto_turma}');background-size: 100% auto;"> 
 
 					<div class="row">
 
@@ -121,9 +121,9 @@
 				data = JSON.parse(data); 
 
 				if(data['status'])
-					alertify.success("Mensagem enviado"); 
+					alertify.success("Mensagem enviada."); 
 				else
-					alertify.error("Error"); 
+					alertify.error(data['msg']); 
 			}); 
 			$('#mensagem').val(""); 
 		}); 

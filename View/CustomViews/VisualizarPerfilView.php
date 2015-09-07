@@ -23,6 +23,10 @@ class VisualizarPerfilView extends GenericView{
 		$usuario->join($egresso)->where("usuario.id = ". $id)->find();
 		$usuario->fetch(true);
 
+		//registrando a visita no perfil.
+		$usuario->visualizacao++; 
+		$usuario->update(); 
+
 		parent::$templator->setVariable('id', $id ); 
 		
 		parent::$templator->setVariable("nome", $usuario->nome); 
@@ -31,6 +35,7 @@ class VisualizarPerfilView extends GenericView{
 		$turma->get($usuario->turmaId); 
 
 		parent::$templator->setVariable("turma", $turma->ano); 
+		parent::$templator->setVariable("foto_turma", $turma->foto); 
 
 		parent::$templator->setVariable("telefone", $usuario->telefone); 
 
@@ -84,6 +89,8 @@ class VisualizarPerfilView extends GenericView{
 
 		$turma->get($id); 
 		parent::$templator->setVariable("ano_turma", $turma->ano); 
+		parent::$templator->setVariable("id_turma", $turma->id);
+		parent::$templator->setVariable("foto_turma",Convert::toUTF_8($turma->foto));  
 		
 		$usuario->join($egresso)->where("egresso.turma_id = ". $turma->id)->find(); 
 

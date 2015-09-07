@@ -1,6 +1,7 @@
 <?php 
 require_once(PATH.'Controller'.DS.'GenericController.php'); 
 require_once(PATH.'View'.DS.'CustomViews'.DS.'ManterUsuarioView.php'); 
+require_once(PATH.'View'.DS.'CustomViews'.DS.'TelaPrincipalView.php'); 
 
 require_once(PATH.'Util'.DS.'KeyFactory.php'); 
 require_once(PATH.'Util'.DS.'DataValidator.php'); 
@@ -179,7 +180,7 @@ class ManterUsuario extends GenericController{
 		$usuario->senha     = md5($passwordToSend);
 		$usuario->generoId  = $arg['genero_id'];
 		$usuario->cpf       = $arg['cpf'];
-		$usuario->foto = 'Midia\default.png'; //Adicionando a mídia padrão; 
+		$usuario->foto = 'Midia/default.png'; //Adicionando a mídia padrão; 
 		$usuario->insert(); 
 
 		$notificacao  = new Notificacao(); 
@@ -448,6 +449,9 @@ class ManterUsuario extends GenericController{
 	}
 
 	public function alterarFoto($arg){
+		//Criando instância para página principal
+		$principal = new TelaPrincipalView();
+
 		$m = new Image(); 
 		$result = $m->saveCropAvatar('file',$arg['x'],$arg['y'],$arg['x2'],$arg['y2']); 
 		Lumine::import("Usuario"); 
@@ -455,16 +459,26 @@ class ManterUsuario extends GenericController{
 		$usuario = new Usuario(); 
 		$total = $usuario->get($_SESSION['user_id']); 
 
-		if($total < 0)
-			die("error"); 
+		if($total < 0){
+			die("error");
+		}
+		if(is_int($result)){
+			$msg = array('nopost_msg' => 'Erro: '.$m->errors[$result] ); 
+			$this->manterUsuarioView->alterarFotoView($msg);
+			exit; 
+		}
 
 		$lastImage = $usuario->foto; 
 
-		if(strcmp($lastImage,'Midia\default.png') != 0)
+		if(strcmp($lastImage,'Midia/default.png') != 0)
 			unlink(PATH.$lastImage); 
 
 		$usuario->foto = 'Midia'.DS.$result; 
 		$usuario->update(); 
+
+		//Passando mensagem interna para a outra tela 
+		$msg = array('nopost_msg' => "Sua foto de perfil foi modificada com sucesso."); 
+		$principal->principalView($msg); 
 	}
 
 	private function verifyErros($array){
@@ -478,6 +492,7 @@ class ManterUsuario extends GenericController{
 		Lumine::import("Turma"); 
 		$turma = new Turma(); 
 		$turma->ano = (int) $anoConclusao; 
+		$turma->foto = 'Midia//default_turma.png'; 
 		$turma->insert(); 
 		return $turma->id; 
 	}

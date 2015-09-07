@@ -8,8 +8,7 @@ class TelaPrincipalView extends GenericView
 		parent::__construct($this); 
 	}
 	
-	public function principalView()
-	{
+	public function principalView($arg=null){
 		parent::getTemplateByAction('tela'); 
 
 		Lumine::import("Pais"); 
@@ -31,7 +30,8 @@ class TelaPrincipalView extends GenericView
 		$usuario = new Usuario(); 
 		$usuario->get($_SESSION['user_id']); 
 		parent::$templator->setVariable('nome', $usuario->nome); 
-		parent::$templator->setVariable('foto', $usuario->foto); 
+		parent::$templator->setVariable('foto', $usuario->foto);
+		parent::$templator->setVariable('visualizacao', $usuario->visualizacao); 
 
 		while( $pais->fetch() ){
 			parent::$templator->setVariable("emprego.pais.id", $pais->id ); 
@@ -83,6 +83,14 @@ class TelaPrincipalView extends GenericView
 			parent::$templator->addBlock("pos.tipo");
 			parent::$templator->addBlock("emprego.tipo");
 		}
+
+
+		//Adicionando mensagem de redirecionamento:
+		if(!empty($arg['nopost_msg']))
+			parent::$templator->setVariable('msg',$arg['nopost_msg']);
+		else
+			parent::$templator->setVariable('is_hide', 'hide');
+		
 		parent::show(); 
 	}
 
