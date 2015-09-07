@@ -16,7 +16,9 @@ class TelaPrincipal extends GenericController {
 		$this->telaPrincipalView->principalView(); 
 	}
 
-	
+	public function tutorialView(){
+		$this->telaPrincipalView->tutorialView(); 
+	}
 
 	public function feed($arg){
 		$limit = 10; 

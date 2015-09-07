@@ -28,22 +28,22 @@ class AjaxServices extends GenericController{
 		die(json_encode($array));
 	}
 
-	public function getEgressoLocation(){
-		$idEgresso  = $_SESSION['id_user']; 
-		$idLocation = ( new DAOEgresso()   )->getIdLocation($idEgresso);
+	// public function getEgressoLocation(){
+	// 	$idEgresso  = $_SESSION['id_user']; 
+	// 	$idLocation = ( new DAOEgresso()   )->getIdLocation($idEgresso);
 
-		$daoLocalidade = new DAOLocalidade(); 
-		$location = $daoLocalidade->select($idLocation); 
+	// 	$daoLocalidade = new DAOLocalidade(); 
+	// 	$location = $daoLocalidade->select($idLocation); 
 
-		if( is_string($location) ) return; //Tu-do: ver o que vou fazer aqui para informar o erro; 
+	// 	if( is_string($location) ) return; //Tu-do: ver o que vou fazer aqui para informar o erro; 
 
-		$countryName = utf8_encode(strtoupper($daoLocalidade->getNameCountry($location->getPais()))); 
-		$cityName    = utf8_encode(strtoupper($daoLocalidade->getNameCity($location->getCidade()))); 
+	// 	$countryName = utf8_encode(strtoupper($daoLocalidade->getNameCountry($location->getPais()))); 
+	// 	$cityName    = utf8_encode(strtoupper($daoLocalidade->getNameCity($location->getCidade()))); 
 
-		$array = array( "cidade" => $cityName, "pais" => $countryName ); 
+	// 	$array = array( "cidade" => $cityName, "pais" => $countryName ); 
 
-		die(json_encode($array));   
-	}
+	// 	die(json_encode($array));   
+	// }
 
 	
 }

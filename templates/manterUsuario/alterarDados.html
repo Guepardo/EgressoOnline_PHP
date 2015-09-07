@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html class="no-js" lang="pt-br">
+<html class="no-js" lang="pt">
 <head>
   <title>Alterar Dados</title>
   <!-- $Include templates/lib/html/head.html --> 
@@ -23,19 +23,19 @@
   </div>
 
   <div class="medium-12 columns">
-    <form id="form" data-abide> 
+    <form id="form" data-abide="ajax"> 
 
       <div class="row">
         <div class="medium-6 small-6 columns">
           <label>Nome <small>Obrigatório</small>
-            <input type="text"  required  value="${egresso.nome}" />
+            <input name="nome" type="text"  required  value="${egresso.nome}" />
           </label>
           <small class="error">Você precisa preencher o campo.</small>
         </div>
 
         <div class="medium-6 small-6 columns">
           <label>E-mail <small>Obrigatório</small>
-            <input type="email" required   value="${egresso.email}" />
+            <input name="email" type="email" required   value="${egresso.email}" />
           </label> <small class="error">Você precisa preencher o campo
           .</small>
         </div>
@@ -44,10 +44,11 @@
       <div class="row">
         <div class="medium-4  columns">
           <label>Estado Civil
-            <select>
-              <!-- $BeginBlock estado_civil -->
-              <option ${estado_civil.selected} value="${estado_civil.value}"> ${egresso.estado_civil.desc}</option>
-              <!-- $EndBlock estado_civil -->
+            <select name="estado_civil_id">
+              <option value="">-Selecione-</option>
+              <!-- $BeginBlock civil -->
+              <option ${civil.marcado} value="${civil.value}"> ${civil.desc}</option>
+              <!-- $EndBlock civil -->
             </select>
           </label>
         </div>
@@ -55,7 +56,7 @@
         <div class="row">
          <div class="medium-2 medium-offset-2 columns">
           <label>Quantos filhos 
-           <input type="number" min="0" max="50" value="${egresso.qtdFilhos}">
+           <input name="qtd_filhos" type="number" min="0" max="50" value="${egresso.qtdFilhos}">
          </label>
        </div>
      </div>
@@ -64,7 +65,7 @@
    <div class="row">
      <div class="medium-4 small-4 columns">
       <label>Telefone
-        <input class="telefone" type="text" required placeholder="(00) 0000-0000" value="${egresso.telefone}" />
+        <input name="telefone" class="telefone" type="text" required placeholder="(00) 0000-0000" value="${egresso.telefone}" />
       </label> <small class="error">Preencha corretamente o campo.</small>
     </div>
   </div>
@@ -73,7 +74,7 @@
   <div class="row">
     <div class="medium-12 small-12 columns">
       <label>Endereço
-        <input type="text" placeholder="Rua Exemplo, Número 4..." value="${egresso.endereco}" />
+        <input name="endereco" type="text" placeholder="Rua Exemplo, Número 4..." value="${egresso.endereco}" />
       </label>
     </div>
   </div>
@@ -81,30 +82,33 @@
   <div class="row">
     <div class="medium-4 small-4 columns">
       <label>País
-        <select id="egresso_pais">
+        <select id="egresso_pais" name="egresso_pais_id">
+          <option value="">-Selecione-</option>
           <!-- $BeginBlock egresso.pais -->
-          <option value="${egresso.pais.value}"> ${egresso.pais.desc}</option>
+          <option ${egresso.pais.marcado} value="${egresso.pais.value}"> ${egresso.pais.desc}</option>
           <!-- $EndBlock egresso.pais -->
         </select>
       </label>
     </div>
 
-    <div id="egresso_estado_div" class="medium-4 small-4 columns">
+    <div id="egresso_estado" class="medium-4 small-4 columns">
       <label>Estado
-        <select id="egresso_estado">
-          <!-- $BeginBlock egresso.pais -->
-          <option value="${egresso.pais.value}"> ${egresso.pais.desc}</option>
-          <!-- $EndBlock egresso.pais -->
+        <select id="egresso_select_estado" >
+          <option value="">-Selecione-</option>
+          <!-- $BeginBlock egresso.estado -->
+          <option ${egresso.estado.marcado} value="${egresso.estado.value}"> ${egresso.estado.desc}</option>
+          <!-- $EndBlock egresso.estado -->
         </select>
       </label>
     </div>
 
-    <div id="egresso_cidade_div" class="medium-4 small-4 columns">
+    <div id="egresso_cidade" class="medium-4 small-4 columns">
       <label>Cidade
-        <select id="egresso_cidade">
-          <!-- $BeginBlock egresso.pais -->
-          <option value="${egresso.pais.value}"> ${egresso.pais.desc}</option>
-          <!-- $EndBlock egresso.pais -->
+        <select id="egresso_select_cidade" name="egresso_cidade_id">
+          <option value="">-Selecione-</option>
+          <!-- $BeginBlock egresso.cidade -->
+          <option ${egresso.cidade.marcado} value="${egresso.cidade.value}"> ${egresso.cidade.desc}</option>
+          <!-- $EndBlock egresso.cidade -->
         </select>
       </label>
     </div>
@@ -113,7 +117,7 @@
     <div id="egresso_complemento" class="row hide">
       <div class="medium-7 small-7 columns">
         <label>Estado/Província/Região
-          <input type="text"  name="" placeholder="Digite o complemento do seu endereço." value="${egresso.complemento}">
+          <input type="text"  name="egresso_complemento" placeholder="Digite o complemento do seu endereço." value="${egresso.complemento}">
         </label> 
       </div>  
     </div>
@@ -123,26 +127,27 @@
       <!-- checkboxes -->
       <div class="row">
         <div class="medium-3 columns">
-          <input id="checkbox1" type="checkbox"><label for="checkbox1">Na área pública?</label>
+          <input name="is_publica" id="checkbox1" type="checkbox" ${is_publica} ><label for="checkbox1">Na área pública?</label>
         </div>
         <div class="medium-2 columns end">
-          <input id="checkbox2" type="checkbox"><label for="checkbox2">Na área de TI?</label>
+          <input name="is_area_ti" id="checkbox2" type="checkbox" ${is_area_ti}><label for="checkbox2">Na área de TI?</label>
         </div>
       </div>
 
       <div class="row">
         <div class="medium-5 small-5 columns">
           <label>Empresa
-            <input type="text" placeholder="Nome da empresa"  value="${emprego.nome}"/>
+            <input name="empresa_nome" type="text" placeholder="Nome da empresa"  value="${emprego.nome}"/>
           </label>
         </div>
 
         <div class="medium-5 small-5 columns">
           <label>Atuação profissional
-            <select>
-              <!-- $BeginBlock emprego.atuacao -->
-              <option ${emprego.atuacao.selected} value="${emprego.atuacao.value}"> ${emprego.atuacao.desc}</option>
-              <!-- $EndBlock emprego.atuacao -->
+            <select name="atuacao_profissional_id">
+              <option value="">-Selecione-</option>
+              <!-- $BeginBlock atuacao -->
+              <option ${atuacao.marcado} value="${atuacao.value}"> ${atuacao.desc}</option>
+              <!-- $EndBlock atuacao -->
             </select>
           </label>
         </div>
@@ -152,92 +157,96 @@
       <div class="row">
         <div class="medium-4 small-4 columns">
           <label>País
-            <select id="emprego_pais">
-             <!-- $BeginBlock emprego.pais -->
-             <option value="${emprego.pais.value}"> ${emprego.pais.desc}</option>
-             <!-- $EndBlock emprego.pais -->
-           </select>
-         </label>
-       </div>
+            <select id="emprego_pais" name="emprego_pais_id">
+              <option value="">-Selecione-</option>
+              <!-- $BeginBlock emprego.pais -->
+              <option ${emprego.pais.marcado} value="${emprego.pais.value}"> ${emprego.pais.desc}</option>
+              <!-- $EndBlock emprego.pais -->
+            </select>
+          </label>
+        </div>
 
-       <div id="emprego_estado_div" class="medium-4 small-4 columns hide">
-        <label>Estado
-          <select id="emprego_estado">
-            <!-- $BeginBlock emprego.estado -->
-            <option value="${emprego.estado.value}"> ${emprego.estado.desc}</option>
-            <!-- $EndBlock emprego.estado -->
-          </select>
-        </label>
+        <div id="emprego_estado" class="medium-4 small-4 columns ">
+          <label>Estado
+            <select id="emprego_select_estado" >
+              <option value="">-Selecione-</option>
+              <!-- $BeginBlock emprego.estado -->
+              <option ${emprego.estado.marcado} value="${emprego.estado.value}"> ${emprego.estado.desc}</option>
+              <!-- $EndBlock emprego.estado -->
+            </select>
+          </label>
+        </div>
+
+        <div id="emprego_cidade" class="medium-4 small-4 columns ">
+          <label>Cidade
+            <select id="emprego_select_cidade" name="emprego_cidade_id">
+              <option value="">-Selecione-</option>
+              <!-- $BeginBlock emprego.cidade -->
+              <option ${emprego.cidade.marcado} value="${emprego.cidade.value}"> ${emprego.cidade.desc}</option>
+              <!-- $EndBlock emprego.cidade -->
+            </select>
+          </label>
+        </div>
+
+        <!--Esse campo deverá apareser somente se o país selecionado for diferente de Brasil--> 
+        <div id="emprego_complemento" class="row hide">
+          <div class="medium-7 small-7 columns">
+            <label>Estado/Província/Região
+              <input type="text"  name="emprego_complemento" placeholder="Digite o complemento do seu endereço." value="${emprego.complemento}">
+            </label> 
+          </div>    
+
+        </div>
       </div>
 
-      <div id="emprego_cidade_div" class="medium-4 small-4 columns hide">
-        <label>Cidade
-          <select id="emprego_cidade">
-            <!-- $BeginBlock emprego.cidade -->
-            <option value="${emprego.cidade.value}"> ${emprego.cidade.desc}</option>
-            <!-- $EndBlock emprego.cidade -->
-          </select>
-        </label>
+      <div class="row">
+        <div class="medium-4 small-4 columns">
+          <label>Faixa Salarial
+            <select name="faixa_salarial_id">
+              <option value="">-Selecione-</option>
+              <!-- $BeginBlock faixa -->
+              <option ${faixa.marcado} value="${faixa.value}"> ${faixa.desc}</option>
+              <!-- $EndBlock faixa -->
+            </select>
+          </label>
+        </div>
       </div>
+    </fieldset>
 
-      <!--Esse campo deverá apareser somente se o país selecionado for diferente de Brasil--> 
-      <div id="emprego_complemento" class="row">
-        <div class="medium-7 small-7 columns">
-          <label>Estado/Província/Região
-            <input type="text"  name="" placeholder="Digite o complemento do seu endereço." value="${emprego.complemento}">
-          </label> 
-        </div>    
-        
+    <!--Seção para Redes Sociais--> 
+    <fieldset>
+     <legend>Redes Sociais</legend>
+
+     <div class="row">
+      <div class="medium-12 small-12 columns ">
+        <label>Twitter<input type="text" name="twitter" value="${twitter}"></label>
       </div>
     </div>
 
     <div class="row">
-      <div class="medium-4 small-4 columns">
-        <label>Faixa Salarial
-          <select>
-           <!-- $BeginBlock emprego.faixa -->
-           <option ${emprego.faixa.selected} value="${emprego.faixa.value}"> ${emprego.faixa.desc}</option>
-           <!-- $EndBlock emprego.faixa -->
-         </select>
-       </label>
-     </div>
+      <div class="medium-12 small-12 columns ">
+        <label>Linkedin<input type="text" name="linkedin" value="${linkedin}"></label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="medium-12 small-12 columns ">
+        <label>Facebook<input type="text" name="facebook" value="${facebook}"></label>
+      </div>
+    </div>
+  </fieldset>
+
+  <hr />
+
+  <div class="row panel callout">
+   <div class="medium-12 columns">
+     <input name="is_dado_publico" id="checkbox" type="checkbox" ${egresso.dados_publico} /><label for="checkbox">Deseja tornar visíveis no seu perfil os dados de telefone, e-mail e redes sociais?</label>
    </div>
- </fieldset>
-
- <!--Seção para Redes Sociais--> 
- <fieldset>
-   <legend>Redes Sociais</legend>
-
-   <div class="row">
-    <div class="medium-12 small-12 columns ">
-      <label>Twitter<input type="text" name="" value="${twitter}"></label>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="medium-12 small-12 columns ">
-      <label>Linkedin<input type="text" name="" value="${linkedin}"></label>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="medium-12 small-12 columns ">
-      <label>Facebook<input type="text" name="" value="${facebook}"></label>
-    </div>
-  </div>
-</fieldset>
-
-<hr />
-
-<div class="row panel callout">
- <div class="medium-12 columns">
-   <input id="checkbox" type="checkbox" ${egresso.dados_publico} /><label for="checkbox">Deseja tornar visíveis no seu perfil os dados de telefone, e-mail e redes sociais?</label>
  </div>
-</div>
 
-<hr /> 
-<!-- botões --> 
-<div class="row">
+ <hr /> 
+ <!-- botões --> 
+ <div class="row">
   <div class="medium-2 small-3 columns right">
     <button class="button success tiny radius" type="submit">Alterar dados</button>
   </div>
@@ -255,13 +264,100 @@
 
 <!-- $Include templates/lib/html/footerscripts.html --> 
 <script src="templates/lib/js/jquery.mask.min.js"></script>
+<script src="templates/lib/js/ajax.js"></script>
 
 <script>
 $(document).ready(function(){
   $('.telefone').mask('(99) 9999-9999');
 
+  //Escondendo campos de localidade. 
+  switchEmprego(); 
+  switchEgresso(); 
 
-});
+  $('#form').on('valid', function() {
+    var data = $(this).serializeArray(); 
+
+    sendAjax('index.php?uc=manterUsuario&a=alterarDados','POST',data,function(data){
+      data = JSON.parse(data); 
+
+      if(data['status']){
+        alertify.success("O cadastro foi feito com sucesso");  
+      }
+      else
+        alertify.error(data['msg']); 
+    });
+    
+  });
+
+   //Script final
+   $('#emprego_pais').change(function(){switchEmprego()}); 
+   $('#egresso_pais').change(function(){switchEgresso()}); 
+
+   $('#emprego_select_estado').change(function(){
+    var value = $('#emprego_select_estado option:selected ').val(); 
+    var text = $('#emprego_select_estado option:selected ').text(); 
+
+    sendAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
+      data = JSON.parse(data); 
+      $('#emprego_select_cidade > option').each(function(){ this.remove(); }); 
+
+      $.each(data, function (i, item) { 
+        $('#emprego_select_cidade').append($('<option>', { 
+          value: item,
+          text : item 
+        }));
+      });
+      alertify.success("As cidades do estado do(e) <b>"+text+"</b> foram carregadas."); 
+    }); 
+
+  }); 
+
+   $('#egresso_select_estado').change(function(){
+    var value = $('#egresso_select_estado option:selected ').val(); 
+    var text = $('#egresso_select_estado option:selected ').text(); 
+
+    sendAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
+      data = JSON.parse(data); 
+      $('#egresso_select_cidade > option').each(function(){ this.remove(); }); 
+
+      $.each(data, function (i, item) { 
+        $('#egresso_select_cidade').append($('<option>', { 
+          value: item,
+          text : item 
+        }));
+      });
+      alertify.success("As cidades do estado do(e) <b>"+text+"</b> foram carregadas.");
+    }); 
+
+  }); 
+ });
+
+
+function switchEmprego(){
+  var value = $('#emprego_pais option:selected ').val(); 
+  if( value == 33 ){
+    $('#emprego_complemento').addClass('hide'); 
+    $('#emprego_estado').removeClass('hide');
+    $('#emprego_cidade').removeClass('hide');
+  }else{
+    $('#emprego_complemento').removeClass('hide'); 
+    $('#emprego_estado').addClass('hide');
+    $('#emprego_cidade').addClass('hide');
+  }
+}
+
+function switchEgresso(){
+  var value = $('#egresso_pais option:selected ').val(); 
+  if( value == 33 ){
+    $('#egresso_complemento').addClass('hide'); 
+    $('#egresso_estado').removeClass('hide');
+    $('#egresso_cidade').removeClass('hide');
+  }else{
+    $('#egresso_complemento').removeClass('hide'); 
+    $('#egresso_estado').addClass('hide');
+    $('#egresso_cidade').addClass('hide');
+  }
+}
 </script>
 </body>
 </html>

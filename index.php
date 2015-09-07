@@ -30,7 +30,8 @@ if( empty($_REQUEST['uc']) || empty($_REQUEST['a'])){
 	$_REQUEST['a']  = 'loginView'; 
 }
 
-(new MainController() )->findMyController(); 
+$controller = new MainController(); 
+$controller->findMyController(); 
 
 //Ainda em digivolvimento
 //$mail = new Mail(); 

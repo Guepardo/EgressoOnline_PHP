@@ -85,4 +85,9 @@ class TelaPrincipalView extends GenericView
 		}
 		parent::show(); 
 	}
+
+	public function tutorialView(){
+		parent::getTemplateByAction('tutorial'); 
+		parent::show(); 
+	}
 }

@@ -1,5 +1,6 @@
 <?php 
 require_once(PATH.'Library'.DS.'WideImage'.DS.'WideImage.php'); 
+
 class Image
 {
 	private $path = "Midia"; 
