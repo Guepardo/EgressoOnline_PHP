@@ -55,7 +55,7 @@
                 <input type="text" placeholder="Pessoas e turmas" id="search_value">
               </div>
               <div class="large-4 small-3 columns">
-                <a href="#" class="button tiny" id="search_btn" id='2'><i class="fa fa-search"></i></a>
+                <a href="#" class="button tiny" id='2'  ><i class="fa fa-search"></i></a>
               </div>
             </div>
           </li>
@@ -71,24 +71,24 @@
 
   <div class="row perfil_box fix-container" >
 
-   <div class="large-3 columns">
-    <div class="panel" style="height: 280px;">
+  <div class="large-3 columns">
+    <div class="panel" style="height: 280px;" id='3'>
       <a href="#"><img src="Midia/default.png" class="perfil_large" /></a>
-      <h6 style="font-size:15px;">Marcia Pereira</h6>
+      <h6 style="font-size:15px;">Jackson Pereira da Silva</h6>
       <!-- separator -->
     </hr>
     <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
 
       <section class="section">
-        <i class="fa fa-eye tittle">34</i>
+        <i class="fa fa-eye tittle">120</i>
       </section>
     </div>
   </div>
 </div>
-<div class="large-6 columns" id='5'>
+<div class="large-6 columns">
   <form>
    <!--  <label>Compartilhe alguma coisa. --> 
-   <textarea id="post_content" placeholder="Compartilhe alguma coisa" style="height:210px;" ></textarea>
+   <textarea id="5" placeholder="Compartilhe alguma coisa" style="height:210px;"></textarea>
    <!--  </label> -->
  </form>
  <a href="#" id="publicar" class="button expand">Postar</a>
@@ -96,14 +96,14 @@
 
 <div class="large-3 columns">
   <ul class="stack button-group">
-    <li><a href="index.php?uc=manterUsuario&a=alterarDadosView" class="button" ><i class="fa fa-pencil fa-fw" style="float:left;" ></i>Alterar Dados</a></li>
-    <li><a href="index.php?uc=visualizar&a=oportunidadesView" class="button"><i class="fa fa-book fa-fw" style="float:left;"></i>Oportunidades</a></li>
+    <li><a id='4' href="index.php?uc=manterUsuario&a=alterarDadosView" class="button" ><i class="fa fa-pencil fa-fw" style="float:left;" ></i>Alterar Dados</a></li>
+    <li><a href="index.php?uc=visualizar&a=oportunidadesView" class="button"><i class="fa fa-book fa-fw" style="float:left;" id="12"></i>Oportunidades</a></li>
 
     <li>
       <!--DropDown para divulgar-->
-      <button href="#" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown"><i class="fa fa-wifi fa-fw"style="float:left;" id='6'></i>Divulgar</a></li></button>
+      <button id="9" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button dropdown"><i class="fa fa-wifi fa-fw"style="float:left;"></i>Divulgar</a></li></button>
       <ul id="drop1" data-dropdown-content class="f-dropdown" aria-hidden="true">
-        <li><a href="#" data-reveal-id="modal_emprego" >Emprego</a></li>
+        <li><a href="#" data-reveal-id="modal_emprego">Emprego</a></li>
         <li><a href="#" data-reveal-id="modal_pos">Pós-graduação</a></li>
       </ul>
       <!--Fim DropDown --> 
@@ -111,17 +111,14 @@
 
     <li>
      <!--DropDown para divulgar-->
-     <button href="#" data-dropdown="drop2" aria-controls="drop2" aria-expanded="false" class="button dropdown"><i class="fa fa-cog fa-fw"style="float:left;"></i>Configurações</a></li></button><br>
+     <button id='13' data-dropdown="drop2" aria-controls="drop2" aria-expanded="false" class="button dropdown"><i class="fa fa-cog fa-fw"style="float:left;"></i>Configurações</a></li></button><br>
 
-     <ul id="drop2" data-dropdown-content class="f-dropdown" aria-hidden="true">
-      <li><a href="index.php?uc=configurar&a=configurarView" >Notificações via e-mail</a></li>
-      <li><a href="index.php?uc=manterUsuario&a=gerenciarCpView" >Gerência de pós-graduações</a></li>
-    </ul>
+     ${tela.configuracao}
 
-    <!--Fim DropDown --> 
-  </li>
+     <!--Fim DropDown --> 
+   </li>
 
-</ul>
+ </ul>
 </div>
 
 </div>
@@ -132,40 +129,29 @@
   </div>
 </div>
 
+
+
 <!--conteúdo--> 
-<div class="row" >
+<div class="row" style="min-height:50%;">
  <div class="medium-12 columns" id="container" style="margin:0">
 
 
-   <div class="medium-4 columns panel msg " id='3'>
+   <div class="medium-4 columns panel msg " >
     <div class="row">
-      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small" /></div>
+      <div class="medium-3 columns small-3" ><a class="bnt_mensagem"><img src="Midia/default.png" class="perfil_small" id="7"/></a>  </div>
       <div class="medium-9 columns" style="padding-left:0;"><i>Maria Paula</i> <br><small>às 20:30, 04/04/2015</small></div>
-      <div class="medium-12 columns">
+      <div class="medium-12 columns" id="6">
         <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
         </p>
       </div>
     </div>
   </div>
 
-  <div class="medium-4 columns panel msg ">
-    <div class="row">
-      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small"  /></div>
-      <div class="medium-9 columns" style="padding-left:0;"><i>Maria Paula</i> <br><small>às 20:30, 04/04/2015</small></div>
-      <div class="medium-12 columns">
-        <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
-        </p>
-      </div>
-    </div>
-  </div>
-
-
-
-
-  <div class="medium-4 columns panel msg ">
-    <div class="row">
-      <div class="medium-3 columns small-3" ><img src="http://lorempixel.com/people/120/120/" class="perfil_small"  /></div>
-      <div class="medium-9 columns" style="padding-left:0;"><i>Maria Paula</i> <br><small>às 20:30, 04/04/2015</small></div>
+  <div class="medium-4 columns panel msg " id="8">
+    <i class="fa fa-envelope right"  style="margin-bottom: -20px;"></i>
+    <div class="row"  >
+      <div class="medium-3 columns small-3" ><img src="Midia/default.png" class="perfil_small"  /></div>
+      <div class="medium-9 columns" style="padding-left:0;"><i >Maria Paula</i> <br><small>às 20:30, 04/04/2015</small></div>
       <div class="medium-12 columns">
         <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud .
         </p>
@@ -174,14 +160,12 @@
   </div>
 
 
-  <div class="medium-4 columns op" id='7'>
-    <div class="row">
-      <ul class="pricing-table">
-        <li class="title">Vaga na aera de TI</li>
-        <li class="price">Salário: $99.99</li>
-        <li class="cta-button"><a class="button tiny" href="#">Ver detalhes</a></li>
-      </ul>
-    </div>
+  <div class="medium-4 columns msg " style="padding:0;" id="10">
+    <ul class="pricing-table">
+      <li class="title">Vaga na aera de TI</li>
+      <li class="price" style="height: 82px;">Salário: $99.99</li>
+      <li class="cta-button" style="height: 120px;"><a class="button tiny" id="11" href="#">Ver detalhes</a></li>
+    </ul>
   </div>
 
 
@@ -189,9 +173,9 @@
 </div>
 
 <!--Loading--> 
-<div class="row" >
+<div class="row">
   <div class="small-1 small-centered columns">
-    <i class="fa fa-refresh fa-spin fa-3x" id='4'></i>
+    <i id="14" class="fa fa-refresh fa-spin fa-3x"></i>
   </div>
 </div>
 
@@ -200,42 +184,82 @@
 <ol class="joyride-list" data-joyride>
   <!--Logo-->
   <li data-id="1" data-text="Próximo" data-options="tip_location: top; prev_button: false">
-    <p>Bem-vindo ao EgressoOnline <br>Uma rede para os egressos do curso de Sistemas de Informação.</p>
+    <p class="text-justify" >Bem-vindo ao EgressoOnline <br>Uma rede para os egressos do curso de Sistemas de Informação.</p>
   </li>
   <!--Buscar-->
   <li data-id="2" data-class="custom so-awesome" data-text="Próximo" data-prev-text="Anterior">
-    <h4>Encontrando uma turma e um egresso</h4>
-    <p>Você pode procurar por turmas ou por outros egressos. Você pode digitar um ano, por exemplo 2015 ou o nome incompleto de alguém que você conhece. </p>
+    <h4>Perfis de turma e egressos</h4>
+    <p class="text-justify" >Você pode procurar por turmas ou por outros egressos. A busca é feita a partir de um ano de conclusão ou o nome incompleto de um professor, coordenador ou egresso que você possa conhecer.</p>
   </li>
   <!--Mensagem-->
   <li data-id="3" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
-    <h4>Entendendo as mensagens</h4>
-    <p>Toda mensagem pública ou que é direcionada somenta para você aparecerá neste formato para você.</p>
+    <h4>Informações sobre o seu perfil</h4>
+    <p class="text-justify" >Este conteiner armazena informações básicas sobre o seu perfil, como a foto, nome e quantidade de pessoas que visitaram o seu perfil.</p>
   </li>
   <!--loading infinito-->
   <li data-id="4" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
-    <h4>Carregando mais mensagens</h4>
-    <p>Basta chegar até o fim da página para que seja carregado mais mensagens.</p>
+    <h4>Alterando dados</h4>
+    <p class="text-justify" >Seus dados pessoais podem ser atualizados aqui, inclusive a sua foto de perfil e senha.</p>
   </li>
   <!-- Postando uma mensagem -->
   <li data-id="5" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
-    <h4>Como postar uma mensagem</h4>
-    <p>Escreva um pensamento ou novidade e envie para todos os egressos do site.</p>
+    <h4>Mensagem em massa</h4>
+    <p class="text-justify" >O texto que é enviado a partir deste container será visível para todos os usuário.</p>
   </li>
   <!-- Oportunidade -->
   <li data-id="6" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
-    <h4>Compartilhando oportunidades</h4>
-    <p>Com essa função você poderá divulgar sobre oportunidades de emprego e pós-graduação para seus colegas de universidade e de profissão.</p>
+    <h4>Mensagem em massa</h4>
+    <p class="text-justify" >As mensagens que são enviadas são visualizadas desta forma na tela principal dos usuários.</p>
   </li>
   <!--Visualizando uma oportunidade -->
   <li data-id="7" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
-    <h4>Visualizando uma oportunidade</h4>
-    <p>As oportunidades divulgadas serão apresentadas neste formato para os usuários do site.</p>
+    <h4>Mensagem direta</h4>
+    <p class="text-justify" >Caso seja necessário manter uma linha de diálogo sigilosa com outro usuário, basta clicar na foto da caixa de mensagem.</p>
+    <img src="Midia/modal_msg_direta.PNG" style="margin-bottom: 10px;">
+    <p class="text-justify" >Mensagens diretas também são enviadas pelo perfil do usuário.</p>
   </li>
+  <!--Visualizando uma oportunidade -->
+  <li data-id="8" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
+    <h4>Mensagem direta</h4>
+    <p class="text-justify" >As mensagens que são somente para você aparecem com este símbolo <i class="fa fa-envelope right"></i> na sua tela principal.</p>
+  </li>
+  <!--Visualizando uma oportunidade -->
+  <li data-id="9" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
+    <h4>Compartilhando oportunidades</h4>
+    <p class="text-justify" >A plataforma dá suporte para que os usuários compatilhem oportunidades de emprego e de pós-graduação.</p>
+  </li>
+  <!-- -->
+  <li data-id="10" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
+    <h4>Compartilhando oportunidades</h4>
+    <p class="text-justify" >As oportunidades divulgadas aparecem neste formato para os demais usuários.</p>
+  </li>
+  <!-- -->
+  <li data-id="11" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
+    <h4>Visualizando uma oportunidade</h4>
+    <p class="text-justify" >Clicando neste botão a oportunidade será apresentada com mais detalhes.</p>
+    <img src="Midia/op_emprego.PNG" style="margin-bottom: 10px;">
+  </li>
+  <!-- -->
+  <li data-id="12" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
+    <h4>Visualizando uma oportunidade</h4>
+    <p class="text-justify" >Há um local decidado apenas para a listagem das oportunidades. Dessa forma é mais fácil encontrar o que você procura.</p>
+  </li>
+  <!-- -->
+  <li data-id="13" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
+    <h4>Configurações</h4>
+    <p class="text-justify" >Aqui você pode definir quais tipos de pós-graduações e área de emprego que mais lhe interessa e receber notificações via e-mail quando algo similar ao seu gosto for submetido.</p>
+  </li>
+  <!-- -->
+  <li data-id="14" data-button="Próximo" data-prev-text="Anterior" data-options="tip_location:top;tip_animation:fade">
+    <h4>Carregando mais mensagens</h4>
+    <p class="text-justify" >Basta alcançar o fim da página que as mensagens serão carregadas automaticamente.</p>
+  </li>
+
   <li data-button="Fim" data-prev-text="Anterior">
     <h4>Até mais</h4>
-    <p>Aproveite a plataforma.</p>
+    <p class="text-justify" >Aproveite a plataforma.</p>
   </li>
+
 </ol>
 <!-- FIM MODAIS --> 
 

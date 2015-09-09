@@ -926,14 +926,14 @@
 
     var row = '<div class="medium-4 columns panel msg ">  '+temp+'<div class="row"> <div class="medium-3 columns small-3"><a class="bnt_mensagem"><img src="'+data['foto']+'" class="perfil_small" /></a></div> <input type="hidden" value="'+data['id_user_origem']+'" /> <div class="medium-9 columns" style="padding-left:0;"></i><i id="remetente">'+data['remetente']+'</i><br> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
 
-    $('#container').append(row).children(':last').hide().fadeIn(500); 
+    $('#container').append(row).children(':last').hide().fadeIn(700); 
   }
 
   function addOpor(data){
    var titulo = (data['graduacao']) ? "Pós-Graduacao" : "Emprego"; 
    var row = '<div class="medium-4 columns msg" style="padding:0;"> <ul class="pricing-table"> <li class="title">Oportunidade</li> <li class="price" style="height: 82px;">'+titulo+'</li> <li class="cta-button" style="height: 120px;"><a class="button tiny action_op" value="'+data['id']+'-'+data['graduacao']+'">Ver detalhes</a></li> </ul>  </div>'; 
 
-   $('#container').append(row).children(':last').hide().fadeIn(500);  
+   $('#container').append(row).children(':last').hide().fadeIn(700);  
 
    $('.action_op').unbind().click(function(){
     var result = $(this).attr('value').split('-'); 

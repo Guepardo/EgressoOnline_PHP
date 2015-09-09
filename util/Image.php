@@ -24,8 +24,8 @@ class Image
 		if($_FILES[$name]['size'] > $this->tam )
 			return 1; 
 		
-		$extension = strtolower(explode('.',$_FILES[$name]['name'])[1]); 
-
+		$extension = strtolower(explode('.',$_FILES[$name]['name'])); 
+		$extension = $extension[1]; 
 		if(strcmp($extension,'png') != 0 && strcmp($extension,'jpg') != 0 )
 			return 3; 
 
