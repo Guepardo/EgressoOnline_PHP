@@ -996,6 +996,7 @@ function buildDirectMsg(data){
 }
 
 function buildViewEmprego(data){
+  console.log(data); 
   $('#divulgado_emprego').text("Divulgado em "+data['data_divulgacao']);
   $('#empresa_emprego').text(data['empresa']); 
   $('#area_emprego').text(data['atuacao_profissional']); 
@@ -1007,7 +1008,7 @@ function buildViewEmprego(data){
   $('#estado_emprego').text(data['estado']); 
   $('#complemento_emprego').text(data['complemento']); 
   $('#cidade_emprego').text(data['cidade']); 
-  $('#graduacao_emprego').text(data['atuacao_profissional']); 
+  $('#graduacao_emprego').text(data['titulo_academico']); 
   $('#atividade_emprego').text(data['info_adicionais']); 
 
   if(data['complemento'] != '' ){
