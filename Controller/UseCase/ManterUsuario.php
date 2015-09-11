@@ -333,6 +333,7 @@ class ManterUsuario extends GenericController{
 		$egresso->qtdFilhos 		= $arg['qtd_filhos']; 
 		$egresso->endereco 			= $arg['endereco']; 
 		$egresso->isDadoPublico  	= !empty($arg['is_dado_publico']); 
+		$egresso->alterouDado       = 1; //diz que o usuário já alterou os dados ao menos uma vez. 
 		$egresso->update(); 
 		
 		if((int) $arg['egresso_pais_id'] == 33 ){

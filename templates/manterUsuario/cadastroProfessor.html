@@ -97,7 +97,6 @@ $(document).ready(function(){
 
 
     sendAjax('index.php?uc=manterUsuario&a=cadastroProfessor','POST',data,function(data){
-      alertify.log(data); 
       data = JSON.parse(data); 
 
       if(data['status'])

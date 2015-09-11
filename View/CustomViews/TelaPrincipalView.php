@@ -13,6 +13,7 @@ class TelaPrincipalView extends GenericView
 
 		Lumine::import("Pais"); 
 		Lumine::import("Usuario"); 
+		Lumine::import("Egresso"); 
 		
 		$pais = new Pais(); 
 		$pais->find(); 
@@ -32,6 +33,16 @@ class TelaPrincipalView extends GenericView
 		parent::$templator->setVariable('nome', $usuario->nome); 
 		parent::$templator->setVariable('foto', $usuario->foto);
 		parent::$templator->setVariable('visualizacao', $usuario->visualizacao); 
+
+		//Verificando se é egresso: 
+		$egresso = new Egresso(); 
+		$total = $egresso->get('usuarioId', $usuario->id); 
+
+		if($total < 0 ){
+			parent::$templator->setVariable('alterou_dado', 1 ); 
+		}else{
+			parent::$templator->setVariable('alterou_dado', $egresso->alterouDado ); 
+		}
 
 		while( $pais->fetch() ){
 			parent::$templator->setVariable("emprego.pais.id", $pais->id ); 

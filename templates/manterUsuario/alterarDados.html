@@ -289,12 +289,10 @@ $(document).ready(function(){
     var data = $(this).serializeArray(); 
 
     sendAjax('index.php?uc=manterUsuario&a=alterarDados','POST',data,function(data){
-      alertify.log(data);
       data = JSON.parse(data); 
 
       if(data['status']){
-        alertify.success("O cadastro foi feito com sucesso");  
-        window.location.reload(); 
+        alertify.success("Dados alterados com sucesso.");  
       }
       else
         alertify.error(data['msg']); 

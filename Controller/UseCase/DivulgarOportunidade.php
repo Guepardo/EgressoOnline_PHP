@@ -99,7 +99,6 @@ class DivulgarOportunidade extends GenericController {
 
 	//$id do registo da notificação recem cadastrada: 
 	public function notificacaoPos($id){
-		$id = (int) $id['id']; 
 
  		Lumine::import("Oportunidade"); 
  		Lumine::import("OpPosGraduacao");
@@ -135,7 +134,6 @@ class DivulgarOportunidade extends GenericController {
 
 	//$id do registo da notificação recem cadastrada: 
 	public function notificacaoEmprego($id){
-		$id = (int) $id['id']; 
 
  		Lumine::import("Oportunidade"); 
  		Lumine::import("OpEmprego");

@@ -57,6 +57,8 @@
   </div>
   <!-- Fim Notificações -->
 
+  <input type='hidden' id="alterou_dado" value="${alterou_dado} ">
+
   <div class="large-3 columns">
     <div class="panel" style="height: 280px;">
       <a href="#"><img src="${foto}" class="perfil_large" /></a>
@@ -735,6 +737,10 @@
       $(document).ready(function(){ 
         $('.telefone').mask('(99) 9999-9999');
 
+        //Modal para alterar os dados: 
+        var interval; 
+        lancarModalAlterouDados();
+        
         //Tratando mensagens diretas na timeline
         $("#bnt_mensagem").click(function(){
           var id = $(this).val(); 
@@ -753,7 +759,7 @@
               $('#mensagem_direta').foundation('reveal', 'close');
               alertify.success("Mensagem enviada."); 
             }else
-              alertify.error(data['msg']); 
+            alertify.error(data['msg']); 
           }); 
         }); 
 
@@ -763,7 +769,7 @@
     var data = $(this).serializeArray(); 
 
     sendAjax('index.php?uc=divulgar&a=emprego','POST',data,function(data){
-      alertify.log(data); 
+      alertify.message(data); 
       data = JSON.parse(data); 
 
       if(data['status'])
@@ -778,7 +784,7 @@
     var data = $(this).serializeArray(); 
 
     sendAjax('index.php?uc=divulgar&a=posGraduacao','POST',data,function(data){
-      alertify.log(data); 
+      alertify.message(data); 
       data = JSON.parse(data); 
 
       if(data['status'])
@@ -893,7 +899,7 @@
           data = JSON.parse(data); 
 
           if( data['status'] != null && !data['status']){
-            alertify.log("Não há mais mensagens antes deste período :"+ date);  
+            alertify.message("Não há mais mensagens antes deste período :"+ date);  
             return;  
           }
           for(var a = 0 ; a < data.length ; a++ ){
@@ -993,6 +999,19 @@ function buildDirectMsg(data){
   $("#bnt_mensagem").val(jQuery(data).find('input').val()); 
   $("#msg_content").val(''); 
   $('#mensagem_direta').foundation('reveal', 'open');
+}
+
+function lancarModalAlterouDados(){
+  var alterouDado = parseInt($("#alterou_dado").val()); 
+
+  if(!alterouDado){
+    interval = setInterval(function(){
+      alertify.confirm('Hey, parece que você ainda não atualizou seus dados. Quer fazer isso agora mesmo?').set('labels', {ok:'Sim', cancel:'Faço isso mais tarde'}).set('onok',function(evento){
+        alertify.message("redirecitonando....")
+      }); 
+      clearInterval(interval); 
+    },10500); 
+  }
 }
 
 function buildViewEmprego(data){

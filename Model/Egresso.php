@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "egresso"
- * in 2015-09-07
+ * in 2015-09-10
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -23,6 +23,7 @@ class Egresso extends Lumine_Base {
     public $localidadeId;
     public $turmaId;
     public $estadoCivilId;
+    public $alterouDado;
     public $egressohasredesociais = array();
     
     
@@ -50,6 +51,7 @@ class Egresso extends Lumine_Base {
         $this->metadata()->addField('localidadeId', 'localidade_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Localidade'));
         $this->metadata()->addField('turmaId', 'turma_id', 'int', 11, array('primary' => true, 'notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'Turma'));
         $this->metadata()->addField('estadoCivilId', 'estado_civil_id', 'int', 11, array('notnull' => true, 'foreign' => '1', 'onUpdate' => 'RESTRICT', 'onDelete' => 'RESTRICT', 'linkOn' => 'id', 'class' => 'EstadoCivil'));
+        $this->metadata()->addField('alterouDado', 'alterou_dado', 'boolean', 1, array('default' => '0'));
 
         
         $this->metadata()->addRelation('egressohasredesociais', Lumine_Metadata::ONE_TO_MANY, 'EgressoHasRedeSocial', 'usuarioId', null, null, null);
