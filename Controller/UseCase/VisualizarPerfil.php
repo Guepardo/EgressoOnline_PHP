@@ -10,11 +10,13 @@ private $visualizarPerfilView;
 		$this->visualizarPerfilView = new VisualizarPerfilView(); 
 	}	
 
+	/** @BlockList({'visitante'}) */
 	public function perfilUserView($arg){
 		$id = (int) $arg['id']; 
 		$this->visualizarPerfilView->perfilUserView($id); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function perfilTurmaView($arg){
 		$id = (int) $arg['id']; 
 		$this->visualizarPerfilView->perfilTurmaView($id); 

@@ -10,10 +10,12 @@ class Relatorios extends GenericController {
 		$this->relatoriosView = new RelatoriosView(); 
 	}	
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function relatorioView(){
 		$this->relatoriosView->relatorioView(); 
 	}
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function relatorio($arg){
 		$qual = (int) $arg['cod']; 
 

@@ -27,6 +27,7 @@ class Autenticar extends GenericController {
 		$isCoordenador = false; 
 		$isProfessor   = false;
 		$isEgresso     = false; 
+		$isVisitante   = true; 
 
 		Lumine::import("Usuario"); 
 		$usuario = new Usuario(); 
@@ -37,6 +38,7 @@ class Autenticar extends GenericController {
 		$status = is_string($usuario->id); 
 
 		if($status){
+			$isVisitante   = false; 
 			$_SESSION['user_id'] = (int) $usuario->id; 
 			Lumine::import("Egresso");
 
@@ -61,9 +63,9 @@ class Autenticar extends GenericController {
 			}
 		}
 		
-		$_SESSION['user'] = array('egresso' => $isEgresso, 'professor' => $isProfessor, 'coordenador' => $isCoordenador); 
+		$_SESSION['user'] = array('egresso' => $isEgresso, 'professor' => $isProfessor, 'coordenador' => $isCoordenador, 'visitante' => $isVisitante); 
 
-		$this->autenticarView->sendAjax( array( "status" => $status,'user' => $_SESSION['user']) ); 
+		$this->autenticarView->sendAjax( array( "status" => $status)); 
 	}
 
 	/** @BlockList({'noblock'}) */
@@ -109,7 +111,7 @@ class Autenticar extends GenericController {
 		$this->autenticarView->sendAjax(array("status" => true ) ); 
 	}
 
-	/** @BlockList({'visitante'}) */
+	/** @BlockList({'noblock'}) */
 	public function logout(){
 		session_destroy();
 		$this->autenticarView->loginView(); 

@@ -17,6 +17,7 @@ class GenericView {
 
 	protected function show() {
 		self::$templator->generateOutput();
+		exit;
 	}
 
 	protected function loadTemplate($path){

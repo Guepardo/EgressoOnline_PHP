@@ -57,8 +57,6 @@
   </div>
   <!-- Fim Notificações -->
 
-  <input type='hidden' id="alterou_dado" value="${alterou_dado} ">
-
   <div class="large-3 columns">
     <div class="panel" style="height: 280px;">
       <a href="#"><img src="${foto}" class="perfil_large" /></a>
@@ -739,8 +737,16 @@
 
         //Modal para alterar os dados: 
         var interval; 
+        //control = a função refresh está fazendo uma requisição
+        //locker  = já leu todas as mensagens, não fazer mais solicitações. 
+         
+        var control = false, locker = false; 
+        var intervalo; 
+        var date = ""; 
+
         lancarModalAlterouDados();
-        
+        refresh(); 
+
         //Tratando mensagens diretas na timeline
         $("#bnt_mensagem").click(function(){
           var id = $(this).val(); 
@@ -759,7 +765,7 @@
               $('#mensagem_direta').foundation('reveal', 'close');
               alertify.success("Mensagem enviada."); 
             }else
-            alertify.error(data['msg']); 
+            alertify.warning(data['msg']); 
           }); 
         }); 
 
@@ -882,52 +888,15 @@
         alertify.success("Sua mensagem foi publicada."); 
         $("textarea#post_content").val('');
       }else{
-        alertify.error("Houve algum problema"); 
+        alertify.warning(data['msg']); 
       } 
     });    
   });
 
   //Tirar isso aqui mais tarde. 
-  var control = false; 
-  var intervalo; 
-  var date = ""; 
+  
 
-  $(window).scroll(function () 
-  {
-    if(control) return;
-    if ( $(document).scrollTop() >= ($(document).height() - 900) ) 
-    {
-      control = true; 
-      intervalo = setInterval(function(){
-
-        sendAjax("index.php?uc=telaPrincipal&a=feed","POST",{'date' : date},function(data){
-          data = JSON.parse(data); 
-
-          if( data['status'] != null && !data['status']){
-            alertify.message("Não há mais mensagens antes deste período :"+ date);  
-            return;  
-          }
-          for(var a = 0 ; a < data.length ; a++ ){
-            if(data[a]['post'])
-              addMsg(data[a]); 
-            else
-              addOpor(data[a]); 
-          }
-
-          if(data.length > 0)
-            date = data[data.length-1]['data_envio']; 
-
-          $(".bnt_mensagem").unbind().click(function(){
-            buildDirectMsg(this); 
-          });
-
-        }); 
-
-        control = false;
-        clearInterval(intervalo); 
-      },500);
-    }
-  });
+  $(window).scroll(function(){refresh()});
 
   function addMsg(data){
 
@@ -1006,13 +975,52 @@ function buildDirectMsg(data){
   $('#mensagem_direta').foundation('reveal', 'open');
 }
 
+function refresh(){
+  if(locker) return; 
+
+  if(control) return;
+
+  if ( $(document).scrollTop() >= ($(document).height() - 900) ) 
+  {
+    control = true; 
+    intervalo = setInterval(function(){
+
+      sendAjax("index.php?uc=telaPrincipal&a=feed","POST",{'date' : date},function(data){
+        data = JSON.parse(data); 
+
+        if( data['status'] != null && !data['status']){
+          alertify.warning("Não há mais mensagens antes deste período de "+ dataFormat(date), "", 0);  
+          locker = true; 
+          return;  
+        }
+        for(var a = 0 ; a < data.length ; a++ ){
+          if(data[a]['post'])
+            addMsg(data[a]); 
+          else
+            addOpor(data[a]); 
+        }
+
+        if(data.length > 0)
+          date = data[data.length-1]['data_envio']; 
+
+        $(".bnt_mensagem").unbind().click(function(){
+          buildDirectMsg(this); 
+        });
+
+      }); 
+
+      control = false;
+      clearInterval(intervalo); 
+    },500);
+  }
+}
 function lancarModalAlterouDados(){
   var alterouDado = parseInt($("#alterou_dado").val()); 
 
   if(!alterouDado){
     interval = setInterval(function(){
       alertify.confirm('Hey, parece que você ainda não atualizou seus dados. Quer fazer isso agora mesmo?').set('labels', {ok:'Sim', cancel:'Faço isso mais tarde'}).set('onok',function(evento){
-        alertify.message("redirecitonando....")
+        redirect('index.php',{uc : 'manterUsuario', a : 'alterarDadosView' },'GET'); 
       }); 
       clearInterval(interval); 
     },10500); 

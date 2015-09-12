@@ -9,10 +9,12 @@ class VisualizarOportunidade extends GenericController {
 		$this->visuOportunidadeView = new VisualizarOportunidadeView(); 
 	}	
 
+	/** @BlockList({'visitante'}) */
 	public function oportunidadesView(){
 		$this->visuOportunidadeView->oportunidadesView(); 
 	}
 	
+	/** @BlockList({'visitante'}) */
 	public function emprego($arg){
 		//Criar a validaçao dos campos posteriormente; 
 		$id = (int) $arg['id'];
@@ -57,6 +59,7 @@ class VisualizarOportunidade extends GenericController {
 		die(json_encode($array)); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function posGraduacao($arg){
 		//Criar a validaçao dos campos posteriormente; 
 		$id = (int) $arg['id'];

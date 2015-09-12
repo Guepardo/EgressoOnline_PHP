@@ -52,7 +52,7 @@
    	for(var i in elems)
    	{
    		var elem = elems[i];
-   		var pair = elem.split('=');
+   		var pair = elems.split('=');
    		obj[pair[0]] = pair[1];
    	}
    	

@@ -77,6 +77,7 @@ class VisualizarPerfilView extends GenericView{
 		parent::show(); 
 	}
 
+
 	public function perfilTurmaView($id){
 		parent::getTemplateByAction('perfilTurma'); 
 		Lumine::import("Turma"); 

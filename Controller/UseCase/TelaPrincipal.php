@@ -14,6 +14,34 @@ class TelaPrincipal extends GenericController {
 
 	/** @BlockList({'visitante'}) */
 	public function principalView(){
+		Lumine::import("Egresso"); 
+		Lumine::import("Usuario"); 
+		//Tratando caso especial para tela principal para egresso
+		//expor o modal para atualização dos dados somente para ele. 
+		 // 86400 = 1 day
+
+		if($_SESSION['user']['egresso']){
+			if(!isset($_COOKIE['egresso'])){
+				$egresso = new Egresso(); 
+				$egresso->get('usuarioId', $_SESSION['user_id']); 
+
+				//validade para o bolo é de apenas 30 minutos. 
+				setcookie('egresso', $egresso->alterouDados , 60*60 * 30, "/");
+			}
+		}
+
+		$usuario = new Usuario(); 
+		$usuario->get($_SESSION['user_id']); 
+
+		//Se for a primeira vez do usuário no sistema, rodar a tela de 
+		//tutorial. 
+		if(!$usuario->primeiraVez){
+			$usuario->primeiraVez = true; 
+			$usuario->update(); 
+
+			$this->telaPrincipalView->tutorialView();
+		}
+
 		$this->telaPrincipalView->principalView(); 
 	}
 

@@ -5,15 +5,35 @@ class Firewall{
 	}
 
 
- 	public static function permissao($class, $methodName){
- 		$result = true; //ação bloqueada: 
- 		// echo("classe"+$class->sayMyName()+"nome do método: $methodName");  
- 		$reflection = new ReflectionAnnotatedMethod($class,$methodName); 
-		$annotation = $reflection->getAnnotation('BlockList');
-		
-		$isVisitante = (empty($_SESSION['user']) || (!$_SESSION['user']['egresso'] && !$_SESSION['user']['professor'] && !$_SESSION['user']['coordenador'] ));
+	public static function initFirewall(){
+		if(empty($_SESSION['user']) )
+			$_SESSION['user']['visitante'] = true; 
+	}
 
-		echo "asdfasdfkjasdf ".(int) $isVisitante;
-		var_dump($annotation->value);    
- 	}
-}
+	public static function permissao($class, $methodName){
+ 		// echo("classe"+$class->sayMyName()+"nome do método: $methodName");  
+		$reflection = new ReflectionAnnotatedMethod($class,$methodName); 
+		$blockList = $reflection->getAnnotation('BlockList');
+
+		if (in_array('noblock',$blockList->value))
+		 	return false;//Não é bloqueado. 
+
+		 $courrentUser = null; 
+
+		 foreach($_SESSION['user'] as $key => $value){
+		 	if($value){
+		 		$courrentUser = $key; 
+		 		break; 
+		 	} 
+		 }
+
+		 if (in_array($courrentUser, $blockList->value))
+		 	return true; 
+
+		 // var_dump($blockList->value); 
+		 // var_dump($_SESSION['user']); 
+		 // var_dump($courrentUser); 
+
+		 return false; 
+		}
+	}

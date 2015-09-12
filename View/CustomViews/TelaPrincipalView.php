@@ -35,16 +35,6 @@ class TelaPrincipalView extends GenericView
 		parent::$templator->setVariable('foto', $usuario->foto);
 		parent::$templator->setVariable('visualizacao', $usuario->visualizacao); 
 
-		//Verificando se é egresso: 
-		$egresso = new Egresso(); 
-		$total = $egresso->get('usuarioId', $usuario->id); 
-
-		if($total < 0 ){
-			parent::$templator->setVariable('alterou_dado', 1 ); 
-		}else{
-			parent::$templator->setVariable('alterou_dado', $egresso->alterouDado ); 
-		}
-
 		while( $pais->fetch() ){
 			parent::$templator->setVariable("emprego.pais.id", $pais->id ); 
 			parent::$templator->setVariable("emprego.pais.des", Convert::toUTF_8($pais->des)); 

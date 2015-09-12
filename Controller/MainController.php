@@ -44,6 +44,7 @@ class MainController {
 		// 2 A action existe no controlador?
 		// 3 Invocar método;
 		// 4 Gerar output.
+		Firewall::initFirewall(); 
 		$useCase = $_REQUEST ['uc'];
 		$action  = $_REQUEST ['a'];
 		
@@ -65,7 +66,9 @@ class MainController {
 		}
 		
 		//Verificando permissão
-		Firewall::permissao($controller, $realNameMethod); 
+		$block = Firewall::permissao($controller, $realNameMethod); 
+
+		if($block)die("Ação negada para esse nível de usuário"); 
 
 		$reflection = new ReflectionMethod ( $controller->sayMyName (), $realNameMethod );
 		return $reflection->invoke ( $controller, self::preparingArray( $_REQUEST ));
