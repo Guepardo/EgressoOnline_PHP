@@ -1,4 +1,6 @@
 <?php
+require_once(PATH.'Security'.DS.'Firewall.php'); 
+
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'HumanController.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'ManterUsuario.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'AjaxServices.php'); 
@@ -62,6 +64,9 @@ class MainController {
 			die('Não há ação para ser executada');
 		}
 		
+		//Verificando permissão
+		Firewall::permissao($controller, $realNameMethod); 
+
 		$reflection = new ReflectionMethod ( $controller->sayMyName (), $realNameMethod );
 		return $reflection->invoke ( $controller, self::preparingArray( $_REQUEST ));
 	}

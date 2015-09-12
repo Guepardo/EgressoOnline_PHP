@@ -12,14 +12,21 @@ class Autenticar extends GenericController {
 		$this->autenticarView = new AutenticarView(); 
 	}	
 
+	/** @BlockList({'noblock'}) */
 	public function loginView(){
 		$this->autenticarView->loginView(); 
 	}
 
+	/** @BlockList({'noblock'}) */
 	public function alterarSenhaView(){
 		$this->autenticarView->alterarSenhaView(); 
 	}
+
+	/** @BlockList({'noblock'}) */
 	public function login($arg){
+		$isCoordenador = false; 
+		$isProfessor   = false;
+		$isEgresso     = false; 
 
 		Lumine::import("Usuario"); 
 		$usuario = new Usuario(); 
@@ -37,23 +44,29 @@ class Autenticar extends GenericController {
 			$egresso->where("usuario_id = ". $usuario->id )->find(); 
 			$egresso->fetch(true); 
 
-			$_SESSION['egresso'] = ($egresso->usuarioId !=  null ); 
-			
-			$_SESSION['coordenador'] = false;
-			if( !$_SESSION['egresso'] ){ 
+			$isEgresso = ($egresso->usuarioId !=  null ); 
+
+			if( !$isEgresso ){ 
 
 			Lumine::import("Professor"); 
 				$professor = new Professor(); 
 				$professor->where("usuario_id = ". $usuario->id )->find(); 
 				$professor->fetch(true); 
 
-				$_SESSION['coordenador'] = $professor->isCoordenador; 
+				$isCoordenador = $professor->isCoordenador; 
+				if($professor->isCoordenador)
+					$isCoordenador = true; 
+				else
+					$isProfessor = true; 
 			}
 		}
-			
-		$this->autenticarView->sendAjax( array( "status" => $status ) ); 
+		
+		$_SESSION['user'] = array('egresso' => $isEgresso, 'professor' => $isProfessor, 'coordenador' => $isCoordenador); 
+
+		$this->autenticarView->sendAjax( array( "status" => $status,'user' => $_SESSION['user']) ); 
 	}
 
+	/** @BlockList({'noblock'}) */
 	public function alterarSenha($arg){
 		$codigo = $arg['codigo']; 
 		$senha  = $arg['senha']; 
@@ -77,6 +90,7 @@ class Autenticar extends GenericController {
 		$this->autenticarView->sendAjax(array("status" => true, 'msg' => 'Senha alterada com sucesso.') ); 
 	}
 
+	/** @BlockList({'noblock'}) */
 	public function gerarCodigo($arg){
 		Lumine::import("Usuario"); 
 		$usuario = new Usuario(); 
@@ -95,6 +109,7 @@ class Autenticar extends GenericController {
 		$this->autenticarView->sendAjax(array("status" => true ) ); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function logout(){
 		session_destroy();
 		$this->autenticarView->loginView(); 

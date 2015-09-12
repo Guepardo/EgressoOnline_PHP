@@ -1,4 +1,5 @@
 <?php
+require_once(PATH.'Security'.DS.'BlockList.php');
 
 abstract class GenericController {
 	public function sayMyName() {

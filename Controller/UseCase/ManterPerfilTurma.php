@@ -6,6 +6,7 @@ class ManterPerfilTurma extends GenericController {
 	public function __construct() {
 	}	
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function alterarFoto($arg){
 		// var_dump($arg); 
 		// die; 

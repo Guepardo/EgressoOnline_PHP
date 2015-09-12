@@ -18,6 +18,7 @@ class ManterUsuario extends GenericController{
 		$this->dataValidator     = new DataValidator(); 
 	}
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function cadastroProfessorView(){
 		$this->manterUsuarioView->cadastroProfessorView(); 
 	}
@@ -26,30 +27,36 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->alterarFotoView(); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function gerenciarCpView(){
 		$this->manterUsuarioView->gerenciarCpView(); 
 	}
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function cadastroEgressoView(){
 		$this->manterUsuarioView->cadastroEgressoView(); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function addDisciplinasView(){
 		$this->manterUsuarioView->addDisciplinaView(); 
 	}	
 
+	/** @BlockList({'visitante'}) */
 	public function alterarDadosView(){
 		//Muda a tela de acordo com o usuario. 
-		if( $_SESSION['egresso'] )
+		if( $_SESSION['user']['egresso'] )
 			$this->manterUsuarioView->alterarDadosView(); 
 		else
 			$this->manterUsuarioView->alterarDadosProfessorView();
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function alterarSenhaView(){
 		$this->manterUsuarioView->alterarSenhaView(); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function delDisciplina($arg){
 		//roteiro: 
 		//Pegar o id do usuário que está logado no memento
@@ -68,6 +75,7 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) );
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function addDisciplina($arg){
 		$this->dataValidator->set("Ano que lecionou", $arg['ano_lecionou'])->is_required()->max_value(3000)->min_value(1900); 
 
@@ -86,6 +94,7 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
 	
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function cadastroProfessor($arg){
 		//1: Montar a requisição num objeto
 		//2: Validar os dados; 
@@ -143,6 +152,7 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function cadastroEgresso($arg){
 		$mail = new Mail(); 
 		$passwordToSend = KeyFactory::randomKey(16);
@@ -234,7 +244,7 @@ class ManterUsuario extends GenericController{
 		
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
-
+	/** @BlockList({'visitante'}) */
 	public function alterarSenha($arg){
 		//Validacao: 
 
@@ -256,6 +266,7 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => false ) ); 
 	}
 
+	/** @BlockList({'visitante','egresso'}) */
 	public function alterarDadosProfessor($arg){
 		//Validacao: 
 		$this->dataValidator->set("Nome", $arg['nome'])->is_required()->min_length(5)->max_length(140); 
@@ -284,6 +295,7 @@ class ManterUsuario extends GenericController{
 	}
 
 	//Alterar dados para egresso. 
+	/** @BlockList({'visitante','professor','coordenador'}) */
 	public function alterarDados($arg){	
 		//Validacao: 
 		$this->dataValidator->set("Nome", $arg['nome'])->is_required()->min_length(5)->max_length(140);
@@ -407,6 +419,7 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) );	
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function  cadastroCurso($arg){
 		//Espero um dia ter tempo para implementar a validação dos dados que estão 
 		//entrado :v
@@ -425,6 +438,7 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) );  
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function deletarCurso($arg){
 		Lumine::import("Curso"); 
 		$curso = new Curso(); 
@@ -434,6 +448,7 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function alterarCurso($arg){
 		Lumine::import("Curso"); 
 		$curso = new Curso(); 
@@ -449,6 +464,7 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) );  
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function alterarFoto($arg){
 		//Criando instância para página principal
 		$principal = new TelaPrincipalView();

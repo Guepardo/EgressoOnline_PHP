@@ -12,14 +12,17 @@ class TelaPrincipal extends GenericController {
 		$this->telaPrincipalView = new TelaPrincipalView(); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function principalView(){
 		$this->telaPrincipalView->principalView(); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function tutorialView(){
 		$this->telaPrincipalView->tutorialView(); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function feed($arg){
 		$limit = 10; 
 
@@ -38,6 +41,8 @@ class TelaPrincipal extends GenericController {
 		Lumine::import("Oportunidade"); 
 		Lumine::import("UsuarioHasPostagem"); 
 		Lumine::import("Usuario"); 
+		Lumine::import("Egresso"); 
+		Lumine::import("Turma"); 
 
 		Lumine::import("OpPosGraduacao"); 
 		Lumine::import("OpEmprego"); 
@@ -54,9 +59,16 @@ class TelaPrincipal extends GenericController {
 				//é uma mensagem: 
 				if( $tam > 0 && (strcmp($post->dataEnvio, $temp[1] ) == 0 ) ){
 					$usuario = new Usuario(); 
+					$turma   = new Turma(); 
+					$egresso = new Egresso(); 
 					$associativa = new UsuarioHasPostagem(); 
-					$usuario->get('id',$post->usuarioId); 
+					//Pegando a turma do egresso: 
+					// $usuario->get('id',$post->usuarioId); 
+					$total = $egresso->get($post->usuarioId); 
 
+					$turma->get($egresso->turmaId); 
+
+					$anoTurma = ($total <= 0)? null : $turma->ano;  
 					//obtendo destinatário; 
 					$tam = $associativa->get('postagemId', $post->id); 
 
@@ -64,9 +76,9 @@ class TelaPrincipal extends GenericController {
 					//Se a mensagem é uma mensagem direta: 
 					if($tam > 0 && $associativa->postagemId == $post->id){
 						if((int) $associativa->usuarioId == (int) $_SESSION['user_id'])//Adicionar no array se a mensagem privada for para a sessão corrente.
-							array_push($array, array('id_user_origem' => $post->usuarioId, 'foto' => $usuario->foto, 'id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => false, 'post' => true));  
+							array_push($array, array('turma' => $anoTurma,'id_user_origem' => $post->usuarioId, 'foto' => $usuario->foto, 'id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => false, 'post' => true));  
 					}else
-					array_push($array, array('id_user_origem' => $post->usuarioId, 'foto' => $usuario->foto, 'id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => true, 'post' => true)); 
+					array_push($array, array('turma' => $anoTurma, 'id_user_origem' => $post->usuarioId, 'foto' => $usuario->foto, 'id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => true, 'post' => true)); 
 				}
 
 				$tam = $op->get('id', (int) $temp[0]); 

@@ -9,10 +9,12 @@ class Configurar extends GenericController {
 		$this->configurarView = new ConfigurarView(); 
 	}	
 
+	/** @BlockList({'visitante'}) */
 	public function configurarView(){
 		$this->configurarView->configurarView(); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function addArea($arg){
 		Lumine::import("Notificacao"); 
 		Lumine::import("NotificacaoHasAtuacaoProfissional"); 
@@ -40,6 +42,7 @@ class Configurar extends GenericController {
 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function deletarArea($arg){
 		Lumine::import("Notificacao"); 
 		Lumine::import("NotificacaoHasAtuacaoProfissional"); 
@@ -55,6 +58,7 @@ class Configurar extends GenericController {
 		$this->configurarView->sendAjax(array('status' => true ));		
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function mudarTitulo($arg){
 		Lumine::import("Notificacao"); 
 		$notificacao = new Notificacao(); 

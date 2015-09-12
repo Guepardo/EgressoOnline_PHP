@@ -8,6 +8,7 @@ class DivulgarOportunidade extends GenericController {
 		
 	}	
 
+	/** @BlockList({'visitante'}) */
 	public function emprego($arg){
 		//Criar a validaçao dos campos posteriormente; 
 		
@@ -52,6 +53,7 @@ class DivulgarOportunidade extends GenericController {
 		self::notificacaoEmprego($oportunidade->id); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function posGraduacao($arg){
 		//Criar a validaçao dos campos posteriormente; 
 
@@ -98,6 +100,7 @@ class DivulgarOportunidade extends GenericController {
 	}
 
 	//$id do registo da notificação recem cadastrada: 
+	/** @BlockList({'visitante'}) */
 	public function notificacaoPos($id){
 
  		Lumine::import("Oportunidade"); 
@@ -133,6 +136,7 @@ class DivulgarOportunidade extends GenericController {
 	}
 
 	//$id do registo da notificação recem cadastrada: 
+	/** @BlockList({'visitante'}) */
 	public function notificacaoEmprego($id){
 
  		Lumine::import("Oportunidade"); 

@@ -302,7 +302,7 @@
     <div class="row">
       <div class="medium-12 columns ">
         <div class="panel clearfix">
-          <button type="submit" class="button success right">Divulgar</button>
+          <button type="submit" class="button success right tiny">Divulgar</button>
         </div>
       </div>
     </div>
@@ -439,7 +439,7 @@
   <div class="row">
     <div class="medium-12 columns ">
       <div class="panel clearfix">
-        <button type="submit" class="button success right">Divulgar</button>
+        <button type="submit" class="button success right tiny">Divulgar</button>
       </div>
     </div>
   </div>
@@ -767,30 +767,35 @@
   //Tratamento dos eventos dos formulários modais: 
   $('#form_emprego').on('valid', function() {
     var data = $(this).serializeArray(); 
-
+    var form = $(this); 
     sendAjax('index.php?uc=divulgar&a=emprego','POST',data,function(data){
-      alertify.message(data); 
       data = JSON.parse(data); 
 
-      if(data['status'])
-        alertify.success("O cadastro foi feito com sucesso");   
+      if(data['status']){
+        alertify.success("Divulgado com sucesso. ");   
+        form.get(0).reset(); 
+        $('#modal_emprego').foundation('reveal', 'close');
+      }
       else
-        alertify.error("Error"); 
+        alertify.error(data['msg']); 
     });
     
   });
 
   $('#form_pos').on('valid', function() {
     var data = $(this).serializeArray(); 
+    var form = $(this); 
 
     sendAjax('index.php?uc=divulgar&a=posGraduacao','POST',data,function(data){
-      alertify.message(data); 
       data = JSON.parse(data); 
 
-      if(data['status'])
-        alertify.success("O cadastro foi feito com sucesso");   
+      if(data['status']){
+        alertify.success("Divulgado com sucesso. ");   
+        form.get(0).reset(); 
+        $('#modal_emprego').foundation('reveal', 'close');
+      }  
       else
-        alertify.error("Error"); 
+        alertify.error(data['msg']); 
     });
     
   });
@@ -930,7 +935,7 @@
     if(!data['publica'])
       temp = '<i class="fa fa-envelope right" style="margin-bottom: -20px;"></i>'; 
 
-    var row = '<div class="medium-4 columns panel msg ">  '+temp+'<div class="row"> <div class="medium-3 columns small-3"><a class="bnt_mensagem"><img src="'+data['foto']+'" class="perfil_small" /></a></div> <input type="hidden" value="'+data['id_user_origem']+'" /> <div class="medium-9 columns" style="padding-left:0;"></i><i id="remetente">'+data['remetente']+'</i><br> <small>às '+data['data_envio']+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
+    var row = '<div class="medium-4 columns panel msg ">  '+temp+'<div class="row"> <div class="medium-3 columns small-3"><a class="bnt_mensagem"><img src="'+data['foto']+'" class="perfil_small" /></a></div> <input type="hidden" value="'+data['id_user_origem']+'" /> <div class="medium-9 columns" style="padding-left:0;"></i><i id="remetente">'+data['remetente']+'</i><br> <small>às '+ dataFormat(data['data_envio'])+'. '+turmaFormat(data['turma'])+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
 
     $('#container').append(row).children(':last').hide().fadeIn(700); 
   }
@@ -1012,6 +1017,20 @@ function lancarModalAlterouDados(){
       clearInterval(interval); 
     },10500); 
   }
+}
+
+function dataFormat(data){
+  data = data.split(' '); 
+  var temp = data[1]+', '+ data[0].replace('-','/').replace('-','/').replace('-','/'); 
+  return temp; 
+}
+
+function turmaFormat(data){
+  console.log(typeof data); 
+  if(typeof data == 'object')
+    return '<b>Professor</b>'; 
+  else
+    return '<b>Egresso</b> turma de <i>'+data+'</i>'; 
 }
 
 function buildViewEmprego(data){

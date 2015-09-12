@@ -19,8 +19,9 @@ class TelaPrincipalView extends GenericView
 		$pais->find(); 
 
 		//alternando menu de configurações: 
-		$result; 
-		if($_SESSION['coordenador'])
+		$result = null; 
+
+		if($_SESSION['user']['coordenador'])
 			$result = parent::loadTemplate(PATH.'templates'.DS.'telaPrincipal'.DS.'confCoordenador.html'); 
 		else
 			$result = parent::loadTemplate(PATH.'templates'.DS.'telaPrincipal'.DS.'confEgresso.html'); 

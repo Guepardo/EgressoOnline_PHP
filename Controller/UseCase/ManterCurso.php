@@ -9,18 +9,22 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView = new ManterCursoView(); 
 	}	
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function novaAreaView(){
 		$this->manterCursoView->novaAreaView(); 
 	}
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function novaDisciplinaView(){
 		$this->manterCursoView->novaDisciplinaView(); 
 	}
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function transferirView(){
 		$this->manterCursoView->transferirView(); 
 	}
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function transCoordenador($arg){
 		lumine::import("Usuario"); 
 		Lumine::import("Professor"); 	
@@ -55,6 +59,7 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => true)); 
 	}
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function deletarArea($arg){
 		Lumine::import('AtuacaoProfissional'); 
 		Lumine::import('Emprego'); 
@@ -80,6 +85,7 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => false , 'msg' => 'há '. $total.' registro(s) vinculado(s) nessa Área de Atuação. Não é possivel apagar.') );
 	}
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function alterarArea($arg){
 		Lumine::import("AtuacaoProfissional"); 
 		$atuacao  = new AtuacaoProfissional(); 
@@ -91,7 +97,7 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => true ) );
 	}
 
-
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function novaArea($arg){
 		Lumine::import("AtuacaoProfissional"); 
 		$atuacao  = new AtuacaoProfissional(); 
@@ -109,6 +115,7 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => true ) );
 	}
 
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function novaDisciplina($arg){
 		Lumine::import("Disciplina"); 
 		$disciplina  = new Disciplina(); 
@@ -126,7 +133,7 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => true ) );
 	}
 
-
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function alterarDisciplina($arg){
 		Lumine::import("Disciplina"); 
 		$disciplina  = new Disciplina(); 
@@ -138,7 +145,7 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => true ) );
 	}
 
-
+	/** @BlockList({'visitante','professor','egresso'}) */
 	public function deletarDisciplina($arg){
 		Lumine::import("ProfessorHasDisciplina"); 
 		Lumine::import("Disciplina"); 

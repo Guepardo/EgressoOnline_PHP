@@ -10,6 +10,7 @@ class Buscar extends GenericController {
 		$this->buscarView = new BuscarView(); 
 	}	
 
+	/** @BlockList({'visitante'}) */
 	public function buscaView($arg){
 		$this->buscarView->buscaView($arg); 
 	}

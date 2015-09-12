@@ -7,8 +7,10 @@ define ('WWW_ROOT', dirname(__FILE__));
 define ('DS', DIRECTORY_SEPARATOR); 
 define ('PATH', WWW_ROOT.DS); 
 
-require(WWW_ROOT.DS.'Persistence'.DS.'Lumine.php');
-require(WWW_ROOT.DS.'Persistence'.DS.'lumine-conf.php');
+
+require_once(WWW_ROOT.DS.'Persistence'.DS.'Lumine.php');
+require_once(WWW_ROOT.DS.'Persistence'.DS.'lumine-conf.php');
+require_once(WWW_ROOT.DS.'Library'.DS.'annotations.php');
 require_once(PATH.'Controller'.DS.'MainController.php'); 
 
 $cfg = new Lumine_Configuration( $lumineConfig );
@@ -19,7 +21,6 @@ session_start();
 //ADICIONANDO O VALOR DO USER_ID SEMPRE EM UM, PELO FATO DE NÃO EXISTIR SISTEMA DE LOGIN AINDA. 
 
 //require_once( WWW_ROOT . DS . 'autoload.php'); 
-
 
 //(new SecurityFilter())->filteringRequest(); 
 
