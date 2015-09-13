@@ -270,7 +270,17 @@
 <script>
 $(document).ready(function(){
   $(document).foundation('joyride', 'start');
+
+  $('.joyride-close-tip').click(function(){redirecionar()}); 
+  $('.joyride-next-tip').click(function(){
+     if($(this).text() == 'Fim')
+        redirecionar();   
+  }); 
 }); 
+
+ function redirecionar(){
+    redirect('index.php',{uc : 'telaPrincipal', a : 'principalView' },'GET'); 
+  }
 </script>
 </body>
 </html>

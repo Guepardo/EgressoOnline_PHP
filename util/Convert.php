@@ -13,6 +13,10 @@ class Convert
 		return strtoupper($string); 
 	}
 
+	public static function upperUtf8($string){
+		return self::toUpperCase(self::toUpperCase($string)); 
+	}
+
 	public static function minification($string, $minLength){
 		if($string == null ) return null; 
 		if(strlen($string) <= $minLength ) return $string; 

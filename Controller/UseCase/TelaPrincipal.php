@@ -26,7 +26,7 @@ class TelaPrincipal extends GenericController {
 				$egresso->get('usuarioId', $_SESSION['user_id']); 
 
 				//validade para o bolo é de apenas 30 minutos. 
-				setcookie('egresso', $egresso->alterouDados , 60*60 * 30, "/");
+				setcookie('egresso', (($egresso->alterouDados) ? 1 : 0), time() + 60 * 30, "/");
 			}
 		}
 
@@ -35,8 +35,8 @@ class TelaPrincipal extends GenericController {
 
 		//Se for a primeira vez do usuário no sistema, rodar a tela de 
 		//tutorial. 
-		if(!$usuario->primeiraVez){
-			$usuario->primeiraVez = true; 
+		if($usuario->primeiraVez){
+			$usuario->primeiraVez = false; 
 			$usuario->update(); 
 
 			$this->telaPrincipalView->tutorialView();

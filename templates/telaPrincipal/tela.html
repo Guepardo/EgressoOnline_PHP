@@ -236,9 +236,9 @@
       <div class="medium-4 columns">
         <label>Pais
           <select id="emprego_pais" name="pais_id">
-            <!-- $BeginBlock emprego.pais -->
-            <option value="${emprego.pais.id}"> ${emprego.pais.des}</option>
-            <!-- $EndBlock emprego.pais -->
+            <!-- $BeginBlock pais -->
+            <option ${pais.marcado} value="${pais.id}"> ${pais.des}</option>
+            <!-- $EndBlock pais -->
           </select>
         </label>
       </div>
@@ -247,9 +247,9 @@
         <label>Estado
           <select id="emprego_select_estado">
             <option value="">- Selecione -</option>
-            <!-- $BeginBlock emprego.estado -->
-            <option value="${emprego.estado.id}"> ${emprego.estado.des}</option>
-            <!-- $EndBlock emprego.estado -->
+            <!-- $BeginBlock estado -->
+            <option value="${estado.id}"> ${estado.des}</option>
+            <!-- $EndBlock estado -->
           </select>
         </label>
       </div>
@@ -387,9 +387,9 @@
       <div class="medium-4 columns">
         <label>Pais
           <select id="pos_pais" name="pais_id" />
-          <!-- $BeginBlock pos.pais -->
-          <option value="${pos.pais.id}"> ${pos.pais.des}</option>
-          <!-- $EndBlock pos.pais -->
+          <!-- $BeginBlock pais -->
+          <option ${pais.marcado} value="${pais.id}"> ${pais.des}</option>
+          <!-- $EndBlock pais -->
         </select>
       </label>
     </div>
@@ -398,9 +398,9 @@
       <label>Estado
         <select id="pos_select_estado" >
           <option value="">- Selecione -</option>
-          <!-- $BeginBlock pos.estado -->
-          <option value="${pos.estado.id}"> ${pos.estado.des}</option>
-          <!-- $EndBlock pos.estado -->
+          <!-- $BeginBlock estado -->
+          <option value="${estado.id}"> ${estado.des}</option>
+          <!-- $EndBlock estado -->
         </select>
       </label>
     </div>
@@ -729,6 +729,7 @@
       <!-- $Include templates/lib/html/footerscripts.html --> 
       <script src="templates/lib/js/jquery.mask.min.js"></script>
       <script src="templates/lib/js/ajax.js"></script>
+      <script src="templates/lib/js/js.cookie.js"></script>
 
       <script>
       $(document).foundation();
@@ -739,7 +740,7 @@
         var interval; 
         //control = a função refresh está fazendo uma requisição
         //locker  = já leu todas as mensagens, não fazer mais solicitações. 
-         
+
         var control = false, locker = false; 
         var intervalo; 
         var date = ""; 
@@ -857,7 +858,7 @@
 
   $('#pos_select_estado').change(function(){
     var value = $('#pos_select_estado option:selected ').val(); 
-    var text = $('#emprego_select_estado option:selected ').text(); 
+    var text = $('#pos_select_estado option:selected ').text(); 
 
     sendAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
       data = JSON.parse(data); 
@@ -910,7 +911,7 @@
   }
 
   function addOpor(data){
-   var titulo = (data['graduacao']) ? "Pós-Graduacao" : "Emprego"; 
+   var titulo = (data['graduacao']) ? "Pós-Graduação" : "Emprego"; 
    var row = '<div class="medium-4 columns msg" style="padding:0;"> <ul class="pricing-table"> <li class="title">Oportunidade</li> <li class="price" style="height: 82px;">'+titulo+'</li> <li class="cta-button" style="height: 120px;"><a class="button tiny action_op" value="'+data['id']+'-'+data['graduacao']+'">Ver detalhes</a></li> </ul>  </div>'; 
 
    $('#container').append(row).children(':last').hide().fadeIn(700);  
@@ -1015,15 +1016,18 @@ function refresh(){
   }
 }
 function lancarModalAlterouDados(){
-  var alterouDado = parseInt($("#alterou_dado").val()); 
+  var alterouDado = Cookies.get('egresso');  
 
-  if(!alterouDado){
+  if(!parseInt(alterouDado)){
     interval = setInterval(function(){
       alertify.confirm('Hey, parece que você ainda não atualizou seus dados. Quer fazer isso agora mesmo?').set('labels', {ok:'Sim', cancel:'Faço isso mais tarde'}).set('onok',function(evento){
         redirect('index.php',{uc : 'manterUsuario', a : 'alterarDadosView' },'GET'); 
       }); 
       clearInterval(interval); 
     },10500); 
+
+    Cookies.remove('egresso'); 
+    Cookies.set('egresso', '1', { expires: 0.0208333333333333, path: '/' });
   }
 }
 

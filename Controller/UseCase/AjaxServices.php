@@ -7,6 +7,7 @@ class AjaxServices extends GenericController{
 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function getStates( $arg ){	
 		$daoRegiao = new DAORegiao(); 
 		$result = $daoRegiao->selectAllStages(utf8_decode(trim($arg['country']))); 	
@@ -16,6 +17,7 @@ class AjaxServices extends GenericController{
 		die(json_encode($array));
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function getCities( $arg ){	
 		Lumine::import('Cidade'); 
 		$cidade = new Cidade(); 
