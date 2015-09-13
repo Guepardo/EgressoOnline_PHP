@@ -22,9 +22,9 @@ class TelaPrincipalView extends GenericView
 		$result = null; 
 
 		if($_SESSION['user']['coordenador'])
-			$result = parent::loadTemplate(PATH.'templates'.DS.'telaPrincipal'.DS.'confCoordenador.html'); 
+			$result = parent::loadTemplate(PATH.'templates'.DS.'telaprincipal'.DS.'confCoordenador.html'); 
 		else
-			$result = parent::loadTemplate(PATH.'templates'.DS.'telaPrincipal'.DS.'confEgresso.html'); 
+			$result = parent::loadTemplate(PATH.'templates'.DS.'telaprincipal'.DS.'confEgresso.html'); 
 
 		parent::$templator->setVariable('tela.configuracao',$result); 
 

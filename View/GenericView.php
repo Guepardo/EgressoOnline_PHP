@@ -12,7 +12,7 @@ class GenericView {
 	}
 
 	protected function getTemplateByAction($templateName) {
-		self::$templator->readTemplateFromFile (PATH.'templates'.DS. $this->dirName . $templateName . '.html' );
+		self::$templator->readTemplateFromFile (PATH.'templates'.DS. strtolower($this->dirName) . $templateName . '.html' );
 	}
 
 	protected function show() {

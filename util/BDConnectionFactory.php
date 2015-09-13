@@ -1,11 +1,11 @@
 <?php
 
 class BDConnectionFactory {
-	const BANCO = "mydb";
-	const USUARIO = "root";
-	const SENHA = "";
-	const HOSTNAME = "localhost";
-	const PORT = 3306;
+	const BANCO = DB_DATABASE;
+	const USUARIO = DB_USER;
+	const SENHA = DB_PASSWORD;
+	const HOSTNAME = DB_HOST;
+	const PORT = DB_PORT;
 	
 	private $connection;
 	private static $instance = null;
