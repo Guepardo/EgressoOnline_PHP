@@ -28,12 +28,12 @@
 
 $lumineConfig = array(
     'dialect' => 'MySQLi', 
-    'database' => 'mydb', 
-    'user' => 'root', 
-    'password' => '', 
-    'port' => '3306', 
-    'host' => 'localhost', 
-    'class_path' => 'C:/wamp/www/EgressoOnline_PHP', 
+    'database' => DB_DATABASE, 
+    'user' => DB_USER, 
+    'password' => DB_PASSWORD, 
+    'port' => DB_PORT, 
+    'host' => DB_HOST, 
+    'class_path' => PATH, 
     'package' => 'Model', 
     'addons_path' => '', 
     'acao' => 'gerar', 

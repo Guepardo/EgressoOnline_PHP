@@ -18,14 +18,14 @@ class Mail{
 		$this->phpMailer->Mailer = "smtp"; 
 		$this->phpMailer->isSMTP(); //Informa que a coisa será em SMTP
 		$this->phpMailer->SMTPAuth = true;
-		$this->phpMailer->Host     = "tls://g4group.me:20000"; 
-		$this->phpMailer->Username = "egressoonline@g4group.me"; 
-		$this->phpMailer->Password = "12345678"; 
+		$this->phpMailer->Host     = EMAIL_HOST; 
+		$this->phpMailer->Username = EMAIL_USERNAME; 
+		$this->phpMailer->Password = EMAIL_PASSWORD; 
 
 		$this->phpMailer->SMTPAutoTLS = true;
 		//$this->phpMailer->SMTPDebug = 3;
 
-		$this->phpMailer->From = "egressoonline@g4group.me"; 
+		$this->phpMailer->From     = EMAIL_FROM; 
 		$this->phpMailer->FromName = "EgressoOnline"; 
 		//Adicionando endereços de email que irão receber a mensagem; 
 		$this->phpMailer->AddAddress($emailAddress, $name); 
