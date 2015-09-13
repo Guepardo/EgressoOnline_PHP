@@ -14,7 +14,7 @@ class Convert
 	}
 
 	public static function upperUtf8($string){
-		return self::toUpperCase(self::toUpperCase($string)); 
+		return self::toUTF_8(self::toUpperCase($string)); 
 	}
 
 	public static function minification($string, $minLength){

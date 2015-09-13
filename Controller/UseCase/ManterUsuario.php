@@ -125,7 +125,8 @@ class ManterUsuario extends GenericController{
 
 		
 		Lumine::import("Professor"); 
-		Lumine::import("Notificacao"); 
+		Lumine::import("Notificacao");
+		Lumine::import("EmailEnviar");  
 		
 		$usuario = new Usuario(); 
 
@@ -148,6 +149,12 @@ class ManterUsuario extends GenericController{
 		$professor->insert(); 
 
 		//$mail->sendEmail("Seu login: ". $usuario->cpf." <br />Sua senha: ". $passwordToSend, $usuario->email,"EgressoOnline UEG - Informe de cadastro", $usuario->nome); 
+
+		$email = new EmailEnviar(); 
+ 		$email->usuarioId   = $usuario->id;
+ 		$email->conteudo    =  "Seu login: ". $usuario->cpf." <br />Sua senha: ". $passwordToSend; 
+ 		$email->tipoEmailId =  1; //Cadastro;
+ 		$email->insert();  
 
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
@@ -177,6 +184,7 @@ class ManterUsuario extends GenericController{
 			$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => 'Cpf ou Email já foi cadastrado no sistema.') );
 
 		Lumine::import("Egresso"); 
+		Lumine::import("EmailEnviar"); 
 		Lumine::import("Localidade"); 
 		Lumine::import("Emprego"); 
 		Lumine::import("Notificacao"); 
@@ -242,6 +250,12 @@ class ManterUsuario extends GenericController{
 
 		//$mail->sendEmail("Seu login: ". $arg['cpf']." <br />Sua senha: ". $passwordToSend, $arg['e_mail'],"EgressoOnline UEG - Informe de cadastro", $arg['nome']); 
 		
+		$email = new EmailEnviar(); 
+ 		$email->usuarioId   = $usuario->id; 
+ 		$email->conteudo    = "Seu login: ". $usuario->cpf." <br />Sua senha: ". $passwordToSend; 
+ 		$email->tipoEmailId =  1; //Cadastro;
+ 		$email->insert(); 
+
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
 	/** @BlockList({'visitante'}) */

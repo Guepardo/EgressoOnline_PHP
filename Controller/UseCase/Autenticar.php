@@ -1,6 +1,7 @@
 <?php
 require_once(PATH.'Controller'.DS.'GenericController.php'); 
 require_once(PATH.'View'.DS.'CustomViews'.DS.'AutenticarView.php'); 
+require_once(PATH.'View'.DS.'CustomViews'.DS.'TelaPrincipalView.php'); 
 
 require_once(PATH.'Util'.DS.'KeyFactory.php'); 
 require_once(PATH.'Util'.DS.'Mail.php'); 
@@ -14,16 +15,24 @@ class Autenticar extends GenericController {
 
 	/** @BlockList({'noblock'}) */
 	public function loginView(){
+		self::redirect(); 
 		$this->autenticarView->loginView(); 
 	}
 
 	/** @BlockList({'noblock'}) */
 	public function alterarSenhaView(){
+		if(!empty($_SESSION['user_id'])){
+			$tela = new TelaPrincipalView(); 
+			$tela->principalView(); 
+		}
+
 		$this->autenticarView->alterarSenhaView(); 
 	}
 
 	/** @BlockList({'noblock'}) */
 	public function login($arg){
+		self::redirect();
+
 		$isCoordenador = false; 
 		$isProfessor   = false;
 		$isEgresso     = false; 
@@ -50,7 +59,7 @@ class Autenticar extends GenericController {
 
 			if( !$isEgresso ){ 
 
-			Lumine::import("Professor"); 
+				Lumine::import("Professor"); 
 				$professor = new Professor(); 
 				$professor->where("usuario_id = ". $usuario->id )->find(); 
 				$professor->fetch(true); 
@@ -70,6 +79,7 @@ class Autenticar extends GenericController {
 
 	/** @BlockList({'noblock'}) */
 	public function alterarSenha($arg){
+		self::redirect();
 		$codigo = $arg['codigo']; 
 		$senha  = $arg['senha']; 
 
@@ -94,6 +104,7 @@ class Autenticar extends GenericController {
 
 	/** @BlockList({'noblock'}) */
 	public function gerarCodigo($arg){
+		self::redirect();
 		Lumine::import("Usuario"); 
 		$usuario = new Usuario(); 
 		$key     = new KeyFactory(); 
@@ -117,4 +128,12 @@ class Autenticar extends GenericController {
 		$this->autenticarView->loginView(); 
 	}
 
+	//Função que redireciona o usuário para o tela principal caso ele estaja logado
+	private function redirect(){
+		if(!empty($_SESSION['user_id'])){
+			$tela = new TelaPrincipalView(); 
+			$tela->principalView(); 
+			exit; 
+		}
+	}
 }

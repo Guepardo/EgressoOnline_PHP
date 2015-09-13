@@ -15,27 +15,29 @@ require_once(PATH.'Controller'.DS.'UseCase'.DS.'Mensagens.php');
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'Relatorios.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'Buscar.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'ManterPerfilTurma.php'); 
+require_once(PATH.'Controller'.DS.'UseCase'.DS.'Security.php'); 
 
 class MainController {
 	private $controllersArray;
 	public function __construct() {
 		// incluir todos os controllers específicos aqui;       
 		$this->controllersArray = array (
-				'humanos'       => new HumanController (),
-				'manterUsuario' => new ManterUsuario(),
-				'telaPrincipal' => new TelaPrincipal(),
-				'ajaxServices'  => new AjaxServices(), 
-				'autenticar'    => new Autenticar(),
-				'divulgar'      => new DivulgarOportunidade(), 
-				'visualizar'	=> new VisualizarOportunidade(), 
-				'configurar'    => new Configurar(), 
-				'manterCurso'   => new ManterCurso(), 
-				'mensagens'     => new Mensagens(), 
-				'perfil'        => new VisualizarPerfil(), 
-				'relatorios'    => new Relatorios(), 
-				'buscar'        => new Buscar(), 
-				'manterTurma'   =>  new ManterPerfilTurma()
- 		);
+			'humanos'       => new HumanController (),
+			'manterUsuario' => new ManterUsuario(),
+			'telaPrincipal' => new TelaPrincipal(),
+			'ajaxServices'  => new AjaxServices(), 
+			'autenticar'    => new Autenticar(),
+			'divulgar'      => new DivulgarOportunidade(), 
+			'visualizar'	=> new VisualizarOportunidade(), 
+			'configurar'    => new Configurar(), 
+			'manterCurso'   => new ManterCurso(), 
+			'mensagens'     => new Mensagens(), 
+			'perfil'        => new VisualizarPerfil(), 
+			'relatorios'    => new Relatorios(), 
+			'buscar'        => new Buscar(), 
+			'manterTurma'   => new ManterPerfilTurma(), 
+			'security'      => new Security()
+			);
 	}
 	
 	public function findMyController() {
@@ -45,12 +47,22 @@ class MainController {
 		// 3 Invocar método;
 		// 4 Gerar output.
 		Firewall::initFirewall(); 
+		$isNotFound = false; 
+		$controller = null; 
+
 		$useCase = $_REQUEST ['uc'];
 		$action  = $_REQUEST ['a'];
 		
-		// if( $this->$controllersArray[$useCase] == null ) return;
-		$controller = $this->controllersArray [$useCase];
-		$realNameMethod = '';
+
+		if(array_key_exists($useCase, $this->controllersArray)){
+			$controller = $this->controllersArray [$useCase];
+			$realNameMethod = '';
+		}else{
+			$controller = $this->controllersArray['security']; 
+			$realNameMethod = 'notFoundView'; 
+			$isNotFound = true; 
+		}
+		
 		
 		$arrayMethods = $controller->sayMyActions();
 		
@@ -62,13 +74,18 @@ class MainController {
 		}
 		
 		if (strlen ( $realNameMethod ) == 0) {
-			die('Não há ação para ser executada');
+			$controller = $this->controllersArray['security']; 
+			$realNameMethod = 'notFoundView'; 
+			$isNotFound = true; 
 		}
 		
 		//Verificando permissão
-		$block = Firewall::permissao($controller, $realNameMethod); 
+		
+		if(!$isNotFound){
+			$block = Firewall::permissao($controller, $realNameMethod); 
 
-		if($block)die("Ação negada para esse nível de usuário"); 
+			if($block)die("Ação negada para esse nível de usuário"); 
+		}
 
 		$reflection = new ReflectionMethod ( $controller->sayMyName (), $realNameMethod );
 		return $reflection->invoke ( $controller, self::preparingArray( $_REQUEST ));

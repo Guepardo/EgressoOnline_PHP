@@ -5,7 +5,7 @@
 //method: qual é o tipo de transmissão de dados desejada. 
 
 
-function sendAjax(url, method, data, callback){
+function sendAjax(url, method, data, callback, callbackThen){
 	$.ajax({
 	  'url'    : url, 
       'method' : method, 
@@ -14,5 +14,8 @@ function sendAjax(url, method, data, callback){
 		callback(data); 
 	}).fail(function(){
 		alertify.error('Ocorreu um erro na transmissão dos dados. Por favor, tente mais tarde.'); 
+	}).then(function(data){
+		if( typeof callbackThen != 'undefined')
+			callbackThen(data); 
 	}); 
 }

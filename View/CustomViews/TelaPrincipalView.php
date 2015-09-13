@@ -38,7 +38,7 @@ class TelaPrincipalView extends GenericView
 		while( $pais->fetch() ){
 			parent::$templator->setVariable("pais.marcado",  (($pais->id == 33) ? 'selected' : '')); 
 			parent::$templator->setVariable("pais.id",  $pais->id); 
-			parent::$templator->setVariable("pais.des", Convert::toUpperCase($pais->des)); 
+			parent::$templator->setVariable("pais.des", Convert::upperUtf8($pais->des)); 
 
 			parent::$templator->addBlock("pais"); 
 		}
@@ -49,7 +49,7 @@ class TelaPrincipalView extends GenericView
 
 		while( $estado->fetch() ){ 
 			parent::$templator->setVariable("estado.id", $estado->id ); 
-			parent::$templator->setVariable("estado.des", Convert::toUpperCase($estado->des)); 
+			parent::$templator->setVariable("estado.des", Convert::upperUtf8($estado->des)); 
 
 			parent::$templator->addBlock("estado"); 
 		}
@@ -60,7 +60,7 @@ class TelaPrincipalView extends GenericView
 
 		while(  $area->fetch() ){
 			parent::$templator->setVariable("area.id", $area->id ); 
-			parent::$templator->setVariable("area.des", Convert::toUpperCase($area->des)); 
+			parent::$templator->setVariable("area.des", Convert::upperUtf8($area->des)); 
 
 			parent::$templator->addBlock("area");
 		}
@@ -74,8 +74,8 @@ class TelaPrincipalView extends GenericView
 			parent::$templator->setVariable("pos.tipo.id", $tituloAcademico->id ); 
 			parent::$templator->setVariable("emprego.tipo.id", $tituloAcademico->id ); 
 
-			parent::$templator->setVariable("pos.tipo.des", Convert::toUpperCase($tituloAcademico->des)); 
-			parent::$templator->setVariable("emprego.tipo.des", Convert::toUpperCase($tituloAcademico->des)); 
+			parent::$templator->setVariable("pos.tipo.des", Convert::upperUtf8($tituloAcademico->des)); 
+			parent::$templator->setVariable("emprego.tipo.des", Convert::upperUtf8($tituloAcademico->des)); 
 
 			parent::$templator->addBlock("pos.tipo");
 			parent::$templator->addBlock("emprego.tipo");

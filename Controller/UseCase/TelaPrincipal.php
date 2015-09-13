@@ -18,7 +18,6 @@ class TelaPrincipal extends GenericController {
 		Lumine::import("Usuario"); 
 		//Tratando caso especial para tela principal para egresso
 		//expor o modal para atualização dos dados somente para ele. 
-		 // 86400 = 1 day
 
 		if($_SESSION['user']['egresso']){
 			if(!isset($_COOKIE['egresso'])){

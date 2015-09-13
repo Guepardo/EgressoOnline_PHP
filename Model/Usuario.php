@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "usuario"
- * in 2015-09-10
+ * in 2015-09-13
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -24,6 +24,7 @@ class Usuario extends Lumine_Base {
     public $primeiraVez;
     public $cursos = array();
     public $egressos = array();
+    public $emailenviar = array();
     public $notificacoes = array();
     public $oportunidades = array();
     public $postagem = array();
@@ -58,6 +59,7 @@ class Usuario extends Lumine_Base {
         
         $this->metadata()->addRelation('cursos', Lumine_Metadata::ONE_TO_MANY, 'Curso', 'usuarioId', null, null, null);
         $this->metadata()->addRelation('egressos', Lumine_Metadata::ONE_TO_MANY, 'Egresso', 'usuarioId', null, null, null);
+        $this->metadata()->addRelation('emailenviar', Lumine_Metadata::ONE_TO_MANY, 'EmailEnviar', 'usuarioId', null, null, null);
         $this->metadata()->addRelation('notificacoes', Lumine_Metadata::ONE_TO_MANY, 'Notificacao', 'usuarioId', null, null, null);
         $this->metadata()->addRelation('oportunidades', Lumine_Metadata::ONE_TO_MANY, 'Oportunidade', 'usuarioId', null, null, null);
         $this->metadata()->addRelation('postagem', Lumine_Metadata::ONE_TO_MANY, 'Postagem', 'usuarioId', null, null, null);

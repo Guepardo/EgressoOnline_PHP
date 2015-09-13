@@ -1,7 +1,19 @@
 <!doctype html>
 <html class="no-js" lang="pt">
 <head>
-  <!-- $Include templates/lib/html/head.html --> 
+   <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <link rel="stylesheet" href="templates/lib/css/foundation.css" />
+ <script src="templates/lib/js/vendor/modernizr.js"></script>
+ <link rel="stylesheet" href="templates/lib/css/font-awesome/css/font-awesome.min.css">
+ <link rel="stylesheet" href="templates/lib/js/alertify/themes/alertify.core.css">
+ <link rel="stylesheet" href="templates/lib/js/alertify/themes/alertify.default.css">
+ 
+ <style type="text/css" media="screen">
+  .fix-container{
+    margin-top:20px;
+  }
+ </style> 
   <style type="text/css">
   .fix{
     margin-bottom:45px;
@@ -113,7 +125,7 @@
      <!--DropDown para divulgar-->
      <button id='13' data-dropdown="drop2" aria-controls="drop2" aria-expanded="false" class="button dropdown"><i class="fa fa-cog fa-fw"style="float:left;"></i>Configurações</a></li></button><br>
 
-     ${tela.configuracao}
+     
 
      <!--Fim DropDown --> 
    </li>
@@ -135,6 +147,8 @@
 <div class="row" style="min-height:50%;">
  <div class="medium-12 columns" id="container" style="margin:0">
 
+
+   
 
    <div class="medium-4 columns panel msg " >
     <div class="row">
@@ -264,23 +278,34 @@
 <!-- FIM MODAIS --> 
 
 
-<!-- $Include templates/lib/html/footerscripts.html --> 
+<script src="templates/lib/js/vendor/jquery.js"></script>
+<script src="templates/lib/js/foundation.min.js"></script> 
+<script src="templates/lib/js/foundation/foundation.alert.js"></script>
+<script src="templates/lib/js/alertify/lib/alertify.min.js"></script>
+<script src="templates/lib/js/redirect.js"></script>
+<script src="templates/lib/js/busca.js"></script>
+
+<script>
+
+ </script>
+  
 
 
 <script>
+  $(document).foundation();
 $(document).ready(function(){
   $(document).foundation('joyride', 'start');
 
   $('.joyride-close-tip').click(function(){redirecionar()}); 
   $('.joyride-next-tip').click(function(){
-     if($(this).text() == 'Fim')
-        redirecionar();   
-  }); 
+   if($(this).text() == 'Fim')
+    redirecionar();   
+}); 
 }); 
 
- function redirecionar(){
-    redirect('index.php',{uc : 'telaPrincipal', a : 'principalView' },'GET'); 
-  }
+function redirecionar(){
+  redirect('index.php',{uc : 'telaPrincipal', a : 'principalView' },'GET'); 
+}
 </script>
 </body>
 </html>
