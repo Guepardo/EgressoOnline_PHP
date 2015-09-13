@@ -15,7 +15,7 @@ require_once('conf.php');
 
 //var_dump($_REQUEST); 
 
-if( empty($_REQUEST['uc']) || empty($_REQUEST['a'])){
+if( empty($_REQUEST['uc']) && empty($_REQUEST['a'])){
 	$_REQUEST['uc'] = 'autenticar'; 
 	$_REQUEST['a']  = 'loginView'; 
 }

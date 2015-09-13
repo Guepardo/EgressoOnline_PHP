@@ -16,7 +16,7 @@ private $securityView;
 
 	/** @BlockList({'noblock'}) */
 	public function blockView($arg){
-		$this->securityView->block(); 
+		$this->securityView->blockView(); 
 	}
 
 

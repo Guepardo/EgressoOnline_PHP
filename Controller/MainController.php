@@ -50,8 +50,8 @@ class MainController {
 		$isNotFound = false; 
 		$controller = null; 
 
-		$useCase = $_REQUEST ['uc'];
-		$action  = $_REQUEST ['a'];
+		$useCase = (empty($_REQUEST ['uc'])) ? null : $_REQUEST['uc'];
+		$action  = (empty($_REQUEST ['a'])) ? null : $_REQUEST['a'];
 		
 
 		if(array_key_exists($useCase, $this->controllersArray)){
@@ -65,11 +65,13 @@ class MainController {
 		
 		
 		$arrayMethods = $controller->sayMyActions();
-		
-		foreach ( $arrayMethods as $a ) {
-			if (strcasecmp ( $a, $action ) == 0) {
-				$realNameMethod = $a;
-				break;
+
+		if(!empty($action)){
+			foreach ( $arrayMethods as $a ) {
+				if (strcasecmp ( $a, $action ) == 0) {
+					$realNameMethod = $a;
+					break;
+				}
 			}
 		}
 		
@@ -84,7 +86,10 @@ class MainController {
 		if(!$isNotFound){
 			$block = Firewall::permissao($controller, $realNameMethod); 
 
-			if($block)die("Ação negada para esse nível de usuário"); 
+			if($block){
+				$controller = $this->controllersArray['security']; 
+				$realNameMethod = 'blockView';
+			}
 		}
 
 		$reflection = new ReflectionMethod ( $controller->sayMyName (), $realNameMethod );
