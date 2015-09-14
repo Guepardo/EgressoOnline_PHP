@@ -105,7 +105,8 @@ class Autenticar extends GenericController {
 	/** @BlockList({'noblock'}) */
 	public function gerarCodigo($arg){
 		self::redirect();
-		Lumine::import("Usuario"); 
+		Lumine::import("Usuario");
+
 		$usuario = new Usuario(); 
 		$key     = new KeyFactory(); 
 		$total = $usuario->get('email',$arg['email']); 
@@ -116,6 +117,7 @@ class Autenticar extends GenericController {
 			$usuario->codigo = $codigo; 
 			$usuario->update(); 
 		}
+
 
 		//$mail = Mail(); 
 		//Mandar email aqui embaixo: 

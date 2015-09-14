@@ -8,102 +8,109 @@
 
  <!-- $Include templates/lib/html/topbar.html --> 
 
- <div class="row">
-  <div class="medium-10 medium-offset-1 columns"> <h1>Cadastro de Egresso</h1> </div>
-</div>
 
-<div class="row">
-  <div class="medium-10 medium-offset-1 columns">
-    <form id="form" data-abide="ajax"> 
-     <!--Nome do professor--> 
-     <div class="row">
-      <div class="medium-7 small-6 columns">
-        <label>Nome: <small>Obrigatório</small>
-          <input type="text" name="nome" required   />
-        </label> <small class="error">Você precisa informar o nome do egresso</small>
-      </div>
-    </div>
-    <!--CPf do professor--> 
-    <div class="row">
-      <div class="medium-7 small-6 columns">
-        <label>CPF: <small>Obrigatório</small>
-          <input type="text" name="cpf" class="cpf" required  placeholder="000.000.000-00" />
-        </label> <small class="error">Você precisa informar o CPF</small>
-      </div>
-    </div>
-    
-    <!--E-mail do professor--> 
-    <div class="row">
-      <div class="medium-7 small-6 columns">
-        <label>E-mail: <small>Obrigatório</small>
-          <input type="email" name="e_mail" required  placeholder="exemplo@email.com" />
-        </label> <small class="error">Você precisa inserir um e-mail válido</small>
-      </div>
-    </div>
-
-    <!-- Sexo do Professor--> 
-    <div class="row">
-      <div class="medium-3 columns">
-        <label for="sexo">Gênero: <small>Obrigatório</small>
-          <select id="sexo" class="medium" name="genero_id" required>
-            <option value="">Selecione</option>
-            <option value="1">MASCULINO</option>
-            <option value="2">FEMININO</option>
-            
-          </select>
-        </label>
-        <small class="error">Você percisa selecionar Gênero</small>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="medium-7 columns">
-        <fieldset class="panel">
-          <legend>Informações sobre o curso</legend>
-          <div class="row">
-            <div class="medium-6 columns"> 
-              <label>Ano de ingresso: <small>Obrigatório</small>
-                <input type="number"  name="ano_ingresso" required  max="5000" min="1900"  />
-              </label> <small class="error">Você precisa inserir um ano válido</small>
-            </div> 
-
-            <div class="medium-6 columns"> 
-             <label>Ano de conclusão: <small>Obrigatório</small>
-               <input type="number" name="ano_conclusao" required  max="5000" min="1900"  />
-             </label> <small class="error">Você precisa inserir um ano válido</small>
-           </div> 
-         </div>
-       </fieldset>
-     </div>
-   </div>
-
-   <hr />
-   <!--info-->
-   <div class="row">
-    <div id="info" class="medium-12 columns">
-
-    </div>
-  </div>
-
-  <!-- botões --> 
+ <div class="row fix-container">
+  <!-- cabeçalho -->
   <div class="row">
-    <div class="medium-2 small-3 columns right">
-      <button class="button success tiny radius" type="submit" >Cadastrar</button>
-    </div>
-
-    <div class="medium-2 small-3 columns left">
-      <a class="button info tiny radius">Tela principal</a>
+    <div class="medium-12 columns">
+      <h2 class='cabecalho'>Cadastro Egresso</h2>
     </div>
   </div>
 
+  
+  <form id="form" data-abide="ajax"> 
+   <!--Nome do professor--> 
+   <div class="row">
+    <div class="medium-7 small-6 columns">
+      <label>Nome: <small>Obrigatório</small>
+        <input type="text" name="nome" required   />
+      </label> <small class="error">Você precisa informar o nome do egresso</small>
+    </div>
+  </div>
+  <!--CPf do professor--> 
+  <div class="row">
+    <div class="medium-7 small-6 columns">
+      <label>CPF | Login: <small>Obrigatório</small>
+        <input type="text" name="cpf" class="cpf" required  placeholder="000.000.000-00" />
+      </label> <small class="error">Você precisa informar o CPF</small>
+    </div>
+  </div>
+
+  <!--E-mail do professor--> 
+  <!-- label -->
+  <div class="row" >
+    <div class="medium-12 columns">
+      <span class="label secondary">Uma senha aleatória será enviada para o email fornecido neste cadastro, junto com o cpf e link para acesso do site.</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-7 small-6 columns">
+      <label>E-mail: <small>Obrigatório</small>
+        <input type="email" name="e_mail" required  placeholder="exemplo@email.com" />
+      </label> <small class="error">Você precisa inserir um e-mail válido</small>
+    </div>
+  </div>
+
+
+  <!-- Sexo do Professor--> 
+  <div class="row">
+    <div class="medium-3 columns">
+      <label for="sexo">Gênero: <small>Obrigatório</small>
+        <select id="sexo" class="medium" name="genero_id" required>
+          <option value="">Selecione</option>
+          <option value="1">MASCULINO</option>
+          <option value="2">FEMININO</option>
+        </select>
+      </label>
+      <small class="error">Você percisa selecionar Gênero</small>
+    </div>
+  </div>
+
+  <!-- label -->
+  <div class="row">
+    <div class="medium-12 columns">
+      <span class="label secondary">As turmas são criadas automaticamente conforme a inserção de novos egressos. Se a turma existir, o egresso é vinculado a mesma.</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="medium-7 columns">
+      <fieldset class="panel" style="margin-top:0;">
+        <legend>Informações sobre o curso</legend>
+        <div class="row">
+          <div class="medium-6 columns"> 
+            <label>Ano de ingresso: <small>Obrigatório</small>
+              <input type="number" value='2015' name="ano_ingresso" required  max="5000" min="1900"  />
+            </label> <small class="error">Você precisa inserir um ano válido</small>
+          </div> 
+
+          <div class="medium-6 columns"> 
+           <label>Ano de conclusão | Turma: <small>Obrigatório</small>
+             <input type="number"  value='2015' name="ano_conclusao" required  max="5000" min="1900"  />
+           </label> <small class="error">Você precisa inserir um ano válido</small>
+         </div> 
+       </div>
+     </fieldset>
+   </div>
+ </div>
+
+ <hr />
+ <!--info-->
+
+ <!-- botões --> 
+ <div class="row">
+  <div class="medium-2 small-3 columns right">
+    <button class="button success tiny " type="submit" >Cadastrar</button>
+  </div>
+
+  <div class="medium-2 small-3 columns left">
+    <a class="button info tiny" href="index.php?uc=telaPrincipal&a=principalView">Tela principal</a>
+  </div>
 </div>
 </form>
+
 </div>
 
-<div id="load" style="background-color:white;position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-15px;" class="hide">
-  <i class="fa fa-refresh fa-spin fa-3x hide" style="margin-left:27px"></i>
-  <h3>Aguarde</h3>
-</div>
 
 <!-- $Include templates/lib/html/footerscripts.html --> 
 

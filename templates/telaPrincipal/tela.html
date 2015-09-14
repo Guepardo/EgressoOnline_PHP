@@ -44,7 +44,7 @@
  <!-- $Include templates/lib/html/topbar.html --> 
  <!-- top-bar fim --> 
 
- <div class="row perfil_box fix-container" >
+ <div class="row perfil_box" style="margin-top:60px;" >
 
   <!-- Notificações -->
   <div class="row ${is_hide}" >
@@ -60,7 +60,7 @@
   <div class="large-3 columns">
     <div class="panel" style="height: 280px;">
       <img src="${foto}" class="perfil_large" />
-      <h6 style="font-size:15px;">${nome}</h6>
+      <h6 style="font-size:15px;" class="text-center">${nome}</h6>
       <!-- separator -->
     </hr>
     <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
@@ -111,7 +111,7 @@
 
 <div class="row">
   <div class="medium-4 medium-centered columns">
-    <h4 class="subheader medium-text-center">- Atividades recentes - </h4>
+    <h4 class="cabecalho medium-text-center">- Atividades recentes - </h4>
   </div>
 </div>
 
@@ -747,7 +747,9 @@
 
         lancarModalAlterouDados();
         refresh(); 
-
+        switchEmpregoPais(); 
+        switchPosPais(); 
+        
         //Tratando mensagens diretas na timeline
         $("#bnt_mensagem").click(function(){
           var id = $(this).val(); 
@@ -808,72 +810,47 @@
   });
 
   //Script final
-  $('#emprego_pais').change(function(){
-    var value = $('#emprego_pais option:selected ').val(); 
+  $('#emprego_pais').change(function(){switchEmpregoPais()}); 
+  $('#pos_pais').change(function(){switchPosPais()}); 
+ 
 
-    if( value == 33 ){
-      $('#emprego_complemento').addClass('hide'); 
-      $('#emprego_estado').removeClass('hide');
-      $('#emprego_cidade').removeClass('hide');
-    }else{
-      $('#emprego_complemento').removeClass('hide'); 
-      $('#emprego_estado').addClass('hide');
-      $('#emprego_cidade').addClass('hide');
-    }
+$('#emprego_select_estado').change(function(){
+  var value = $('#emprego_select_estado option:selected ').val(); 
+  var text = $('#emprego_select_estado option:selected ').text(); 
 
+  sendAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
+    data = JSON.parse(data); 
+    $('#emprego_select_cidade > option').each(function(){ this.remove(); }); 
+
+    $.each(data, function (i, item) { 
+      $('#emprego_select_cidade').append($('<option>', { 
+        value: item,
+        text : item 
+      }));
+    });
+    alertify.success("As cidades do estado do(e) <b>"+text+"</b> foram carregadas."); 
   }); 
 
-  $('#pos_pais').change(function(){
-    var value = $('#pos_pais option:selected ').val(); 
+}); 
 
-    if( value == 33 ){
-      $('#pos_complemento').addClass('hide'); 
-      $('#pos_estado').removeClass('hide');
-      $('#pos_cidade').removeClass('hide');
-    }else{
-      $('#pos_complemento').removeClass('hide'); 
-      $('#pos_estado').addClass('hide');
-      $('#pos_cidade').addClass('hide');
-    }
+$('#pos_select_estado').change(function(){
+  var value = $('#pos_select_estado option:selected ').val(); 
+  var text = $('#pos_select_estado option:selected ').text(); 
+
+  sendAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
+    data = JSON.parse(data); 
+    $('#pos_select_cidade > option').each(function(){ this.remove(); }); 
+
+    $.each(data, function (i, item) { 
+      $('#pos_select_cidade').append($('<option>', { 
+        value: item,
+        text : item 
+      }));
+    });
+    alertify.success("As cidades do estado do(e) <b>"+text+"</b> foram carregadas.");
   }); 
 
-  $('#emprego_select_estado').change(function(){
-    var value = $('#emprego_select_estado option:selected ').val(); 
-    var text = $('#emprego_select_estado option:selected ').text(); 
-
-    sendAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
-      data = JSON.parse(data); 
-      $('#emprego_select_cidade > option').each(function(){ this.remove(); }); 
-
-      $.each(data, function (i, item) { 
-        $('#emprego_select_cidade').append($('<option>', { 
-          value: item,
-          text : item 
-        }));
-      });
-      alertify.success("As cidades do estado do(e) <b>"+text+"</b> foram carregadas."); 
-    }); 
-
-  }); 
-
-  $('#pos_select_estado').change(function(){
-    var value = $('#pos_select_estado option:selected ').val(); 
-    var text = $('#pos_select_estado option:selected ').text(); 
-
-    sendAjax('index.php?uc=ajaxServices&a=getCities','POST',{'state' : value}, function(data){
-      data = JSON.parse(data); 
-      $('#pos_select_cidade > option').each(function(){ this.remove(); }); 
-
-      $.each(data, function (i, item) { 
-        $('#pos_select_cidade').append($('<option>', { 
-          value: item,
-          text : item 
-        }));
-      });
-      alertify.success("As cidades do estado do(e) <b>"+text+"</b> foram carregadas.");
-    }); 
-
-  }); 
+}); 
 
   //Manipulador para o botão de postagem
   $('#publicar').click(function(){
@@ -1071,6 +1048,34 @@ function buildViewEmprego(data){
     $("#emprego_complemento_div").addClass("hide");
   }
 
+}
+
+ function switchEmpregoPais(){
+    var value = $('#emprego_pais option:selected ').val(); 
+
+    if( value == 33 ){
+      $('#emprego_complemento').addClass('hide'); 
+      $('#emprego_estado').removeClass('hide');
+      $('#emprego_cidade').removeClass('hide');
+    }else{
+      $('#emprego_complemento').removeClass('hide'); 
+      $('#emprego_estado').addClass('hide');
+      $('#emprego_cidade').addClass('hide');
+    }
+  }
+
+  function switchPosPais(){
+   var value = $('#pos_pais option:selected ').val(); 
+
+   if( value == 33 ){
+    $('#pos_complemento').addClass('hide'); 
+    $('#pos_estado').removeClass('hide');
+    $('#pos_cidade').removeClass('hide');
+  }else{
+    $('#pos_complemento').removeClass('hide'); 
+    $('#pos_estado').addClass('hide');
+    $('#pos_cidade').addClass('hide');
+  }
 }
 
 }); 

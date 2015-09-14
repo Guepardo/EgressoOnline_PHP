@@ -1,155 +1,146 @@
   <!doctype html>
-  <html class="no-js" lang="en">
+  <html class="no-js" lang="pt">
   <head>
     <title>EgressoOnline - Login</title>
     <!-- $Include templates/lib/html/head.html --> 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.8/datatables.min.css"/>
-
-    <style>
-      .fix{
-        min-width: 335px !important;  
-        max-width: 339px !important;
-      }
-      .fix_top{ 
-        margin-top: 3%;
-      }
-      .main_container{
-       position:relative;
-       top:20%;
-       border:5px;
-       background-color: white;
-       border-radius: 2px; 
-     }
-
-     .borda_inferior{
-      border-bottom-style: solid; 
-      border-bottom-width: 2px; 
-      border-bottom-color: rgb(169,169,169); 
-    }
-
-    #logo{
-      margin: 15px 50px 15px 50px;
-      width: 210px; 
-      height: 100px; 
-    }
-
-    .buttom_fix{
-      width: 250px; 
-      margin-left: 25px; 
-      margin-right: 25px;  
-    }
-  </style>
 
 </head>
 <body>
 
 
   <!-- $Include templates/lib/html/topbar.html --> 
-  <div class="row panel" style="margin-top:30px">
+
+  <div class="row fix-container" >
     <div class="medium-12 columns">
-      <!-- começo -->
+      <!-- cabeçalho -->
       <div class="row">
-        <!--Direito-->
-        <div class="medium-12 columns" > 
+        <div class="medium-12 columns">
+          <h2 class='cabecalho'>Notificações via e-mail</h2>
+        </div>
+      </div>
+
+        <!-- alerta -->
+    <div class="row">
+      <div class="medium-12 columns">
+        <div data-alert class="alert-box secondary">
+           As notificações via e-mail informam quando uma nova oportunidade de empregou ou pós-graduação é compartilhada no sistema. Contudo, é necessário que você explique para o EgressoOnline o que mais te interessa em questão de emprego e pós-graduações. Selecione uma opção em <b>Tipos de pós-graduação</b> para oportunidades de pós-graduações e selecione áreas de atuação profissional em <b>Tipos de área profissional</b> para oportunidades de emprego.
+          <a href="#" class="close">&times;</a>
+        </div>
+      </div>
+    </div>
+      
+      <!-- linha 2 -->
+      <!-- cabeçalho -->
+      <div class="row" >
+        <div class="medium-12 columns">
+          <h5 class='subheader cabecalho'>Tipos de pós-graduação</h5>
+        </div>
+      </div>
+
+        <!-- label -->
+      <div class="row">
+        <div class="medium-12 columns">
+          <span class=" label secondary">É permitido marcar apenas um tipo de graduação. </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="medium-12 columns">
           <div class="row">
-
-            <!--Esquerdo-->
-            <div class="medium-6 columns" style="height:400px;">
-              <div class="row">
-                <div class="medium-12 columns">
-                  <span class="label">Selecione algumas áreas que o interessa</span>
-                </div>
-              </div>
-              <hr style="margin:0"/>
-
-              <div class="row">
-                <div class="medium-6 columns">
-                  <label >Selecione uma área
-                    <select id="area_selecionada">
-                      <option value="">- Selecione -</option>
-                      <!-- $BeginBlock area-->
-                      <option value="${area.id}"> ${area.des}</option>
-                      <!-- $EndBlock area -->
-                    </select>
-                  </label>
-                </div>
-
-                <div class="medium-6 columns">
-                  <button class="button success tiny" id="cadastrar" style="margin-bottom:0;margin-top:25px;">Adicionar aos meus interesses</button>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="medium-12 columns">
-                  <span class="label">Selecione a opção desejada seobre as notificações de pós-graducão</span>
-                </div>
-              </div>
-              <hr style="margin-top:0"/>
-
-              <div class="row">
-                <div class="medium-12 columns">
-                  <input type="radio" name="pokemon" class="radios" value="2" id="pokemonRed"><label for="pokemonRed">Graduação</label>
-                  <input type="radio" name="pokemon" class="radios" value="3" id="pokemonBlue"><label for="pokemonBlue">Especialização</label>
-                  <input type="radio" name="pokemon" class="radios" value="4" id="pokemonRed"><label for="pokemonRed">Mestrado</label>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="medium-12 columns">
-                  <input type="radio" name="pokemon" class="radios" value="5" id="pokemonBlue"><label for="pokemonBlue">Doutorado</label>
-                  <input type="radio" name="pokemon" class="radios" value="0" id="pokemonRed"><label for="pokemonRed" style="color:red">Não desejo ser notificado</label>
-                </div>
-              </div>
-
+            <div class="medium-12 columns">
+              <input type="radio" name="pokemon" class="radios" value="2" id="pokemonRed"><label for="pokemonRed">Graduação</label>
+              <input type="radio" name="pokemon" class="radios" value="3" id="pokemonBlue"><label for="pokemonBlue">Especialização</label>
+              <input type="radio" name="pokemon" class="radios" value="4" id="pokemonRed"><label for="pokemonRed">Mestrado</label>
+              <input type="radio" name="pokemon" class="radios" value="5" id="pokemonBlue"><label for="pokemonBlue">Doutorado</label>
             </div>
-
-            <div class="medium-6 columns" >
-              <div class="row">
-                <div class="medium-12 columns">
-                  <span class="label">Áreas profissionais que desejo ser notificado via e-mail</span>
-                </div>
-              </div>
-              <hr style="margin:0"/>
-
-              <div class="row">
-                <div class="medium-12 columns">
-                  <table class="dataTable striped border bordered" data-role="datatable" data-searching="false">
-                    <thead>
-                      <tr>
-                        <th >Área Profissional</th>
-                        <th >Ação</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <!-- $BeginBlock row-->
-                      <tr>
-                        <td>${nome}</td>
-                        <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
-                      </tr>
-                      <!-- $EndBlock row-->
-                    </tbody>
-
-                    <tfoot>
-                      <tr>
-                        <th >Área Profissional</th>
-                        <th >Ação</th>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-              </div>
-              
-
-            </div>  
-            <!--fim-->
           </div>
 
+          <div class="row">
+            <div class="medium-12 columns">
+              <input type="radio" name="pokemon" class="radios" value="0" id="pokemonRed"><label for="pokemonRed" style="color:red">Não desejo ser notificado</label>
+            </div>
+          </div>
         </div>
-      </div>  
+      </div>
+
+    
+      <!-- linha 2 -->
+
+      <hr>
+
+      <!-- cabeçalho -->
+      <div class="row" >
+        <div class="medium-12 columns">
+          <h5 class='subheader cabecalho'>Tipos de área profissional</h5>
+        </div>
+      </div>
+
+      <!-- linha 1 -->
+      <div class="row">
+        <div class="medium-6 columns">
+          <label >Selecione uma área
+            <select id="area_selecionada">
+              <option value="">- Selecione -</option>
+              <!-- $BeginBlock area-->
+              <option value="${area.id}"> ${area.des}</option>
+              <!-- $EndBlock area -->
+            </select>
+          </label>
+        </div>
+
+        <div class="medium-6 columns">
+          <button class="button success tiny" id="cadastrar" style="margin-bottom:0;margin-top:25px;">Adicionar aos meus interesses</button>
+        </div>
+      </div>
+
+      <!-- cabeçalho -->
+      <div class="row">
+        <div class="medium-12 columns">
+          <span class=" label info">As áreas que estão na sua lista de interesse estão na tabela abaixo.</span>
+        </div>
+      </div>
+      <!-- linha 1 -->
+
+      <!-- linha 3 -->
+      <div class="row">
+        <div class="medium-12 columns" >
+          <div class="row">
+            <div class="medium-12 columns">
+              <table class="dataTable  border bordered" data-role="datatable" data-searching="false">
+                <thead>
+                  <tr>
+                    <th >Área Profissional</th>
+                    <th >Ação</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <!-- $BeginBlock row-->
+                  <tr>
+                    <td>${nome}</td>
+                    <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
+                  </tr>
+                  <!-- $EndBlock row-->
+                </tbody>
+
+                <tfoot>
+                  <tr>
+                    <th >Área Profissional</th>
+                    <th >Ação</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- linha 3 -->
+
     </div>
-    <!-- fim  -->
   </div>
+
+
 
   <!-- $Include templates/lib/html/footerscripts.html --> 
   <script src="templates/lib/js/jquery.mask.min.js"></script>
@@ -158,60 +149,60 @@
   <script src="templates/lib/js/metro.js"></script>
 
   <script>
-    $(document).foundation();
+  $(document).foundation();
 
-    $(document).ready(function(){
+  $(document).ready(function(){
 
-     $(".radios").change(function(){
-      var id = $(this).val();
+   $(".radios").change(function(){
+    var id = $(this).val();
 
-      sendAjax('index.php?uc=configurar&a=mudarTitulo','POST',{'id' : id}, function(data){
-       data = JSON.parse(data); 
-       if(data['status']){
+    sendAjax('index.php?uc=configurar&a=mudarTitulo','POST',{'id' : id}, function(data){
+     data = JSON.parse(data); 
+     if(data['status']){
+      alertify.success("Feito com sucesso"); 
+    }else{
+      alertify.error(data['msg']); 
+    }
+  });  
+  }); 
+
+   $("#cadastrar").click(function(){
+    var areaId = $("#area_selecionada option:selected").val(); 
+    if(areaId == ''){
+      alertify.error("Selecione uma área de atuacão profissional");
+      return; 
+    } 
+
+    sendAjax('index.php?uc=configurar&a=addArea','POST',{'id' : areaId}, function(data){
+      data = JSON.parse(data); 
+      if(data['status']){
         alertify.success("Feito com sucesso"); 
+        reloadDelay(1000); 
       }else{
         alertify.error(data['msg']); 
       }
-    });  
     }); 
 
-     $("#cadastrar").click(function(){
-      var areaId = $("#area_selecionada option:selected").val(); 
-      if(areaId == ''){
-        alertify.error("Selecione uma área de atuacão profissional");
-        return; 
-      } 
-
-      sendAjax('index.php?uc=configurar&a=addArea','POST',{'id' : areaId}, function(data){
-        data = JSON.parse(data); 
-        if(data['status']){
-          alertify.success("Feito com sucesso"); 
-          reloadDelay(1000); 
-        }else{
-          alertify.error(data['msg']); 
-        }
-      }); 
-
-    }); 
-
-     $("button.delete").click(function(){
-      var id = $(this).val(); 
-      sendAjax('index.php?uc=configurar&a=deletarArea','POST',{'id' : id}, function(data){
-        data = JSON.parse(data); 
-        if(data['status']){
-          alertify.success("Feito com sucesso"); 
-          reloadDelay(1000); 
-        }else{
-          alertify.error(data['msg']); 
-        }
-      }); 
-
-    }); 
-
-     function reloadDelay(delay){
-      setInterval(function(){window.location.reload();},delay); 
-    }
   }); 
-</script>
+
+   $("button.delete").click(function(){
+    var id = $(this).val(); 
+    sendAjax('index.php?uc=configurar&a=deletarArea','POST',{'id' : id}, function(data){
+      data = JSON.parse(data); 
+      if(data['status']){
+        alertify.success("Feito com sucesso"); 
+        reloadDelay(1000); 
+      }else{
+        alertify.error(data['msg']); 
+      }
+    }); 
+
+  }); 
+
+   function reloadDelay(delay){
+    setInterval(function(){window.location.reload();},delay); 
+  }
+}); 
+  </script>
 </body>
 </html>

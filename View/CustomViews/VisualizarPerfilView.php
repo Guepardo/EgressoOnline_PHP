@@ -78,7 +78,9 @@ class VisualizarPerfilView extends GenericView{
 	}
 
 
-	public function perfilTurmaView($id){
+	public function perfilTurmaView($arg){
+		$id = (int) $arg['id']; 
+
 		parent::getTemplateByAction('perfilTurma'); 
 		Lumine::import("Turma"); 
 		Lumine::import("Usuario"); 
@@ -102,8 +104,14 @@ class VisualizarPerfilView extends GenericView{
 			parent::$templator->addBlock("aluno");
 		}
 
-		if(!$_SESSION['coordenador'])
+		if(!$_SESSION['user']['coordenador'])
 			parent::$templator->setVariable("is_hide", 'hide'); 
+
+		//Adicionando mensagem de redirecionamento:
+		if(!empty($arg['nopost_msg']))
+			parent::$templator->setVariable('msg',$arg['nopost_msg']);
+		else
+			parent::$templator->setVariable('is_hide_msg', 'hide');
 		
 		parent::show(); 
 	}

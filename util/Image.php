@@ -12,7 +12,7 @@ class Image
 		$this->errors = array('houve um problema no upload de arquivo.',
 							  'o arquivo é muito grande.', 
 							  'servidor com problemas.', 
-							  'envie um arquivo de imagem PNG ou JPG.'
+							  'envie um arquivo de imagem no formato JPG.'
 							 );  
 	}
 
@@ -27,7 +27,7 @@ class Image
 		$extension = explode('.',$_FILES[$name]['name']);
 		$extension = strtolower($extension[1]); 
 
-		if(strcmp($extension,'png') != 0 && strcmp($extension,'jpg') != 0 )
+		if(strcmp($extension,'jpg') != 0)
 			return 3; 
 
 		$nomeFinal = md5(time().$_FILES[$name]['name']).'.'.$extension[1]; 
@@ -68,7 +68,6 @@ class Image
 		$extension = explode('.',$_FILES[$name]['name']); 
 		$nomeFinal = md5(time().$_FILES[$name]['name'].'A-D').'.'.$extension[1]; 
 
-		var_dump($extension); 
 		
 		$wide->crop($x,$y,$x2,$y2)->resize(1000,400)->saveToFile(PATH.$this->path.DS.$nomeFinal,$compress); 
 		//$wide->crop($x,$y,$x2,$y2)->resize(128)->output('jpg', $compress);

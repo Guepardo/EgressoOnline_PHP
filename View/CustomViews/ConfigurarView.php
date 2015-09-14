@@ -17,7 +17,7 @@ class ConfigurarView extends GenericView{
 
 		while(  $area->fetch() ){
 			parent::$templator->setVariable("area.id", $area->id ); 
-			parent::$templator->setVariable("area.des", Convert::toUTF_8($area->des)); 
+			parent::$templator->setVariable("area.des", Convert::upperUtf8($area->des)); 
 			parent::$templator->addBlock("area");
 		}
 
@@ -35,7 +35,7 @@ class ConfigurarView extends GenericView{
 			parent::$templator->setVariable("id", $notificacaoAtuacao->atuacaoProfissionalId );
 			$area = new AtuacaoProfissional();  
 			$area->get($notificacaoAtuacao->atuacaoProfissionalId); 
-			parent::$templator->setVariable("nome", $area->des); 
+			parent::$templator->setVariable("nome", Convert::upperUtf8($area->des)); 
 
 			parent::$templator->addBlock("row");
 		}

@@ -1,5 +1,6 @@
 <?php
 require_once(PATH.'Controller'.DS.'GenericController.php'); 
+require_once(PATH.'View'.DS.'CustomViews'.DS.'VisualizarPerfilView.php'); 
 require_once(PATH.'Util'.DS.'Image.php');
 
 class ManterPerfilTurma extends GenericController {
@@ -8,35 +9,46 @@ class ManterPerfilTurma extends GenericController {
 
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function alterarFoto($arg){
-		// var_dump($arg); 
 		// die; 
+		$view = new VisualizarPerfilView(); 
+
+		if(empty($arg['x']) || empty($arg['y']) || empty($arg['x2']) || empty($arg['y2'])){
+			$arg['nopost_msg'] = "Recorte a foto antes de enviar."; 
+			$view->perfilTurmaView($arg); 
+			exit; 
+		}
 
 		$m = new Image(); 
 		$result = $m->saveCropLandspace('file',$arg['x'],$arg['y'],$arg['x2'],$arg['y2']); 
 		Lumine::import("Turma"); 
 
 		$turma = new Turma(); 
-		$total = $turma->get($_SESSION['user_id']); 
+		$total = $turma->get((int) $arg['id']); 
 
 		if($total < 0){
 			die("error");
 		}
+		
 		if(is_int($result)){
-			$msg = array('nopost_msg' => 'Erro: '.$m->errors[$result] ); 
+			$msg = array('nopost_msg' => 'Erro: '.$m->errors[$result] );
+			$arg['nopost_msg'] = "Sua foto de perfil foi modificada com sucesso.";
+			$view->perfilTurmaView($arg);
 			exit; 
 		}
 
 		$lastImage = $turma->foto; 
 
-		if(strcmp($lastImage,'Midia\\default_turma.png') != 0)
+		if(strcmp($lastImage,'Midia/default_turma.png') != 0 )
 			unlink(PATH.$lastImage); 
 
-		$turma->foto = 'Midia'.DS.DS.$result; 
+		$turma->foto = 'Midia/'.$result; 
 		$turma->update(); 
 
 		//Passando mensagem interna para a outra tela 
-		$msg = array('nopost_msg' => "Sua foto de perfil foi modificada com sucesso."); 
-		var_dump($msg); 
+
+		
+		$arg['nopost_msg'] = "Sua foto de perfil foi modificada com sucesso."; 
+		$view->perfilTurmaView($arg); 
 	}
 
 	

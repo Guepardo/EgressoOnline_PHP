@@ -60,7 +60,6 @@ class DivulgarOportunidade extends GenericController {
 		Lumine::import("OpPosGraduacao"); 
 		Lumine::import("Localidade"); 
 		Lumine::import("Cidade"); 
-		Lumine::import("EmailEnviar"); 
 
 		$localidade = new Localidade(); 
 		$cidade = new Cidade(); 
@@ -106,7 +105,8 @@ class DivulgarOportunidade extends GenericController {
 		Lumine::import("OpPosGraduacao");
 
 		Lumine::import("Usuario"); 
-		Lumine::import("Notificacao"); 
+		Lumine::import("Notificacao");
+		Lumine::import("EmailEnviar"); 
 
 		$op = new Oportunidade(); 
 		$opPos = new OpPosGraduacao(); 

@@ -21,67 +21,60 @@
     <div class="row fix-container" >
       <div class="medium-12 columns">
         <!-- começo -->
+        <!-- cabeçalho -->
         <div class="row">
-         <div class="medium-12 columns" >
-          <div class="row">
-            <div class="medium-12 columns">
-              <h2>Oportunidades</h2>
-            </div>
-          </div>
-          <hr style="margin:0"/>
-
-          <!--Direito-->
-          <div class="medium-12 columns" >
-            <div class="row">
-              <div class="medium-12 columns">
-                <div data-alert class="alert-box secondary">
-                  Lista das 500 últimas oportunidades de emprego e pós-graduação que foram divulgadas. 
-                  <a href="#" class="close">&times;</a>
-                </div>
-              </div>
-            </div>
-            <hr style="margin:0"/>
-
-            <div class="row">
-              <div class="medium-12 columns">
-                <!--nova table-->
-                <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
-                  <thead>
-                   <tr>
-                    <th >Tipo</th>
-                    <th >Data de Divulgação</th>
-                    <th >Divulgador</th>
-                    <th ></th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <!-- $BeginBlock row -->
-                  <tr>
-                    <td>${op.tipo}</td>
-                    <td>${op.data}</td>
-                    <td>${op.divulgador}</td>
-                    <td> <buttom value="${op.id}" class="button tiny action_op" style="margin:0">Ver detalhes</buttom></td>
-                  </tr>
-                  <!-- $EndBlock row -->
-                </tbody>
-
-                <tfoot>
-                 <tr>
-                  <th >Tipo</th>
-                  <th >Data de Divulgação</th>
-                  <th >Divulgador</th>
-                  <th ></th>
-                </tr>
-              </tfoot>
-            </table>
+          <div class="medium-12 columns">
+            <h2 class='cabecalho'>Oportunidades</h2>
           </div>
         </div>
-      </div>  
-      <!--fim-->
-    </div>  
+
+
+        <!-- cabeçalho -->
+        <div class="row">
+          <div class="medium-12 columns">
+            <span class="label secondary">A tabela abaixo conterá no máximo as 500 últimas oportunidades de emprego e pós-graduação que foram divulgadas. </span>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="medium-12 columns">
+            <!--nova table-->
+            <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+              <thead>
+               <tr>
+                <th >Tipo</th>
+                <th >Data de Divulgação</th>
+                <th >Divulgador</th>
+                <th ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <!-- $BeginBlock row -->
+              <tr>
+                <td>${op.tipo}</td>
+                <td>${op.data}</td>
+                <td>${op.divulgador}</td>
+                <td> <buttom value="${op.id}" class="button tiny action_op" style="margin:0">Ver detalhes</buttom></td>
+              </tr>
+              <!-- $EndBlock row -->
+            </tbody>
+
+            <tfoot>
+             <tr>
+              <th >Tipo</th>
+              <th >Data de Divulgação</th>
+              <th >Divulgador</th>
+              <th ></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    
+
   </div>
-  <!-- fim  -->
 </div>
 
 <!-- Modais -->

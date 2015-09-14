@@ -10,19 +10,26 @@
 
  <!-- $Include templates/lib/html/topbar.html --> 
 
- <div class="row fix-container" >
-  <!-- navegação -->
-  <div class="row">
-    <div class="medium-12 columns">
-      <nav class="breadcrumbs">
-        <a href="#" class="current">Alterar Dados</a>
-        <a href="index.php?a=alterarSenhaView&uc=manterUsuario">Alterar senha</a>
-        <a href="index.php?uc=manterUsuario&a=alterarFotoView">Alterar Foto de Perfil</a>
-      </nav>
-    </div>
-  </div>
-
+ <div class="row fix-container"  >
   <div class="medium-12 columns">
+
+    <div class="row">
+      <div class="medium-12 columns">
+        <h2 class='cabecalho'>Alterar Dados</h2>
+      </div>
+    </div>
+
+    <!-- navegação -->
+    <div class="row" style="margin-top:20px;">
+      <div class="medium-12 columns">
+        <nav class="breadcrumbs">
+          <a href="#" class="current">Alterar Dados</a>
+          <a href="index.php?a=alterarSenhaView&uc=manterUsuario">Alterar senha</a>
+          <a href="index.php?uc=manterUsuario&a=alterarFotoView">Alterar Foto de Perfil</a>
+        </nav>
+      </div>
+    </div>
+
     <form id="form" data-abide="ajax"> 
 
       <div class="row">
@@ -257,11 +264,11 @@
  <!-- botões --> 
  <div class="row">
   <div class="medium-2 small-3 columns right">
-    <button class="button success tiny radius" type="submit">Alterar dados</button>
+    <button class="button success tiny " type="submit">Alterar dados</button>
   </div>
 
   <div class="medium-2 small-3 columns left">
-    <button class="button info tiny radius">Tela principal</button>
+    <button class="button info tiny ">Tela principal</button>
   </div>
 </div>
 </form>
@@ -384,7 +391,7 @@ function disableAreaTi(){
       $("#atuacao_profissional").removeAttr("required"); 
       $("#atuacao_label").text(""); 
     }
-    $(document).foundation();
+   
   }
   function switchEmpregoFeild(){
     if($('#checkbox1').is(':checked')){
@@ -400,7 +407,6 @@ function disableAreaTi(){
     $("#atuacao_profissional").removeAttr("required"); 
   }
   //Chamando foudation para atualizar campos
-  $(document).foundation();
 }
 </script>
 </body>

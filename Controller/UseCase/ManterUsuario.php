@@ -23,6 +23,7 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->cadastroProfessorView(); 
 	}
 
+	/** @BlockList({'visitante'}) */
 	public function alterarFotoView(){
 		$this->manterUsuarioView->alterarFotoView(); 
 	}
@@ -481,6 +482,13 @@ class ManterUsuario extends GenericController{
 	/** @BlockList({'visitante'}) */
 	public function alterarFoto($arg){
 		//Criando instância para página principal
+
+		if(empty($arg['x']) || empty($arg['y']) || empty($arg['x2']) || empty($arg['y2'])){
+			$msg = array('nopost_msg' => 'Erro: recorte a imagem antes de enviar'); 
+			$this->manterUsuarioView->alterarFotoView($msg);
+			exit; 
+		}
+
 		$principal = new TelaPrincipalView();
 
 		$m = new Image(); 
@@ -493,6 +501,7 @@ class ManterUsuario extends GenericController{
 		if($total < 0){
 			die("error");
 		}
+
 		if(is_int($result)){
 			$msg = array('nopost_msg' => 'Erro: '.$m->errors[$result] ); 
 			$this->manterUsuarioView->alterarFotoView($msg);
@@ -504,7 +513,7 @@ class ManterUsuario extends GenericController{
 		if(strcmp($lastImage,'Midia/default.png') != 0)
 			unlink(PATH.$lastImage); 
 
-		$usuario->foto = 'Midia'.DS.$result; 
+		$usuario->foto = 'Midia/'.$result; 
 		$usuario->update(); 
 
 		//Passando mensagem interna para a outra tela 

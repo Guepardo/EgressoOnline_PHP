@@ -18,59 +18,69 @@
   <body>
     <!-- $Include templates/lib/html/topbar.html --> 
 
-    <div class="row" style="margin-top:30px">
-      <div class="medium-12 columns">
-        <!-- começo -->
-        <div class="row">
-          <!--Direito-->
-          <div class="medium-12 columns" >
-            <div class="row">
-              <div class="medium-12 columns">
-                <h3>Transferir cardo de coordenador</h3>
-              </div>
-            </div>
-            <hr style="margin:0"/>
+    <div class="row fix-container" >
 
-            <div class="row">
-              <div class="medium-12 columns">
-                <!--nova table-->
-                <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
-                  <thead>
-                   <tr>
-                    <th >Foto</th>
-                    <th >Nome</th>
-                    <th >Email</th>
-                    <th >Ação</th>
-                  </tr>
-                </thead>
 
-                <tbody>
-                  <!-- $BeginBlock row -->
-                  <tr>
-                    <td><img src="${professor.foto}" alt="" class="perfil_small"></td>
-                    <td>${professor.nome}</td>
-                    <td>${professor.email}</td>
-                    <td><button value="${professor.id}" class="button tiny transferir" style="margin:0"><i class="fa fa-exchange"></i></button></td>
-                  </tr>
-                  <!-- $EndBlock row -->
-                </tbody>
-
-                <tfoot>
-                 <tr>
-                  <th >Foto</th>
-                  <th >Nome</th>
-                  <th >Email</th>
-                  <th >Ação</th>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
+      <!-- cabeçalho -->
+      <div class="row">
+        <div class="medium-12 columns">
+          <h2 class='cabecalho'>Transferir Cargo</h2>
         </div>
-      </div>  
-      <!--fim-->
-    </div>  
+      </div>
+
+
+       <!-- alerta -->
+    <div class="row">
+      <div class="medium-12 columns">
+        <div data-alert class="alert-box warning">
+          Transferir cargo significa delegar seus direitos de professor coordenador para outro professor do sistema. Com a transferência de cargo o seu privilégio de coordenador será modificado para de professor. Logo as funções de manuntenção do curso, cadastro de egressos e cadastro professores não serão mais acessíveis para você. 
+          <a href="#" class="close">&times;</a>
+        </div>
+      </div>
+    </div>
+
+      <!-- label -->
+      <div class="row" >
+        <div class="medium-12 columns">
+          <span class="label secondary">A tabela abaixo contém os professores cadastradas no sistema.</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="medium-12 columns">
+          <!--nova table-->
+          <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <thead>
+             <tr>
+              <th >Foto</th>
+              <th >Nome</th>
+              <th >Email</th>
+              <th >Ação</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- $BeginBlock row -->
+            <tr>
+              <td><img src="${professor.foto}" alt="" class="perfil_small"></td>
+              <td>${professor.nome}</td>
+              <td>${professor.email}</td>
+              <td><button value="${professor.id}" class="button tiny transferir" style="margin:0"><i class="fa fa-exchange"></i></button></td>
+            </tr>
+            <!-- $EndBlock row -->
+          </tbody>
+
+          <tfoot>
+           <tr>
+            <th >Foto</th>
+            <th >Nome</th>
+            <th >Email</th>
+            <th >Ação</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
-  <!-- fim  -->
 </div>
 
 
@@ -91,18 +101,18 @@ $(document).ready(function(){
 
     var data = {'id' : id}; 
 
-   alertify.confirm("Click em Ok se deseja realmente transferir seus privilégios de coordenador para outro professor.",function(e){
+    alertify.confirm("Click em Ok se deseja realmente transferir seus privilégios de coordenador para outro professor.",function(e){
      if(e){
-        alertify.success("Alteração feita com sucesso"); 
-        
+      alertify.success("Alteração feita com sucesso"); 
+
       sendAjax('index.php?uc=manterCurso&a=transCoordenador','POST',data,function(data){
         alertify.log(data); 
       }); 
 
-     }else{
+    }else{
       alertify.error("Operação cancelada"); 
-     }
-   }); 
+    }
+  }); 
 
 
   });

@@ -1,143 +1,149 @@
-  <!doctype html>
-  <html class="no-js" lang="pt">
-  <head>
-    <title>EgressoOnline - Login</title>
-    <!-- $Include templates/lib/html/head.html --> 
+    <!doctype html>
+    <html class="no-js" lang="pt">
+    <head>
+      <title>EgressoOnline - Login</title>
+      <!-- $Include templates/lib/html/head.html --> 
 
 
 
-  </head>
-  <body>
-    <!-- $Include templates/lib/html/topbar.html --> 
-    <div class="row fix-container">
-
-      <!-- Notificações -->
-      <div class="row ${is_hide}" >
-        <div class="medium-12  columns">
-          <div data-alert class="alert-box alert ">
-            ${msg}
-            <a href="#" class="close">&times;</a>
+    </head>
+    <body>
+      <!-- $Include templates/lib/html/topbar.html --> 
+      <div class="row fix-container">
+        <div class="medium-12 columns ">
+          <!-- cabeçalho -->
+          <div class="row">
+            <div class="medium-12 columns">
+              <h2 class='cabecalho'>Alterar Foto</h2>
+            </div>
           </div>
+
+          <!-- Notificações -->
+          <div class="row ${is_hide}" >
+            <div class="medium-12  columns">
+              <div data-alert class="alert-box alert ">
+                ${msg}
+                <a href="#" class="close">&times;</a>
+              </div>
+            </div>
+          </div>
+          <!-- Fim Notificações -->
+
+          <!-- navegação -->
+          <div class="row">
+            <div class="medium-12 columns" style="margin-top:20px;">
+              <nav class="breadcrumbs">
+                <a href="index.php?uc=manterUsuario&a=alterarDadosView">Alterar Dados</a>
+                <a href="index.php?uc=manterUsuario&a=alterarSenhaView" >Alterar senha</a>
+                <a href="#" class="current">Alterar Foto de Perfil</a>
+              </nav>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="medium-9 columns">
+              <div id="fileDisplayArea"></div>
+            </div>
+
+            <div class="medium-2 columns panel" style="margin-right:15px;">
+              <p>Pré-visualização</p>
+              <canvas id="preview" style="width:128px;height:128px;overflow:hidden;border-radius:100px;"></canvas>
+            </div>
+          </div>
+
+          <!-- buttons and file chooser -->
+          <div class="row" style="margin-top:30px">
+            <form id="form" enctype="multipart/form-data" method="POST" action="index.php?uc=manterUsuario&a=alterarFoto" >
+             <div class="medium-3 columns">
+              <label>Escolha uma foto <input type="file" id="fileInput" name="file"></label>
+            </div>
+            <div class="medium-3 columns">
+              <input id="botao" type="submit" class="button tiny success" value="Alterar foto" />
+            </div>
+            <input id="x"  type="hidden"  name="x"/>
+            <input id="y"  type="hidden"  name="y"/>
+            <input id="x2" type="hidden" name="x2"/>
+            <input id="y2" type="hidden" name="y2" />
+          </form>
         </div>
-      </div>
-      <!-- Fim Notificações -->
-
-      <div class="medium-12 columns ">
-        <!-- navegação -->
-        <div class="row">
-          <div class="medium-12 columns">
-            <nav class="breadcrumbs">
-              <a href="index.php?uc=manterUsuario&a=alterarDadosView">Alterar Dados</a>
-              <a href="index.php?uc=manterUsuario&a=alterarSenhaView" >Alterar senha</a>
-              <a href="#" class="current">Alterar Foto de Perfil</a>
-            </nav>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="medium-10 columns">
-            <div id="fileDisplayArea"></div>
-          </div>
-
-          <div class="medium-2 columns">
-            <p>Pré-visualização</p>
-            <canvas id="preview" style="width:128px;height:128px;overflow:hidden;border-radius:100px;"></canvas>
-          </div>
-        </div>
-
-        <!-- buttons and file chooser -->
-        <div class="row" style="margin-top:30px">
-          <form id="form" enctype="multipart/form-data" method="POST" action="index.php?uc=manterUsuario&a=alterarFoto" >
-           <div class="medium-3 columns">
-            <label>Escolha uma foto <input type="file" id="fileInput" name="file"></label>
-          </div>
-          <div class="medium-3 columns">
-            <input id="botao" type="submit" class="button tiny success" value="Alterar foto" />
-          </div>
-          <input id="x"  type="hidden"  name="x"/>
-          <input id="y"  type="hidden"  name="y"/>
-          <input id="x2" type="hidden" name="x2"/>
-          <input id="y2" type="hidden" name="y2" />
-        </form>
       </div>
     </div>
-  </div>
 
 
-  <!-- $Include templates/lib/html/footerscripts.html -->  
-  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/css/jquery.Jcrop.min.css" />
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.Jcrop.min.js" type="text/javascript"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.color.min.js"></script>
+    <!-- $Include templates/lib/html/footerscripts.html -->  
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/css/jquery.Jcrop.min.css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.Jcrop.min.js" type="text/javascript"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.color.min.js"></script>
 
 
-  <script>
-  $(document).foundation();
+    <script>
+    $(document).foundation();
 
-  var targetImg;
+    var targetImg;
 
-  window.onload = function() {
+    window.onload = function() {
 
-    var fileInput = document.getElementById('fileInput');
-    var fileDisplayArea = document.getElementById('fileDisplayArea');
+      var fileInput = document.getElementById('fileInput');
+      var fileDisplayArea = document.getElementById('fileDisplayArea');
 
 
-    fileInput.addEventListener('change', function(e) {
-      var file = fileInput.files[0];
-      var imageType = /image.*/;
+      fileInput.addEventListener('change', function(e) {
+        var file = fileInput.files[0];
+        var imageType = /image.*/;
 
-      if (file.type.match(imageType)) {
-        var reader = new FileReader();
+        if (file.type.match(imageType)) {
+          var reader = new FileReader();
 
-        reader.onload = function(e) {
-          $("#fileDisplayArea").html('');
+          reader.onload = function(e) {
+            $("#fileDisplayArea").html('');
 
-          var img = new Image();
-          img.src = reader.result;
-          img.id = "target";        
-          $("#fileDisplayArea").append(img);
+            var img = new Image();
+            img.src = reader.result;
+            img.id = "target";        
+            $("#fileDisplayArea").append(img);
 
-          $('#target').Jcrop({
-            onChange : updatePreview,
-            onSelect : updatePreview,
-            aspectRatio : 1
-          });
+            $('#target').Jcrop({
+              onChange : updatePreview,
+              onSelect : updatePreview,
+              aspectRatio : 1
+            });
+          }
+
+          reader.readAsDataURL(file); 
+        } else {
+          fileDisplayArea.innerHTML = "File not supported!"
+        }
+      });
+    }
+
+    function updatePreview(c) {
+
+      if(parseInt(c.w) > 0) {
+          // Show image preview
+          var imageObj = $("#target")[0];
+
+          console.log(imageObj.height);
+          console.log(imageObj.width );
+
+          var heightRatio = imageObj.height/600;
+          var widthRatio = imageObj.width/600;
+          var maxration = widthRatio > heightRatio ? widthRatio: heightRatio;
+          var x =  widthRatio > 1 ? c.x * widthRatio : c.x;
+          var y =  heightRatio > 1 ? c.y * heightRatio : c.y;
+          var h =  maxration > 1 ? c.h * maxration : c.h;
+          var w =  maxration > 1 ? c.w * maxration : c.w;
+          var canvas = $("#preview")[0];
+          var context = canvas.getContext("2d");
+
+          context.drawImage(imageObj, x, y, w, h, 0, 0, canvas.width, canvas.height);
+
+          $("#x").attr('value',x); 
+          $("#x2").attr('value',w); 
+          $("#y").attr('value',y); 
+          $("#y2").attr('value',h); 
         }
 
-        reader.readAsDataURL(file); 
-      } else {
-        fileDisplayArea.innerHTML = "File not supported!"
-      }
-    });
-  }
-
-  function updatePreview(c) {
-
-    if(parseInt(c.w) > 0) {
-        // Show image preview
-        var imageObj = $("#target")[0];
-
-        console.log(imageObj.height);
-        console.log(imageObj.width );
-
-        var heightRatio = imageObj.height/600;
-        var widthRatio = imageObj.width/600;
-        var maxration = widthRatio > heightRatio ? widthRatio: heightRatio;
-        var x =  widthRatio > 1 ? c.x * widthRatio : c.x;
-        var y =  heightRatio > 1 ? c.y * heightRatio : c.y;
-        var h =  maxration > 1 ? c.h * maxration : c.h;
-        var w =  maxration > 1 ? c.w * maxration : c.w;
-        var canvas = $("#preview")[0];
-        var context = canvas.getContext("2d");
-
-        context.drawImage(imageObj, x, y, w, h, 0, 0, canvas.width, canvas.height);
-
-        $("#x").attr('value',x); 
-        $("#x2").attr('value',w); 
-        $("#y").attr('value',y); 
-        $("#y2").attr('value',h); 
-      }
-
-    };
-    </script>
-  </body>
-  </html>
+      };
+      </script>
+    </body>
+    </html>

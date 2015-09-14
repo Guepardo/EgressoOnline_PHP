@@ -19,64 +19,64 @@
     <!-- $Include templates/lib/html/topbar.html --> 
 
     <div class="row fix-container" >
-      <div class="medium-12 columns">
-        <!-- começo -->
-        <div class="row">
-          <!--Direito-->
-          <div class="medium-12 columns" >
-            <div class="row">
-              <div class="medium-12 columns">
-                <h3>Registro(s) encontrado(s) para "${arg}"</h3>
-              </div>
-            </div>
-            <hr style="margin:0"/>
-
-            <div class="row">
-              <div class="medium-12 columns">
-                <!--nova table-->
-                <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
-                  <thead>
-                   <tr>
-                    <th >Foto</th>
-                    <th >Nome</th>
-                    <th >Turma</th>
-                    <th >Tipo</th>
-                  
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <!-- $BeginBlock row -->
-                  <tr>
-                    <td>
-                      <span data-tooltip aria-haspopup="true" class="has-tip" title="Click para ver o perfil">
-                        <a href="index.php?uc=perfil&a=perfilUserView&id=${usuario.id}" title=""><img src="${usuario.foto}" alt="" class="perfil_small"></a>
-                      </span>
-                    </td>
-                    <td>${usuario.nome}</td>
-                    <td> <a href="${turma.id}" class="button tiny" style="margin:0">${usuario.turma}</a></td>
-                    <td>${usuario.tipo}</td>
-                    
-                  </tr>
-                  <!-- $EndBlock row -->
-                </tbody>
-
-                <tfoot>
-                 <tr>
-                  <th >Foto</th>
-                  <th >Nome</th>
-                  <th >Turma</th>
-                  <th >Tipo</th>
-                 
-                </tr>
-              </tfoot>
-            </table>
-          </div>
+      <!-- cabeçalho -->
+      <div class="row">
+        <div class="medium-12 columns">
+          <h2 class='cabecalho'>Registro(s) encontrado(s) para "${arg}"</h2>
         </div>
-      </div>  
-      <!--fim-->
-    </div>  
+      </div>
+
+
+       <!-- label -->
+      <div class="row" >
+        <div class="medium-12 columns">
+          <span class="label secondary">Faça uma busca refinada no campo <b>Procura</b> para os resultados da buscar por "${arg}".</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="medium-12 columns">
+          <!--nova table-->
+          <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <thead>
+             <tr>
+              <th >Foto</th>
+              <th >Nome</th>
+              <th >Turma</th>
+              <th >Tipo</th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- $BeginBlock row -->
+            <tr>
+              <td>
+                <span data-tooltip aria-haspopup="true" class="has-tip" title="Click para ver o perfil">
+                  <a href="index.php?uc=perfil&a=perfilUserView&id=${usuario.id}" title=""><img src="${usuario.foto}" alt="" class="perfil_small"></a>
+                </span>
+              </td>
+              <td>${usuario.nome}</td>
+              <td> <a href="${turma.id}" class="button tiny" style="margin:0">${usuario.turma}</a></td>
+              <td>${usuario.tipo}</td>
+
+            </tr>
+            <!-- $EndBlock row -->
+          </tbody>
+
+          <tfoot>
+           <tr>
+            <th >Foto</th>
+            <th >Nome</th>
+            <th >Turma</th>
+            <th >Tipo</th>
+
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
+
   <!-- fim  -->
 </div>
 

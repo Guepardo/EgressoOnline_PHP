@@ -18,7 +18,6 @@ private $visualizarPerfilView;
 
 	/** @BlockList({'visitante'}) */
 	public function perfilTurmaView($arg){
-		$id = (int) $arg['id']; 
-		$this->visualizarPerfilView->perfilTurmaView($id); 
+		$this->visualizarPerfilView->perfilTurmaView($arg); 
 	}
 }

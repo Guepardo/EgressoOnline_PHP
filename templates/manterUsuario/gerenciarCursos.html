@@ -1,44 +1,9 @@
   <!doctype html>
-  <html class="no-js" lang="en">
+  <html class="no-js" lang="pt">
   <head>
     <title>EgressoOnline - Login</title>
     <!-- $Include templates/lib/html/head.html --> 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.8/datatables.min.css"/>
-    <style>
-      .fix{
-        min-width: 335px !important;  
-        max-width: 339px !important;
-      }
-      .fix_top{ 
-        margin-top: 3%;
-      }
-      .main_container{
-       position:relative;
-       top:20%;
-       border:5px;
-       background-color: white;
-       border-radius: 2px; 
-     }
-
-     .borda_inferior{
-      border-bottom-style: solid; 
-      border-bottom-width: 2px; 
-      border-bottom-color: rgb(169,169,169); 
-    }
-
-    #logo{
-      margin: 15px 50px 15px 50px;
-      width: 210px; 
-      height: 100px; 
-    }
-
-    .buttom_fix{
-      width: 250px; 
-      margin-left: 25px; 
-      margin-right: 25px;  
-    }
-  </style>
-
 </head>
 <body>
   <!-- $Include templates/lib/html/topbar.html --> 
@@ -46,75 +11,78 @@
   
   <div class="row fix-container" >
     <div class="medium-12 columns">
-      <!-- começo -->
-      <div class="row ">
-
-        <div class="medium-12 columns" >
-          <div class="row">
-            <div class="medium-12 columns">
-              <span class="label">Suas graduações e pós-graduações</span>
-            </div>
-          </div>
-          <hr style="margin:0"/>
-
-          <div class="row">
-            <div class="medium-12 columns">
-
-              <!-- new tables -->
-              <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
-                <thead>
-                  <tr>
-                    <th >Tipo</th>
-                    <th >Instituição</th>
-                    <th >Área/Curso</th>
-                    <th >Ano</th>
-                    <th >Ação</th>
-                    <th >Ação</th>
-                  </tr>
-                </thead>
-                
-                <tbody>
-                  <!-- $BeginBlock row -->
-                  <tr>
-                    <td class="tipo" >${tipo}</td>
-                    <td class="instituicao" >${instituicao}</td>
-                    <td class="nome_curso">${nome_curso}</td>
-                    <td class="ano_conclusao">${ano_conclusao}</td>
-                    <td><button value="${id}" class="button info tiny edit" style="margin:0"><i class="fa fa-pencil"></i></button></td>
-                    <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
-                  </tr>
-                  <!-- $EndBlock row -->
-                </tbody>
-
-                <tfoot>
-                  <tr>
-                    <th >Tipo</th>
-                    <th >Instituição</th>
-                    <th >Área/Curso</th>
-                    <th >Ano</th>
-                    <th >Ação</th>
-                    <th >Ação</th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-
-          <hr style="margin-top:0"/>
-
-          <div class="row">
-            <div class="medium-3 columns">
-              <button type="" data-reveal-id="modal_cadastro" class="button success tiny">Cadastrar uma nova graduação</button>
-            </div>
-          </div>
-
-
-        </div>  
-        <!--fim-->
+     <!-- cabeçalho -->
+     <div class="row">
+      <div class="medium-12 columns">
+        <h2 class='cabecalho'>Gerência de pós-graduação</h2>
       </div>
-
     </div>
-  </div>  
+
+    <div class="row" style="margin-top:20px;">
+      <div class="medium-3 columns">
+        <button type="" data-reveal-id="modal_cadastro" class="button success tiny">Cadastrar uma nova graduação</button>
+      </div>
+    </div>
+
+    <!-- cabeçalho -->
+    <div class="row">
+      <div class="medium-12 columns">
+        <span class="label secondary">Os cursos que você já cadastrou estão na tabela abaixo. Seus cursos irão aparecer na sua tela de perfil.</span>
+      </div>
+    </div>
+
+    <!-- começo -->
+    <div class="row ">
+      <div class="medium-12 columns" >
+        <div class="row">
+          <div class="medium-12 columns">
+
+            <!-- new tables -->
+            <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+              <thead>
+                <tr>
+                  <th >Tipo</th>
+                  <th >Instituição</th>
+                  <th >Área/Curso</th>
+                  <th >Ano</th>
+                  <th >Ação</th>
+                  <th >Ação</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <!-- $BeginBlock row -->
+                <tr>
+                  <td class="tipo" >${tipo}</td>
+                  <td class="instituicao" >${instituicao}</td>
+                  <td class="nome_curso">${nome_curso}</td>
+                  <td class="ano_conclusao">${ano_conclusao}</td>
+                  <td><button value="${id}" class="button info tiny edit" style="margin:0"><i class="fa fa-pencil"></i></button></td>
+                  <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
+                </tr>
+                <!-- $EndBlock row -->
+              </tbody>
+
+              <tfoot>
+                <tr>
+                  <th >Tipo</th>
+                  <th >Instituição</th>
+                  <th >Área/Curso</th>
+                  <th >Ano</th>
+                  <th >Ação</th>
+                  <th >Ação</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+      </div>  
+      <!--fim-->
+    </div>
+
+  </div>
+</div>  
 </div>
 <!-- fim  -->
 </div>
@@ -222,14 +190,12 @@
 <!-- $Include templates/lib/html/footerscripts.html --> 
 <script src="templates/lib/js/jquery.mask.min.js"></script>
 <script src="templates/lib/js/ajax.js"></script>
-<script src="templates/lib/js/md5.js"></script>
-<script src="templates/lib/js/redirect.js"></script>
 <script src="templates/lib/js/jquery.dataTables.min.js"></script>
 <script src="templates/lib/js/metro.js"></script>
 <script>
-  $(document).foundation();
+$(document).foundation();
 
-  $(document).ready(function(){
+$(document).ready(function(){
 
   //Adicionando manipuladores para deleção
   $("button.delete").click(function(){
@@ -299,6 +265,6 @@
   }
 
 }); 
-</script>
+  </script>
 </body>
 </html>

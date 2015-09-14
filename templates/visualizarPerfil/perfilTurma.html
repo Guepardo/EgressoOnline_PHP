@@ -23,7 +23,17 @@
 	<!-- top-bar fim --> 
 
 
-	<div class="row fix-container" >
+	<div class="row " style="margin-top:60px;" >
+		<!-- Notificações -->
+		<div class="row ${is_hide_msg}" >
+			<div class="medium-12  columns">
+				<div data-alert class="alert-box alert ">
+					${msg}
+					<a href="#" class="close">&times;</a>
+				</div>
+			</div>
+		</div>
+
 		<div class="medium-12 columns">
 			<!-- começo -->
 			<div class="row">
@@ -38,10 +48,10 @@
 
 	<div class="row">
 		<div class="medium-4 medium-centered columns">
-			<h4 class="subheader medium-text-center">- Tuma de ${ano_turma} - </h4>
+			<h4 class="cabecalho medium-text-center">- Tuma de ${ano_turma} - </h4>
 		</div>
 		<div class="medium-4 medium-centered columns">
-			<h5 class="subheader medium-text-center">- Alunos associados - </h5>
+			<h5 class="cabecalho medium-text-center">- Alunos associados - </h5>
 		</div>
 	</div>
 
@@ -62,35 +72,35 @@
 	<div id="modal_alterar_foto" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
 		<h2 id="modalTitle">Cadastrar pós-graduação ou graduação </h2>
 		<p class="lead">Preencha os campos abaixo</p>		
-			<div class="row">
-				<div class="medium-12 columns">
-					<p>Pré-visualização</p>
-					<canvas id="preview" style="width:100%;height:100%;overflow:hidden;"></canvas>
-				</div>
+		<div class="row">
+			<div class="medium-12 columns">
+				<p>Pré-visualização</p>
+				<canvas id="preview" style="width:100%;height:100%;overflow:hidden;"></canvas>
 			</div>
+		</div>
 
-			<div class="row">
-				<div class="medium-12 columns">
-					<div id="fileDisplayArea"></div>
-				</div>
+		<div class="row">
+			<div class="medium-12 columns">
+				<div id="fileDisplayArea"></div>
 			</div>
+		</div>
 
-			<!-- buttons and file chooser -->
-			<div class="row" style="margin-top:30px">
-				<form id="form" enctype="multipart/form-data" method="POST" action="index.php?uc=manterTurma&a=alterarFoto" >
-					<div class="medium-3 columns">
-						<label>Escolha uma foto <input type="file" id="fileInput" name="file"></label>
-					</div>
-					<div class="medium-3 columns">
-						<input id="botao" type="submit" class="button tiny success" value="Alterar foto" />
-					</div>
-					<input id="x"  type="hidden"  name="x"/>
-					<input id="y"  type="hidden"  name="y"/>
-					<input id="x2" type="hidden" name="x2"/>
-					<input id="y2" type="hidden" name="y2" />
-					<input name="id_turma" type="hidden" value="${id_turma}" />
-				</form>
-			</div>
+		<!-- buttons and file chooser -->
+		<div class="row" style="margin-top:30px">
+			<form id="form" enctype="multipart/form-data" method="POST" action="index.php?uc=manterTurma&a=alterarFoto" >
+				<div class="medium-3 columns">
+					<label>Escolha uma foto <input type="file" id="fileInput" name="file"></label>
+				</div>
+				<div class="medium-3 columns">
+					<input id="botao" type="submit" class="button tiny success" value="Alterar foto" />
+				</div>
+				<input id="x"  type="hidden"  name="x"/>
+				<input id="y"  type="hidden"  name="y"/>
+				<input id="x2" type="hidden" name="x2"/>
+				<input id="y2" type="hidden" name="y2" />
+				<input name="id" type="hidden" value="${id_turma}" />
+			</form>
+		</div>
 
 		<a class="close-reveal-modal" aria-label="Close">&#215;</a>
 	</div>

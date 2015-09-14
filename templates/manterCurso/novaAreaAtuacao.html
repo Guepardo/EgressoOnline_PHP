@@ -4,124 +4,83 @@
     <title>EgressoOnline - Login</title>
     <!-- $Include templates/lib/html/head.html --> 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.8/datatables.min.css"/>
-    <style>
-      .fix{
-        min-width: 335px !important;  
-        max-width: 339px !important;
-      }
-      .fix_top{ 
-        margin-top: 3%;
-      }
-      .main_container{
-       position:relative;
-       top:20%;
-       border:5px;
-       background-color: white;
-       border-radius: 2px; 
-     }
-
-     .borda_inferior{
-      border-bottom-style: solid; 
-      border-bottom-width: 2px; 
-      border-bottom-color: rgb(169,169,169); 
-    }
-
-    #logo{
-      margin: 15px 50px 15px 50px;
-      width: 210px; 
-      height: 100px; 
-    }
-
-    .buttom_fix{
-      width: 250px; 
-      margin-left: 25px; 
-      margin-right: 25px;  
-    }
-  </style>
-
-</head>
-<body>
-  <!-- $Include templates/lib/html/topbar.html --> 
-
-  <div class="row panel" style="margin-top:30px">
-    <div class="medium-12 columns">
-      <!-- começo -->
-      <div class="row">
-        <!--Direito-->
-        <div class="medium-12 columns" > 
-          <div class="row">
-
-            <!--Esquerdo-->
-            <div class="medium-4 columns" style="height:400px;">
-
-              <div class="row">
-                <div class="medium-12 columns">
-                  <label >Selecione uma área
-                    <input type="text" value="" placeholder="Digite alguma coisa aqui" id="area_nome"/>
-                  </select>
-                </label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="medium-12 columns">
-                <button class="button success tiny" style="margin:0;" id="cadastrar">Cadastrar nova área</button>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="medium-8 columns" >
-            <div class="row">
-              <div class="medium-12 columns">
-                <span class="label">Áreas de atuação profissional cadastradas</span>
-              </div>
-            </div>
-            <hr style="margin:0"/>
-
-            <div class="row">
-              <div class="medium-12 columns" >
-
-                <!--nova table-->
-                <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
-                  <thead>
-                   <tr>
-                    <th >Área Profissional</th>
-                    <th >Ação</th>
-                    <th >Ação</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <!-- $BeginBlock row -->
-                  <tr>
-                    <td class="nome" >${nome}</td>
-                    <td><button value="${id}" class="button info tiny edit" style="margin:0"><i class="fa fa-pencil"></i></button></td>
-                    <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
-                  </tr>
-                  <!-- $EndBlock row -->
-                </tbody>
-
-                <tfoot>
-                 <tr>
-                  <th >Área Profissional</th>
-                  <th >Ação</th>
-                  <th >Ação</th>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        </div>
 
 
-      </div>  
-      <!--fim-->
+  </head>
+  <body>
+    <!-- $Include templates/lib/html/topbar.html --> 
+
+    <div class="row fix-container">
+     <!-- cabeçalho -->
+     <div class="row">
+      <div class="medium-12 columns">
+        <h2 class='cabecalho'>Nova Área de Atuação</h2>
+      </div>
     </div>
 
+    <!-- alerta -->
+    <div class="row">
+      <div class="medium-12 columns">
+        <div data-alert class="alert-box warning">
+          As áreas de atuação profissional servem para agrupar egressos e oportunidades de emprego. Por esse motivo, é essencial que essa base de dados esteja atualizada com base nas novas área de atuação que surgem. 
+          <a href="#" class="close">&times;</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="medium-5 columns">
+        <label >Digite o nome da nova área de atuação
+          <input type="text" value="" placeholder="Digite o nome da nova área de atuação" id="area_nome"/>
+        </label>
+      </div>
+      <div class="medium-4 columns end">
+        <button class="button success tiny" style="margin-top:22px;" id="cadastrar">Cadastrar nova área</button>
+      </div>
+    </div>
+
+    <hr />
+    <!-- label -->
+    <div class="row" >
+      <div class="medium-12 columns">
+        <span class="label secondary">A tabela abaixo contém as área de atuação cadastradas no sistema. Somente será excluída uma área de atuação que não foi vinculada a nenhum outro registro.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="medium-12 columns" >
+        <!--nova table-->
+        <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+          <thead>
+           <tr>
+            <th >Área Profissional</th>
+            <th >Ação</th>
+            <th >Ação</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- $BeginBlock row -->
+          <tr>
+            <td class="nome" >${nome}</td>
+            <td><button value="${id}" class="button info tiny edit" style="margin:0"><i class="fa fa-pencil"></i></button></td>
+            <td><button value="${id}" class="button alert tiny delete" style="margin:0"><i class="fa fa-trash-o"></i></button></td>
+          </tr>
+          <!-- $EndBlock row -->
+        </tbody>
+
+        <tfoot>
+         <tr>
+          <th >Área Profissional</th>
+          <th >Ação</th>
+          <th >Ação</th>
+        </tr>
+      </tfoot>
+    </table>
   </div>
-</div>  
 </div>
-<!-- fim  -->
+
 </div>
 
 
@@ -161,9 +120,9 @@
 <script src="templates/lib/js/metro.js"></script>
 
 <script>
-  $(document).foundation();
+$(document).foundation();
 
-  $(document).ready(function(){
+$(document).ready(function(){
 
   //Tratando evento para a deleção: 
   $("button.edit").click(function(){
@@ -231,6 +190,6 @@
   }
 });
 
-</script>
+  </script>
 </body>
 </html>
