@@ -6,6 +6,9 @@ require_once(PATH.'View'.DS.'CustomViews'.DS.'TelaPrincipalView.php');
 require_once(PATH.'Util'.DS.'KeyFactory.php'); 
 require_once(PATH.'Util'.DS.'Mail.php'); 
 
+/**
+ * Classe que implementa o caso de uso de autenticação de atores no sistema.
+ */
 class Autenticar extends GenericController {
 	private $autenticarView; 
 
@@ -13,22 +16,35 @@ class Autenticar extends GenericController {
 		$this->autenticarView = new AutenticarView(); 
 	}	
 
+	/**
+	 * Método fachada da classe AutenticarView. Este método imprime uma tela de login para o usuário. Caso o usuário já esteja autenticado, o mesmo é redirecionado para a tela principal do sistema.
+	 * @param <void>
+	 * @return <void>
+	 */
 	/** @BlockList({'noblock'}) */
 	public function loginView(){
 		self::redirect(); 
 		$this->autenticarView->loginView(); 
 	}
 
+	/**
+	 * Método fachada da classe AutenticarView. Este método imprime uma tela de alteração de senha para o usuário. Caso o usuário já esteja autenticado, o mesmo é redirecionado para a tela principal do sistema. Este método não deve ser usado por usuários já autenticados. 
+	 * @param <void>
+	 * @return <void>
+	 */
 	/** @BlockList({'noblock'}) */
 	public function alterarSenhaView(){
-		if(!empty($_SESSION['user_id'])){
-			$tela = new TelaPrincipalView(); 
-			$tela->principalView(); 
-		}
+		self::redirect(); 
 
 		$this->autenticarView->alterarSenhaView(); 
 	}
 
+	/**
+	 * Efetua a autenticação do usuário. Caso o usuário já esteja autenticado, o mesmo é redirecionado para a tela principal do sistema. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com as chaves cpf (string) e senha (string) em formato MD5.
+	 * @return     <JSON>   {status : boolean, msg : string }
+	 */
 	/** @BlockList({'noblock'}) */
 	public function login($arg){
 		self::redirect();
@@ -77,6 +93,12 @@ class Autenticar extends GenericController {
 		$this->autenticarView->sendAjax( array( "status" => $status)); 
 	}
 
+	/**
+	 * Altera a senha do usuário sem autenticação, recupera a senha.
+	 *
+	 * @param      <array>  $arg   Recebe um array com as chaves codigo (string) e senha (string). 
+	 * @return     <void> 
+	 */
 	/** @BlockList({'noblock'}) */
 	public function alterarSenha($arg){
 		self::redirect();
@@ -102,6 +124,12 @@ class Autenticar extends GenericController {
 		$this->autenticarView->sendAjax(array("status" => true, 'msg' => 'Senha alterada com sucesso.') ); 
 	}
 
+     /**
+      * Gera um código aleatório para recuperação de senha e envia este código para o e-mail do solicitante. 
+      *
+      * @param      <array>  $arg    Recebe um array com a chave email (string).
+      * @return     <JSON>   {status : boolean, msg : string }
+      */
 	/** @BlockList({'noblock'}) */
 	public function gerarCodigo($arg){
 		self::redirect();
@@ -124,6 +152,11 @@ class Autenticar extends GenericController {
 		$this->autenticarView->sendAjax(array("status" => true ) ); 
 	}
 
+    /**
+     * Efetua logout para o usuário corrente na sessão e redireciona o usuário para a tela de login caso a operação for bem sucedida. 
+     * @param <void>
+     * @return <void>
+     */
 	/** @BlockList({'noblock'}) */
 	public function logout(){
 		session_destroy();

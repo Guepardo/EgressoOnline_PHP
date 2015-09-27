@@ -7,6 +7,12 @@ class ManterPerfilTurma extends GenericController {
 	public function __construct() {
 	}	
 
+	/**
+	 * Altera a foto de um perfil de turma. Se a alteração for bem sucedida, o usuário é redirecinado para a tela principal. Casocontrário, ele é redirecionado para a mesma tela de alteração de imagem e uma mensagem de erro é lençada.
+	 *
+	 * @param      <array>  $arg    Recebe um array com as coordenadas para recorte x,y,x2,y2 (todos int); Id (int) que é a id da turma que será alterada a foto e um file, que é a imagem em formato jpg.
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function alterarFoto($arg){
 		// die; 

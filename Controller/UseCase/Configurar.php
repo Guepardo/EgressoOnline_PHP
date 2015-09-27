@@ -9,11 +9,24 @@ class Configurar extends GenericController {
 		$this->configurarView = new ConfigurarView(); 
 	}	
 
+	/**
+	 * Fachada para o método configurarView da classe ConfigurarView. 
+	 *
+	 * @param      <array>  $arg   Ver a entrada deste array na especificação do método da classe ConfigurarView.
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function configurarView(){
 		$this->configurarView->configurarView(); 
 	}
 
+
+	/**
+	 * Adiciona uma área de atuação profissinal na lista de interesses de notificação via e-mail do usuário corrente na sessão.
+	 *
+	 * @param      <array>  $arg    Recebe um array com a chave id (int). O id deve ser correspondente a uma id real de uma área de atuação provissional persistida no banco de dados.
+	 * @return     <JSON>   {status :  boolean , msg : string } 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function addArea($arg){
 		Lumine::import("Notificacao"); 
@@ -42,6 +55,12 @@ class Configurar extends GenericController {
 
 	}
 
+    /**
+     * Deleta uma área de atuação profissinal na lista de interesses de notificação via e-mail do usuário corrente na sessão.
+     *
+     * @param      <array>  $arg    Recebe um array com a chave id (int). O id deve ser correspondente a uma id real de uma área de atuação provissional persistida no banco de dados.
+     * @return     <void>  
+     */
 	/** @BlockList({'visitante'}) */
 	public function deletarArea($arg){
 		Lumine::import("Notificacao"); 
@@ -58,6 +77,12 @@ class Configurar extends GenericController {
 		$this->configurarView->sendAjax(array('status' => true ));		
 	}
 
+	/**
+	 * Altera qual é o título de pós-graduação que o usuário deseja ser notificado via e-mail. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com uma chave id contendo o id do banco de dados correspondente ao título de pós-graduação a ser alterado.
+	 * @return <void>
+	 */
 	/** @BlockList({'visitante'}) */
 	public function mudarTitulo($arg){
 		Lumine::import("Notificacao"); 

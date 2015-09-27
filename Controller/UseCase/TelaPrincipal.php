@@ -4,7 +4,9 @@ require_once(PATH.'View'.DS.'CustomViews'.DS.'TelaPrincipalView.php');
 require_once(PATH.'DAO'.DS.'CustomDAOs'.DS.'DAOFeed.php'); 
 require_once(PATH.'Util'.DS.'Convert.php'); 
 
-
+/**
+ * Esta classe implementa o caso de uso tela principal.
+ */
 class TelaPrincipal extends GenericController {
 	private $telaPrincipalView; 
 
@@ -12,6 +14,12 @@ class TelaPrincipal extends GenericController {
 		$this->telaPrincipalView = new TelaPrincipalView(); 
 	}
 
+	/**
+	 * Fachada para o método principalView da classe TelaPrincipalView. Contudo, além da função de fachada, este método identifica é a primeira vez que o usuário está acessando o sistema e o redireciona para uma tela de tutorial da página inicial.
+	 * 
+	 * @param      <void> 
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function principalView(){
 		Lumine::import("Egresso"); 
@@ -44,11 +52,23 @@ class TelaPrincipal extends GenericController {
 		$this->telaPrincipalView->principalView(); 
 	}
 
+	/**
+	 * Fachada para o método tutorialView da classe telaPrincipalView. 
+	 *
+	 * @param      <void>  
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function tutorialView(){
 		$this->telaPrincipalView->tutorialView(); 
 	}
 
+	/**
+	 * Retorna as mensagens e oportunidades de emprego e pós-graduação para a tela principal. As mensagens que são privadas são confrontadas com a sessão do usuário corrente, dessa forma só as mensagens que são para ele serão exibidas no feed. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com a chave date (datetime). Caso data = null, o método irá procurar pelos elementos mais recentes na tabela de oportunidades e mensagens. 
+	 * @return     <array(JSON)>    Dentro deste array pode conter duas estruturas JSON: { 'turma' : int, 'id_user_origem' : int, 'foto' : string, 'id', 'rementente' : string, 'data_envio': datatime, 'msg' : string, 'publica' : boolean, 'post': boolean } ou {'graduacao' : int, 'info_adicionais' : string, 'id' : int, 'post' : boolean, 'data_envio' : datetime}
+	 */
 	/** @BlockList({'visitante'}) */
 	public function feed($arg){
 		$limit = 10; 

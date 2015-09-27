@@ -16,7 +16,9 @@ require_once(PATH.'Controller'.DS.'UseCase'.DS.'Relatorios.php');
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'Buscar.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'ManterPerfilTurma.php'); 
 require_once(PATH.'Controller'.DS.'UseCase'.DS.'Security.php'); 
-
+/**
+ * Controlador principal dos casos de uso. Essa classe tem a responsabilidade de encontrar qual é o caso de uso mais adequado e relação ao request que é passado pelo usuário. 
+ */
 class MainController {
 	private $controllersArray;
 	public function __construct() {
@@ -40,6 +42,11 @@ class MainController {
 			);
 	}
 	
+	/**
+	 * Método que inicia a classe Firewall e faz a leitura da variável global $_REQUEST para atender as requisições dos usuários.
+	 * @param      <void> 
+	 * @return     <boolean> Indica se o método do caso de uso foi invocado com sucesso. 
+	 */
 	public function findMyController() {
 		// Passos:
 		// 1 O useCase está nas lista de ControllersArray?

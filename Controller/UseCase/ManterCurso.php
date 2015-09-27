@@ -2,28 +2,55 @@
 require_once(PATH.'Controller'.DS.'GenericController.php'); 
 require_once(PATH.'View'.DS.'CustomViews'.DS.'ManterCursoView.php'); 
 
+/**
+ * Esta classe implementa o caso de uso de manter curso. Este classe é de uso exclusivo do ator Coordenador.
+ */
 class ManterCurso extends GenericController {
 	private $manterCursoView; 
 
 	public function __construct() {
 		$this->manterCursoView = new ManterCursoView(); 
-	}	
+	}
 
+	/**
+	 * Fachada para o método novaAreaView da classe ManterCursoView. 
+	 *
+	 * @param      <void>
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function novaAreaView(){
 		$this->manterCursoView->novaAreaView(); 
 	}
 
+	/**
+	 * Fachada para o método novaDisciplinaView da classe ManterCursoView. 
+	 *
+	 * @param      <void>
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function novaDisciplinaView(){
 		$this->manterCursoView->novaDisciplinaView(); 
 	}
 
+	/**
+	 * Fachada para o método transferirView da classe ManterCursoView. 
+	 *
+	 * @param      <void>
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function transferirView(){
 		$this->manterCursoView->transferirView(); 
 	}
 
+	/**
+	 * Método que transfere os privilégios de um coordenador para um professor cadastrado no sistema.
+	 *
+	 * @param      <array>  $arg    Recebe um array com a chave id. Essa chave id deve corresponder a chave existente de um professor cadastrado no banco de dados. 
+	 * @return     <JSON>   { status : boolean , msg : string }
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function transCoordenador($arg){
 		lumine::import("Usuario"); 
@@ -59,6 +86,12 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => true)); 
 	}
 
+	/**
+	 * Deleta uma área de atuação profissional da tabela forte no banco de dados. A deleção só será feita somente se o área de atuação profissional não for chave estrangeira de outra entidade no banco de dados.
+	 *
+	 * @param      <array>  $arg   Recebe um array com a id (int) da área de atuação profissional a ser deletada. 
+	 * @return     <JSON> 
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function deletarArea($arg){
 		Lumine::import('AtuacaoProfissional'); 
@@ -85,6 +118,12 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => false , 'msg' => 'há '. $total.' registro(s) vinculado(s) nessa Área de Atuação. Não é possivel apagar.') );
 	}
 
+	/**
+	 * Altera os dados de uma área de atuação profissional que foi persistida no banco de dados. 
+	 *
+	 * @param      <array>  $arg   Recebe um array com as chaves id (int) e nome (string).
+	 * @return     <JSON>  { status : boolean , msg : string }
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function alterarArea($arg){
 		Lumine::import("AtuacaoProfissional"); 
@@ -97,6 +136,12 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => true ) );
 	}
 
+	/**
+	 * Cadastrar uma nova área de atuação profissional. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com a chave nome (string)
+	 * @return     <JSON> {status : boolean , msg : string }
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function novaArea($arg){
 		Lumine::import("AtuacaoProfissional"); 
@@ -115,6 +160,12 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => true ) );
 	}
 
+	/**
+	 * Cadastra uma nova disciplina.
+	 *
+	 * @param      <array>  $arg  Recebe um array com a chave nome (string)
+	 * @return     <JSON> {status : boolean , msg : string}
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function novaDisciplina($arg){
 		Lumine::import("Disciplina"); 
@@ -133,6 +184,12 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => true ) );
 	}
 
+	/**
+	 * Altera os dados de uma disciplina qeu foi persistida no banco de dados. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com as chaves id (int) e nome (string)
+	 * @return     <JSON> {status : boolean , msg : string}
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function alterarDisciplina($arg){
 		Lumine::import("Disciplina"); 
@@ -145,6 +202,12 @@ class ManterCurso extends GenericController {
 		$this->manterCursoView->sendAjax(array('status' => true ) );
 	}
 
+	/**
+	 * Deleta uma disciplina da tabela forte no banco de dados. A deleção só será feita somente se a disciplina não for chave estrangeira de outra entidade no banco de dados.
+	 *
+	 * @param      <array>  $arg   Recebe um array com a chave (id)
+	 * @return     <JSON> {status : boolean , msg : string }
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function deletarDisciplina($arg){
 		Lumine::import("ProfessorHasDisciplina"); 

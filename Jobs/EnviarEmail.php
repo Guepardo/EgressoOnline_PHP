@@ -1,7 +1,7 @@
 <?php  
-//Criar um arquivo para definições mais tarde. 
+//Criar um arquivo para definições mais tarde.
+ 
 require_once('..\conf.php'); 
-
 require_once(WWW_ROOT.DS.'Util'.DS.'Mail.php');
 
 Lumine::import('EmailEnviar'); 

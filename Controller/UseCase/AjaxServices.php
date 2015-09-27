@@ -1,12 +1,20 @@
 <?php 
 require_once(PATH.'Controller'.DS.'GenericController.php'); 
 
-
+/**
+ * Classes que compreende os serviços via Ajax 
+ */
 class AjaxServices extends GenericController{
 	public function __construct(){
 
 	}
 
+	/**
+	 *  Esta função retorna um array de estados {id, descricao} 
+	 *
+	 * @param      <array>  $arg    (inserir um valor int na chave 'country'); 
+	 * @return     <array>  retorna um array de estados.
+	 */
 	/** @BlockList({'visitante'}) */
 	public function getStates( $arg ){	
 		$daoRegiao = new DAORegiao(); 

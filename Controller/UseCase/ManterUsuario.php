@@ -9,6 +9,9 @@ require_once(PATH.'Util'.DS.'Mail.php');
 require_once(PATH.'Util'.DS.'FileWriter.php'); 
 require_once(PATH.'Util'.DS.'Image.php');
 
+/**
+ * Classe que implementa o caso de uso manter usuário
+ */
 class ManterUsuario extends GenericController{
 	private $manterUsuarioView; 
 	private $dataValidator; 
@@ -18,31 +21,67 @@ class ManterUsuario extends GenericController{
 		$this->dataValidator     = new DataValidator(); 
 	}
 
+	/**
+	 * Fachada para o método cadastroProfessorView da classe manterUsuarioView. 
+	 *
+	 * @param      <array>  $arg   Ver a entrada deste array na especificação do método da classe manterUsuarioView.
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function cadastroProfessorView(){
 		$this->manterUsuarioView->cadastroProfessorView(); 
 	}
 
+	/**
+	 * Fachada para o método alterarFotoView da classe manterUsuarioView. 
+	 *
+	 * @param      <array>  $arg   Ver a entrada deste array na especificação do método da classe manterUsuarioView.
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function alterarFotoView(){
 		$this->manterUsuarioView->alterarFotoView(); 
 	}
 
+	/**
+	 * Fachada para o método gerenciarCpView da classe manterUsuarioView. 
+	 *
+	 * @param      <array>  $arg   Ver a entrada deste array na especificação do método da classe manterUsuarioView.
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function gerenciarCpView(){
 		$this->manterUsuarioView->gerenciarCpView(); 
 	}
 
+	/**
+	 * Fachada para o método cadastroEgressoView da classe manterUsuarioView. 
+	 *
+	 * @param      <array>  $arg   Ver a entrada deste array na especificação do método da classe manterUsuarioView.
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function cadastroEgressoView(){
 		$this->manterUsuarioView->cadastroEgressoView(); 
 	}
 
+	/**
+	 * Fachada para o método addDisciplinasView da classe manterUsuarioView. 
+	 *
+	 * @param      <array>  $arg   Ver a entrada deste array na especificação do método da classe manterUsuarioView.
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function addDisciplinasView(){
 		$this->manterUsuarioView->addDisciplinaView(); 
 	}	
 
+	/**
+	 * Fachada para o método alterarDadosView da classe manterUsuarioView. 
+	 *
+	 * @param      <array>  $arg   Ver a entrada deste array na especificação do método da classe manterUsuarioView.
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function alterarDadosView(){
 		//Muda a tela de acordo com o usuario. 
@@ -52,11 +91,23 @@ class ManterUsuario extends GenericController{
 			$this->manterUsuarioView->alterarDadosProfessorView();
 	}
 
+	/**
+	 * Fachada para o método alterarSenhaView da classe manterUsuarioView. 
+	 *
+	 * @param      <array>  $arg   Ver a entrada deste array na especificação do método da classe manterUsuarioView.
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function alterarSenhaView(){
 		$this->manterUsuarioView->alterarSenhaView(); 
 	}
-
+    
+    /**
+     * Delete uma disciplina da lista de disciplinas lecionadas por um professor.
+     *
+     * @param      <array>  $arg    Recebe um array com a chave associativa_id (int) que é a chave da entidade associativa que liga professor a disciplina.
+     * @return     <JSON> {status : boolean , msg : string}
+     */
 	/** @BlockList({'visitante'}) */
 	public function delDisciplina($arg){
 		//roteiro: 
@@ -95,6 +146,12 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
 	
+	/**
+	 * Cadastra um novo professor e adiciona um email de notificação de cadastro na lista de despacho. Só serão cadastrados professores os quais o CPF e o E-mail não se repetem na base de dados. 
+	 *
+	 * @param      <array>  $arg   Recebe um array com as chaves e_mail (string), cpf (string) e genero_id (int)
+	 * @return     <JSON> {status : boolean , msg : string}
+	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function cadastroProfessor($arg){
 		//1: Montar a requisição num objeto
@@ -160,6 +217,12 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
 
+ 	/**
+ 	 * Cadastra um novo egresso, vincula a uma turma e adiciona um email de notificação de cadastro na lista de despacho. O egresso só será cadastrado se o e-mail e o CPF do mesmo não se repetir na base de dados. Caso a turma não existir, este método irá cria-la automaticamente para vincular o egresso. As turmas são verificadas e criadas com base na chave ano_conclusao. 
+ 	 *
+ 	 * @param      <array>  $arg  Recebe um array com as chaves nome (string), e_mail (string), genero_id (int), ano_conclusao (int) e  ano_ingresso (int).
+ 	 * @return     <JSON>  {status : boolean, msg : string }
+ 	 */
 	/** @BlockList({'visitante','professor','egresso'}) */
 	public function cadastroEgresso($arg){
 		$mail = new Mail(); 
@@ -259,6 +322,13 @@ class ManterUsuario extends GenericController{
 
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
+
+	/**
+	 * Altera a senha do usuário autenticando no sistema. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com as chaves nova_senha e confirmacao (ambas string e criptografadas em MD5)
+	 * @return    <JSON> {status : boolean, msg : string }
+	 */
 	/** @BlockList({'visitante'}) */
 	public function alterarSenha($arg){
 		//Validacao: 
@@ -281,6 +351,12 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => false ) ); 
 	}
 
+	/**
+	 * Altera os dados cadastrais do professor da sessão corrente. Só será alterado se o dados de e-mail não existir na base de dados. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com as chaves e_mail (string) e nome (string). 
+	 * @return     <JSON> {status : boolean : msg : string}
+	 */
 	/** @BlockList({'visitante','egresso'}) */
 	public function alterarDadosProfessor($arg){
 		//Validacao: 
@@ -309,7 +385,12 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 		
 	}
 
-	//Alterar dados para egresso. 
+	/**
+	 * Altera dos dados do egresso da sessão corrente. Só será alterado os dados se o e-mail não existir na base de dados. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com as chaves nome (string), email (string), estado_civil_id (int), telefone (string), qtd_filhos (int), endereco (string), is_dado_publico (boolean), egresso_pais_id (int), egresso_cidade_id (int), egresso_complemento (string), has_emprego (boolean), emprego_pais_id (int), emprego_cidade_id (int), emprego_complemento (string), is_area_ti (boolean), atuacao_profissional_id (int), faixa_salarial_id, nome_empresa (string), is_publica (boolean), linkedin (string), twitter (string) e facebook (string).
+	 * @return     <JSON> {status : boolean , msg : string} 
+	 */
 	/** @BlockList({'visitante','professor','coordenador'}) */
 	public function alterarDados($arg){	
 		//Validacao: 
@@ -433,7 +514,12 @@ class ManterUsuario extends GenericController{
 		
 		$this->manterUsuarioView->sendAjax(array('status' => true ) );	
 	}
-
+	/**
+	 * Cadastra um novo curso para o usuário da sessão corrente. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com as chaves instituicao (string), nome_area (string), ano_conclusao (int) e titulo_academico_id (int)
+	 * @return     <JSON>  {status : boolean , msg : string }
+	 */
 	/** @BlockList({'visitante'}) */
 	public function  cadastroCurso($arg){
 		//Espero um dia ter tempo para implementar a validação dos dados que estão 
@@ -453,6 +539,12 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) );  
 	}
 
+	/**
+	 * Deleta um curso do usuário da sessão corrente. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com a cheve id (int). O id corresponde a um registro de curso no banco de dados. 
+	 * @return     <JSON> {status : boolean, msg : string }
+	 */
 	/** @BlockList({'visitante'}) */
 	public function deletarCurso($arg){
 		Lumine::import("Curso"); 
@@ -463,6 +555,12 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) ); 
 	}
 
+	/**
+	 * Altera os dados de um curso do usuário da sessão corrente. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com as chaves id (int), instituicao (string), nome_area (string), ano_conclusao (int) e titulo_academico_id (id). 
+	 * @return     <JSON>  {status : booelan, msg : string }
+	 */
 	/** @BlockList({'visitante'}) */
 	public function alterarCurso($arg){
 		Lumine::import("Curso"); 
@@ -479,6 +577,12 @@ class ManterUsuario extends GenericController{
 		$this->manterUsuarioView->sendAjax(array('status' => true ) );  
 	}
 
+	/**
+	 * Altera a foto do usuário da sessão corrente. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com as chaves x,y,x2,y2 (ambos int) e um arquivo de imagem file em jpg.
+	 * @return     <JSON> {status : boolean, msg : string }
+	 */
 	/** @BlockList({'visitante'}) */
 	public function alterarFoto($arg){
 		//Criando instância para página principal

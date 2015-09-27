@@ -3,17 +3,32 @@ require_once(PATH.'Controller'.DS.'GenericController.php');
 require_once(PATH.'View'.DS.'CustomViews'.DS.'VisualizarOportunidadeView.php'); 
 require_once(PATH.'Util'.DS.'Convert.php'); 
 
+/**
+ * Classe que implementa o caso de uso visualizar oportunidades.
+ */
 class VisualizarOportunidade extends GenericController {
 	private $visuOportunidadeVew; 
 	public function __construct() {
 		$this->visuOportunidadeView = new VisualizarOportunidadeView(); 
 	}	
 
+	/**
+	 * Fachada para o método oportunidadesView da classe VisualizarOportunidadeView. 
+	 *
+	 * @param      <void> 
+	 * @return     <void> 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function oportunidadesView(){
 		$this->visuOportunidadeView->oportunidadesView(); 
 	}
 	
+	/**
+	 * Returna um JSON bem formado com os dados de uma oportunidade de emprego. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com a chave id (int). O id deve ser da oportunidade de emprego que foi cadastrada. 
+	 * @return     <JSON>   {'telefone' : string, 'email' : string, 'site' : string, 'info_adicionais' : string, 'pais' : string, 'cidade' : string, 'compelento' : string, 'empresa' : string, 'salario' : real, 'titulo_academico' : string, 'atuacao_profissional' : string, 'data_divulgacao' : datetime }
+	 */
 	/** @BlockList({'visitante'}) */
 	public function emprego($arg){
 		//Criar a validaçao dos campos posteriormente; 
@@ -59,6 +74,13 @@ class VisualizarOportunidade extends GenericController {
 		die(json_encode($array)); 
 	}
 
+
+	/**
+	 * Returna um JSON bem formado com os dados de uma oportunidade de pós-graduação. 
+	 *
+	 * @param      <array>  $arg    Recebe um array com a chave id (int). O id deve ser da oportunidade de pós-graduação que foi cadastrada. 
+	 * @return     <JSON>   {'telefone' : string, 'email' : string, 'site' : string, 'info_adicionais' : string, 'pais' : string, 'estado' : string,'cidade' : string, 'complemento' : string, 'titulo' : string, 'area' : string, 'data_inscri_inicio' : int, 'data_inscr_fim' : int, 'titulo_academico' : string, 'data_divulgacao' : datetime }
+	 */
 	/** @BlockList({'visitante'}) */
 	public function posGraduacao($arg){
 		//Criar a validaçao dos campos posteriormente; 

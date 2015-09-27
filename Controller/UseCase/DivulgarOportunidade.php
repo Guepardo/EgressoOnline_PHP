@@ -2,13 +2,21 @@
 require_once(PATH.'Controller'.DS.'GenericController.php'); 
 require_once(PATH.'Util'.DS.'Mail.php');
 require_once(PATH.'Util'.DS.'FileWriter.php'); 
-
+/**
+ * Classe que implementa o caso de uso 'Divulgar Oportunidades de emprego'
+ */
 class DivulgarOportunidade extends GenericController {
 
 	public function __construct() {
 		
 	}	
 
+	/**
+	 *  Cadastrar uma oportunidade de emprego
+	 *
+	 * @param      <array>  $arg    Recebe um array contendo os dados para cadastro de uma oportunidade de emprego. As chaves que devem ser alimentadas nesse array são: cidade_id (int), complemento (string), pais_id (id), telefone (string), email (string), site (string), info_adicionais (string), empresa (string), salario (real), graduacao_id (int) e area_profissional_id (int). 
+	 * @return     <JSON> formato da saída {status : boolean, msg : string } 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function emprego($arg){
 		//Criar a validaçao dos campos posteriormente; 
@@ -53,6 +61,12 @@ class DivulgarOportunidade extends GenericController {
 		self::notificacaoEmprego($oportunidade->id);
 	}
 
+	/**
+	 * Cadastrar uma oportunidade de pós-graduação
+	 *
+	 * @param      <array>  $arg    Recebe um array conteido os dados para cadastro de uma oportunidade de pós-graduação. As cheves que deve ser aliementadas nesse array são: cidade_id (int), complemento (string), telefone (string), email (string), site (string), titulo  (string), data_inscr_inicio (date), data_inscr_fim (date), titulo_academico_id (int) e area (string). 
+	 * @return     <JSON> formato da saída {status : boolean, msg : string } 
+	 */
 	/** @BlockList({'visitante'}) */
 	public function posGraduacao($arg){
 		//Criar a validaçao dos campos posteriormente; 
@@ -97,7 +111,12 @@ class DivulgarOportunidade extends GenericController {
 		self::notificacaoPos($oportunidade->id); 
 	}
 
-	//$id do registo da notificação recem cadastrada: 
+	/**
+	 * Adiciona a oportunidade de pós-graduação recém cadastrada na lista de envio de notificações via e-mail. 
+	 *
+	 * @param      <int>  $id     Id da pós-graduação recém cadastrada no banco de dados. 
+	 * @return     <void>
+	 */
 	/** @BlockList({'visitante'}) */
 	public function notificacaoPos($id){
 
@@ -138,7 +157,12 @@ class DivulgarOportunidade extends GenericController {
 		}
 	}
 
-	//$id do registo da notificação recem cadastrada: 
+	/**
+	 * Adiciona o oprotunidade de emprego recém cadastra na lista de envio de notificações via e-mail. 
+	 *
+	 * @param      <int>  $id     Id da pós-graduação recém cadastrada no banco de dados. 
+	 * @return     <void>
+	 */ 
 	/** @BlockList({'visitante'}) */
 	public function notificacaoEmprego($id){
 
