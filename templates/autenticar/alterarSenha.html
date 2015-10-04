@@ -1,7 +1,7 @@
   <!doctype html>
   <html class="no-js" lang="pt">
   <head>
-    <title>EgressoOnline - Login</title>
+    <title>EgressoOnline - Recuperar Senha</title>
     <!-- $Include templates/lib/html/head.html --> 
 
   </head>
@@ -9,25 +9,42 @@
 
     <div class="row">
       <!-- container -->
-      <div class="medium-12 columns panel">
+
+      <div class="row">
+        <div class="medium-4 columns centered">
+          <img src="templates/lib/img/logo.png" alt="">
+        </div>
+      </div>
+
+      <!--  <div class="row">
+        <div class="medium-4 columns centered">
+           <h4 class="subheader">h4.subheader</h4>
+        </div>
+      </div> -->
+
+     
+      <div class="medium-12 columns">
         <!-- primeira linha -->
         <div class="row">
           <div class="medium-6 columns">
             <fieldset>
-              <legend>Algumas informações sobre a sua conta</legend>
+              <legend>Primeira etapa</legend>
 
-              <label>E-mail<input type="email" name="" id="email" value="" required></label>
-              <button class="button info tiny" id="obter_codigo">Obter Código</button>
+              <label>E-mail 
+                <input type="email" name="" id="email" value="" required>
+              </label>
+              <span class="label secondary">Enviaremos um código para o e-mail informado. Isso pode demorar um pouco.</span><br>
+              <button class="button info tiny" style="margin-top:15px;" id="obter_codigo">Obter Código</button>
             </fieldset> 
           </div>
 
           <div class="medium-6 columns">
             <fieldset>
-              <legend>Recupere a sua senha</legend>
-              <label>Código     <input id="codigo" type="text" name="" value=""></label>
+              <legend>Segunda etapa</legend>
+              <label>Código   <small> O código que chegou no seu e-mail</small>  <input id="codigo" type="text" name="" value=""></label>
               <label>Nova senha <input id="nova_senha" type="password" name="" value=""></label>
-              <label>Confirmação<input id="confirmacao" type="password" name="" value=""></label>
-              <button class="button success tiny" id="alterar_senha">Alterar senha</button>
+              <label>Confirmação da senha<input id="confirmacao" type="password" name="" value=""></label>
+              <button class="button success tiny" id="alterar_senha" >Alterar senha</button>
             </fieldset>
           </div>
         </div>

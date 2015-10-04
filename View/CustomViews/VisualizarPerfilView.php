@@ -16,6 +16,7 @@ class VisualizarPerfilView extends GenericView{
 		Lumine::import("Oportunidade");  
 		Lumine::import("Curso"); 
 		Lumine::import("TituloAcademico"); 
+		Lumine::import("EgressoHasRedeSocial"); 
 
 		$egresso = new Egresso(); 
 		$usuario = new Usuario(); 
@@ -39,9 +40,34 @@ class VisualizarPerfilView extends GenericView{
 
 		parent::$templator->setVariable("telefone", $usuario->telefone); 
 
-		// parent::$templator->setVariable("likedin", $usuario->nome); 
-		// parent::$templator->setVariable("facebook", $usuario->nome); 
-		// parent::$templator->setVariable("twitter", $usuario->nome); 
+		//Pegando os dados das redes sociais: 
+		
+		if( !$usuario->isDadoPublico ){
+			$texto = "não está disponível"; 
+
+			parent::$templator->setVariable("likedin", $texto); 
+			parent::$templator->setVariable("facebook", $texto); 
+			parent::$templator->setVariable("twitter", $texto); 
+		}else{
+
+			$rede = new EgressoHasRedeSocial(); 
+			$rede->where("usuario_id = ". $_SESSION['user_id']." and rede_social_id = ". 1)->find(); 
+			$rede->fetch(true); 
+			parent::$templator->setVariable("twitter", $rede->linkAcesso); 
+
+			$rede = new EgressoHasRedeSocial(); 
+			$rede->where("usuario_id = ". $_SESSION['user_id']." and rede_social_id = ". 2)->find(); 
+			$rede->fetch(true); 
+			parent::$templator->setVariable("likedin", $rede->linkAcesso ); 
+
+			$rede = new EgressoHasRedeSocial(); 
+			$rede->where("usuario_id = ". $_SESSION['user_id']." and rede_social_id = ". 3)->find(); 
+			$rede->fetch(true); 
+			
+			parent::$templator->setVariable("facebook", $rede->linkAcesso ); 
+			
+		}
+		
 
 		$oportunidade = new Oportunidade(); 
 
@@ -65,9 +91,9 @@ class VisualizarPerfilView extends GenericView{
 
 		$curso->join($titulo)->where("usuario_id = ". $id)->find(); 
 		while($curso->fetch()){
-			$texto = "". $curso->des." na área ". $curso->areaNome.", na instituição ". $curso->instituicao.". concluiu o curso no ano de ". $curso->anoConclusao; 
+			$texto = "". Convert::toUTF_8($curso->des) ." na área ". $curso->areaNome.", na instituição ". Convert::toUTF_8($curso->instituicao) .". concluiu o curso no ano de ". $curso->anoConclusao; 
 
-			parent::$templator->setVariable('tipo', $curso->des ); 
+			parent::$templator->setVariable('tipo', Convert::toUTF_8($curso->des) ); 
 			parent::$templator->setVariable('label', $texto ); 
 
 			parent::$templator->addBlock('graduacao'); 

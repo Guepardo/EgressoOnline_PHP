@@ -33,7 +33,7 @@ class ManterUsuarioView extends GenericView{
 
 		while($tituloAcademico->fetch()){
 			parent::$templator->setVariable("tipo.id", $tituloAcademico->id ); 
-			parent::$templator->setVariable("tipo.des", $tituloAcademico->des );
+			parent::$templator->setVariable("tipo.des", Convert::upperUtf8($tituloAcademico->des) );
 			parent::$templator->addBlock("tipo");
 		}
 
@@ -50,7 +50,7 @@ class ManterUsuarioView extends GenericView{
 			parent::$templator->setVariable("id", $curso->id ); 
 			$titulo = new TituloAcademico(); 
 			$titulo->get($curso->tituloAcademicoId); 
-			parent::$templator->setVariable("tipo", $titulo->des );
+			parent::$templator->setVariable("tipo", Convert::upperUtf8($titulo->des) );
 			parent::$templator->setVariable("instituicao", $curso->instituicao ); 
 			parent::$templator->setVariable("nome_curso", $curso->areaNome );
 			parent::$templator->setVariable("ano_conclusao", $curso->anoConclusao );
@@ -79,7 +79,7 @@ class ManterUsuarioView extends GenericView{
 		$disciplina->find(); 
 
 		while( $disciplina->fetch() ){
-			parent::$templator->setVariable('disciplina.descri', utf8_encode($disciplina->des)); 
+			parent::$templator->setVariable('disciplina.descri', Convert::upperUtf8($disciplina->des)); 
 			parent::$templator->setVariable('disciplina.id', $disciplina->id);  
 			parent::$templator->addBlock('disciplinas'); 
 		}
@@ -90,7 +90,7 @@ class ManterUsuarioView extends GenericView{
 			$disciplina = new Disciplina(); 
 			$disciplina->get($associativa->disciplinaId); 
 
-			parent::$templator->setVariable('disciplina.name', utf8_encode($disciplina->des)); 
+			parent::$templator->setVariable('disciplina.name', Convert::upperUtf8($disciplina->des)); 
 			parent::$templator->setVariable('associativa.id', $associativa->id); 
 			parent::$templator->setVariable('disciplina.ano_lecionou',$associativa->anoLecionou);
 			parent::$templator->addBlock('table'); 
@@ -162,7 +162,7 @@ class ManterUsuarioView extends GenericView{
 		//pais egresso; 
 		while($pais->fetch()){
 			parent::$templator->setVariable('egresso.pais.value',$pais->id); 
-			parent::$templator->setVariable('egresso.pais.desc', Convert::toUTF_8(Convert::toUpperCase($pais->des))); 
+			parent::$templator->setVariable('egresso.pais.desc', Convert::upperUtf8($pais->des)); 
 
 			if( (int) $pais->id == (int) $localidadeEgresso->paisId)
 				parent::$templator->setVariable('egresso.pais.marcado','selected'); 
@@ -187,7 +187,7 @@ class ManterUsuarioView extends GenericView{
 
 		while($estado->fetch()){
 			parent::$templator->setVariable('egresso.estado.value',$estado->id); 
-			parent::$templator->setVariable('egresso.estado.desc', Convert::toUTF_8(Convert::toUpperCase($estado->des))); 
+			parent::$templator->setVariable('egresso.estado.desc', Convert::upperUtf8($estado->des)); 
 			if($idEstado == $estado->id)
 				parent::$templator->setVariable('egresso.estado.marcado','selected'); 
 			else
@@ -203,8 +203,8 @@ class ManterUsuarioView extends GenericView{
 			$cidade->where("estado_id = ". $idEstado)->find(); 
 
 			while($cidade->fetch()){
-				parent::$templator->setVariable('egresso.cidade.value',Convert::toUTF_8(Convert::toUpperCase($cidade->des))); 
-				parent::$templator->setVariable('egresso.cidade.desc', Convert::toUTF_8(Convert::toUpperCase($cidade->des))); 
+				parent::$templator->setVariable('egresso.cidade.value',Convert::upperUtf8($cidade->des)); 
+				parent::$templator->setVariable('egresso.cidade.desc', Convert::upperUtf8($cidade->des)); 
 				if($idCidade == $cidade->id)
 					parent::$templator->setVariable('egresso.cidade.marcado','selected'); 
 				else
@@ -219,7 +219,7 @@ class ManterUsuarioView extends GenericView{
 
 		while($pais->fetch()){
 			parent::$templator->setVariable('emprego.pais.value',$pais->id); 
-			parent::$templator->setVariable('emprego.pais.desc', Convert::toUTF_8(Convert::toUpperCase($pais->des))); 
+			parent::$templator->setVariable('emprego.pais.desc', Convert::upperUtf8($pais->des)); 
 
 			if( (int) $pais->id == (int) $localidadeEmprego->paisId)
 				parent::$templator->setVariable('emprego.pais.marcado','selected'); 
@@ -244,7 +244,7 @@ class ManterUsuarioView extends GenericView{
 
 		while($estado->fetch()){
 			parent::$templator->setVariable('emprego.estado.value',$estado->id); 
-			parent::$templator->setVariable('emprego.estado.desc', Convert::toUTF_8(Convert::toUpperCase($estado->des))); 
+			parent::$templator->setVariable('emprego.estado.desc', Convert::upperUtf8($estado->des)); 
 			if($idEstado == $estado->id)
 				parent::$templator->setVariable('emprego.estado.marcado','selected'); 
 			else
@@ -260,8 +260,8 @@ class ManterUsuarioView extends GenericView{
 			$cidade->where("estado_id = ". $idEstado)->find(); 
 
 			while($cidade->fetch()){
-				parent::$templator->setVariable('emprego.cidade.value',Convert::toUTF_8(Convert::toUpperCase($cidade->des))); 
-				parent::$templator->setVariable('emprego.cidade.desc', Convert::toUTF_8(Convert::toUpperCase($cidade->des))); 
+				parent::$templator->setVariable('emprego.cidade.value',Convert::upperUtf8($cidade->des)); 
+				parent::$templator->setVariable('emprego.cidade.desc', Convert::upperUtf8($cidade->des)); 
 				if($idCidade == $cidade->id)
 					parent::$templator->setVariable('emprego.cidade.marcado','selected'); 
 				else
@@ -276,7 +276,7 @@ class ManterUsuarioView extends GenericView{
 
 		while($civil->fetch()){
 			parent::$templator->setVariable('civil.value',$civil->id); 
-			parent::$templator->setVariable('civil.desc', Convert::toUTF_8(Convert::toUpperCase($civil->des))); 
+			parent::$templator->setVariable('civil.desc', Convert::upperUtf8($civil->des)); 
 
 			if( (int) $civil->id == (int) $egresso->estadoCivilId)
 				parent::$templator->setVariable('civil.marcado','selected'); 
@@ -292,7 +292,7 @@ class ManterUsuarioView extends GenericView{
 
 		while($faixa->fetch()){
 			parent::$templator->setVariable('faixa.value',$faixa->id); 
-			parent::$templator->setVariable('faixa.desc', Convert::toUTF_8(Convert::toUpperCase($faixa->des))); 
+			parent::$templator->setVariable('faixa.desc', Convert::upperUtf8($faixa->des)); 
 
 			if( (int) $faixa->id == (int) $emprego->faixaSalarialId)
 				parent::$templator->setVariable('faixa.marcado','selected'); 
@@ -306,7 +306,7 @@ class ManterUsuarioView extends GenericView{
 
 		while($atuacao->fetch()){
 			parent::$templator->setVariable('atuacao.value',$atuacao->id); 
-			parent::$templator->setVariable('atuacao.desc', Convert::toUTF_8(Convert::toUpperCase($atuacao->des))); 
+			parent::$templator->setVariable('atuacao.desc', Convert::upperUtf8($atuacao->des)); 
 
 			if((int) $atuacao->id == (int) $emprego->atuacaoProfissionalId)
 				parent::$templator->setVariable('atuacao.marcado','selected'); 
