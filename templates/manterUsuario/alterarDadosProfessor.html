@@ -8,12 +8,12 @@
 
  <!-- $Include templates/lib/html/topbar.html --> 
 
- <div class="row">
-  <div class="medium-10 medium-offset-1 columns"> <h1>Alterar dados</h1> </div>
+ <div class="row fix-container">
+  <div class="medium-12 columns"> <h2 class="cabecalho">Alterar Dados</h2> </div>
 </div>
 
-<div class="row">
-  <div class="medium-10 medium-offset-1 columns">
+<div class="row" style="margin-top:20px;">
+  <div class="medium-12 columns">
     <nav class="breadcrumbs">
       <a href="#" class="current">Dados pessoais</a>
       <a href="index.php?a=alterarSenhaView&uc=manterUsuario">Alterar senha</a>
@@ -23,7 +23,7 @@
 </div>
 
 <div class="row">
-  <div class="medium-10 medium-offset-1 columns">
+  <div class="medium-12 columns">
     <form id="form" data-abide="ajax"> 
       <!--Nome do professor--> 
       <div class="row">
@@ -81,7 +81,6 @@ $(document).ready(function(){
     var data = $(this).serializeArray(); 
 
     sendAjax('index.php?uc=manterUsuario&a=alterarDadosProfessor','POST',data,function(data){
-      alertify.log(data); 
       data = JSON.parse(data); 
 
       if(data['status'])

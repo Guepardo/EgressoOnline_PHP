@@ -41,9 +41,22 @@ class RelatoriosView extends GenericView{
 		parent::show(); 
 	}
 
-	//Relatório de distribuição geográfica: 
+	//Relatório de atuação profissional - faixa salarial 
 	public function relatorio2($arg){
 		parent::getTemplateByAction('r02'); 
+		Lumine::import("FaixaSalarial");
+		Lumine::import("Egresso"); 
+		Lumine::import("Emprego"); 
+		 
+		$faixa = new FaixaSalarial(); 
+
+		$faixa->find(); 
+
+		//público ou privado: 
+		$publico = !empty($arg['publico']);
+		$areaTi  = !empty($arg['is_ti']);
+
+		while($) 
 		parent::show(); 
 	}
 

@@ -4,78 +4,58 @@
 	<meta charset="UTF-8">
 
 	<style type="text/css" media="screen">
-		table{
-			border:solid;
-			border-width:1px; 
-			border-color: black; 
+	table{
+		border:solid;
+		border-width:1px; 
+		border-color: black; 
 
-		}
+	}
 
-		td{
-			border:solid;
-			border-width:1px 1px 0 0; 
-			border-color: black; 
+	td{
+		border:solid;
+		border-width:1px 1px 0 0; 
+		border-color: black; 
 
-		}
+	}
 
-		th{
-			border:solid;
-			border-width:1px 1px 0 0; 
-			border-color: black; 
+	th{
+		border:solid;
+		border-width:1px 1px 0 0; 
+		border-color: black; 
 
-		}
+	}
 	</style>
 
 	
 </head>
 <body>
-<!--Titulo-->
-<h4 style="text-align:center">R02 - Atuação Profissional - Faixa Salarial</h4>
-<!--Tabela-->
-<table style="width:100%;">
-	<thead>
-		<tr>
-			<th style="text-align:left;background-color:#D8D8D8;">Faixa Salarial</th>
-			<th style="text-align:left;background-color:#D8D8D8;">Quantidade</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>data</td>
-			<td>data</td>
-		</tr>
-		<tr>
-			<td>data</td>
-			<td>data</td>
-		</tr>
-		<tr>
-			<td>data</td>
-			<td>data</td>
-		</tr>
-		<tr>
-			<td>data</td>
-			<td>data</td>
-		</tr>
-		<tr>
-			<td>data</td>
-			<td>data</td>
-		</tr>
-		<tr>
-			<td>data</td>
-			<td>data</td>
-		</tr>
-		<tr>
-			<td>data</td>
-			<td>data</td>
-		</tr>
-	</tbody>
-</table>
-<!-- legenda -->
-<div style="width:100%; heigh:100px;">
-	<p style="font-weight:bold">Legenda:</p>
-	<p><i>Média Salarial: </i> é a média dos pontos médios das faixas salariais.</p> 
-	<p><i>Menor Salário:</i>é o limite da menor faixa salarial do tipo de atuação.</p> 
+	<!--Titulo-->
+	<h4 style="text-align:center">R02 - Atuação Profissional - Faixa Salarial</h4>
+	<!--Tabela-->
+	<table style="width:100%;">
+		<thead>
+			<tr>
+				<th style="text-align:left;background-color:#D8D8D8;">Faixa Salarial</th>
+				<th style="text-align:left;background-color:#D8D8D8;">Quantidade</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<!-- $BeginBlock row -->
+			<tr>
+				<td>${label}</td>
+				<td>${value} </td>
+			</tr>
+			<!-- $EndBlock row -->
 
-</div>
+		</tbody>
+	</table>
+	<!-- legenda -->
+	<div style="width:100%; height:100px;">
+		<p style="font-weight:bold">Legenda:</p>
+		<p><i>Média Salarial: </i> é a média dos pontos médios das faixas salariais.</p> 
+		<p><i>Menor Salário:</i>é o limite da menor faixa salarial do tipo de atuação.</p> 
+
+	</div>
 </body>
 </html>
