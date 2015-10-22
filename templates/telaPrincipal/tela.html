@@ -783,6 +783,7 @@
       if(data['status']){
         alertify.success("Divulgado com sucesso. ");   
         form.get(0).reset(); 
+        refreshTimelineOnMessage(); 
         $('#modal_emprego').foundation('reveal', 'close');
       }
       else
@@ -801,6 +802,7 @@
       if(data['status']){
         alertify.success("Divulgado com sucesso. ");   
         form.get(0).reset(); 
+        refreshTimelineOnMessage(); 
         $('#modal_emprego').foundation('reveal', 'close');
       }  
       else
@@ -1000,6 +1002,7 @@ function refresh(){
     },500);
   }
 }
+
 function lancarModalAlterouDados(){
   var alterouDado = Cookies.get('egresso');  
 
