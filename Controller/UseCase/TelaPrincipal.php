@@ -115,7 +115,17 @@ class TelaPrincipal extends GenericController {
 
 					$turma->get($egresso->turmaId); 
 
-					$anoTurma = ($total <= 0)? null : $turma->ano;  
+					// $anoTurma = ($total <= 0)? null : $turma->ano; 
+					$semestre; 
+					$anoTurma; 
+					
+					if($total <= 0 ){
+						$semestre = null; 
+						$anoTurma = null; 
+					}else{
+						$semestre = $turma->semestre;
+						$anoTurma = $turma->ano;  
+					}
 					//obtendo destinatário; 
 					$tam = $associativa->get('postagemId', $post->id); 
 
@@ -123,9 +133,9 @@ class TelaPrincipal extends GenericController {
 					//Se a mensagem é uma mensagem direta: 
 					if($tam > 0 && $associativa->postagemId == $post->id){
 						if((int) $associativa->usuarioId == (int) $_SESSION['user_id'])//Adicionar no array se a mensagem privada for para a sessão corrente.
-							array_push($array, array('turma' => $anoTurma,'id_user_origem' => $post->usuarioId, 'foto' => $usuario->foto, 'id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => false, 'post' => true));  
+							array_push($array, array('turma' => $anoTurma,'semestre' => $semestre,'id_user_origem' => $post->usuarioId, 'foto' => $usuario->foto, 'id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => false, 'post' => true));  
 					}else
-					array_push($array, array('turma' => $anoTurma, 'id_user_origem' => $post->usuarioId, 'foto' => $usuario->foto, 'id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => true, 'post' => true)); 
+					array_push($array, array('turma' => $anoTurma,'semestre' => $semestre, 'id_user_origem' => $post->usuarioId, 'foto' => $usuario->foto, 'id' => $post->id, 'remetente' => $usuario->nome, 'data_envio' => $post->dataEnvio , 'msg' => $post->mensagem , 'publica' => true, 'post' => true)); 
 				}
 
 				$tam = $op->get('id', (int) $temp[0]); 

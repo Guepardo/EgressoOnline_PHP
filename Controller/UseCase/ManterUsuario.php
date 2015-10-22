@@ -285,12 +285,12 @@ class ManterUsuario extends GenericController{
 		$idTurma; 
 
 		$turma   = new Turma(); 
-		$turma->get('ano', (int) $arg['ano_conclusao']); 
-
+		// $turma->get('ano', (int) $arg['ano_conclusao']); 
+		$turma->select('id')->where('ano = '. $arg['ano_conclusao']. ' and semestre = '. $arg['semestre'] ); 
 		if($turma->id != null )
 			$idTurma = $turma->id; 
 		else
-			$idTurma = self::criarNovaTurma($arg['ano_conclusao']); 
+			$idTurma = self::criarNovaTurma($arg['ano_conclusao'],$arg['semestre']); 
 
 		$egresso = new Egresso(); 
 
@@ -632,7 +632,7 @@ class ManterUsuario extends GenericController{
 		}
 	}
 
-	private function criarNovaTurma($anoConclusao){
+	private function criarNovaTurma($anoConclusao,$semestre){
 		Lumine::import("Turma"); 
 		$turma = new Turma(); 
 		$turma->ano = (int) $anoConclusao; 

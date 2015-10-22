@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="pt-br">
+<html class="no-js" lang="pt">
 <head>
   <title>Cadastro de Egresso</title>
   <!-- $Include templates/lib/html/head.html --> 
@@ -57,7 +57,7 @@
     <div class="medium-3 columns">
       <label for="sexo">Gênero: <small>Obrigatório</small>
         <select id="sexo" class="medium" name="genero_id" required>
-          <option value="">Selecione</option>
+          <option value="">-Selecione-</option>
           <option value="1">MASCULINO</option>
           <option value="2">FEMININO</option>
         </select>
@@ -74,21 +74,28 @@
   </div>
 
   <div class="row">
-    <div class="medium-7 columns">
+    <div class="medium-9 columns">
       <fieldset class="panel" style="margin-top:0;">
         <legend>Informações sobre o curso</legend>
         <div class="row">
-          <div class="medium-6 columns"> 
+          <div class="medium-4 columns"> 
             <label>Ano de ingresso: <small>Obrigatório</small>
               <input type="number" value='2015' name="ano_ingresso" required  max="5000" min="1900"  />
             </label> <small class="error">Você precisa inserir um ano válido</small>
           </div> 
 
-          <div class="medium-6 columns"> 
+          <div class="medium-4 columns"> 
            <label>Ano de conclusão | Turma: <small>Obrigatório</small>
              <input type="number"  value='2015' name="ano_conclusao" required  max="5000" min="1900"  />
            </label> <small class="error">Você precisa inserir um ano válido</small>
          </div> 
+
+         <div class="medium-3 columns"> 
+           <label>Semestre: <small>Obrigatório</small>
+             <input type="number"  value='1' name="semestre" required  max="2" min="1"  />
+           </label> <small class="error">Você precisa inserir um ano válido</small>
+         </div> 
+
        </div>
      </fieldset>
    </div>
@@ -127,14 +134,18 @@ $(document).ready(function(){
 
     sendAjax('index.php?uc=manterUsuario&a=cadastroEgresso','POST',data,function(data){
       data = JSON.parse(data); 
-      if(data['status'])
+      if(data['status']){
         alertify.success("O cadastro foi feito com sucesso");   
-      else
-        alertify.error("Error"); 
+        reloadDelay(700); 
+      }else
+        alertify.error(data['msg']); 
     });
     
   });
 
+  function reloadDelay(delay){
+    setInterval(function(){window.location.reload();},delay); 
+  }
 });
 </script>
 
