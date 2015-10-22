@@ -29,15 +29,15 @@
       </div>
 
 
-       <!-- alerta -->
-    <div class="row">
-      <div class="medium-12 columns">
-        <div data-alert class="alert-box warning">
-          Transferir cargo significa delegar seus direitos de professor coordenador para outro professor do sistema. Com a transferência de cargo o seu privilégio de coordenador será modificado para de professor. Logo as funções de manuntenção do curso, cadastro de egressos e cadastro professores não serão mais acessíveis para você. 
-          <a href="#" class="close">&times;</a>
+      <!-- alerta -->
+      <div class="row">
+        <div class="medium-12 columns">
+          <div data-alert class="alert-box warning">
+            Transferir cargo significa delegar seus direitos de professor coordenador para outro professor do sistema. Com a transferência de cargo o seu privilégio de coordenador será modificado para de professor. Logo as funções de manuntenção do curso, cadastro de egressos e cadastro professores não serão mais acessíveis para você. 
+            <a href="#" class="close">&times;</a>
+          </div>
         </div>
       </div>
-    </div>
 
       <!-- label -->
       <div class="row" >
@@ -99,23 +99,31 @@ $(document).ready(function(){
   $(".transferir").click(function(){
     var id = $(this).val(); 
 
-    var data = {'id' : id}; 
+    id = {'id' : id}; 
 
     alertify.confirm("Click em Ok se deseja realmente transferir seus privilégios de coordenador para outro professor.",function(e){
      if(e){
-      alertify.success("Alteração feita com sucesso"); 
+      sendAjax('index.php?uc=manterCurso&a=transCoordenador','POST',id,function(data){
+        var data = JSON.parse(data); 
 
-      sendAjax('index.php?uc=manterCurso&a=transCoordenador','POST',data,function(data){
-        alertify.log(data); 
+        if(data['status']){
+          alertify.success("Transferido com sucesso"); 
+          reloadDelay(700); 
+        }else{  
+          alertify.error(data['msg']); 
+        }
+
       }); 
 
-    }else{
-      alertify.error("Operação cancelada"); 
     }
   }); 
 
 
   });
+
+  function reloadDelay(delay){
+    setInterval(function(){$(location).attr('href','index.php?uc=autenticar&a=logout');},delay); 
+  }
 
 }); 
 </script>

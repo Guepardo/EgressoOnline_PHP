@@ -20,7 +20,7 @@
     <div class="row">
       <div class="medium-5 columns">
         <label >Digite o nome da nova disciplina
-          <input type="text" value="" placeholder="Digite o nome da nova disciplinas" id="area_nome"/>
+          <input type="text" value="" placeholder="Digite o nome da nova disciplina" id="area_nome"/>
         </label>
       </div>
       <div class="medium-4 columns end">
@@ -125,8 +125,10 @@ $(document).ready(function(){
     sendAjax('index.php?uc=manterCurso&a=alterarDisciplina','POST',{'id' : id, 'nome' : nome}, function(data){
       data = JSON.parse(data); 
       if(data['status']){ 
-        $('#modal_alterar').foundation('reveal', 'close');
-        window.location.reload(); 
+        alertify.success("Disciplina alterada"); 
+        reloadDelay(500); 
+      }else{
+        alertify.error(data['msg']); 
       }
     }); 
     //aqui
@@ -142,7 +144,7 @@ $(document).ready(function(){
       data  = JSON.parse(data); 
       if(data['status']){
         alertify.success("A disciplina foi cadastrada com sucesso"); 
-        reloadDelay(1000); 
+        reloadDelay(700); 
       }else{
         alertify.error(data['msg']); 
       }
@@ -156,23 +158,30 @@ $(document).ready(function(){
   //Tratando evento para a modificação do nome: 
   $("button.delete").click(function(){
     var id = $(this).val(); 
-    sendAjax('index.php?uc=manterCurso&a=deletarDisciplina','POST',{'id' : id}, function(data){
-      data  = JSON.parse(data); 
+    
 
-      if(data['status']){
-        alertify.success("Disciplina deletada"); 
-        reloadDelay(500); 
-      }else{
-        alertify.error(data['msg']); 
-      }
+    alertify.confirm("Click em Ok se deseja realmente excluir essa desciplina.",function(e){
+     if(e){
+      sendAjax('index.php?uc=manterCurso&a=deletarDisciplina','POST',{'id' : id}, function(data){
+        data  = JSON.parse(data); 
 
-    });
+        if(data['status']){
+          alertify.success("Disciplina deletada"); 
+          reloadDelay(700); 
+        }else{
+          alertify.error(data['msg']); 
+        }
+
+      });
+    }
+  });
   });   
 
 
   function reloadDelay(delay){
     setInterval(function(){window.location.reload();},delay); 
   }
+
 });
 
   </script>

@@ -141,7 +141,8 @@ $(document).ready(function(){
       data = JSON.parse(data); 
       if(data['status']){ 
         $('#modal_alterar').foundation('reveal', 'close');
-        window.location.reload(); 
+        alertify.success("A área foi alterada"); 
+        reloadDelay(700); 
       }
     }); 
     //aqui
@@ -157,7 +158,7 @@ $(document).ready(function(){
       data  = JSON.parse(data); 
       if(data['status']){
         alertify.success("A área foi cadastrada com sucesso"); 
-        reloadDelay(1000); 
+        reloadDelay(700); 
       }else{
         alertify.error(data['msg']); 
       }
@@ -171,17 +172,23 @@ $(document).ready(function(){
   //Tratando evento para a modificação do nome: 
   $("button.delete").click(function(){
     var id = $(this).val(); 
-    sendAjax('index.php?uc=manterCurso&a=deletarArea','POST',{'id' : id}, function(data){
+    
+
+    alertify.confirm("Click em Ok se deseja realmente excluir essa área de atuação.",function(e){
+     if(e){
+      sendAjax('index.php?uc=manterCurso&a=deletarArea','POST',{'id' : id}, function(data){
       data  = JSON.parse(data); 
 
       if(data['status']){
         alertify.success("Área deletada"); 
-        reloadDelay(500); 
+        reloadDelay(700); 
       }else{
         alertify.error(data['msg']); 
       }
 
     });
+    }
+  });
   });   
 
 
