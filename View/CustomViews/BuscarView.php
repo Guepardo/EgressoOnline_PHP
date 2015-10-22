@@ -28,7 +28,7 @@ class BuscarView extends GenericView{
 			$turma   = new Turma(); 
 			$egresso = new Egresso(); 
 
-			$egresso->select("usuario.id as id, usuario.foto as foto, nome, turma.ano as ano")->join($usuario)->join( $turma)->where("ano = ". $arg )->find(); 
+			$egresso->select("usuario.id as id, usuario.foto as foto, nome, turma.ano as ano, turma.semestre as semestre")->join($usuario)->join( $turma)->where("ano = ". $arg )->find(); 
 
 			while($egresso->fetch()){
 				parent::$templator->setVariable("usuario.id", $egresso->id); 
@@ -38,7 +38,7 @@ class BuscarView extends GenericView{
 
 				if(count($result) > 1){//é um aluno
 					parent::$templator->setVariable("usuario.tipo", $result[0]); 
-					parent::$templator->setVariable("usuario.turma", $result[1]); 
+					parent::$templator->setVariable("usuario.turma", $result[1].'-'.$result[3]); 
 					parent::$templator->setVariable("turma.id",'index.php?uc=perfil&a=perfilTurmaView&id='.$result[2]); 
 				}else{
 					parent::$templator->setVariable("usuario.tipo", $result[0]); 
@@ -66,7 +66,7 @@ class BuscarView extends GenericView{
 
 				if(count($result) > 1){//é um aluno
 					parent::$templator->setVariable("usuario.tipo", $result[0]); 
-					parent::$templator->setVariable("usuario.turma", $result[1]); 
+					parent::$templator->setVariable("usuario.turma", $result[1].'-'.$result[3]); 
 					parent::$templator->setVariable("turma.id",'index.php?uc=perfil&a=perfilTurmaView&id='.$result[2]); 
 				}else{
 					parent::$templator->setVariable("usuario.tipo", $result[0]); 
@@ -99,6 +99,7 @@ class BuscarView extends GenericView{
 
 			array_push($result,$turma->ano); 
 			array_push($result,$turma->id); 
+			array_push($result,$turma->semestre); 
 			return $result; 
 		} 
 

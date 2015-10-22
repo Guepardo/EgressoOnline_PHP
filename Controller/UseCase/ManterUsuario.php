@@ -636,6 +636,7 @@ class ManterUsuario extends GenericController{
 		Lumine::import("Turma"); 
 		$turma = new Turma(); 
 		$turma->ano = (int) $anoConclusao; 
+		$turma->semestre = (int) $semestre; 
 		$turma->foto = 'Midia//default_turma.png'; 
 		$turma->insert(); 
 		return $turma->id; 

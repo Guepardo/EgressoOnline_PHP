@@ -35,7 +35,7 @@ class VisualizarPerfilView extends GenericView{
 		$turma = new Turma(); 
 		$turma->get($usuario->turmaId); 
 
-		parent::$templator->setVariable("turma", $turma->ano); 
+		parent::$templator->setVariable("turma", $turma->ano.'-'.$turma->semestre); 
 		parent::$templator->setVariable("foto_turma", $turma->foto); 
 
 		parent::$templator->setVariable("telefone", $usuario->telefone); 
@@ -117,7 +117,7 @@ class VisualizarPerfilView extends GenericView{
 		$usuario = new Usuario(); 
 
 		$turma->get($id); 
-		parent::$templator->setVariable("ano_turma", $turma->ano); 
+		parent::$templator->setVariable("ano_turma", $turma->ano.'-'.$turma->semestre); 
 		parent::$templator->setVariable("id_turma", $turma->id);
 		parent::$templator->setVariable("foto_turma",Convert::toUTF_8($turma->foto));  
 		
