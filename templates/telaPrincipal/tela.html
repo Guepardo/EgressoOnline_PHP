@@ -257,7 +257,7 @@
       <div id="emprego_cidade" class="medium-4 columns hide">
         <label>Cidade
           <select id="emprego_select_cidade" name="cidade_id" >
-            <option>- Selectione Um Estado -</option>
+            <option>- Selecione um Estado -</option>
           </select>
         </label>
       </div>
@@ -408,7 +408,7 @@
     <div id="pos_cidade" class="medium-4 columns hide">
       <label>Cidade
         <select id="pos_select_cidade" name="cidade_id" >
-          <option>- Selectione Um Estado -</option>
+          <option>- Selecione um Estado -</option>
         </select>
       </label>
     </div>
@@ -865,6 +865,7 @@ $('#pos_select_estado').change(function(){
       if(data['status']){
         alertify.success("Sua mensagem foi publicada."); 
         $("textarea#post_content").val('');
+        refreshTimelineOnMessage(); 
       }else{
         alertify.warning(data['msg']); 
       } 
@@ -951,6 +952,13 @@ function buildDirectMsg(data){
   $("#bnt_mensagem").val(jQuery(data).find('input').val()); 
   $("#msg_content").val(''); 
   $('#mensagem_direta').foundation('reveal', 'open');
+}
+
+function refreshTimelineOnMessage(){
+  date   = ''; 
+  locker = false; 
+  $('#container').empty(); 
+  refresh(); 
 }
 
 function refresh(){

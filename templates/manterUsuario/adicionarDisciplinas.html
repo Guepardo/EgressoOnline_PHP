@@ -70,24 +70,24 @@
               <td>${disciplina.ano_lecionou}</td>
               <!-- <td><button value="${associativa.id}" class="button tiny alert event" >Excluir</button></td> -->
               <td><button value="${associativa.id}"  style="margin:0" class="button tiny alert event" ><i class="fa fa-trash-o"></button></td>
-              </tr>
-              <!-- $EndBlock table -->
-            </tbody>
+            </tr>
+            <!-- $EndBlock table -->
+          </tbody>
 
-            <tfoot>
-              <tr>
-                <th >Disciplina</th>
-                <th >Ano que lecionou</th>
-                <th >Ação</th>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
+          <tfoot>
+            <tr>
+              <th >Disciplina</th>
+              <th >Ano que lecionou</th>
+              <th >Ação</th>
+            </tr>
+          </tfoot>
+        </table>
       </div>
+    </div>
 
-    </div>  
-    <!--fim-->
-  </div>
+  </div>  
+  <!--fim-->
+</div>
 </div>
 
 
@@ -114,30 +114,56 @@ $(document).ready(function(){
     var data = $(this).serializeArray(); 
 
     sendAjax('index.php?uc=manterUsuario&a=addDisciplina','POST',data,function(data){
-      alertify.message(data); 
       data = JSON.parse(data); 
 
-      if(data['status'])
-        window.location.reload();    
-      else
-        alertify.error("Error"); 
+      if(data['status']){
+        alertify.success("Disciplina adicionada com sucesso"); 
+        reloadDelay(800);    
+      }else
+        alertify.error("Error");
+        console.log(data);  
     });
 
 
   });
 
-  $('.event').click(function(){
-    var data = { 'associativa_id' : this.value  };
+  // $('.event').click(function(){
+  //   var data = { 'associativa_id' : this.value  };
+  //   sendAjax('index.php?uc=manterUsuario&a=delDisciplina','POST',data,function(data){
+  //     alertify.message(data); 
+  //     data = JSON.parse(data); 
+
+  //     if(data['status'])
+  //       window.location.reload();   
+  //     else
+  //       alertify.error("Error"); 
+  //   }); 
+  // }); 
+
+$('.event').click(function(){
+  var data = { 'associativa_id' : this.value  };
+  alertify.confirm("Click em Ok se deseja realmente excluir essa desciplina lecionada.",function(e){
+   if(e){
     sendAjax('index.php?uc=manterUsuario&a=delDisciplina','POST',data,function(data){
-      alertify.message(data); 
       data = JSON.parse(data); 
 
-      if(data['status'])
-        window.location.reload();   
-      else
+      if(data['status']){
+        alertify.success("Disciplina excluída com sucesso"); 
+        reloadDelay(800);    
+      }else
         alertify.error("Error"); 
     }); 
-  }); 
+
+  }else{
+    alertify.error("Operação cancelada"); 
+  }
+}); 
+}); 
+
+
+function reloadDelay(delay){
+  setInterval(function(){window.location.reload();},delay); 
+}
 
 }); 
 </script>

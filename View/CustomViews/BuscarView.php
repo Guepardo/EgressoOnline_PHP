@@ -14,6 +14,7 @@ class BuscarView extends GenericView{
 		Lumine::import("Egresso"); 
 		Lumine::import("Professor"); 
 		Lumine::import("Turma"); 
+
 		//Se for inteiro, procurar por classes
 		//Se for string, procurar por nomes relacionados
 		$arg = $arg['arg']; 
@@ -27,9 +28,27 @@ class BuscarView extends GenericView{
 			$turma   = new Turma(); 
 			$egresso = new Egresso(); 
 
-			$egresso->join($usuario)->join( $turma)->where("ano = ". $arg )->find(); 
+			$egresso->select("usuario.id as id, usuario.foto as foto, nome, turma.ano as ano")->join($usuario)->join( $turma)->where("ano = ". $arg )->find(); 
 
-			var_dump($egresso->allToArray()); 
+			while($egresso->fetch()){
+				parent::$templator->setVariable("usuario.id", $egresso->id); 
+				parent::$templator->setVariable("usuario.nome", $egresso->nome); 
+
+				$result = self::whoIsUser($egresso->id); 
+
+				if(count($result) > 1){//é um aluno
+					parent::$templator->setVariable("usuario.tipo", $result[0]); 
+					parent::$templator->setVariable("usuario.turma", $result[1]); 
+					parent::$templator->setVariable("turma.id",'index.php?uc=perfil&a=perfilTurmaView&id='.$result[2]); 
+				}else{
+					parent::$templator->setVariable("usuario.tipo", $result[0]); 
+					parent::$templator->setVariable("usuario.turma", "X"); 
+				}
+				
+				parent::$templator->setVariable("usuario.foto", $egresso->foto); 
+
+				parent::$templator->addBlock('row'); 
+			} 
 		}else{
 			$arg = strtoupper($arg); 
 

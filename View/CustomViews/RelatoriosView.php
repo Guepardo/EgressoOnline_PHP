@@ -35,6 +35,24 @@ class RelatoriosView extends GenericView{
 		parent::show(); 
 	}
 
+	private function anoConclusaoQuery($var){
+		$temp = " "; 
+
+
+		if(empty($var['ano_conclusao']))
+			return " "; 
+
+		if(is_array($var['ano_conclusao'])){
+		foreach( $var['ano_conclusao'] as $a )
+			$temp .= ' ano_conclusao = '.$a." or "; 
+		}else{
+			$var = $var['ano_conclusao']; 
+			$temp = " ano_conclusao = $var and "; 
+		}
+
+		return $temp; 
+	}
+
 	//Relatório de distribuição geográfica: 
 	public function relatorio1($arg){
 		parent::getTemplateByAction('r01'); 
@@ -47,16 +65,23 @@ class RelatoriosView extends GenericView{
 		Lumine::import("FaixaSalarial");
 		Lumine::import("Egresso"); 
 		Lumine::import("Emprego"); 
-		 
+
 		$faixa = new FaixaSalarial(); 
 
 		$faixa->find(); 
 
 		//público ou privado: 
-		$publico = !empty($arg['publico']);
-		$areaTi  = !empty($arg['is_ti']);
+		$publico = (empty($arg['is_publico'])) ? 0 : 1;
+		$areaTi  = (empty($arg['is_ti'])) ? 0 : 1;
 
-		while($) 
+		while($faixa->fetch()){
+			$emprego = new Emprego(); 
+			$egresso = new Egresso(); 
+
+			die(" publico = $publico and area_ti = $areaTi and ". self::anoConclusaoQuery($arg) );
+			$emprego->join($egresso)->where(" publico = $publico and area_ti = $areaTi and ". self::anoConclusaoQuery($arg['ano_conclusao'])); 
+		} 
+
 		parent::show(); 
 	}
 
