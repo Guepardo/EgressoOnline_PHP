@@ -21,7 +21,7 @@ class VisualizarOportunidadeView extends GenericView{
 		while($op->fetch()){
 			$emprego = new OpEmprego(); 
 			$total 	 = $emprego->get('oportunidadeId',$op->id); 
-			var_dump($total); 
+		
 			$whoIs = ($total > 0 ) ? "Emprego" : "Pós-graduação"; 
 
 			parent::$templator->setVariable("op.tipo", $whoIs); 

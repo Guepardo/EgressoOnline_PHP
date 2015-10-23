@@ -382,28 +382,28 @@ $(document).ready(function(){
 
   function buildViewEmprego(data){
     $('#divulgado_emprego').text("Divulgado em "+data['data_divulgacao']);
-    $('#empresa_emprego').text(data['empresa']); 
-    $('#area_emprego').text(data['atuacao_profissional']); 
-    $('#salario_emprego').text(data['salario']); 
-    $('#telefone_emprego').text(data['telefone']); 
-    $('#email_emprego').text(data['email']); 
-    $('#site_emprego').text(data['site']); 
-    $('#pais_emprego').text(data['pais']); 
-    $('#estado_emprego').text(data['estado']); 
-    $('#complemento_emprego').text(data['complemento']); 
-    $('#cidade_emprego').text(data['cidade']); 
-    $('#graduacao_emprego').text(data['atuacao_profissional']); 
-    $('#atividade_emprego').text(data['info_adicionais']); 
+  $('#empresa_emprego').text(data['empresa']); 
+  $('#area_emprego').text(data['atuacao_profissional']); 
+  $('#salario_emprego').text(data['salario']); 
+  $('#telefone_emprego').text(data['telefone']); 
+  $('#email_emprego').text(data['email']); 
+  $('#site_emprego').text(data['site']); 
+  $('#pais_emprego').text(data['pais']); 
+  $('#estado_emprego').text(data['estado']); 
+  $('#complemento_emprego').text(data['complemento']); 
+  $('#cidade_emprego').text(data['cidade']); 
+  $('#graduacao_emprego').text(data['titulo_academico']); 
+  $('#atividade_emprego').text(data['info_adicionais']); 
 
-    if(data['complemento'] != '' ){
-      $("#emprego_estado_div").addClass("hide");
-      $("#emprego_cidade_div").addClass("hide"); 
-      $("#emprego_complemento_div").removeClass("hide");
-    }else{
-      $("#emprego_estado_div").removeClass("hide");
-      $("#emprego_cidade_div").removeClass("hide"); 
-      $("#emprego_complemento_div").addClass("hide");
-    }
+  if(data['complemento'] != '' ){
+    $("#emprego_estado_div").addClass("hide");
+    $("#emprego_cidade_div").addClass("hide"); 
+    $("#emprego_complemento_div").removeClass("hide");
+  }else{
+    $("#emprego_estado_div").removeClass("hide");
+    $("#emprego_cidade_div").removeClass("hide"); 
+    $("#emprego_complemento_div").addClass("hide");
+  }
 
   }
 }); 
