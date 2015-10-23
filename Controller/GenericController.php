@@ -30,4 +30,29 @@ abstract class GenericController {
 		
 		return $array;
 	}
+
+	/**
+	 * Verifica se há itens no array. Caso houver algum item nesse array, isso será intempretado como um erro ocorrido. Consequentemente será adicionado o 'status' da requisição como falso, o conteúdo do array será transformado em JSON e despachado para o usuário. 
+	 *
+	 * @param      <array>  $array  
+	 */
+	protected function verifyErros($array){
+		if(!empty($array)){
+			$msg = "Alerta de incosistência! "; 
+			$result = array(); 
+
+			foreach( $array as $key => $value ){
+				$msg .= $key.": "; 
+
+				foreach($value as $a )
+					$msg .= $a.', '; 
+				$msg .= '.'; 
+			}
+
+			$result['status'] = false; 
+			$result['msg']    = $msg; 
+
+			die(json_encode(($result))); 
+		}
+	}
 }

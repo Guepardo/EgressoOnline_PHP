@@ -90,6 +90,15 @@ class TelaPrincipalView extends GenericView
 			parent::$templator->setVariable('msg',$arg['nopost_msg']);
 		else
 			parent::$templator->setVariable('is_hide', 'hide');
+
+		//Adicionando o e-mail do coordenador vigente no modal da divulgação de emprego: 
+		Lumine::import('Professor');
+		Lumine::import('Usuario'); 
+		$professor = new Professor(); 
+		$professor->join( new Usuario )->where(" is_coordenador = 1 ")->find(); 
+		$professor->fetch(true);  
+
+		parent::$templator->setVariable('coordenador.email', $professor->email);
 		
 		parent::show(); 
 	}

@@ -6,9 +6,10 @@ require_once(PATH.'Util'.DS.'FileWriter.php');
  * Classe que implementa o caso de uso 'Divulgar Oportunidades de emprego'
  */
 class DivulgarOportunidade extends GenericController {
+	private $dataValidator; 
 
 	public function __construct() {
-		
+		$this->dataValidator  = new DataValidator(); 
 	}	
 
 	/**
@@ -24,7 +25,17 @@ class DivulgarOportunidade extends GenericController {
 		Lumine::import("OpEmprego"); 
 		Lumine::import("Localidade"); 
 		Lumine::import("Cidade"); 
+		
+		$this->dataValidator->set("Empresa",$arg['empresa'])->max_length(150); 
+		$this->dataValidator->set("Salário",$arg['salario'])->is_integer(); 
+		$this->dataValidator->set("Telefone",$arg['telefone'])->max_length(15); 
+		$this->dataValidator->set("E-mail",$arg['email'])->max_length(150)->is_email(); 
+		$this->dataValidator->set("Site",$arg['site'])->max_length(500); 
+		$this->dataValidator->set("Complemento",$arg['complemento'])->max_length(500);
+		$this->dataValidator->set("Informações Adicionais",$arg['info_adicionais'])->max_length(5000); 
 
+		$array = $this->dataValidator->get_errors();
+		parent::verifyErros($array);
 
 		$localidade = new Localidade(); 
 		$cidade = new Cidade(); 
@@ -74,6 +85,30 @@ class DivulgarOportunidade extends GenericController {
 		Lumine::import("OpPosGraduacao"); 
 		Lumine::import("Localidade"); 
 		Lumine::import("Cidade"); 
+
+		// 'titulo' => string 'asdfasdf' (length=8)
+	 //  'titulo_academico_id' => string '2' (length=1)
+	 //  'area' => string 'asdfasdf' (length=8)
+	 //  'telefone' => string '(23) 4444-4444' (length=14)
+	 //  'email' => string 'bsinet@hotmail.com' (length=18)
+	 //  'site' => string 'asdfasdfasdf.asdfasdf asdfasdf' (length=30)
+	 //  'pais_id' => string '33' (length=2)
+	 //  'cidade_id' => string 'JORDÃO' (length=7)
+	 //  'complemento' => string '' (length=0)
+	 //  'data_inscr_inicio' => string '2015-10-22' (length=10)
+	 //  'data_inscr_fim' => string '2015-10-08' (length=10)
+	 //  'info_adicionais' => string 'asdfasdf' (length=8)
+		//  
+		$this->dataValidator->set("Título",$arg['titulo'])->max_length(140); 
+		$this->dataValidator->set("Área",$arg['area'])->max_length(150);
+		$this->dataValidator->set("Telefone",$arg['telefone'])->max_length(15); 
+		$this->dataValidator->set("E-mail",$arg['email'])->max_length(150)->is_email(); 
+		$this->dataValidator->set("Site",$arg['site'])->max_length(500); 
+		$this->dataValidator->set("Complemento",$arg['complemento'])->max_length(500); 
+		$this->dataValidator->set("Informações Adicionais",$arg['info_adicionais'])->max_length(5000); 
+
+		$array = $this->dataValidator->get_errors();
+		parent::verifyErros($array);
 
 		$localidade = new Localidade(); 
 		$cidade = new Cidade(); 

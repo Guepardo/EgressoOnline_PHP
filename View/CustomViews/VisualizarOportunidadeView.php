@@ -20,8 +20,8 @@ class VisualizarOportunidadeView extends GenericView{
 
 		while($op->fetch()){
 			$emprego = new OpEmprego(); 
-			$total = $emprego->get($op->id); 
-
+			$total 	 = $emprego->get('oportunidadeId',$op->id); 
+			var_dump($total); 
 			$whoIs = ($total > 0 ) ? "Emprego" : "Pós-graduação"; 
 
 			parent::$templator->setVariable("op.tipo", $whoIs); 
@@ -31,7 +31,7 @@ class VisualizarOportunidadeView extends GenericView{
 			$usuario->get($op->usuarioId); 
 
 			parent::$templator->setVariable("op.divulgador", $usuario->nome); 
-			parent::$templator->setVariable("op.id", $op->id."-".(($total > 0 ) ? 'false' : 'true' ) );
+			parent::$templator->setVariable("op.id", $op->id."-".(($total > 0 ) ? '0' : '1' ) );
 
 			parent::$templator->addBlock("row");  
 

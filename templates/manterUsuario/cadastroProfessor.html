@@ -97,14 +97,19 @@ $(document).ready(function(){
     sendAjax('index.php?uc=manterUsuario&a=cadastroProfessor','POST',data,function(data){
       data = JSON.parse(data); 
 
-      if(data['status'])
-        alertify.success("O cadastro foi feito com sucesso");   
+      if(data['status']){
+        alertify.success("O cadastro foi feito com sucesso");
+        reloadDelay(700); 
+      }   
       else
-        alertify.error("Error"); 
+        alertify.error(data['msg']); 
     });
     
   });
 
+  function reloadDelay(delay){
+    setInterval(function(){window.location.reload();},delay); 
+  }
 });
 </script>
 

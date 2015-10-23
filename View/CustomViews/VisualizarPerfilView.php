@@ -68,7 +68,6 @@ class VisualizarPerfilView extends GenericView{
 			
 		}
 		
-
 		$oportunidade = new Oportunidade(); 
 
 		$total = $oportunidade->get('usuarioId', $id); 
@@ -84,7 +83,6 @@ class VisualizarPerfilView extends GenericView{
 			parent::$templator->setVariable('texto', $texto ); 
 			parent::$templator->addBlock('atividade'); 
 		}
-
 
 		$curso = new Curso(); 
 		$titulo = new TituloAcademico(); 
@@ -128,7 +126,7 @@ class VisualizarPerfilView extends GenericView{
 			parent::$templator->setVariable("id", $usuario->id); 
 			parent::$templator->setVariable("foto", $usuario->foto); 
 			parent::$templator->addBlock("aluno");
-		}
+		} 
 
 		if(!$_SESSION['user']['coordenador'])
 			parent::$templator->setVariable("is_hide", 'hide'); 

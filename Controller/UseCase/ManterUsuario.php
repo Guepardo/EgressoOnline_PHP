@@ -133,7 +133,7 @@ class ManterUsuario extends GenericController{
 
 		//Se aconteceu alguma coisa, retorne a mensagem de erro. 
 		$array = $this->dataValidator->get_errors();
-		self::verifyErros($array); 
+		parent::verifyErros($array); 
 
 		Lumine::import("ProfessorHasDisciplina"); 
 		$associativa = new ProfessorHasDisciplina(); 
@@ -170,7 +170,7 @@ class ManterUsuario extends GenericController{
 		$this->dataValidator->set("Gênero", $arg['genero_id'])->is_required();  
 
 		$array = $this->dataValidator->get_errors();
-		self::verifyErros($array); 
+		parent::verifyErros($array); 
 		
 		Lumine::import("Usuario");
 		//validando de há cpf ou email na base de dados. 
@@ -178,8 +178,10 @@ class ManterUsuario extends GenericController{
 		$qtdEmail = $temp->get("email", $arg['e_mail']); 
 		$qtdCpf   = $temp->get("cpf", $arg['cpf']); 
 		
-		if($qtdCpf > 0 || $qtdEmail > 0 )
-			$this->manterUsuarioView->sendAjax(array('status' => false ) );
+		if($qtdCpf > 0 )
+			$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => "Alerta de incosistência! Esse Cpf já foi cadastrado.")); 
+		if($qtdEmail > 0 )
+			$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => "Alerta de incosistência! Esse endereço de e-mail já foi cadastrado.")); 
 
 		
 		Lumine::import("Professor"); 
@@ -236,7 +238,7 @@ class ManterUsuario extends GenericController{
 		$this->dataValidator->set("Ano_Ingresso", $arg['ano_ingresso'])->is_required()->max_value(3000)->min_value(1900); 
 
 		$array = $this->dataValidator->get_errors();
-		self::verifyErros($array); 
+		parent::verifyErros($array); 
 		
 		Lumine::import("Usuario"); 
 		//validando de há cpf ou email na base de dados. 
@@ -244,8 +246,10 @@ class ManterUsuario extends GenericController{
 		$qtdEmail = $temp->get("email", $arg['e_mail']); 
 		$qtdCpf   = $temp->get("cpf", $arg['cpf']); 
 		
-		if($qtdCpf > 0 || $qtdEmail > 0 )
-			$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => 'Cpf ou Email já foi cadastrado no sistema.') );
+		if($qtdCpf > 0 )
+			$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => "Alerta de incosistência! Esse Cpf já foi cadastrado.")); 
+		if($qtdEmail > 0 )
+			$this->manterUsuarioView->sendAjax(array('status' => false, 'msg' => "Alerta de incosistência! Esse endereço de e-mail já foi cadastrado.")); 
 
 		Lumine::import("Egresso"); 
 		Lumine::import("EmailEnviar"); 
@@ -336,7 +340,7 @@ class ManterUsuario extends GenericController{
 		$this->dataValidator->set("Senha", $arg['nova_senha'])->is_required()->is_equals($arg['confirmacao']); 
 
 		$array = $this->dataValidator->get_errors();
-		self::verifyErros($array); 
+		parent::verifyErros($array); 
 		
 		Lumine::import("Usuario"); 
 		$usuario = new Usuario(); 
@@ -370,7 +374,7 @@ class ManterUsuario extends GenericController{
 
 
 		$array = $this->dataValidator->get_errors();
-		self::verifyErros($array); 
+		parent::verifyErros($array); 
 		
 		$usuario = new Usuario(); 
 		$usuario->get($_SESSION['user_id']); 
@@ -398,7 +402,7 @@ class ManterUsuario extends GenericController{
 		$this->dataValidator->set("Email", $arg['email'])->is_required()->is_email()->min_length(10)->max_length(140); 
 
 		$array = $this->dataValidator->get_errors();
-		self::verifyErros($array); 
+		parent::verifyErros($array); 
 		
 		Lumine::import("Usuario"); 
 		//validando email na base de dados. 
@@ -623,13 +627,6 @@ class ManterUsuario extends GenericController{
 		//Passando mensagem interna para a outra tela 
 		$msg = array('nopost_msg' => "Sua foto de perfil foi modificada com sucesso."); 
 		$principal->principalView($msg); 
-	}
-
-	private function verifyErros($array){
-		if(!empty($array)){
-			$array['status'] = false; 
-			$this->manterUsuarioView->sendAjax($array); 
-		}
 	}
 
 	private function criarNovaTurma($anoConclusao,$semestre){

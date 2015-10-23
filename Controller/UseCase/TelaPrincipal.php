@@ -96,7 +96,6 @@ class TelaPrincipal extends GenericController {
 
 		$array = array(); 
 
-
 		do{
 			foreach($result as $temp ){
 				$post = new Postagem(); 

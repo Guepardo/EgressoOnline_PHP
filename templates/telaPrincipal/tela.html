@@ -186,19 +186,20 @@
 
           <div class="row">
             <div class="medium-12 columns">
-              <label>Área Profissional
-                <select name="area_profissional_id">
+              <label>Área Profissional <small> <a href="mailto:${coordenador.email}?subject=Solicitação de cadastro de área de atuação profissional" "teste">Não tem a área que procuro</a> </small>
+                <select name="area_profissional_id" required>
+                  <option value="">- Selecione -</option>
                   <!-- $BeginBlock area-->
                   <option value="${area.id}"> ${area.des}</option>
                   <!-- $EndBlock area -->
                 </select>
-              </label>
+              </label> <small class="error">Selecione uma área de atuação</small>
             </div>
           </div>
 
           <div class="row">
             <div class="medium-12 columns">
-              <label>Salário<input name="salario" type="number"></label>
+              <label>Salário<input name="salario" type="number" min='0'></label>
             </div>
           </div>
 
@@ -395,22 +396,22 @@
     </div>
 
     <div id="pos_estado" class="medium-4 columns hide">
-      <label>Estado
-        <select id="pos_select_estado" >
+      <label>Estado <small>Obrigatório</small>
+        <select id="pos_select_estado" required >
           <option value="">- Selecione -</option>
           <!-- $BeginBlock estado -->
           <option value="${estado.id}"> ${estado.des}</option>
           <!-- $EndBlock estado -->
         </select>
-      </label>
+      </label> <small class="error">Selecione um estado.</small>
     </div>
 
     <div id="pos_cidade" class="medium-4 columns hide">
-      <label>Cidade
-        <select id="pos_select_cidade" name="cidade_id" >
+      <label>Cidade <small>Obrigatório</small>
+        <select id="pos_select_cidade" name="cidade_id" required >
           <option>- Selecione um Estado -</option>
-        </select>
-      </label>
+        </select> 
+      </label><small class="error">Selecione uma cidade. </small>
     </div>
 
     <div id="pos_complemento" class="medium-8  columns">
@@ -462,8 +463,8 @@
             <fieldset> <legend>Informações Gerais</legend>
               <div class="row">
                 <div class="medium-12 columns">
-                  <label>Título 
-                    <p><i id="titulo_pos">Ciencias Moleculares</i></p>
+                  <label>Título: 
+                    <p><i id="titulo_pos"></i></p>
                   </label> 
                 </div>
               </div>
@@ -471,15 +472,15 @@
               <div class="row">
                 <div class="medium-12 columns">
                   <label>Tipo:
-                    <p><i id="tipo_pos">Graduação</i></p>
+                    <p><i id="tipo_pos"></i></p>
                   </label>
                 </div>
               </div>
 
               <div class="row">
                 <div class="medium-12 columns">
-                  <label>Área 
-                    <p><i id="area_pos">Banco de Dados</i></p>
+                  <label>Área:
+                    <p><i id="area_pos"></i></p>
                   </label> 
                 </div>
               </div>
@@ -490,22 +491,22 @@
             <fieldset > <legend>Contato</legend>
               <div class="row">
                 <div class="medium-12 columns">
-                  <label>Telefone<p><i id="telefone_pos">(62) 1234-1324</i></p></label>
+                  <label>Telefone:<p><i id="telefone_pos"></i></p></label>
                 </div>
               </div>
 
               <div class="row">
                 <div class="medium-12 columns">
-                  <label>E-mail 
-                    <p><i id="email_pos">bsinet@hotmail.com</i></p>
+                  <label>E-mail: 
+                    <p><i id="email_pos"></i></p>
                   </label> 
                 </div>
               </div>
 
               <div class="row">
                 <div class="medium-12 columns">
-                  <label>Site 
-                    <p><i id="site_pos">www.google.com.br</i></p>
+                  <label>Site:
+                    <p><i id="site_pos"></i></p>
                   </label> 
                 </div>
               </div>      
@@ -515,27 +516,26 @@
         </div>  
         <div class="row" >
           <div class="medium-4 columns">
-            <label>Pais
-              <p><i id="pais_pos">Brasil</i></p>
+            <label>Pais:
+              <p><i id="pais_pos"></i></p>
             </label>
           </div>
 
           <div  class="medium-4 columns hide" id='estado_div_id'>
-            <label>Estado
-              <p><i id="estado_pos">Goiás</i></p>
+            <label>Estado:
+              <p><i id="estado_pos"></i></p>
             </label>
           </div>
 
           <div  class="medium-4 columns hide" id="cidade_div_id">
-            <label>Cidade
-              <p><i id="cidade_pos">Anápolis</i></p>
+            <label>Cidade:
+              <p><i id="cidade_pos"></i></p>
             </label>
           </div>
 
           <div  class="medium-8 columns" id="complemento_div_id">
-            <label>Estado/Província/Região
-              <p class="text-justify" ><i id="complemento_pos">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.</i></p>
+            <label>Estado/Província/Região:
+              <p class="text-justify" ><i id="complemento_pos"></i></p>
               </label> 
             </div>  
 
@@ -543,20 +543,15 @@
 
           <div class="row">
             <div class="medium-3 columns">
-              <label>Período de inscrição <p><i id="data_inicio_pos">12/12/1212</i></p></label>
+              <label>Período de inscrição: <p><i id="data_inicio_pos"></i></p></label>
             </div>
-            <div class="medium-3 columns end"> <label>Termina em  <p><i id="data_fim_pos">12/12/1212</i></p></label></div>
+            <div class="medium-3 columns end"> <label>Termina em: <p><i id="data_fim_pos"></i></p></label></div>
           </div>
 
           <div class="row">
             <div class="medium-12 columns">
-              <label>Informações Adicionais <p class="text-justify" ><i id="infor_adicionais_pos"> 
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</i></p></label>
+              <label>Informações Adicionais: <p class="text-justify" ><i id="infor_adicionais_pos"> 
+                </i></p></label>
               </div>
             </div>
 
@@ -582,21 +577,21 @@
 
                   <div class="row">
                     <div class="medium-12 columns">
-                      <label>Empresa: <p><i id="empresa_emprego">Microsoft</i></p></label>  
+                      <label>Empresa: <p><i id="empresa_emprego"></i></p></label>  
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="medium-12 columns">
-                      <label>Área Profissional
-                        <p><i id="area_emprego">Banco de Dados</i></p>
+                      <label>Área Profissional:
+                        <p><i id="area_emprego"> </i></p>
                       </label>
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="medium-12 columns">
-                      <label>Salário<p><i id="salario_emprego">2,000 reais</i></p></label>
+                      <label>Salário: <p><i id="salario_emprego"></i></p></label>
                     </div>
                   </div>
 
@@ -606,22 +601,22 @@
                 <fieldset class="panel"> <legend>Contato</legend>
                   <div class="row">
                     <div class="medium-12 columns">
-                      <label>Telefone 
-                        <p><i id="telefone_emprego">(23) 1232 2213</i></p>
+                      <label>Telefone: 
+                        <p><i id="telefone_emprego"></i></p>
                       </label>
                     </div>
                   </div>
                   <div class="row">
                     <div class="medium-12 columns">
-                      <label>Email 
-                        <p><i id="email_emprego">bsinet@hotmail.com</i></p>
+                      <label>Email:
+                        <p><i id="email_emprego"></i></p>
                       </label>
                     </div>
                   </div>
                   <div class="row">
                     <div class="medium-12 columns">
-                      <label>Site 
-                        <p><i id="site_emprego">www.google.com.br</i></p>
+                      <label>Site:
+                        <p><i id="site_emprego"></i></p>
                       </label>
                     </div>
                   </div>
@@ -632,27 +627,26 @@
 
             <div class="row" >
               <div class="medium-4 columns">
-                <label>Pais
-                  <p><i id="pais_emprego">Angola</i></p>
+                <label>Pais:
+                  <p><i id="pais_emprego"></i></p>
                 </label>
               </div>
 
               <div id="emprego_estado_div" class="medium-4 columns hide">
-                <label>Estado
-                  <p><i id="estado_emprego">12/12/1212</i></p>
+                <label>Estado:
+                  <p><i id="estado_emprego"></i></p>
                 </label>
               </div>
 
               <div id="emprego_cidade_div" class="medium-4 columns hide">
-                <label>Cidade
-                  <p><i id="cidade_emprego">12/12/1212</i></p>
+                <label>Cidade:
+                  <p><i id="cidade_emprego"></i></p>
                 </label>
               </div>
 
               <div id="emprego_complemento_div" class="medium-8  columns">
-                <label>Estado/Província/Região
-                  <p><i id="complemento_emprego">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua.</i></p>
+                <label>Estado/Província/Região:
+                  <p><i id="complemento_emprego"></i></p>
                   </label> 
                 </div>  
 
@@ -663,21 +657,16 @@
                   <fieldset><legend>Requisitos necessários para concorrer à vaga</legend>
                     <div class="row">
                       <div class="medium-4 columns">
-                        <label>Graduação 
-                          <p><i id="graduacao_emprego">Pós-Graduação</i></p>
+                        <label>Graduação:
+                          <p><i id="graduacao_emprego"></i></p>
                         </label>
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="medium-12 columns ">
-                        <label>Atividades a serem desenvolvidas e outros requisitos
-                          <p><i id="atividade_emprego">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</i></p>
+                        <label>Atividades a serem desenvolvidas e outros requisitos:
+                          <p><i id="atividade_emprego"></i></p>
                           </label>
                         </div>
                       </div>
@@ -920,7 +909,7 @@ $('#pos_select_estado').change(function(){
  function buildViewPos(data){
   $('#divulgado_pos').text("Divulgado em "+data['data_divulgacao']);
   $('#titulo_pos').text(data['titulo']);  
-  $('#tipo_pos').text("Não está vindo do banco de dados. "); 
+  $('#tipo_pos').text(data['titulo_academico']); 
   $('#area_pos').text(data['area']); 
   $('#telefone_pos').text(data['telefone']); 
   $('#email_pos').text(data['email']); 
