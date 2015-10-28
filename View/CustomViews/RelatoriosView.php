@@ -15,7 +15,7 @@ class RelatoriosView extends GenericView{
 
 		//Pegando anos de conclusão: 
 		$turma = new Turma();
-		$turma->select('ano')->find(); 
+		$turma->select('COUNT(*) as contador, ano')->groupBy('ano')->having('COUNT(*) >= 1')->order('ano asc')->find(); 
 
 		while($turma->fetch()){
 			parent::$templator->setVariable('ano.conclusao.des', $turma->ano); 
@@ -23,14 +23,14 @@ class RelatoriosView extends GenericView{
 		}
 
 		//Pegando data das postagnes: 
-		$oportunidade = new Oportunidade(); 
+		// $oportunidade = new Oportunidade(); 
 
-		$oportunidade->select('COUNT(*) as contador, YEAR(data_divulgacao) as data')->groupBy('data')->having('COUNT(*) >= 1')->find(); 
+		// $oportunidade->select('COUNT(*) as contador, YEAR(data_divulgacao) as data')->groupBy('data')->having('COUNT(*) >= 1')->find(); 
 
-		while($oportunidade->fetch()){
-			parent::$templator->setVariable('ano.postagem.des', $oportunidade->data); 
-			parent::$templator->addBlock('ano.postagem');  
-		}
+		// while($oportunidade->fetch()){
+		// 	parent::$templator->setVariable('ano.postagem.des', $oportunidade->data); 
+		// 	parent::$templator->addBlock('ano.postagem');  
+		// }
 
 		parent::show(); 
 	}
@@ -88,6 +88,7 @@ class RelatoriosView extends GenericView{
 	//Relatório de distribuição geográfica: 
 	public function relatorio3($arg){
 		parent::getTemplateByAction('r03'); 
+		var_dump($arg); 
 		parent::show(); 
 	}
 
@@ -103,9 +104,48 @@ class RelatoriosView extends GenericView{
 		parent::show(); 
 	}
 
-	//Relatório de distribuição geográfica: 
+	//Relatório de estatística do site: 
 	public function relatorio6($arg){
 		parent::getTemplateByAction('r06'); 
+		Lumine::import('Turma'); 
+		Lumine::import('Egresso'); 
+
+		$turma = new Turma(); 
+		$turma->select('COUNT(*) as contador, ano')->groupBy('ano')->having('COUNT(*) >= 1')->order('ano asc')->find(); 
+
+		//Criando hash para para contar
+		$contador; 
+		foreach( $turma->allToArray() as $value ){
+			$contador[$value['ano']]['egresso'] = 0; 
+			$contador[$value['ano']]['atualizados'] = 0; 
+		}
+
+		$turma = new Turma(); 
+		$egresso = new Egresso(); 
+
+		$egresso->select('ano,alterou_dado')->join($turma)->find(); 
+		while($egresso->fetch()){
+			$contador[$egresso->ano]['egresso']++; 
+			if($egresso->alterouDado)
+			$contador[$egresso->ano]['atualizados']++; 
+		}
+
+		$totalEgresso = 0; 
+		$totalAtualizados = 0; 
+
+		foreach($contador as $key => $ano){
+			$totalEgresso += $ano['egresso']; 
+			$totalAtualizados += $ano['atualizados']; 
+			//Fixando valores no template: 
+			parent::$templator->setVariable('ano', $key); 
+			parent::$templator->setVariable('egresso', $ano['egresso']); 
+			parent::$templator->setVariable('atualizados',$ano['atualizados']); 
+			parent::$templator->addBlock('row'); 
+		}
+
+		parent::$templator->setVariable('total.egresso', $totalEgresso); 
+		parent::$templator->setVariable('total.atualizados', $totalAtualizados); 
+
 		parent::show(); 
 	}
 
