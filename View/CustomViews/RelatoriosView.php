@@ -36,11 +36,10 @@ class RelatoriosView extends GenericView{
 	}
 
 	private function anoConclusaoQuery($var){
-		$temp = " "; 
-
+		$temp = "("; 
 
 		if(empty($var['ano_conclusao']))
-			return " "; 
+			return ""; 
 
 		if(is_array($var['ano_conclusao'])){
 		foreach( $var['ano_conclusao'] as $a )
@@ -50,7 +49,7 @@ class RelatoriosView extends GenericView{
 			$temp = " ano_conclusao = $var and "; 
 		}
 
-		return $temp; 
+		return substr($temp,0,(strlen($temp)-3)).')'; 
 	}
 
 	//Relatório de distribuição geográfica: 
@@ -65,6 +64,7 @@ class RelatoriosView extends GenericView{
 		Lumine::import("FaixaSalarial");
 		Lumine::import("Egresso"); 
 		Lumine::import("Emprego"); 
+		Lumine::import("Turma"); 
 
 		$faixa = new FaixaSalarial(); 
 
@@ -74,21 +74,45 @@ class RelatoriosView extends GenericView{
 		$publico = (empty($arg['is_publico'])) ? 0 : 1;
 		$areaTi  = (empty($arg['is_ti'])) ? 0 : 1;
 
+		$contador = 0; 
+
 		while($faixa->fetch()){
 			$emprego = new Emprego(); 
 			$egresso = new Egresso(); 
+			$turma   = new Turma();
+			
+			//die( self::anoConclusaoQuery($arg) );
+			$egresso->select("COUNT(*) as count")->join($emprego)->join($turma)->where("$publico = publico and $areaTi = area_ti and faixa_salarial_id = ". (int) $faixa->id." and ". self::anoConclusaoQuery($arg))->find(); 
+			
+			$count = $egresso->allToArray()[0]['count']; 
 
-			die(" publico = $publico and area_ti = $areaTi and ". self::anoConclusaoQuery($arg) );
-			$emprego->join($egresso)->where(" publico = $publico and area_ti = $areaTi and ". self::anoConclusaoQuery($arg['ano_conclusao'])); 
+
+			if( (int) $count > 0 ){
+				parent::$templator->setVariable('label', Convert::toUTF_8($faixa->des)); 
+				parent::$templator->setVariable('value', $count); 
+				parent::$templator->addblock('row'); 
+
+				$contador += $count; 
+			}
+
+			parent::$templator->setVariable('total', $contador); 
 		} 
 
 		parent::show(); 
 	}
 
-	//Relatório de distribuição geográfica: 
+	//Atuação profissional - tipo atuação
 	public function relatorio3($arg){
 		parent::getTemplateByAction('r03'); 
-		var_dump($arg); 
+		Lumine::import("AtuacaoProfissional"); 
+		Lumine::import("FaixaSalarial"); 
+		Lumine::import("Emprego"); 
+		Lumine::import("Egresso"); 
+		
+		//público ou privado: 
+		$publico = (empty($arg['is_publico'])) ? 0 : 1;
+		$areaTi  = (empty($arg['is_ti'])) ? 0 : 1;
+
 		parent::show(); 
 	}
 
