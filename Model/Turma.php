@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "turma"
- * in 2015-10-22
+ * in 2015-10-29
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -35,7 +35,7 @@ class Turma extends Lumine_Base {
         $this->metadata()->addField('id', 'id', 'int', 11, array('primary' => true, 'notnull' => true, 'autoincrement' => true));
         $this->metadata()->addField('foto', 'foto', 'varchar', 45, array());
         $this->metadata()->addField('ano', 'ano', 'int', 11, array('notnull' => true));
-        $this->metadata()->addField('semestre', 'semestre', 'int', 1, array());
+        $this->metadata()->addField('semestre', 'semestre', 'int', 1, array('notnull' => true));
 
         
         $this->metadata()->addRelation('egressos', Lumine_Metadata::ONE_TO_MANY, 'Egresso', 'turmaId', null, null, null);
