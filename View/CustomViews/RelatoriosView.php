@@ -38,81 +38,143 @@ class RelatoriosView extends GenericView{
 	private function anoConclusaoQuery($var){
 		$temp = "("; 
 
-		if(empty($var['ano_conclusao']))
-			return ""; 
+			if(empty($var['ano_conclusao']))
+				return ""; 
 
-		if(is_array($var['ano_conclusao'])){
-		foreach( $var['ano_conclusao'] as $a )
-			$temp .= ' ano_conclusao = '.$a." or "; 
-		}else{
-			$var = $var['ano_conclusao']; 
-			$temp = " ano_conclusao = $var and "; 
-		}
-
-		return substr($temp,0,(strlen($temp)-3)).')'; 
-	}
-
-	//Relatório de distribuição geográfica: 
-	public function relatorio1($arg){
-		parent::getTemplateByAction('r01'); 
-		parent::show(); 
-	}
-
-	//Relatório de atuação profissional - faixa salarial 
-	public function relatorio2($arg){
-		parent::getTemplateByAction('r02'); 
-		Lumine::import("FaixaSalarial");
-		Lumine::import("Egresso"); 
-		Lumine::import("Emprego"); 
-		Lumine::import("Turma"); 
-
-		$faixa = new FaixaSalarial(); 
-
-		$faixa->find(); 
-
-		//público ou privado: 
-		$publico = (empty($arg['is_publico'])) ? 0 : 1;
-		$areaTi  = (empty($arg['is_ti'])) ? 0 : 1;
-
-		$contador = 0; 
-
-		while($faixa->fetch()){
-			$emprego = new Emprego(); 
-			$egresso = new Egresso(); 
-			$turma   = new Turma();
-			
-			//die( self::anoConclusaoQuery($arg) );
-			$egresso->select("COUNT(*) as count")->join($emprego)->join($turma)->where("$publico = publico and $areaTi = area_ti and faixa_salarial_id = ". (int) $faixa->id." and ". self::anoConclusaoQuery($arg))->find(); 
-			
-			$count = $egresso->allToArray()[0]['count']; 
-
-
-			if( (int) $count > 0 ){
-				parent::$templator->setVariable('label', Convert::toUTF_8($faixa->des)); 
-				parent::$templator->setVariable('value', $count); 
-				parent::$templator->addblock('row'); 
-
-				$contador += $count; 
+			if(is_array($var['ano_conclusao'])){
+				foreach( $var['ano_conclusao'] as $a )
+					$temp .= ' ano_conclusao = '.$a." or "; 
+			}else{
+				$var = $var['ano_conclusao']; 
+				$temp = " ano_conclusao = $var and "; 
 			}
 
-			parent::$templator->setVariable('total', $contador); 
-		} 
+			return substr($temp,0,(strlen($temp)-3)).')'; 
+}
 
-		parent::show(); 
-	}
+	//Relatório de distribuição geográfica: 
+public function relatorio1($arg){
+	parent::getTemplateByAction('r01'); 
+	parent::show(); 
+}
+
+	//Relatório de atuação profissional - faixa salarial 
+public function relatorio2($arg){
+	parent::getTemplateByAction('r02'); 
+	Lumine::import("FaixaSalarial");
+	Lumine::import("Egresso"); 
+	Lumine::import("Emprego"); 
+	Lumine::import("Turma"); 
+
+	$faixa = new FaixaSalarial(); 
+
+	$faixa->find(); 
+
+		//público ou privado: 
+	$publico = (empty($arg['is_publico'])) ? 0 : 1;
+	$areaTi  = (empty($arg['is_ti'])) ? 0 : 1;
+
+	$contador = 0; 
+
+	while($faixa->fetch()){
+		$emprego = new Emprego(); 
+		$egresso = new Egresso(); 
+		$turma   = new Turma();
+
+			//die( self::anoConclusaoQuery($arg) );
+		$egresso->select("COUNT(*) as count")->join($emprego)->join($turma)->where("$publico = publico and $areaTi = area_ti and faixa_salarial_id = ". (int) $faixa->id." and ". self::anoConclusaoQuery($arg))->find(); 
+
+		$count = (int) $egresso->allToArray()[0]['count']; 
+
+
+		if( $count > 0 ){
+			parent::$templator->setVariable('label', Convert::toUTF_8($faixa->des)); 
+			parent::$templator->setVariable('value', $count); 
+			parent::$templator->addblock('row'); 
+
+			$contador += $count; 
+		}
+
+		parent::$templator->setVariable('total', $contador); 
+	} 
+
+	parent::show(); 
+}
 
 	//Atuação profissional - tipo atuação
-	public function relatorio3($arg){
-		parent::getTemplateByAction('r03'); 
-		Lumine::import("AtuacaoProfissional"); 
-		Lumine::import("FaixaSalarial"); 
-		Lumine::import("Emprego"); 
-		Lumine::import("Egresso"); 
-		
-		//público ou privado: 
-		$publico = (empty($arg['is_publico'])) ? 0 : 1;
-		$areaTi  = (empty($arg['is_ti'])) ? 0 : 1;
+public function relatorio3($arg){
+	parent::getTemplateByAction('r03'); 
+	Lumine::import("AtuacaoProfissional"); 
+	Lumine::import("FaixaSalarial"); 
+	Lumine::import("Emprego"); 
+	Lumine::import("Turma"); 
+	Lumine::import("Egresso"); 
 
+		//público ou privado: 
+	$publico = (empty($arg['is_publico'])) ? 0 : 1;
+
+
+	$egresso = new Egresso(); 
+	$emprego = new Emprego(); 
+	$turma   = new Turma(); 
+
+	$egresso->select("faixa_salarial_id, atuacao_profissional_id")->join($emprego)->join($turma)->where("$publico = publico and has_emprego = 1 and ". self::anoConclusaoQuery($arg))->find(); 
+
+	$atuacao = new AtuacaoProfissional(); 
+	$atuacao->find(); 
+ 	
+ 	$total = 0; 
+
+ 	$salarioMaior = 0; 
+ 	$salarioMenor = 0; 
+
+ 	$acumuladorMedia = 0; 
+
+	while($atuacao->fetch()){
+		$contador= 0;
+
+			$min = 45000;//Maior valor dentro das opções.  
+			$max = 0; 
+
+			foreach( $egresso->allToArray() as $value ){
+				if( $value['atuacao_profissional_id'] == $atuacao->id ){
+					$contador++; 
+
+					$faixaSalarial = new FaixaSalarial(); 
+
+					$faixaSalarial->get($value['faixa_salarial_id']); 
+
+					if($faixaSalarial->minima < $min ) $min = $faixaSalarial->minima; 
+					if($faixaSalarial->maxima > $max ) $max = $faixaSalarial->maxima; 
+
+					if($salarioMaior < $max ) $salarioMaior = $max; 
+					if($salarioMenor < $min ) $salarioMenor = $min; 
+				}
+			}
+
+			//fixar elementos aqui: 
+			if($contador > 0){
+				$total += $contador; 
+
+				parent::$templator->setVariable('label', Convert::toUpperCase($atuacao->des));  
+				parent::$templator->setVariable('quantidade', $contador); 
+				parent::$templator->setVariable('media', ($min + $max) / 2 ); 
+				parent::$templator->setVariable('maior', $max);
+				parent::$templator->setVariable('menor', $min); 
+				parent::$templator->addBlock('row'); 
+
+				$acumuladorMedia += (($min + $max )  / 2);
+			}
+
+		}
+
+		parent::$templator->setVariable('total', $total);
+		parent::$templator->setVariable('resumo.media', $acumuladorMedia / $total );
+		parent::$templator->setVariable('resumo.maior',$salarioMaior);
+		parent::$templator->setVariable('resumo.menor',$salarioMenor); 
+
+
+		
 		parent::show(); 
 	}
 
@@ -151,7 +213,7 @@ class RelatoriosView extends GenericView{
 		while($egresso->fetch()){
 			$contador[$egresso->ano]['egresso']++; 
 			if($egresso->alterouDado)
-			$contador[$egresso->ano]['atualizados']++; 
+				$contador[$egresso->ano]['atualizados']++; 
 		}
 
 		$totalEgresso = 0; 

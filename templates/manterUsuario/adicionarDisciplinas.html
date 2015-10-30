@@ -27,7 +27,7 @@
               <!-- $EndBlock   disciplinas --> 
             </select>
           </label>
-          <small class="error">Você percisa selecionar Uma disciplina</small>
+          <small class="error">Você percisa selecionar uma disciplina</small>
         </div>
 
         <div class="medium-3 columns ">
@@ -86,20 +86,16 @@
     </div>
 
   </div>  
+</div> 
   <!--fim-->
-</div>
-</div>
 
 
-
-<!--info-->
+<!-- botões --> 
 <div class="row">
-  <div id="info" class="medium-12 columns">
-
+  <hr />
+  <div class="medium-2 small-3 columns left">
+    <a href="index.php?uc=telaPrincipal&a=principalView" class="button info tiny ">Tela principal</a>
   </div>
-</div>
-
-</div>
 </div>
 
 <!-- $Include templates/lib/html/footerscripts.html --> 
@@ -120,38 +116,38 @@ $(document).ready(function(){
         alertify.success("Disciplina adicionada com sucesso"); 
         reloadDelay(800);    
       }else
-        alertify.error("Error");
-        console.log(data);  
+      alertify.error("Error");
+      console.log(data);  
     });
 
 
   });
 
 
-$('.event').click(function(){
-  var data = { 'associativa_id' : this.value  };
-  alertify.confirm("Click em Ok se deseja realmente excluir essa desciplina lecionada.",function(e){
-   if(e){
-    sendAjax('index.php?uc=manterUsuario&a=delDisciplina','POST',data,function(data){
-      data = JSON.parse(data); 
+  $('.event').click(function(){
+    var data = { 'associativa_id' : this.value  };
+    alertify.confirm("Click em Ok se deseja realmente excluir essa desciplina lecionada.",function(e){
+     if(e){
+      sendAjax('index.php?uc=manterUsuario&a=delDisciplina','POST',data,function(data){
+        data = JSON.parse(data); 
 
-      if(data['status']){
-        alertify.success("Disciplina excluída com sucesso"); 
-        reloadDelay(800);    
-      }else
+        if(data['status']){
+          alertify.success("Disciplina excluída com sucesso"); 
+          reloadDelay(800);    
+        }else
         alertify.error("Error"); 
-    }); 
+      }); 
 
-  }else{
-    alertify.error("Operação cancelada"); 
+    }else{
+      alertify.error("Operação cancelada"); 
+    }
+  }); 
+  }); 
+
+
+  function reloadDelay(delay){
+    setInterval(function(){window.location.reload();},delay); 
   }
-}); 
-}); 
-
-
-function reloadDelay(delay){
-  setInterval(function(){window.location.reload();},delay); 
-}
 
 }); 
 </script>

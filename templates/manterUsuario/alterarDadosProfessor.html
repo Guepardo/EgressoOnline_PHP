@@ -55,21 +55,18 @@
       <!-- botões --> 
       <div class="row">
         <div class="medium-2 small-3 columns right">
-          <button class="button success tiny radius" type="submit" >Alterar</button>
+          <button class="button success tiny " type="submit" >Alterar</button>
         </div>
 
         <div class="medium-2 small-3 columns left">
-          <a class="button info tiny radius">Tela principal</a>
+          <a class="button info tiny" href="index.php?uc=telaPrincipal&a=principalView">Tela principal</a>
         </div>
       </div>
     </form>
   </div>
 </div>
 
-<div id="load" style="background-color:white;position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-15px;" class="hide">
-  <i class="fa fa-refresh fa-spin fa-3x hide" style="margin-left:27px"></i>
-  <h3>Aguarde</h3>
-</div>
+
 <!-- $Include templates/lib/html/footerscripts.html --> 
 
 <script src="templates/lib/js/jquery.mask.min.js"></script>
@@ -86,7 +83,7 @@ $(document).ready(function(){
       if(data['status'])
         alertify.success("O cadastro foi feito com sucesso");   
       else
-        alertify.error("Error"); 
+        alertify.error(data['msg']); 
     });
 
   });
