@@ -165,7 +165,7 @@
     sendAjax('index.php?uc=configurar&a=mudarTitulo','POST',{'id' : id}, function(data){
      data = JSON.parse(data); 
      if(data['status']){
-      alertify.success("Feito com sucesso"); 
+      alertify.success("Mudança registrada."); 
     }else{
       alertify.error(data['msg']); 
     }
@@ -182,7 +182,7 @@
     sendAjax('index.php?uc=configurar&a=addArea','POST',{'id' : areaId}, function(data){
       data = JSON.parse(data); 
       if(data['status']){
-        alertify.success("Feito com sucesso"); 
+        alertify.success("Mudança registrada."); 
         reloadDelay(1000); 
       }else{
         alertify.error(data['msg']); 
@@ -196,7 +196,7 @@
     sendAjax('index.php?uc=configurar&a=deletarArea','POST',{'id' : id}, function(data){
       data = JSON.parse(data); 
       if(data['status']){
-        alertify.success("Feito com sucesso"); 
+        alertify.success("Mudança registrada."); 
         reloadDelay(1000); 
       }else{
         alertify.error(data['msg']); 

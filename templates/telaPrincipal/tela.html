@@ -967,7 +967,7 @@ function refresh(){
         data = JSON.parse(data); 
 
         if( data['status'] != null && !data['status']){
-          alertify.warning("Não há mais mensagens antes deste período de "+ dataFormat(date), "", 0);  
+          alertify.warning("Não há mais mensagens antes do período de "+ dataFormat(date), "", 0);  
           locker = true; 
           return;  
         }
