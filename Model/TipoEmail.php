@@ -2,7 +2,7 @@
 #### START AUTOCODE
 /**
  * Classe generada para a tabela "tipo_email"
- * in 2015-10-29
+ * in 2015-11-09
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
@@ -14,7 +14,7 @@ class TipoEmail extends Lumine_Base {
     
     public $id;
     public $des;
-    public $emailenviar = array();
+    public $emails = array();
     
     
     
@@ -34,7 +34,7 @@ class TipoEmail extends Lumine_Base {
         $this->metadata()->addField('des', 'des', 'varchar', 45, array());
 
         
-        $this->metadata()->addRelation('emailenviar', Lumine_Metadata::ONE_TO_MANY, 'EmailEnviar', 'tipoEmailId', null, null, null);
+        $this->metadata()->addRelation('emails', Lumine_Metadata::ONE_TO_MANY, 'Emails', 'tipoEmailId', null, null, null);
     }
 
     #### END AUTOCODE

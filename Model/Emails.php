@@ -1,15 +1,15 @@
 <?php
 #### START AUTOCODE
 /**
- * Classe generada para a tabela "email_enviar"
- * in 2015-10-29
+ * Classe generada para a tabela "emails"
+ * in 2015-11-09
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package Model
  *
  */
 
-class EmailEnviar extends Lumine_Base {
+class Emails extends Lumine_Base {
 
     
     public $id;
@@ -26,7 +26,7 @@ class EmailEnviar extends Lumine_Base {
      */
     protected function _initialize()
     {
-        $this->metadata()->setTablename('email_enviar');
+        $this->metadata()->setTablename('emails');
         $this->metadata()->setPackage('Model');
         
         # nome_do_membro, nome_da_coluna, tipo, comprimento, opcoes

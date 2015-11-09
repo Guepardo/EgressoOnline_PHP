@@ -135,7 +135,7 @@ $(document).ready(function(){
     sendAjax('index.php?uc=manterUsuario&a=cadastroEgresso','POST',data,function(data){
       data = JSON.parse(data); 
       if(data['status']){
-        alertify.success("O cadastro foi feito com sucesso");   
+        alertify.success("Cadastro foi feito com sucesso.");   
         reloadDelay(700); 
       }else
         alertify.error(data['msg']); 

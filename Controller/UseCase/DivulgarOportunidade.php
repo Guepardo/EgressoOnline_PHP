@@ -28,7 +28,7 @@ class DivulgarOportunidade extends GenericController {
 		
 		$this->dataValidator->set("Empresa",$arg['empresa'])->max_length(150); 
 		$this->dataValidator->set("Salário",$arg['salario'])->is_integer(); 
-		$this->dataValidator->set("Telefone",$arg['telefone'])->max_length(15); 
+		$this->dataValidator->set("Telefone",$arg['telefone'])->max_length(16); 
 		$this->dataValidator->set("E-mail",$arg['email'])->max_length(150)->is_email(); 
 		$this->dataValidator->set("Site",$arg['site'])->max_length(500); 
 		$this->dataValidator->set("Complemento",$arg['complemento'])->max_length(500);
@@ -101,7 +101,7 @@ class DivulgarOportunidade extends GenericController {
 		//  
 		$this->dataValidator->set("Título",$arg['titulo'])->max_length(140); 
 		$this->dataValidator->set("Área",$arg['area'])->max_length(150);
-		$this->dataValidator->set("Telefone",$arg['telefone'])->max_length(15); 
+		$this->dataValidator->set("Telefone",$arg['telefone'])->max_length(16); 
 		$this->dataValidator->set("E-mail",$arg['email'])->max_length(150)->is_email(); 
 		$this->dataValidator->set("Site",$arg['site'])->max_length(500); 
 		$this->dataValidator->set("Complemento",$arg['complemento'])->max_length(500); 
