@@ -875,7 +875,7 @@ $('#pos_select_estado').change(function(){
     if(!data['publica'])
       temp = '<i class="fa fa-envelope right" style="margin-bottom: -20px;"></i>'; 
 
-    var row = '<div class="medium-4 columns panel msg ">  '+temp+'<div class="row"> <div class="medium-3 columns small-3"><a class="bnt_mensagem"><img src="'+data['foto']+'" class="perfil_small" /></a></div> <input type="hidden" value="'+data['id_user_origem']+'" /> <div class="medium-9 columns" style="padding-left:0;"></i><i id="remetente">'+data['remetente']+'</i><br> <small>às '+ dataFormat(data['data_envio'])+'. '+turmaFormat(data['turma'],data['semestre'])+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
+    var row = '<div class="medium-4 columns panel msg">  '+temp+'<div class="row"> <div class="medium-3 columns small-3"><a class="bnt_mensagem"><img src="'+data['foto']+'" class="perfil_small" /></a></div> <input type="hidden" value="'+data['id_user_origem']+'" /> <div class="medium-9 columns" style="padding-left:0;"></i><i id="remetente">'+data['remetente']+'</i><br> <small>às '+ dataFormat(data['data_envio'])+'. '+turmaFormat(data['turma'],data['semestre'])+'</small></div> <div class="medium-12 columns" ><p class="text-justify">'+data['msg']+'</p> </div> </div> </div>'; 
 
     $('#container').append(row).children(':last').hide().fadeIn(700); 
   }

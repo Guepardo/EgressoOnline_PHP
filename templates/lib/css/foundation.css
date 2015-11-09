@@ -1822,7 +1822,7 @@ meta.foundation-mq-topbar {
     height: 1px;
     width: 100%; }
   .top-bar-section ul li {
-    background: #333333; }
+    /*background: #333333;*/ }
     .top-bar-section ul li > a {
       display: block;
       width: 100%;
@@ -2005,7 +2005,7 @@ meta.foundation-mq-topbar {
 
 @media only screen and (min-width: 40.063em) {
   .top-bar {
-    background: #FFFFFF;
+    background:rgba(255,255,255,0.9);
     border-bottom: 1px solid #C4CFD6;
     overflow: visible; }
     .top-bar:before, .top-bar:after {
@@ -2145,7 +2145,7 @@ meta.foundation-mq-topbar {
       height: 2.8125rem;
       width: 0; }
     .top-bar-section .has-form {
-      background: #FFFFFF;
+      /*background: #FFFFFF;*/
       padding: 0 0.9375rem;
       height: 2.8125rem; }
     .top-bar-section .right li .dropdown {
