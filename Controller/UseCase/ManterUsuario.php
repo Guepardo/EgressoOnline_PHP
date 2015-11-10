@@ -290,7 +290,8 @@ class ManterUsuario extends GenericController{
 
 		$turma   = new Turma(); 
 		// $turma->get('ano', (int) $arg['ano_conclusao']); 
-		$turma->select('id')->where('ano = '. $arg['ano_conclusao']. ' and semestre = '. $arg['semestre'] ); 
+		$turma->select('id')->where('ano = '. $arg['ano_conclusao']. ' and semestre = '. $arg['semestre'] )->find();
+		$turma->fetch(true);  
 		if($turma->id != null )
 			$idTurma = $turma->id; 
 		else
