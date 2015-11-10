@@ -852,6 +852,7 @@ $('#pos_select_estado').change(function(){
       alertify.error("Escreva uma mensagem antes."); 
       return; 
     } 
+
     sendAjax('index.php?uc=mensagens&a=mensagemMassa','POST',{'post' : post}, function(data){
       data = JSON.parse(data);
       if(data['status']){
@@ -861,7 +862,8 @@ $('#pos_select_estado').change(function(){
       }else{
         alertify.warning(data['msg']); 
       } 
-    });    
+    }); 
+
   });
 
   //Tirar isso aqui mais tarde. 
@@ -947,11 +949,12 @@ function buildDirectMsg(data){
   $('#mensagem_direta').foundation('reveal', 'open');
 }
 
+var timeout; 
 function refreshTimelineOnMessage(){
   date   = ''; 
   locker = false; 
   $('#container').empty(); 
-  refresh(); 
+  timeout  = setTimeout(refresh,1000); 
 }
 
 function refresh(){
