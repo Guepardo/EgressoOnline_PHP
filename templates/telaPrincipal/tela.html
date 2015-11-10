@@ -898,6 +898,7 @@ $('#pos_select_estado').change(function(){
       }); 
     }else{
       sendAjax('index.php?uc=visualizar&a=emprego','POST',{'id' : result[0] }, function(data){
+        console.log(data); 
         data = JSON.parse(data); 
         buildViewEmprego(data); 
 

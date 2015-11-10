@@ -69,7 +69,7 @@ class VisualizarOportunidade extends GenericController {
 		$atuacao = new AtuacaoProfissional(); 
 		$atuacao->get($oportunidade->atuacaoProfissionalId); 
 
-		$array = array( 'telefone' =>  $oportunidade->telefone, 'email' => Convert::toUTF_8($oportunidade->email), 'site' => Convert::toUTF_8($oportunidade->site), 'info_adicionais' => Convert::toUTF_8($oportunidade->infoAdicionais), 'pais' => Convert::toUTF_8($pais->des) , 'estado' => Convert::toUTF_8($estado->des) , 'cidade' => Convert::toUTF_8($cidade->des) , 'complemento' => Convert::toUTF_8($localidade->complemento) , 'empresa' => Convert::toUTF_8($oportunidade->empresa) , 'salario' => (int) $oportunidade->salario , 'titulo_academico' => Convert::toUTF_8($titulo->des) , 'atuacao_profissional' => Convert::toUTF_8($atuacao->des), 'data_divulgacao' => $oportunidade->dataDivulgacao ); 
+		$array = array( 'telefone' =>  $oportunidade->telefone, 'email' => Convert::toUTF_8($oportunidade->email), 'site' => Convert::toUTF_8($oportunidade->site), 'info_adicionais' => $oportunidade->infoAdicionais, 'pais' => Convert::toUTF_8($pais->des) , 'estado' => Convert::upperUtf8($estado->des) , 'cidade' => Convert::upperUtf8($cidade->des) , 'complemento' => $localidade->complemento , 'empresa' => $oportunidade->empresa , 'salario' => (int) $oportunidade->salario , 'titulo_academico' => Convert::toUTF_8($titulo->des) , 'atuacao_profissional' => Convert::toUTF_8($atuacao->des), 'data_divulgacao' => $oportunidade->dataDivulgacao ); 
 
 		die(json_encode($array)); 
 	}
@@ -118,7 +118,7 @@ class VisualizarOportunidade extends GenericController {
 		$titulo = new TituloAcademico(); 
 		$titulo->get($opPos->tituloAcademicoId); 
 
-		$array = array( 'telefone' =>  $oportunidade->telefone, 'email' => Convert::toUTF_8($oportunidade->email), 'site' => Convert::toUTF_8($oportunidade->site), 'info_adicionais' => Convert::toUTF_8($oportunidade->infoAdicionais), 'pais' => Convert::toUTF_8($pais->des) , 'estado' => Convert::toUTF_8($estado->des) , 'cidade' => Convert::toUTF_8($cidade->des) , 'complemento' => Convert::toUTF_8($localidade->complemento) , 'titulo' => Convert::toUTF_8($opPos->titulo) , 'area' => Convert::toUTF_8($opPos->area), 'data_inscr_inicio' => Convert::toUTF_8($opPos->dataInscrInicio), 'data_inscr_fim' => Convert::toUTF_8($opPos->dataInscrFim) , 'titulo_academico' => Convert::toUTF_8($titulo->des), 'data_divulgacao' => $oportunidade->dataDivulgacao ); 
+		$array = array( 'telefone' =>  $oportunidade->telefone, 'email' => Convert::toUTF_8($oportunidade->email), 'site' => Convert::toUTF_8($oportunidade->site), 'info_adicionais' => $oportunidade->infoAdicionais, 'pais' => Convert::toUTF_8($pais->des) , 'estado' => Convert::upperUtf8($estado->des) , 'cidade' => Convert::upperUtf8($cidade->des) , 'complemento' => $localidade->complemento, 'titulo' => $opPos->titulo , 'area' => $opPos->area, 'data_inscr_inicio' => Convert::toUTF_8($opPos->dataInscrInicio), 'data_inscr_fim' => Convert::toUTF_8($opPos->dataInscrFim) , 'titulo_academico' => Convert::toUTF_8($titulo->des), 'data_divulgacao' => $oportunidade->dataDivulgacao ); 
 
 		die(json_encode($array)); 
 

@@ -74,13 +74,13 @@ class TelaPrincipalView extends GenericView
 		$tituloAcademico->find(); 
 
 		while( $tituloAcademico->fetch() ){
-			parent::$templator->setVariable("pos.tipo.id", $tituloAcademico->id ); 
+			if($tituloAcademico->id != 1 ){
+				parent::$templator->setVariable("pos.tipo.id", $tituloAcademico->id ); 
+				parent::$templator->setVariable("pos.tipo.des", Convert::upperUtf8($tituloAcademico->des)); 
+				parent::$templator->addBlock("pos.tipo");
+			} 
 			parent::$templator->setVariable("emprego.tipo.id", $tituloAcademico->id ); 
-
-			parent::$templator->setVariable("pos.tipo.des", Convert::upperUtf8($tituloAcademico->des)); 
 			parent::$templator->setVariable("emprego.tipo.des", Convert::upperUtf8($tituloAcademico->des)); 
-
-			parent::$templator->addBlock("pos.tipo");
 			parent::$templator->addBlock("emprego.tipo");
 		}
 

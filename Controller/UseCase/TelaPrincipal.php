@@ -35,7 +35,8 @@ class TelaPrincipal extends GenericController {
 				//validade para o bolo é de apenas 30 minutos. 
 				setcookie('egresso', (($egresso->alterouDados) ? 1 : 0), time() + 60 * 30, "/");
 			}
-		}
+		}else
+			setcookie('egresso', 1, time() + 60 * 30, "/");
 
 		$usuario = new Usuario(); 
 		$usuario->get($_SESSION['user_id']); 
