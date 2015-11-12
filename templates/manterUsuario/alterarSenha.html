@@ -1,0 +1,123 @@
+<!doctype html>
+<html class="no-js" lang="pt">
+<head>
+  <title>Alterar Senha</title>
+  <!-- $Include templates/lib/html/head.html --> 
+</head>
+<body>
+
+ <!-- $Include templates/lib/html/topbar.html --> 
+
+ <div class="row fix-container" >
+  <div class="medium-12 columns ">
+  <!-- cabeçalho -->
+  <div class="row">
+    <div class="medium-12 columns">
+      <h2 class='cabecalho'>Alterar Senha</h2>
+    </div>
+  </div>
+
+  <!-- navegação -->
+  <div clas="medium-12 columns">
+
+    <div class="row" style="margin-top:20px;">
+      <div class="medium-12 columns">
+        <nav class="breadcrumbs">
+          <a href="index.php?uc=manterUsuario&a=alterarDadosView">Alterar Dados</a>
+          <a href="#" class="current">Alterar senha</a>
+          <a href="index.php?uc=manterUsuario&a=alterarFotoView">Alterar Foto de Perfil</a>
+        </nav>
+      </div>
+    </div>
+
+    <form id="form" data-abide="ajax"> 
+      <!--Senha atual--> 
+      <div class="row">
+        <div class="medium-7 small-6 columns">
+          <label>Senha atual: <small>Obrigatório</small>
+            <input type="password" name="senha" required  placeholder="Senha atual" />
+          </label> <small class="error">Preencha esse campo.</small>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="medium-7 columns">
+
+          <fieldset class="panel">
+            <legend>Nova senha</legend>
+            
+            <div class="row">
+              <div class="medium-12 columns password-field"> 
+               <label>Nova senha: <small>Obrigatório</small>
+                 <input type="password" name="nova_senha" id="password" required  pattern=".{4,16}" placeholder="Nova senha" />
+               </label> <small class="error">Sua senha deve conter entre 4 a 16 caracteres.</small>
+             </div> 
+           </div>
+
+           <div class="row">
+            <div class="medium-12 columns"> 
+             <label>Confirmação: <small>Obrigatório</small>
+               <input type="password" name="confirmacao" required  data-equalto="password" placeholder="Confirmação de senha" />
+             </label> <small class="error">Senha diferente do campo acima.</small>
+           </div> 
+         </div>
+
+       </fieldset>
+     </div>
+   </div>
+
+
+   <hr /> 
+   <!--info-->
+   <div class="row">
+    <div id="info" class="medium-12 columns">
+
+    </div>
+  </div>
+
+  <!-- botões --> 
+  <div class="row">
+    <div class="medium-2 small-3 columns right">
+      <button class="button success tiny " type="submit" >Cadastrar</button>
+    </div>
+
+    <div class="medium-2 small-3 columns left">
+      <a class="button info tiny" href="index.php?uc=telaPrincipal&a=principalView">Tela principal</a>
+    </div>
+  </div>
+
+</div>
+</form>
+</div>
+</div>
+
+
+<!-- $Include templates/lib/html/footerscripts.html --> 
+
+
+<script src="templates/lib/js/ajax.js"></script>
+<script src="templates/lib/js/md5.js"></script>
+
+<script>
+$(document).ready(function(){
+  $('#form').on('valid', function() {
+    var data = $(this).serializeArray(); 
+    var temp = new Object(); 
+    for(var a = 0 ; a < data.length ; a++)
+      temp[data[a].name] = data[a].value;  
+    temp['senha']       = CryptoJS.MD5(temp['senha']).toString(); 
+    temp['nova_senha']   = CryptoJS.MD5(temp['nova_senha']).toString();
+    temp['confirmacao'] = CryptoJS.MD5(temp['confirmacao']).toString();
+    sendAjax('index.php?uc=manterUsuario&a=alterarSenha','POST',temp,function(data){
+      data = JSON.parse(data); 
+      if(data['status'])
+        alertify.success("A sua senha foi alterada com sucesso.");   
+      else
+        alertify.error(data['msg']); 
+    });
+  });
+});
+</script>
+
+</body>
+</html>
