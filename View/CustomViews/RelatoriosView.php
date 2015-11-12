@@ -244,6 +244,28 @@ public function relatorio3($arg){
 	//Relatório de distribuição geográfica: 
 	public function relatorio8($arg){
 		parent::getTemplateByAction('r08'); 
+		Lumine::import("TituloAcademico");
+		Lumine::import("OpPosGraduacao"); 
+
+		$titulo = new TituloAcademico();
+		$titulo->find(); 
+		$contador =0; 
+
+		while($titulo->fetch()){
+			if($titulo->id == 1 )continue; 
+
+			var_dump($titulo->id); 
+			$pos    = new OpPosGraduacao(); 
+			$total = $pos->get('tituloAcademicoId', $titulo->id);  
+
+			parent::$templator->setVariable('label',Convert::upperUtf8($titulo->des));
+			parent::$templator->setVariable('value',$total );
+			parent::$templator->addBlock('row');  
+
+			$contador += $total;  
+		}
+
+		parent::$templator->setVariable('total',$contador);
 		parent::show(); 
 	}
 

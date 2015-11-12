@@ -10,7 +10,7 @@ class Convert
 	}
 
 	public static function toUpperCase($string){
-		return strtoupper($string); 
+		return strtoupper(strtr($string ,"áéíóúâêôãõàèìòùç","ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ")); 
 	}
 
 	public static function upperUtf8($string){

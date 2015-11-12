@@ -19,6 +19,14 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="medium-12 columns">
+				<div data-alert class="alert-box secondary">
+				  
+				</div>
+			</div>
+		</div>
+
 		<!--primeira coluna-->
 		<div class="row">
 			<div class="medium-12 columns">
@@ -36,10 +44,7 @@
 									<!-- informações sobre o forumlário -->
 									<div class="medium-12 columns">
 										<!-- alert -->
-										<div data-alert class="alert-box secondary">
-											Esse relatório diz alguma coisa
-											<a href="#" class="close">&times;</a>
-										</div>
+										<i>O relatório de "Atuação Profissional – Faixa Salarial" quantifica quantas pessoas recebem determinada faixa salarial.</i>
 									</div>
 								</div>
 								<div class="row">
@@ -47,21 +52,21 @@
 									<div class="medium-12 columns">
 										<div class="row">
 											<div class="medium-4 columns">
-												<label>Ano de Conclusão
-													<select multiple name="ano_conclusao[]">
+												<label>Ano de Conclusão <small> Obrigatório </small>
+													<select multiple name="ano_conclusao[]" required>
 														<!-- $BeginBlock ano.conclusao-->
 														<option value="${ano.conclusao.des}"> ${ano.conclusao.des}</option>
 														<!-- $EndBlock ano.conclusao -->
 													</select>
-												</label>
+												</label> <small class="error"> Selecione um ou mais anos de conclusão </small>
 											</div>
 											<div class="medium-2 columns" style="margin-top:17px; ">
 												<div class="row">
 													<div class="medium-12 columns">
-														<input id="checkbox1"  checked="checked" name="is_publico" type="radio" value="on"><label for="checkbox1">Público</label>
+														<input id="checkbox1" name="is_publico" type="radio" checked value="on"><label for="checkbox1">Público</label>
 													</div>
 													<div class="medium-12 columns">
-														<input id="checkbox2" name="is_ti" type="radio" value="on"><label for="checkbox2">Na área de TI</label>
+														<input id="checkbox2" name="is_ti" type="radio" checked value="on"><label for="checkbox2">Na área de TI</label>
 													</div>
 												</div>
 											</div>
@@ -69,10 +74,10 @@
 											<div class="medium-3 columns end" style="margin-top:17px; "> 
 												<div class="row">
 													<div class="medium-12 columns">
-														<input id="checkbox1" checked="checked" name="is_publico" type="radio" value=""><label for="checkbox1">Privado</label>
+														<input id="checkbox1"  name="is_publico" type="radio"  value="" ><label for="checkbox1">Privado</label>
 													</div>
 													<div class="medium-12 columns">
-														<input id="checkbox2" name="is_ti" type="radio" value=""><label for="checkbox2">Fora da área de TI</label>
+														<input id="checkbox2" name="is_ti" type="radio" value="" ><label for="checkbox2">Fora da área de TI</label>
 													</div>
 												</div>
 											</div>
@@ -90,11 +95,42 @@
 						</div>
 					</li>
 
+					<!-- segunda opção -->
+					<li class="accordion-navigation">
+						<a href="#panel4">Oportunidades de Pós-Graduação</a>
+						<div id="panel4" class="content active"	>
+							<!-- formulário -->
+							<form class="form" data-abide="ajax">
+								<input type="hidden" name="cod" value="8" />
+								<div class="row">
+									<!-- informações sobre o forumlário -->
+									<div class="medium-12 columns">
+										<!-- alert -->
+										<i>O relatório de "Oportunidades de Pós-Graduações" quantifica quantas oportunidades de pós-graduação já foram divulgadas no determinado ano ou no intervalo de tempo. </i>
+									</div>
+								</div>
+								<div class="row">
+									<!-- informações sobre o forumlário -->
+									<div class="medium-12 columns">
+										<!--  -->
+
+										<div class="row">
+											<div class="medium-3 columns end">
+												<button type="" class="button tiny success">Gerar relatório</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!-- fim formulário -->
+						</div>
+					</li>
+
 
 					<!-- terceira opção -->
 					<li class="accordion-navigation">
 						<a href="#panel3">Atuaçao Profissional - Tipo de Atuação</a>
-						<div id="panel3" class="content">
+						<div id="panel3" class="content active">
 							<!-- formulário -->
 							<form class="form" data-abide="ajax">
 								<input type="hidden" name="cod" value="3" />
@@ -102,10 +138,7 @@
 									<!-- informações sobre o forumlário -->
 									<div class="medium-12 columns">
 										<!-- alert -->
-										<div data-alert class="alert-box secondary">
-											Esse relatório diz alguma coisa
-											<a href="#" class="close">&times;</a>
-										</div>
+										<i>O relatório de "Atuação Profissional – Tipo de Atuação" agrupa os egressos nas suas respectivas áreas de atuação profissional, gera uma média salarial, informa o maior salário e o menor salário que foi encontrado naquela área. Por fim é exibido um resumo desses dados, ou seja, faz-se um total das quantidade de pessoas na área, gera a média das médias, recolhe o maior salário e menor.</i>
 									</div>
 								</div>
 								<div class="row">
@@ -113,13 +146,13 @@
 									<div class="medium-12 columns">
 										<div class="row">
 											<div class="medium-4 columns">
-												<label>Ano de Conclusão
-													<select multiple name="ano_conclusao[]">
+												<label>Ano de Conclusão <small> Obrigatório </small> 
+													<select multiple name="ano_conclusao[]" required>
 														<!-- $BeginBlock ano.conclusao-->
 														<option value="${ano.conclusao.des}"> ${ano.conclusao.des}</option>
 														<!-- $EndBlock ano.conclusao -->
 													</select>
-												</label>
+												</label> <small class="error">Selecione um ou mais anos de conclusão </small>
 											</div>
 											<div class="medium-2 columns" style="margin-top:17px; ">
 												<div class="row">
@@ -159,7 +192,7 @@
 					<!-- sexta opção -->
 					<li class="accordion-navigation">
 						<a href="#panel6">Estatísticas do Site</a>
-						<div id="panel6" class="content">
+						<div id="panel6" class="content active">
 							<!-- formulário -->
 							<form class="form" data-abide="ajax">
 								<input type="hidden" name="cod" value="6" />
@@ -167,10 +200,7 @@
 									<!-- informações sobre o forumlário -->
 									<div class="medium-12 columns">
 										<!-- alert -->
-										<div data-alert class="alert-box secondary">
-											Esse relatório diz alguma coisa
-											<a href="#" class="close">&times;</a>
-										</div>
+										<i>O relatório "Estatística do Site" exibe a quantidade de egressos que estão associados em um ano de conclusão e informa quantas atualizaram seus cadastros no site.</i>
 									</div>
 								</div>
 								<div class="row">
@@ -195,6 +225,13 @@
 		
 	</div>
 
+	<!-- botões --> 
+<div class="row">
+  <hr />
+  <div class="medium-2 small-3 columns left">
+    <a href="index.php?uc=telaPrincipal&a=principalView" class="button info tiny" >Tela principal</a>
+  </div>
+</div>
 	<!-- $Include templates/lib/html/footerscripts.html --> 
 	<script>
 

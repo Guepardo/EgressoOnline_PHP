@@ -307,6 +307,7 @@ class ManterUsuario extends GenericController{
 		$egresso->localidadeId  = $localidade->id; 
 		$egresso->usuarioId     = $usuario->id; 
 		$egresso->turmaId       = $idTurma; 
+		$egresso->alterouDado   = false; 
 		$egresso->insert(); 
 
 		//Adicionando as Redes Sociais para o egresso. 

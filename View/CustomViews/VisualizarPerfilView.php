@@ -43,7 +43,7 @@ class VisualizarPerfilView extends GenericView{
 		//Pegando os dados das redes sociais: 
 		
 		if( !$usuario->isDadoPublico ){
-			$texto = "não está disponível."; 
+			$texto = "<b>não está disponível.</b>"; 
 
 			parent::$templator->setVariable("likedin", $texto); 
 			parent::$templator->setVariable("facebook", $texto); 
@@ -52,23 +52,23 @@ class VisualizarPerfilView extends GenericView{
 
 		}else{
 
-			parent::$templator->setVariable("telefone", (($usuario->telefone == null) ? "não informado." : $usuario->telefone )); 
+			parent::$templator->setVariable("telefone", (($usuario->telefone == null) ? "<b>não informado.</b>" : $usuario->telefone )); 
 
 			$rede = new EgressoHasRedeSocial(); 
 			$rede->where("usuario_id = ". $usuario->id ." and rede_social_id = ". 1)->find(); 
 			$rede->fetch(true); 
-			parent::$templator->setVariable("twitter", (($rede->linkAcesso == null) ? "não informado." : $rede->linkAcesso )); 
+			parent::$templator->setVariable("twitter", (($rede->linkAcesso == null) ? "<b>não informado.</b>" : $rede->linkAcesso )); 
 
 			$rede = new EgressoHasRedeSocial(); 
 			$rede->where("usuario_id = ". $usuario->id ." and rede_social_id = ". 2)->find(); 
 			$rede->fetch(true); 
-			parent::$templator->setVariable("likedin",  (($rede->linkAcesso == null) ? "não informado." : $rede->linkAcesso )); 
+			parent::$templator->setVariable("likedin",  (($rede->linkAcesso == null) ? "<b>não informado.</b>" : $rede->linkAcesso )); 
 
 			$rede = new EgressoHasRedeSocial(); 
 			$rede->where("usuario_id = ". $usuario->id ." and rede_social_id = ". 3)->find(); 
 			$rede->fetch(true); 
 			
-			parent::$templator->setVariable("facebook",  (($rede->linkAcesso == null) ? "não informado." : $rede->linkAcesso )); 
+			parent::$templator->setVariable("facebook",  (($rede->linkAcesso == null) ? "<b>não informado.</b>" : $rede->linkAcesso )); 
 			
 		}
 		
@@ -119,7 +119,7 @@ class VisualizarPerfilView extends GenericView{
 		$usuario = new Usuario(); 
 
 		$turma->get($id); 
-		parent::$templator->setVariable("ano_turma", $turma->ano.'-'.$turma->semestre); 
+		parent::$templator->setVariable("ano_turma", $turma->ano.' '.(($turma->semestre == 1 )? "primeiro" : "segundo").' semestre'); 
 		parent::$templator->setVariable("id_turma", $turma->id);
 		parent::$templator->setVariable("foto_turma",Convert::toUTF_8($turma->foto));  
 		

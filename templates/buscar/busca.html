@@ -17,7 +17,7 @@
   <body>
     <!-- $Include templates/lib/html/topbar.html --> 
 
-    <div class="row fix-container" >
+    <div class="row" >
       <!-- cabeçalho -->
       <div class="row">
         <div class="medium-12 columns">
@@ -26,7 +26,7 @@
       </div>
 
 
-       <!-- label -->
+      <!-- label -->
       <div class="row" >
         <div class="medium-12 columns">
           <span class="label secondary">Faça uma busca refinada no campo <b>Procura</b> para os resultados da buscar por "${arg}".</span>
@@ -52,11 +52,13 @@
             <tr>
               <td>
                 <span data-tooltip aria-haspopup="true" class="has-tip" title="Click para ver o perfil">
-                  <a href="index.php?uc=perfil&a=perfilUserView&id=${usuario.id}" title=""><img src="${usuario.foto}" alt="" class="perfil_small"></a>
+                  <a href="index.php?uc=perfil&a=perfilUserView&id=${usuario.id}" title=""><img src="${usuario.foto}" alt="sfdsasdafasdf" class="perfil_small"></a>
                 </span>
               </td>
               <td>${usuario.nome}</td>
-              <td> <a href="${turma.id}" class="button tiny" style="margin:0">${usuario.turma}</a></td>
+              <td> 
+                <a href="${turma.id}" class="button tiny" style="margin:0;width:93px;">${usuario.turma}</a>
+              </td>
               <td>${usuario.tipo}</td>
 
             </tr>
@@ -87,9 +89,10 @@
 <script src="templates/lib/js/metro.js"></script>
 
 <script>
-$(document).foundation();
 
 $(document).ready(function(){
+$(document).foundation();
+
   $(".transferir").click(function(){
     var id = $(this).val(); 
 

@@ -42,7 +42,7 @@ class ManterCursoView extends GenericView{
 
 		$atuacao->find(); 
 		while($atuacao->fetch()){
-			parent::$templator->setVariable('nome',Convert::upperUtf8($atuacao->des)); 
+			parent::$templator->setVariable('nome',Convert::toUpperCase($atuacao->des)); 
 			parent::$templator->setVariable('id', $atuacao->id);
 			parent::$templator->addBlock('row'); 
 		}
@@ -56,7 +56,7 @@ class ManterCursoView extends GenericView{
 
 		$disciplina->find(); 
 		while($disciplina->fetch()){
-			parent::$templator->setVariable('nome',Convert::upperUtf8($disciplina->des)); 
+			parent::$templator->setVariable('nome',Convert::toUpperCase($disciplina->des)); 
 			parent::$templator->setVariable('id', $disciplina->id);
 			parent::$templator->addBlock('row'); 
 		}
