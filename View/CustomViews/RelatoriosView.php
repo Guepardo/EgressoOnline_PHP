@@ -254,7 +254,7 @@ public function relatorio3($arg){
 		while($titulo->fetch()){
 			if($titulo->id == 1 )continue; 
 
-			var_dump($titulo->id); 
+			// var_dump($titulo->id); 
 			$pos    = new OpPosGraduacao(); 
 			$total = $pos->get('tituloAcademicoId', $titulo->id);  
 
