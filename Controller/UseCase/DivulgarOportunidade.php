@@ -160,7 +160,7 @@ class DivulgarOportunidade extends GenericController {
 
 		Lumine::import("Usuario"); 
 		Lumine::import("Notificacao");
-		Lumine::import("EmailEnviar"); 
+		Lumine::import("Emails"); 
 
 		$op = new Oportunidade(); 
 		$opPos = new OpPosGraduacao(); 
@@ -185,7 +185,7 @@ class DivulgarOportunidade extends GenericController {
 
 		foreach($idList as $a){
  			//$mail->sendEmail("Uma vaga de pós-graduação do seu interesse foi divulgada.", $a['email'],"EgressoOnline UEG - Vaga de pós-graduação", $a['nome']); 
- 			$email = new EmailEnviar(); 
+ 			$email = new Emails(); 
  			$email->usuarioId   = $a; 
  			$email->tipoEmailId =  2; //Oportunidade;
  			$email->insert();  
@@ -203,7 +203,7 @@ class DivulgarOportunidade extends GenericController {
 
 		Lumine::import("Oportunidade"); 
 		Lumine::import("OpEmprego");
-		Lumine::import("EmailEnviar");
+		Lumine::import("Emails");
 		
 		Lumine::import("Usuario"); 
 		Lumine::import("Notificacao"); 
@@ -252,7 +252,7 @@ class DivulgarOportunidade extends GenericController {
 
  		foreach($idList as $a){
  			//$mail->sendEmail("Uma vaga de emprego do seu interesse foi divulgada.", $a['email'],"EgressoOnline UEG - Vaga de pós-graduação", $a['nome']); 
- 			$email = new EmailEnviar(); 
+ 			$email = new Emails(); 
  			$email->usuarioId   = $a; 
  			$email->tipoEmailId =  2; //Oportunidade;
  			$email->insert();  
