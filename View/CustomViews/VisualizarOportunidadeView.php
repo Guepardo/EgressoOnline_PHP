@@ -16,7 +16,7 @@ class VisualizarOportunidadeView extends GenericView{
 
 		$op = new Oportunidade(); 
 
-		$op->order("data_divulgacao desc")->limit(500)->find(); 
+		$op->order("data_divulgacao DESC")->limit(500)->find(); 
 
 		while($op->fetch()){
 			$emprego = new OpEmprego(); 

@@ -48,7 +48,7 @@
         <div class="row">
           <div class="medium-12 columns">
             <!--nova table-->
-            <table class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table  id="example" class="dataTable striped border bordered display"  data-searching="true">
               <thead>
                <tr>
                 <th >Tipo</th>
@@ -339,6 +339,12 @@
 <script>
 $(document).foundation();
 $(document).ready(function(){
+
+
+  $('#example').DataTable( {
+        "order": [[ 1, "desc" ]]
+    } );
+
   $('.action_op').unbind().click(function(){
     var result = $(this).attr('value').split('-'); 
 
