@@ -63,7 +63,7 @@ class TelaPrincipalView extends GenericView
 
 		while(  $area->fetch() ){
 			parent::$templator->setVariable("area.id", $area->id ); 
-			parent::$templator->setVariable("area.des", Convert::upperUtf8($area->des)); 
+			parent::$templator->setVariable("area.des", Convert::toUpperCase($area->des)); 
 
 			parent::$templator->addBlock("area");
 		}

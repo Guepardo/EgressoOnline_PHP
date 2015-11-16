@@ -79,7 +79,7 @@ class ManterUsuarioView extends GenericView{
 		$disciplina->find(); 
 
 		while( $disciplina->fetch() ){
-			parent::$templator->setVariable('disciplina.descri', Convert::upperUtf8($disciplina->des)); 
+			parent::$templator->setVariable('disciplina.descri', Convert::toUpperCase($disciplina->des)); 
 			parent::$templator->setVariable('disciplina.id', $disciplina->id);  
 			parent::$templator->addBlock('disciplinas'); 
 		}
@@ -90,7 +90,7 @@ class ManterUsuarioView extends GenericView{
 			$disciplina = new Disciplina(); 
 			$disciplina->get($associativa->disciplinaId); 
 
-			parent::$templator->setVariable('disciplina.name', Convert::upperUtf8($disciplina->des)); 
+			parent::$templator->setVariable('disciplina.name', Convert::toUpperCase($disciplina->des)); 
 			parent::$templator->setVariable('associativa.id', $associativa->id); 
 			parent::$templator->setVariable('disciplina.ano_lecionou',$associativa->anoLecionou);
 			parent::$templator->addBlock('table'); 
@@ -306,7 +306,7 @@ class ManterUsuarioView extends GenericView{
 
 		while($atuacao->fetch()){
 			parent::$templator->setVariable('atuacao.value',$atuacao->id); 
-			parent::$templator->setVariable('atuacao.desc', Convert::upperUtf8($atuacao->des)); 
+			parent::$templator->setVariable('atuacao.desc', Convert::toUpperCase($atuacao->des)); 
 
 			if((int) $atuacao->id == (int) $emprego->atuacaoProfissionalId)
 				parent::$templator->setVariable('atuacao.marcado','selected'); 
