@@ -14,10 +14,10 @@ require_once(WWW_ROOT.DS.'Persistence'.DS.'Lumine.php');
 require_once(WWW_ROOT.DS.'Persistence'.DS.'lumine-conf.php');
 $cfg = new Lumine_Configuration( $lumineConfig );
 //Definições de e-mail
-define('EMAIL_HOST'    ,"tls://g4group.me:20000"); 
-define('EMAIL_USERNAME',"egressoonline@g4group.me"); 
-define('EMAIL_PASSWORD',"12345678"); 
-define('EMAIL_FROM'    ,"egressoonline@g4group.me");
+define('EMAIL_HOST'    ,""); 
+define('EMAIL_USERNAME',""); 
+define('EMAIL_PASSWORD',""); 
+define('EMAIL_FROM'    ,"");
 //Bibliotecas globais: 
 require_once(WWW_ROOT.DS.'Library'.DS.'annotations.php');
 require_once(PATH.'Controller'.DS.'MainController.php'); 
