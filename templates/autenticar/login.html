@@ -1,169 +1,189 @@
   <!doctype html>
   <html class="no-js" lang="en">
   <head>
-    <title>EgressoOnline - Login</title>
-    <!-- $Include templates/lib/html/head.html --> 
+  	<title>EgressoOnline - Login</title>
+  	<!-- $Include templates/lib/html/head.html --> 
 
-    <style>
-    .fix{
-      min-width: 335px !important;  
-      max-width: 339px !important;
-    }
-    .fix_top{ 
-      margin-top: 3%;
-    }
-    
-    .main_container{
-     position:relative;
-     top:20%;
-     border:5px;
-     background-color: white;
-     border-radius: 2px; 
-   }
+  	<style>
+  		.fix{
+  			min-width: 335px !important;  
+  			max-width: 339px !important;
+  		}
+  		.fix_top{ 
+  			margin-top: 3%;
+  		}
 
-  #logo{
-    margin: 15px 50px 15px 50px;
-    width: 210px; 
-    height: 100px; 
-  }
+  		.main_container{
+  			position:relative;
+  			top:20%;
+  			border:5px;
+  			background-color: white;
+  			border-radius: 2px; 
+  		}
 
-  .buttom_fix{
-    width: 250px; 
-    margin-left: 25px; 
-    margin-right: 25px;  
-  }
+  		#logo{
+  			margin: 15px 50px 15px 50px;
+  			width: 210px; 
+  			height: 100px; 
+  		}
+
+  		.buttom_fix{
+  			width: 250px; 
+  			margin-left: 25px; 
+  			margin-right: 25px;  
+  		}
+
+  		.borda_inferior{
+  			border: 1px solid #CCCCCC;
+  			border-width: 1px 1px 0px 1px;
+  		}
+
+  		.borda_lateral{
+  			border: 1px solid #CCCCCC;
+  			border-width: 0px 1px 0px 1px;
+  		}
+
+  		.borda_lateral_fundo{
+  			border: 1px solid #CCCCCC;
+  			border-width: 0px 1px 1px 1px;
+  		}
+  		video#bgvid { 
+  			position: fixed;
+  			top: 50%;
+  			left: 50%;
+  			min-width: 100%;
+  			min-height: 100%;
+  			width: auto;
+  			height: auto;
+  			z-index: -100;
+  			-webkit-transform: translateX(-50%) translateY(-50%);
+  			transform: translateX(-50%) translateY(-50%);
+  			background: url(polina.jpg) no-repeat;
+  			background-size: cover; 
+  		}
+
+  		video { display: block; }
+  	</style>
+
+  </head>
+  <body>
+
+  	<video autoplay loop poster="polina.jpg" id="bgvid">
+  		<source src="Midia/3.mp4">
+  		</video>
+
+  		<div class="row fix_top">
+  			<div class="medium-4 medium-centered columns main_container fix">
+  				<!--Logo marca --> 
+  				<div class="row fix">
+  					<div class="medium-12 columns borda_inferior" style="background-color: rgb(255,255,255);">
+  						<img src="templates/lib/img/logo.png" alt="" id="logo">
+  					</div>	
+  				</div>
+  				<!--Form--> 
+  				<form id="form" data-abide="ajax" >
+  					<div class="row">
+  						<div class="medium-12 columns borda_lateral">
+  							<label>CPF: 
+  								<input type="text" id="cpf" class="cpf" name="cpf" required  />
+  							</label> <small class="error">Preencha esse campo.</small>
+
+  							<label>Senha: 
+  								<input type="password" id="senha" name="senha" required  />
+  							</label> <small class="error">Preencha esse campo.</small>
+
+  							<!--Area para os botões--> 
+  							<div class="row ">
+  								<div class="medium-12 columns">
+  									<button id="buttom_login" class="button small buttom_fix " type="submit" >Login</button>
+  								</div>
+  								<div class="medium-12 columns">
+  									<a href="index.php?uc=autenticar&a=alterarSenhaView" class="button small buttom_fix secondary">Esqueci minha senha</a>
+  								</div>
+  							</div>
+  						</div>
+  					</div>
+  				</form>
+
+  				<!--Logo marca --> 
+  				<div class="row fix-box-marcas borda_lateral_fundo">
+  					<div class="medium-12 columns">
+  						<!-- linha 1 -->
+  						<div class="row">
+  							<div class="medium-10 medium-centered columns">
+  								<img src="templates/lib/img/logoUeg.png" />
+  							</div>
+  						</div>
+  						<!-- linha 2 -->
+  						<div class="row">
+  							<div class="medium-7 medium-centered columns">
+  								<img src="templates/lib/img/logoSi.PNG" style="margin-bottom:5px;"/>
+  							</div>
+  						</div>
+
+  						<!-- linha 3 -->
+  						<div class="row">
+  							<div class="medium-3 medium-centered columns">
+  								<a href="https://github.com/Guepardo/EgressoOnline_PHP/commits/master" title="Repositório do EgressoOnline no github"><img src="Midia/github-128.png" alt="" ></a>
+  							</div>
+  						</div>
+
+  					</div>  
+  				</div>
+  			</div>
+  		</div>	
+
+  		<!-- <div class="row ">
+  			<div class="medium-4 medium-centered columns main_container fix">
+  			</div> 
+  		</div>  -->
+
+  		<!--info-->
+  		<!-- <div class="row ">
+  			<div  class="medium-4 medium-centered columns main_container"  style="background-color: rgb(255,255,255);margin-top:10px;">
+  				<div class="row">
+  					<div class="medium-3 medium-centered columns">
+  						<a href="https://github.com/Guepardo/EgressoOnline_PHP/commits/master" title="Repositório do EgressoOnline no github"><img src="Midia/github-128.png" alt="" ></a>
+  					</div>
+  				</div>
+  			</div>
+  		</div> -->
 
 
 
-video#bgvid { 
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -100;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  background: url(polina.jpg) no-repeat;
-  background-size: cover; 
-}
+  		<!-- $Include templates/lib/html/footerscripts.html --> 
+  		<script src="templates/lib/js/jquery.mask.min.js"></script>
+  		<script src="templates/lib/js/ajax.js"></script>
+  		<script src="templates/lib/js/md5.js"></script>
+  		<script src="templates/lib/js/redirect.js"></script>
+  		<script>
+  			$(document).foundation();
 
-video { display: block; }
-</style>
-
-</head>
-<body>
-
-  <video autoplay loop poster="polina.jpg" id="bgvid">
-    <source src="Midia/3.mp4">
-    </video>
-
-    <div class="row fix_top">
-      <div class="medium-4 medium-centered columns main_container fix">
-       <!--Logo marca --> 
-       <div class="row fix">
-        <div class="medium-12 columns borda_inferior" style="background-color: rgb(255,255,255);">
-          <img src="templates/lib/img/logo.png" alt="" id="logo">
-        </div>	
-      </div>
-      <!--Form--> 
-      <form id="form" data-abide="ajax" >
-       <div class="row">
-        <div class="medium-12 columns">
-         <label>CPF: 
-          <input type="text" id="cpf" class="cpf" name="cpf" required  />
-        </label> <small class="error">Preencha esse campo.</small>
-
-        <label>Senha: 
-          <input type="password" id="senha" name="senha" required  />
-        </label> <small class="error">Preencha esse campo.</small>
-
-        <!--Area para os botões--> 
-        <div class="row ">
-          <div class="medium-12 columns">
-            <button id="buttom_login" class="button small buttom_fix " type="submit" >Login</button>
-          </div>
-          <div class="medium-12 columns">
-            <a href="index.php?uc=autenticar&a=alterarSenhaView" class="button small buttom_fix secondary">Esqueci minha senha</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-
-  <!--Logo marca --> 
-  <div class="row fix-box-marcas">
-    <div class="medium-12 columns">
-      <!-- linha 1 -->
-      <div class="row">
-        <div class="medium-10 medium-centered columns">
-          <img src="templates/lib/img/logoUeg.png" />
-        </div>
-      </div>
-      <!-- linha 2 -->
-      <div class="row">
-        <div class="medium-7 medium-centered columns">
-          <img src="templates/lib/img/logoSi.PNG" style="margin-bottom:5px;"/>
-        </div>
-      </div>
-    </div>  
-  </div>
-</div>
-</div>	
-
-<div class="row ">
-      <div class="medium-4 medium-centered columns main_container fix">
-      </div> 
-</div> 
-
-<!--info-->
-<div class="row ">
-  <div  class="medium-4 medium-centered columns main_container"  style="background-color: rgb(255,255,255);margin-top:10px;">
-    <div class="row">
-      <div class="medium-3 medium-centered columns">
-        <a href="https://github.com/Guepardo/EgressoOnline_PHP/commits/master" title="Repositório do EgressoOnline no github"><img src="Midia/github-128.png" alt="" ></a>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- $Include templates/lib/html/footerscripts.html --> 
-<script src="templates/lib/js/jquery.mask.min.js"></script>
-<script src="templates/lib/js/ajax.js"></script>
-<script src="templates/lib/js/md5.js"></script>
-<script src="templates/lib/js/redirect.js"></script>
-<script>
-$(document).foundation();
-
-$(document).ready(function(){
+  			$(document).ready(function(){
   //retirar mais tarde: 
 //  alertify.error("Log de desenvolvimento: ", "", 0); 
 //  alertify.success("Relatórios de Estatísticas do Site implementado.", "", 0); 
 //  alertify.success("Relatórios Atuação Profissional - Faixa Salarial.", "", 0); 
 // alertify.success("Foi adicionando o campo de mínimo é máximo na faixa salarial", "", 0); 
 
- $('.cpf').mask('000.000.000-00');
+$('.cpf').mask('000.000.000-00');
 
- $('#form').on('valid', function() {
+$('#form').on('valid', function() {
 
-  var senha = CryptoJS.MD5($('#senha').val()).toString(); 
-  var cpf   = $('#cpf').val(); 
-  var data = { 'senha' : senha, 'cpf' : cpf }; 
+	var senha = CryptoJS.MD5($('#senha').val()).toString(); 
+	var cpf   = $('#cpf').val(); 
+	var data = { 'senha' : senha, 'cpf' : cpf }; 
 
-  sendAjax('index.php?uc=autenticar&a=login','POST',data,function(data){
-    data = JSON.parse(data); 
+	sendAjax('index.php?uc=autenticar&a=login','POST',data,function(data){
+		data = JSON.parse(data); 
 
-    if(data['status']){
-      redirect('index.php',{ uc : 'telaPrincipal', a  : 'principalView' },'GET'); 
-    }else{
-      alertify.error("Usuário ou senha inválido"); 
-    }
+		if(data['status']){
+			redirect('index.php',{ uc : 'telaPrincipal', a  : 'principalView' },'GET'); 
+		}else{
+			alertify.error("Usuário ou senha inválido"); 
+		}
 
-  });
+	});
 
 });
 
